@@ -1,0 +1,28 @@
+{
+  "extends": "@alexey-koran/tsconfig",
+  "include": [
+    "./**/*.js",
+    "./**/*.cjs",
+    "./**/*.mjs",
+    "./**/*.ts",
+    "./**/*.cts",
+    "./**/*.mts",
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "compilerOptions": {
+    "baseUrl": "src",
+    "outDir": "./build/",
+    "rootDir": "./",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    },
+  }
+}

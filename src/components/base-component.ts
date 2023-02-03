@@ -1,9 +1,16 @@
-export class Component {
+// type parent = HTMLElement extends Component
+export class Component extends HTMLElement {
   node: HTMLElement;
-  constructor(parent: HTMLElement, className: string) {
+  constructor(className: string, text?: string, parent?: HTMLElement | Component) {
+    super();
     this.node = document.createElement('div');
     this.node.className = className;
-    parent.appendChild(this.node);
+    if (text) {
+      this.node.textContent = text;
+    }
+    if (parent) {
+      parent.appendChild(this.node);
+    }
     this.render();
   }
   render() {

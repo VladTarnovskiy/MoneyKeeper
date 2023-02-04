@@ -9,7 +9,7 @@ export class SideBar extends BaseComponent {
     this.render();
   }
   render() {
-    const sideBar = this.createElem('aside', 'h-[89vh] bg-sky-400');
+    const sideBar = this.createElem('aside', 'h-[81.6vh] bg-sky-400');
     const container = this.createElem('div', 'flex items-center flex-col text-white bg-sky-400');
     const sideData = [
       {
@@ -31,10 +31,10 @@ export class SideBar extends BaseComponent {
         class: 'button__report',
       },
       {
-        text: 'Callendar',
-        hash: '#callendar',
-        img: svgStore.callendar,
-        class: 'button__callendar',
+        text: 'Calendar',
+        hash: '#calendar',
+        img: svgStore.calendar,
+        class: 'button__calendar',
       },
       {
         text: 'Settings',

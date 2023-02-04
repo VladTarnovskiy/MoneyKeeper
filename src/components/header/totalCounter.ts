@@ -12,9 +12,9 @@ export class TotalCounter extends BaseComponent {
     this.render();
   }
   render() {
-    const totalSum = this.createElem('div', 'flex items-center logo text-xl');
+    const totalSum = this.createElem('div', 'flex items-center logo text-2xl');
     const totalSumTitle = this.createElem('div', 'logo__title ml-2 text-white', 'Total Balance:');
-    const totalSumCounter = this.createElem('div', 'logo__title ml-2 text-white', `${this.value}${this.currency}`);
+    const totalSumCounter = this.createElem('div', 'logo__title ml-2 text-white', `${this.value} ${this.currency}`);
     totalSum.append(totalSumTitle, totalSumCounter);
     this.root.appendChild(totalSum);
   }

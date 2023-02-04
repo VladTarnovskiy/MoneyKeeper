@@ -79,7 +79,7 @@ const configModules = (isProduction: boolean): Required<Configuration>['module']
       },
     },
     {
-      test: /\.(css)$/,
+      test: /\.(css|pcss)$/,
       exclude: /node_modules/,
       use: [
         isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
@@ -92,6 +92,9 @@ const configModules = (isProduction: boolean): Required<Configuration>['module']
               localIdentName: isProduction ? '[hash:base64]' : '[name]-[local]-[hash:base64:8]',
             },
           },
+        },
+        {
+          loader: 'postcss-loader',
         },
       ],
     },

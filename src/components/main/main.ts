@@ -1,4 +1,5 @@
 import { BaseComponent } from '../base/baseComponent';
+
 import { SideBar } from './sideBar';
 
 export class Main extends BaseComponent {
@@ -16,7 +17,7 @@ export class Main extends BaseComponent {
     this.container.appendChild(this.content);
   }
 
-  render() {
+  render(): void {
     this.root.appendChild(this.container);
   }
 }

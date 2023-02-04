@@ -1,7 +1,7 @@
-import { BaseComponent } from '../components/base/baseComponent';
+import { BaseComponent } from './base/baseComponent';
+import { Footer } from './footer/footer';
 import { Header } from './header/header';
 import { Main } from './main/main';
-import { Footer } from './footer/footer';
 
 export class View extends BaseComponent {
   root: HTMLElement;
@@ -17,7 +17,7 @@ export class View extends BaseComponent {
     this.footer = new Footer(this.root);
   }
 
-  render() {
+  render(): void {
     this.header.render();
     this.main.render();
     this.footer.render();

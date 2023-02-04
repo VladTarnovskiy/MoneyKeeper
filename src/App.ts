@@ -7,7 +7,7 @@ export class App {
     this.view = new View();
   }
 
-  render() {
+  render(): void {
     this.view.render();
   }
 }

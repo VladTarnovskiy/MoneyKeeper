@@ -1,4 +1,5 @@
 import { BaseComponent } from '../base/baseComponent';
+import '../../assets/logo.png';
 
 export class Logo extends BaseComponent {
   root: HTMLElement;
@@ -18,7 +19,11 @@ export class Logo extends BaseComponent {
     logoImg.addEventListener('click', () => {
       location.hash = '#overview';
     });
-    const logoTitle = this.createElem('div', 'logo__title ml-2 text-3xl text-white', 'MoneyKeeper');
+    const logoTitle = this.createElem(
+      'div',
+      'logo__title ml-2 text-3xl text-white font-semibold',
+      'MoneyKeeper',
+    );
 
     logo.append(logoImg, logoTitle);
     this.root.appendChild(logo);

@@ -7,7 +7,12 @@ module.exports = {
   plugins: ['stylelint-order', 'stylelint-prettier'],
   rules: {
     'prettier/prettier': true,
-    'at-rule-no-unknown': true,
+    'at-rule-no-unknown': [
+      true,
+      {
+        ignoreAtRules: ['tailwind', 'apply', 'layer', 'config', 'variants', 'responsive', 'screen'],
+      },
+    ],
     'function-no-unknown': [
       true,
       {

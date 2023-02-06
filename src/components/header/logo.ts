@@ -1,5 +1,6 @@
+import logoAssets from '@/assets/logo.png';
+
 import { BaseComponent } from '../base/baseComponent';
-import '../../assets/logo.png';
 
 export class Logo extends BaseComponent {
   root: HTMLElement;
@@ -12,10 +13,10 @@ export class Logo extends BaseComponent {
     const logo = this.createElem('div', 'flex items-center logo');
     const logoImg = this.createElem(
       'img',
-      'w-20 h-20 logo__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
+      'logo__img h-20 w-20 hover:scale-110 hover:cursor-pointer hover:transition-all active:scale-100',
     );
 
-    logoImg.setAttribute('src', './assets/logo.png');
+    logoImg.setAttribute('src', logoAssets);
     logoImg.addEventListener('click', () => {
       location.hash = '#overview';
     });

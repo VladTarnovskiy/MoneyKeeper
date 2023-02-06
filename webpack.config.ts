@@ -61,6 +61,7 @@ const configModules = (isProduction: boolean): Required<Configuration>['module']
       loader: 'esbuild-loader',
       exclude: /node_modules/,
       options: {
+        loader: 'ts',
         target: 'esnext',
       },
     },
@@ -101,7 +102,6 @@ const configModules = (isProduction: boolean): Required<Configuration>['module']
     {
       test: /\.svg$/i,
       type: 'asset/resource',
-      resourceQuery: /url/,
       generator: {
         filename: 'svg/[hash][ext][query]',
       },

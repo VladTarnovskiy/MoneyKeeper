@@ -1,10 +1,12 @@
 export class BaseComponent {
-  createElem(element: string, classes: string, text?: string): HTMLElement {
+  createElem(element: string, classes: string | undefined, text?: string): HTMLElement {
     const out = document.createElement(element);
 
-    out.className = `${classes}`;
+    if (classes !== undefined) {
+      out.className = classes;
+    }
 
-    if (text) {
+    if (text !== undefined) {
       out.textContent = `${text}`;
     }
 

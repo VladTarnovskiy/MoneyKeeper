@@ -3,8 +3,10 @@ import { sideData } from '../base/baseData';
 
 export class SideBar extends BaseComponent {
   root: HTMLElement;
+  buttonsList: HTMLElement[] = [];
   constructor(root: HTMLElement) {
     super();
+
     this.root = root;
     this.render();
   }
@@ -23,15 +25,9 @@ export class SideBar extends BaseComponent {
       const sideBarItemText = this.createElem('button', 'button__text mt-2', item.text);
 
       sideBarItem.addEventListener('click', () => {
-        location.hash = item.hash;
-      });
-      sideBarItem.addEventListener('click', () => {
-        document.querySelectorAll('.sideBar__item').forEach((sideItem) => {
-          sideItem.classList.remove('bg-sky-600');
-          sideItem.classList.add('hover:scale-105');
-        });
-        sideBarItem.classList.add('bg-sky-600');
-        sideBarItem.classList.remove('hover:scale-105');
+        if (location.pathname.slice(1) !== item.hash.slice(1)) {
+          location.hash = item.hash;
+        }
       });
 
       if (index === 4) {
@@ -44,10 +40,20 @@ export class SideBar extends BaseComponent {
       }
 
       sideBarItem.append(sideBarItemImg, sideBarItemText);
+      this.buttonsList.push(sideBarItem);
       container.appendChild(sideBarItem);
       sideBar.appendChild(container);
     });
 
     this.root.appendChild(sideBar);
+  }
+
+  buttonActive(index: number): void {
+    this.buttonsList.forEach((buttonsList) => {
+      buttonsList.classList.remove('bg-sky-600');
+      buttonsList.classList.add('hover:scale-105');
+    });
+    (<HTMLButtonElement>this.buttonsList[index]).classList.add('bg-sky-600');
+    (<HTMLButtonElement>this.buttonsList[index]).classList.remove('hover:scale-105');
   }
 }

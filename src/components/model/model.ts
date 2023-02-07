@@ -1,6 +1,6 @@
 import type { ISetting, ITransaction, IUser, IUserData, IUserReq, PostJsonResponse } from './types';
 
-const baseUrl = 'http://localhost:3000';
+const baseUrl = 'https://thankful-triangular-acapella.glitch.me';
 const basePath = {
   register: '/register',
   login: '/login',
@@ -204,7 +204,7 @@ export class Model {
     dataU: ITransaction,
   ): Promise<PostJsonResponse<ITransactionReq>> {
     try {
-      const data: IUserData = this.getStorage(str);
+      const data: IUserData = this.getStorage();
 
       dataU.userId = data.id;
       const response = await fetch(`${baseUrl}${basePath.users}/${data.id}/transactions`, {

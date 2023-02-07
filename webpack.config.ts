@@ -61,6 +61,7 @@ const configModules = (isProduction: boolean): Required<Configuration>['module']
       loader: 'esbuild-loader',
       exclude: /node_modules/,
       options: {
+        loader: 'tsx',
         target: 'esnext',
       },
     },

@@ -1,3 +1,4 @@
+// import { Controller } from '../utils/controller';
 import { BaseComponent } from './base/baseComponent';
 import { Footer } from './footer/footer';
 import { Header } from './header/header';
@@ -8,9 +9,11 @@ export class View extends BaseComponent {
   header: Header;
   main: Main;
   footer: Footer;
+  // controller: Controller;
 
   constructor() {
     super();
+    // this.controller = controller;
     this.root = document.body;
     this.header = new Header(this.root);
     this.main = new Main(this.root);

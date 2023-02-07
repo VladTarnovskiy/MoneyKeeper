@@ -18,7 +18,9 @@ export class Logo extends BaseComponent {
 
     logoImg.setAttribute('src', logoAssets);
     logoImg.addEventListener('click', () => {
-      location.hash = '#overview';
+      if (location.pathname !== '/overview') {
+        location.hash = '#overview';
+      }
     });
     const logoTitle = this.createElem(
       'div',

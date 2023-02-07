@@ -1,13 +1,15 @@
-import { View } from './components/view';
+import { Controller } from './utils/controller';
 
 export class App {
-  private view: View;
+  controller: Controller;
 
   constructor() {
-    this.view = new View();
+    this.controller = new Controller();
   }
 
-  render(): void {
-    this.view.render();
+  init(): void {
+    this.controller.view.render();
+    this.controller.addQueryListener();
+    this.controller.checkRestartPage();
   }
 }

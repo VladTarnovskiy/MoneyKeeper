@@ -1,4 +1,4 @@
-import expenceAssets from '@/assets/expence.png';
+import expenseAssets from '@/assets/expense.png';
 import incomeAssets from '@/assets/income.png';
 
 import { BaseComponent } from '../../base/baseComponent';
@@ -12,6 +12,7 @@ export class TransactionItem extends BaseComponent {
     this.transaction = transaction;
     this.render();
   }
+
   render(): void {
     let sign = '-';
     const container = this.createElem(
@@ -19,33 +20,7 @@ export class TransactionItem extends BaseComponent {
       'transaction__container items-center border-2 rounded p-1 mb-2 flex',
     );
 
-    container.addEventListener('contextmenu', (e) => {
-      const contextMenu = document.querySelector('.context-menu');
-
-      if (contextMenu !== null) {
-        contextMenu.remove();
-      }
-
-      e.preventDefault();
-      const left = e.clientX;
-      const top = e.clientY;
-      const contMenuConainer = this.createElem(
-        'div',
-        `context-menu fixed bg-white border-2 border-black rounded p-1 flex flex-col`,
-      );
-
-      contMenuConainer.style.left = `${left}px`;
-      contMenuConainer.style.top = `${top}px`;
-      const detailItem = this.createElem(
-        'ul',
-        'text-xl pb-2 font-light border-b-2 border-black text-stone-900',
-        'detail',
-      );
-      const removeItem = this.createElem('ul', 'text-xl mb-2 font-light text-stone-900', 'remove');
-
-      contMenuConainer.append(detailItem, removeItem);
-      document.body.prepend(contMenuConainer);
-    });
+    container.addEventListener('contextmenu', this.getContextMenu);
 
     const transactionImg = this.createElem(
       'div',
@@ -90,8 +65,8 @@ export class TransactionItem extends BaseComponent {
       '24.08.2023(14:11)',
     );
 
-    if (this.transaction === 'expence') {
-      transactionImg.style.backgroundImage = `url(${expenceAssets})`;
+    if (this.transaction === 'expense') {
+      transactionImg.style.backgroundImage = `url(${expenseAssets})`;
       transactionItemDescOne.classList.add('text-red-500');
     } else {
       transactionImg.style.backgroundImage = `url(${incomeAssets})`;
@@ -105,7 +80,7 @@ export class TransactionItem extends BaseComponent {
     this.root.appendChild(container);
   }
 
-  getContextMenu(e: MouseEvent): void {
+  getContextMenu = (e: MouseEvent): void => {
     const contextMenu = document.querySelector('.context-menu');
 
     if (contextMenu !== null) {
@@ -115,21 +90,122 @@ export class TransactionItem extends BaseComponent {
     e.preventDefault();
     const left = e.clientX;
     const top = e.clientY;
-    const contMenuConainer = this.createElem(
+    const contMenuContainer = this.createElem(
       'div',
-      `context-menu fixed bg-white border-2 border-black rounded p-1 flex flex-col`,
+      `context-menu fixed bg-white shadow-md rounded flex flex-col`,
     );
 
-    contMenuConainer.style.left = `${left}px`;
-    contMenuConainer.style.top = `${top}px`;
+    contMenuContainer.style.left = `${left}px`;
+    contMenuContainer.style.top = `${top}px`;
     const detailItem = this.createElem(
       'ul',
-      'text-xl pb-2 font-light border-b-2 border-black text-stone-900',
-      'detail',
+      'text-xl p-1 font-light border-b-[1px] border-stone-400 text-stone-900 cursor-pointer hover:bg-slate-200',
+      '☰ detail',
     );
-    const removeItem = this.createElem('ul', 'text-xl mb-2 font-light text-stone-900', 'remove');
 
-    contMenuConainer.append(detailItem, removeItem);
-    document.body.prepend(contMenuConainer);
+    detailItem.addEventListener('click', () => {
+      this.getPopupItem();
+    });
+    const removeItem = this.createElem(
+      'ul',
+      'text-xl p-1 font-light text-stone-900 cursor-pointer hover:bg-slate-200',
+      '☓ remove',
+    );
+
+    contMenuContainer.append(detailItem, removeItem);
+    document.body.append(contMenuContainer);
+    document.body.addEventListener('click', () => {
+      contMenuContainer.remove();
+    });
+  };
+
+  getPopupItem(): void {
+    let sign = '-';
+    const bgHide = this.createElem(
+      'div',
+      'fixed w-full h-full opacity-50 top-0 left-0 bg-slate-800 z-10',
+    );
+    const container = this.createElem(
+      'div',
+      'fixed transaction__container z-20 bg-white items-center shadow-2xl border-[1px] rounded p-1 mb-2 flex flex-col -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2',
+    );
+    const title = this.createElem('div', 'page__title ml-2 text-3xl text-sky-600 mb-5', 'Detail');
+
+    const transactionImg = this.createElem(
+      'div',
+      'relative rounded-lg bg-contain transaction__img w-14 h-14 mt-2',
+    );
+
+    const transactionDescription = this.createElem(
+      'div',
+      'transaction__description grow ml-2 flex flex-col min-w-[300px]',
+    );
+
+    const transactionItemOne = this.createElem(
+      'div',
+      'transaction__item font-normal w-full items-center text-stone-900 font-light flex justify-between gap-2',
+    );
+    const transactionItemTitleOne = this.createElem('div', 'transaction__item_title', 'Sum:');
+
+    if (this.transaction === 'income') {
+      sign = '+';
+    }
+
+    const transactionItemDescOne = this.createElem(
+      'div',
+      'transaction__item_sum text-right',
+      `${sign}3000$`,
+    );
+
+    transactionItemOne.append(transactionItemTitleOne, transactionItemDescOne);
+
+    if (this.transaction === 'expense') {
+      transactionImg.style.backgroundImage = `url(${expenseAssets})`;
+      transactionItemDescOne.classList.add('text-red-500');
+    } else {
+      transactionImg.style.backgroundImage = `url(${incomeAssets})`;
+      transactionItemDescOne.classList.add('text-green-500');
+    }
+
+    transactionItemOne.append(transactionItemTitleOne, transactionItemDescOne);
+
+    transactionDescription.append(transactionItemOne);
+    this.transactionProperty(transactionDescription, 'Category', 'Home');
+    this.transactionProperty(transactionDescription, 'Subcategory', 'Chair');
+    this.transactionProperty(transactionDescription, 'Date', '23.05.2022');
+    this.transactionProperty(transactionDescription, 'Time', '14:00');
+    this.transactionProperty(
+      transactionDescription,
+      'Description',
+      'Keep that word description that word description that word description that word description that word description that word description',
+    );
+    bgHide.addEventListener('click', () => {
+      bgHide.remove();
+      container.remove();
+    });
+
+    container.append(title, transactionDescription, transactionImg);
+    document.body.appendChild(bgHide);
+    document.body.appendChild(container);
+  }
+
+  transactionProperty(root: HTMLElement, title: string, proper: string): void {
+    const transactionItemProperty = this.createElem(
+      'div',
+      'transaction__item font-normal w-full items-center text-stone-900 font-light flex justify-between gap-2',
+    );
+    const transactionItemTitleProperty = this.createElem(
+      'div',
+      'transaction__item_title  self-start',
+      `${title}:`,
+    );
+    const transactionItemDescProperty = this.createElem(
+      'div',
+      'transaction__item_sum font-light max-w-xs',
+      `${proper}`,
+    );
+
+    transactionItemProperty.append(transactionItemTitleProperty, transactionItemDescProperty);
+    root.appendChild(transactionItemProperty);
   }
 }

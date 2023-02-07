@@ -21,9 +21,9 @@ export class FilterItem extends BaseComponent {
     const filterOptionOne = this.createElem('option', 'option__one', 'All');
 
     filterOptionOne.setAttribute('value', 'all');
-    const filterOptionTwo = this.createElem('option', 'option__two', 'Expence');
+    const filterOptionTwo = this.createElem('option', 'option__two', 'Expense');
 
-    filterOptionTwo.setAttribute('value', 'expence');
+    filterOptionTwo.setAttribute('value', 'expense');
     const filterOptionThree = this.createElem('option', 'option__three', 'Income');
 
     filterOptionThree.setAttribute('value', 'income');

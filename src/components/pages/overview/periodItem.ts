@@ -53,7 +53,7 @@ export class PeriodItem extends BaseComponent {
       'div',
       'graph__item w-full items-center text-stone-600 font-light flex gap-2',
     );
-    const graphItemTitleTwo = this.createElem('div', 'graph__item_title w-16', 'Expence:');
+    const graphItemTitleTwo = this.createElem('div', 'graph__item_title w-16', 'Expense:');
     const graphItemProgressTwo = this.createElem('div', 'graph__item_progress h-4 grow');
     const progressTwoChecker = this.createElem('div', 'graph__item_checker h-4 w-full');
 

@@ -23,7 +23,7 @@ export class TransactionList extends BaseComponent {
     this.transactionItems = this.createElem('div', 'period__items flex flex-col');
     this.sortItem = new SortItem(this.sortContainer);
     this.filterItem = new FilterItem(this.sortContainer);
-    this.transactionItem = new TransactionItem(this.transactionItems, 'expence');
+    this.transactionItem = new TransactionItem(this.transactionItems, 'expense');
     this.transactionItemTwo = new TransactionItem(this.transactionItems, 'income');
     this.render();
   }

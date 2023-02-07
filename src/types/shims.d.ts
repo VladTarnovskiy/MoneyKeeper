@@ -29,7 +29,13 @@ declare module '*.webp' {
 }
 
 declare module '*.module.css' {
-  const classes: string;
+  const classes: Readonly<Record<string, string>>;
+
+  export default classes;
+}
+
+declare module '*.module.pcss' {
+  const classes: Readonly<Record<string, string>>;
 
   export default classes;
 }

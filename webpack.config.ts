@@ -61,7 +61,7 @@ const configModules = (isProduction: boolean): Required<Configuration>['module']
       loader: 'esbuild-loader',
       exclude: /node_modules/,
       options: {
-        loader: 'tsx',
+        loader: 'ts',
         target: 'esnext',
       },
     },
@@ -80,7 +80,7 @@ const configModules = (isProduction: boolean): Required<Configuration>['module']
       },
     },
     {
-      test: /\.(css)$/,
+      test: /\.(css|pcss)$/,
       exclude: /node_modules/,
       use: [
         isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
@@ -94,12 +94,14 @@ const configModules = (isProduction: boolean): Required<Configuration>['module']
             },
           },
         },
+        {
+          loader: 'postcss-loader',
+        },
       ],
     },
     {
       test: /\.svg$/i,
       type: 'asset/resource',
-      resourceQuery: /url/,
       generator: {
         filename: 'svg/[hash][ext][query]',
       },
@@ -120,7 +122,7 @@ const getConfigPlugins = ({
 }: GetConfigPluginsProps): Required<Configuration>['plugins'] => [
   new Dotenv(),
   new HtmlWebpackPlugin({
-    title: 'RSClone',
+    title: 'MKeeper',
     template: './src/public/index.html',
   }),
   new MiniCssExtractPlugin({

@@ -1,3 +1,6 @@
+import githubLogoAssets from '@/assets/github.svg';
+import rsLogoAssets from '@/assets/rs-school-js.svg';
+
 import { BaseComponent } from '../base/baseComponent';
 
 export class Footer extends BaseComponent {
@@ -15,14 +18,14 @@ export class Footer extends BaseComponent {
     );
     const rsImg = this.createElem(
       'a',
-      'block w-32 h-12 rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
+      'block w-32 h-12 bg-contain bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
     );
 
     rsImg.setAttribute(
       'href',
       'https://github.com/rolling-scopes-school/tasks/blob/master/tasks/rsclone/rsclone.md',
     );
-    rsImg.style.backgroundImage = 'url(./assets/logo-rsschool3.png)';
+    rsImg.style.backgroundImage = `url(${rsLogoAssets})`;
     const productionDate = this.createElem(
       'div',
       'account__img text-xl text-white font-light h-fit',
@@ -31,25 +34,25 @@ export class Footer extends BaseComponent {
     const gitImages = this.createElem('div', 'flex justify-between');
     const rsImgOne = this.createElem(
       'a',
-      'block w-12 h-12 rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
+      'block w-12 h-12 bg-contain mr-1 bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
     );
 
     rsImgOne.setAttribute('href', 'https://github.com/IgorMotorin');
-    rsImgOne.style.backgroundImage = 'url(./assets/github.svg)';
+    rsImgOne.style.backgroundImage = `url(${githubLogoAssets})`;
     const rsImgTwo = this.createElem(
       'a',
-      'block w-12 h-12 rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
+      'block w-12 h-12 bg-contain mr-1 bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
     );
 
     rsImgTwo.setAttribute('href', 'https://github.com/VladTarnovskiy');
-    rsImgTwo.style.backgroundImage = 'url(./assets/github.svg)';
+    rsImgTwo.style.backgroundImage = `url(${githubLogoAssets})`;
     const rsImgThree = this.createElem(
       'a',
-      'block w-12 h-12 rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
+      'block w-12 h-12 bg-contain bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
     );
 
     rsImgThree.setAttribute('href', 'https://github.com/DenisKa13051992');
-    rsImgThree.style.backgroundImage = 'url(./assets/github.svg))';
+    rsImgThree.style.backgroundImage = `url(${githubLogoAssets})`;
     gitImages.append(rsImgOne, rsImgTwo, rsImgThree);
     container.append(gitImages, productionDate, rsImg);
     this.root.appendChild(container);

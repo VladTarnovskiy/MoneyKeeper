@@ -21,7 +21,7 @@ export class Account extends BaseComponent {
 
     const popup = this.createElem(
       'div',
-      'w-64 h-96 bg-white rounded-lg absolute -bottom-96 right-2 border-2 hidden p-4',
+      'w-64 h-96 bg-white z-10 rounded-lg absolute -bottom-96 right-2 border-2 hidden p-4',
     );
 
     accountSwich.addEventListener('click', () => {

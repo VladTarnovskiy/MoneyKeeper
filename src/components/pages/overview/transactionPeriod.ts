@@ -19,7 +19,7 @@ export class TransactionPeriod extends BaseComponent {
     this.render();
   }
 
-  renderPeriodItems() {
+  renderPeriodItems(): void {
     this.periodItemDay = new PeriodItem(this.periodItems, '#ef4444', 'Today', '1');
     this.periodItemWeek = new PeriodItem(this.periodItems, '#3b82f6', 'This Week', '7');
     this.periodItemMonth = new PeriodItem(this.periodItems, '#10b981', 'This Month', '31');

@@ -10,13 +10,10 @@ export class SortItem extends BaseComponent {
   }
 
   render(): void {
-    const sortContainer = this.createElem(
-      'div',
-      'relative h-8 w-full  min-w-[100px] max-w-[200px]',
-    );
+    const sortContainer = this.createElem('div', 'relative h-8 w-full min-w-[100px] max-w-[200px]');
     const sortSelect = this.createElem(
       'select',
-      'peer h-full w-full rounded-[7px] border border-blue-gray-200 bg-transparent font-sans text-sm font-normal transition-all focus:border-2 focus:border-pink-500 focus:outline-0 disabled:border-0',
+      'peer h-full w-full rounded-[7px] border cursor-pointer border-blue-gray-200 bg-transparent font-sans text-sm font-normal transition-all focus:border-2 focus:border-pink-500 focus:outline-0 disabled:border-0',
     );
     const sortOptionOne = this.createElem('option', 'option__one', 'DateInc');
 
@@ -34,7 +31,7 @@ export class SortItem extends BaseComponent {
 
     const sortLabel = this.createElem(
       'label',
-      'w-fit h-fit bg-white p-1 absolute left-2 -top-2.5 flex h-full w-full text-[11px] leading-tight text-stone-500 transition-all',
+      'w-fit h-min bg-white p-1 absolute left-2 -top-3 flex h-full w-full text-[11px] leading-tight text-stone-500 transition-all',
       'Sort by',
     );
 

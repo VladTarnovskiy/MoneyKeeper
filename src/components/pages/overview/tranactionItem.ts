@@ -1,6 +1,7 @@
+import expenceAssets from '@/assets/expence.png';
+import incomeAssets from '@/assets/income.png';
+
 import { BaseComponent } from '../../base/baseComponent';
-import '../../../assets/income.png';
-import '../../../assets/expence.png';
 
 export class TransactionItem extends BaseComponent {
   root: HTMLElement;
@@ -17,6 +18,35 @@ export class TransactionItem extends BaseComponent {
       'div',
       'transaction__container items-center border-2 rounded p-1 mb-2 flex',
     );
+
+    container.addEventListener('contextmenu', (e) => {
+      const contextMenu = document.querySelector('.context-menu');
+
+      if (contextMenu !== null) {
+        contextMenu.remove();
+      }
+
+      e.preventDefault();
+      const left = e.clientX;
+      const top = e.clientY;
+      const contMenuConainer = this.createElem(
+        'div',
+        `context-menu fixed bg-white border-2 border-black rounded p-1 flex flex-col`,
+      );
+
+      contMenuConainer.style.left = `${left}px`;
+      contMenuConainer.style.top = `${top}px`;
+      const detailItem = this.createElem(
+        'ul',
+        'text-xl pb-2 font-light border-b-2 border-black text-stone-900',
+        'detail',
+      );
+      const removeItem = this.createElem('ul', 'text-xl mb-2 font-light text-stone-900', 'remove');
+
+      contMenuConainer.append(detailItem, removeItem);
+      document.body.prepend(contMenuConainer);
+    });
+
     const transactionImg = this.createElem(
       'div',
       'relative rounded-lg bg-contain transaction__img w-14 h-14',
@@ -61,10 +91,10 @@ export class TransactionItem extends BaseComponent {
     );
 
     if (this.transaction === 'expence') {
-      transactionImg.style.backgroundImage = "url('../../../assets/expence.png')";
+      transactionImg.style.backgroundImage = `url(${expenceAssets})`;
       transactionItemDescOne.classList.add('text-red-500');
     } else {
-      transactionImg.style.backgroundImage = "url('../../../assets/income.png')";
+      transactionImg.style.backgroundImage = `url(${incomeAssets})`;
       transactionItemDescOne.classList.add('text-green-500');
     }
 
@@ -73,5 +103,33 @@ export class TransactionItem extends BaseComponent {
     transactionDescription.append(transactionItemOne, transactionItemTwo);
     container.append(transactionImg, transactionDescription);
     this.root.appendChild(container);
+  }
+
+  getContextMenu(e: MouseEvent): void {
+    const contextMenu = document.querySelector('.context-menu');
+
+    if (contextMenu !== null) {
+      contextMenu.remove();
+    }
+
+    e.preventDefault();
+    const left = e.clientX;
+    const top = e.clientY;
+    const contMenuConainer = this.createElem(
+      'div',
+      `context-menu fixed bg-white border-2 border-black rounded p-1 flex flex-col`,
+    );
+
+    contMenuConainer.style.left = `${left}px`;
+    contMenuConainer.style.top = `${top}px`;
+    const detailItem = this.createElem(
+      'ul',
+      'text-xl pb-2 font-light border-b-2 border-black text-stone-900',
+      'detail',
+    );
+    const removeItem = this.createElem('ul', 'text-xl mb-2 font-light text-stone-900', 'remove');
+
+    contMenuConainer.append(detailItem, removeItem);
+    document.body.prepend(contMenuConainer);
   }
 }

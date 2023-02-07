@@ -122,7 +122,7 @@ const getConfigPlugins = ({
 }: GetConfigPluginsProps): Required<Configuration>['plugins'] => [
   new Dotenv(),
   new HtmlWebpackPlugin({
-    title: 'RSClone',
+    title: 'MKeeper',
     template: './src/public/index.html',
   }),
   new MiniCssExtractPlugin({

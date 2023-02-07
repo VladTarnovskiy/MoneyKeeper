@@ -54,7 +54,7 @@ export const svgStore = {
    </svg>`,
 };
 
-export const calendar = (fill: string) => {
+export const calendar = (fill: string): string => {
   const cal = `<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 29.237 29.237" xml:space="preserve">
    <g>
            <path style="fill:${fill};" d="M29.207,2.504l-4.129,0.004L24.475,2.51v2.448c0,0.653-0.534,1.187-1.188,1.187h-1.388

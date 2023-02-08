@@ -1,4 +1,6 @@
 // import { Controller } from '../utils/controller';
+import { Authorization } from '@/components/pages/authorization/Authorization';
+
 import { BaseComponent } from './base/baseComponent';
 import { Footer } from './footer/footer';
 import { Header } from './header/header';
@@ -9,6 +11,7 @@ export class View extends BaseComponent {
   header: Header;
   main: Main;
   footer: Footer;
+  authorization: Authorization;
   // controller: Controller;
 
   constructor() {
@@ -18,6 +21,7 @@ export class View extends BaseComponent {
     this.header = new Header(this.root);
     this.main = new Main(this.root);
     this.footer = new Footer(this.root);
+    this.authorization = new Authorization(this.root);
   }
 
   render(): void {

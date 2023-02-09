@@ -11,7 +11,7 @@ export class SideBar extends BaseComponent {
     this.render();
   }
   render(): void {
-    const sideBar = this.createElem('aside', 'h-[81.6vh] bg-sky-400');
+    const sideBar = this.createElem('aside', 'min-h-[81.6vh] bg-sky-400');
     const container = this.createElem('div', 'flex items-center flex-col text-white bg-sky-400');
 
     sideData.forEach((item, index) => {
@@ -53,7 +53,7 @@ export class SideBar extends BaseComponent {
       buttonsList.classList.remove('bg-sky-600');
       buttonsList.classList.add('hover:scale-105');
     });
-    (<HTMLButtonElement>this.buttonsList[index]).classList.add('bg-sky-600');
-    (<HTMLButtonElement>this.buttonsList[index]).classList.remove('hover:scale-105');
+    (this.buttonsList[index] as HTMLButtonElement).classList.add('bg-sky-600');
+    (this.buttonsList[index] as HTMLButtonElement).classList.remove('hover:scale-105');
   }
 }

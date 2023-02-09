@@ -1,6 +1,7 @@
 import { BaseComponent } from '../base/baseComponent';
 import { Calendar } from '../pages/calendar/calendar';
 import { Overview } from '../pages/overview/overview';
+import { Report } from '../pages/report/report';
 
 import { SideBar } from './sideBar';
 
@@ -12,6 +13,8 @@ export class Main extends BaseComponent {
   calendar: Calendar;
   calendarHTML: HTMLElement;
   overviewHTML: HTMLElement;
+  reportContainer: HTMLElement;
+  report: Report;
   overview: Overview;
 
   constructor(root: HTMLElement) {
@@ -26,6 +29,8 @@ export class Main extends BaseComponent {
     this.container.appendChild(this.content);
     this.calendarHTML = this.createElem('section', undefined);
     this.calendar = new Calendar(this.calendarHTML);
+    this.reportContainer = this.createElem('section', undefined);
+    this.report = new Report(this.reportContainer);
   }
 
   render(): void {
@@ -39,6 +44,9 @@ export class Main extends BaseComponent {
     } else if (main === '/overview') {
       this.content.textContent = '';
       this.content.appendChild(this.overviewHTML);
+    } else if (main === '/report') {
+      this.content.textContent = '';
+      this.content.appendChild(this.reportContainer);
     } else {
       this.content.textContent = main;
     }

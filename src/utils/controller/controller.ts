@@ -1,13 +1,17 @@
-import { View } from '../../components/view';
-import { Router } from '../router';
+import type { Model } from '@/components/model/model';
+import type { View } from '@/components/view';
+
+import type { Router } from '@/utils/router';
 
 export class Controller {
   private router: Router;
   view: View;
+  model: Model;
 
-  constructor() {
-    this.view = new View();
-    this.router = new Router(this);
+  constructor(model: Model, view: View, router: Router) {
+    this.view = view;
+    this.router = router;
+    this.model = model;
   }
 
   addQueryListener(): void {

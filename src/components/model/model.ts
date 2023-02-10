@@ -86,6 +86,8 @@ export class Model {
       const json = (await response.json()) as Awaited<Promise<T>>;
 
       output.data = json;
+    } else {
+      output.message = String(await response.json());
     }
 
     return output;

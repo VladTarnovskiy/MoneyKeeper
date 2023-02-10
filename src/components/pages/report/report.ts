@@ -1,3 +1,5 @@
+// import Chart from 'chart.js/auto' assert { type: 'module' };
+
 import { StatisticBlock } from '@/components/pages/report/statisticBlock';
 
 import { BaseComponent } from '../../base/baseComponent';

@@ -1,11 +1,15 @@
 import { BaseComponent } from '../../base/baseComponent';
 
-export class FilterItem extends BaseComponent {
+export class InputSelect extends BaseComponent {
   root: HTMLElement;
+  options: string[];
+  title: string;
 
-  constructor(root: HTMLElement) {
+  constructor(root: HTMLElement, title: string, options: string[]) {
     super();
     this.root = root;
+    this.title = title;
+    this.options = options;
     this.render();
   }
 
@@ -18,24 +22,22 @@ export class FilterItem extends BaseComponent {
       'select',
       'peer h-full w-full rounded-[7px] cursor-pointer border border-blue-gray-200 bg-transparent font-sans text-sm font-normal transition-all focus:border-2 focus:border-pink-500 focus:outline-0 disabled:border-0',
     );
-    const filterOptionOne = this.createElem('option', 'option__one', 'All');
 
-    filterOptionOne.setAttribute('value', 'all');
-    const filterOptionTwo = this.createElem('option', 'option__two', 'Expense');
+    this.options.forEach((item) => {
+      const option = this.createElem('option', 'option__item', item);
 
-    filterOptionTwo.setAttribute('value', 'expense');
-    const filterOptionThree = this.createElem('option', 'option__three', 'Income');
+      option.setAttribute('value', item);
 
-    filterOptionThree.setAttribute('value', 'income');
-    filterSelect.append(filterOptionOne, filterOptionTwo, filterOptionThree);
+      filterSelect.append(option);
+    });
 
-    const filterLabel = this.createElem(
+    const inputLabel = this.createElem(
       'label',
       'w-fit h-min bg-white p-1 absolute left-2 -top-3 flex h-full w-full text-[11px] leading-tight text-stone-500 transition-all',
-      'Filter by',
+      this.title,
     );
 
-    filterContainer.append(filterSelect, filterLabel);
+    filterContainer.append(filterSelect, inputLabel);
     this.root.appendChild(filterContainer);
   }
 }

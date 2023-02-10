@@ -1,6 +1,14 @@
 {
   "extends": "@alexey-koran/tsconfig",
-  "include": ["./**/*.js", "./**/*.cjs", "./**/*.mjs", "./**/*.ts", "./**/*.cts", "./**/*.mts"],
+  "include": [
+    "./**/*.js",
+    "./**/*.cjs",
+    "./**/*.mjs",
+    "./**/*.ts",
+    "./**/*.cts",
+    "./**/*.mts",
+    "src/i18next.js"
+  ],
   "exclude": ["node_modules"],
   "compilerOptions": {
     "baseUrl": "src",

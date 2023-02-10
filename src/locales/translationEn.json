@@ -1,0 +1,6 @@
+{
+  "logo": "MoneyKeeper",
+  "testNesting": {
+    "dataInternal": "DataInside"
+  }
+}

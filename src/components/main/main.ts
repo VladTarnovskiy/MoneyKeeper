@@ -1,7 +1,8 @@
+import { Report } from '@/components/pages/report/report';
+
 import { BaseComponent } from '../base/baseComponent';
 import { Calendar } from '../pages/calendar/calendar';
 import { Overview } from '../pages/overview/overview';
-import { Report } from '../pages/report/report';
 
 import { SideBar } from './sideBar';
 

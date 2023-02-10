@@ -17,7 +17,7 @@ export class StatisticBlock extends BaseComponent {
     this.title = title;
     this.sum = sum;
 
-    if (titleColor) {
+    if (titleColor !== undefined) {
       this.titleColor = titleColor;
     } else {
       this.titleColor = 'stone-600';

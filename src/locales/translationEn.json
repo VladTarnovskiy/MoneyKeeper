@@ -1,6 +1,6 @@
 {
-  "logo": "MoneyKeeper",
-  "testNesting": {
-    "dataInternal": "DataInside"
+  "other": "Other",
+  "overview": {
+    "logo": "MoneyKeeper"
   }
 }

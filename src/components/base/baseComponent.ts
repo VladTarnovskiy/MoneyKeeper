@@ -17,6 +17,7 @@ interface TElement {
   onchange?: () => void;
   onclick?: (event: Event) => void;
   onsubmit?: (event: Event) => void;
+  checked?: boolean;
 }
 
 interface TComponent {

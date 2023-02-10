@@ -2,6 +2,7 @@ import { BaseComponent } from '../../base/baseComponent';
 
 interface IInput {
   onclick: (event: Event) => void;
+  checked: boolean;
 }
 
 export class InputCheck extends BaseComponent {
@@ -25,6 +26,7 @@ export class InputCheck extends BaseComponent {
           type: 'checkbox',
           class: 'h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500',
           onclick: prop.onclick,
+          checked: prop.checked,
         },
         label: {
           for: 'remember-me',

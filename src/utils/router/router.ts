@@ -1,12 +1,14 @@
 import { routing } from './typesOfRout';
 
-import type { Controller } from '../controller';
+interface IRouter {
+  onupdate: (main: string, index: number) => void;
+}
 
 export class Router {
-  controller: Controller;
+  onupdate: (main: string, index: number) => void;
 
-  constructor(controller: Controller) {
-    this.controller = controller;
+  constructor(prop: IRouter) {
+    this.onupdate = prop.onupdate;
   }
 
   queryListener(): void {
@@ -25,9 +27,11 @@ export class Router {
 
     if (pageIndex > -1) {
       localStorage.query = path;
-      this.controller.view.main.updateMain(path, pageIndex);
+      // this.controller.view.main.updateMain(path, pageIndex);
+      this.onupdate(path, pageIndex);
     } else {
-      this.controller.view.main.updateMain('eror', 0);
+      // this.controller.view.main.updateMain('eror', 0);
+      this.onupdate('error', 0);
       localStorage.query = '/404';
     }
   }

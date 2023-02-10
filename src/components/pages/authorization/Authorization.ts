@@ -1,106 +1,119 @@
-import { InputComponent } from '@/components/base/InputComponent';
+import { BaseComponent } from '@/components/base/baseComponent';
+import type { IUser, IUserReq, PostJsonResponse } from '@/components/model/types';
+import { Button } from '@/components/pages/authorization/Button';
+import { InputCheck } from '@/components/pages/authorization/InputCheck';
+import { InputEmail } from '@/components/pages/authorization/InputEmail';
+import { InputPassword } from '@/components/pages/authorization/InputPassword';
+import { Logo } from '@/components/pages/authorization/Logo';
 
-import { svgStore } from '@/assets/svgStore';
+interface IAuthorization {
+  onlogin: <T, D = object>(data: D) => Promise<PostJsonResponse<T>>;
+  onregistration: <T, D = object>(data: D) => Promise<PostJsonResponse<T>>;
+}
 
-import { BaseComponent } from '../../base/baseComponent';
+interface IState {
+  status: string;
+}
 
 export class Authorization extends BaseComponent {
   root: HTMLElement;
-  container: HTMLElement;
+  container!: HTMLElement;
+  button!: HTMLElement;
+  logo!: HTMLElement;
+  form!: HTMLElement;
+  message!: HTMLElement;
+  inputCheck!: HTMLElement;
+  state: IState;
+  prop: IAuthorization;
 
-  constructor(root: HTMLElement) {
+  constructor(root: HTMLElement, prop: IAuthorization) {
     super();
     this.root = root;
+    this.state = {
+      status: 'login',
+    };
+    this.prop = prop;
+    this.build();
+    this.render();
+  }
+
+  build(): void {
+    const container1 = this.createElem2('div', {
+      class: '-space-y-px rounded-md shadow-sm',
+    });
+    const inputEmail = new InputEmail().node;
+    const inputPassword = new InputPassword().node;
+
+    container1.append(inputEmail, inputPassword);
+
+    this.inputCheck = new InputCheck({ onclick: this.onclickRegistration.bind(this) }).node;
+
+    this.button = new Button({ text: 'Sign in' }).node;
+
+    this.form = this.createElem2('form', {
+      class: 'mt-8 space-y-6',
+      onsubmit: this.onsubmit.bind(this),
+    });
+    this.form.append(container1, this.inputCheck, this.button);
+    this.logo = new Logo().node;
+    this.message = this.createElem2('div', {
+      class: 'h-6 mx-auto text-center text-red-500',
+      textContent: '',
+    });
+    this.logo.append(this.message, this.form);
     this.container = this.createElem(
       'div',
       'flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8',
     );
-    const container1 = this.createElem2('div', {
-      class: '-space-y-px rounded-md shadow-sm',
-    });
-    const container2 = this.createElem2('div', {
-      class: 'flex items-center',
-    });
-    const container3 = this.createElem2('div');
+    this.container.append(this.logo);
+  }
 
-    new InputComponent(container1, {
-      label: {
-        for: 'email-address',
-        class: 'sr-only',
-        textContent: 'Email address',
-      },
-      input: {
-        id: 'email-address',
-        name: 'email',
-        placeholder: 'Email address',
-        required: 'true',
-        autocomplete: 'email',
-        type: 'email',
-        class:
-          'relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm',
-      },
-    });
-    new InputComponent(container1, {
-      label: {
-        for: 'password',
-        class: 'sr-only',
-        textContent: 'Password',
-      },
-      input: {
-        id: 'password',
-        name: 'password',
-        placeholder: 'Password',
-        required: 'true',
-        autocomplete: 'current-password',
-        type: 'password',
-        class:
-          'relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm',
-      },
-    });
+  onclickRegistration(event: Event): void {
+    const target = event.target as HTMLInputElement;
 
-    new InputComponent(container2, {
-      input: {
-        id: 'remember-me',
-        name: 'remember-me',
-        type: 'checkbox',
-        class: 'h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500',
-      },
-      label: {
-        for: 'remember-me',
-        class: 'ml-2 text-sm text-gray-900',
-        textContent: 'Registrations',
-      },
-    });
+    target.checked ? (this.state.status = 'registration') : (this.state.status = 'login');
 
-    const button = this.createElem2('button', {
-      type: 'submit',
-      class:
-        'group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2',
-      textContent: 'Sign in',
-    });
+    const button = new Button({ text: `${target.checked ? 'Registration' : 'Sign in'}` }).node;
 
-    const span = this.createElem2('span', {
-      class: 'absolute inset-y-0 left-0 flex items-center pl-3',
-      innerHTML: svgStore.lock,
-    });
+    this.button.replaceWith(button);
+    this.button = button;
+    this.form.onsubmit = this.onsubmit.bind(this);
+  }
 
-    button.append(span);
-    container3.append(button);
+  async onsubmit(event: Event): Promise<void> {
+    event.preventDefault();
+    const target = event.target as HTMLFormElement;
+    const email = target.querySelector<HTMLInputElement>('#email-address')?.value;
+    const password = target.querySelector<HTMLInputElement>('#password')?.value;
 
-    const form = this.createElem2('form', {
-      class: 'mt-8 space-y-6',
-      action: '#',
-      method: 'POST',
-    });
+    if (email && password) {
+      const resp =
+        this.state.status === 'registration'
+          ? await this.prop.onregistration<IUserReq, IUser>({ email, password })
+          : await this.prop.onlogin<IUserReq, IUser>({ email, password });
 
-    form.append(container1, container2, container3);
+      if (resp.status === 201 || resp.status === 200) {
+        this.state.status = 'login';
+        this.button = this.replace(this.button, new Button({ text: 'Sign out' }).node);
+        // this.logo = new Logo({text: 'You sign in account'}).node;
+        const message = this.createElem2('div', {
+          class: 'h-6 mx-auto text-center text-green-500',
+          textContent: 'You sign in account',
+        });
 
-    this.container.append(form);
+        this.message = this.replace(this.message, message);
+      } else {
+        const message = this.createElem2('div', {
+          class: 'h-6 mx-auto text-center text-red-500',
+          textContent: `${resp.message}`,
+        });
 
-    this.render();
+        this.message = this.replace(this.message, message);
+      }
+    }
   }
 
   render(): void {
-    this.root.appendChild(this.container);
+    this.root.replaceWith(this.container);
   }
 }

@@ -12,25 +12,31 @@ interface TElement {
   for?: string;
   textContent?: string;
   innerHTML?: string;
+  src?: string;
+  alt?: string;
 }
 
 interface TComponent {
   div?: TElement;
   input?: TElement;
   label?: TElement;
+  img?: TElement;
+  h2?: TElement;
 }
 
-export class InputComponent extends BaseComponent {
+export class DivAppendComponent extends BaseComponent {
   root: HTMLElement;
   container: HTMLElement;
 
   constructor(root: HTMLElement, prop: TComponent) {
     super();
     this.root = root;
-    this.container = this.createElem2('div');
+    this.container = this.createElem2('div', {});
 
-    for (const key in prop) {
-      this.container.append(this.createElem2(key, prop[key]));
+    if (Object.keys(prop).length > 0) {
+      Object.keys(prop).forEach((key) => {
+        this.container.append(this.createElem2(key, prop[key]));
+      });
     }
 
     this.render();

@@ -19,7 +19,8 @@ export class Controller {
   }
 
   checkRestartPage(): void {
-    const query: string = localStorage.query;
+    const { query } = localStorage;
+
     if (query) {
       history.pushState(null, '', `${location.origin}${query}`);
     } else {

@@ -1,10 +1,89 @@
-// import Chart from 'chart.js/auto' assert { type: 'module' };
+import { Chart } from 'chart.js';
 
+import { BaseComponent } from '@/components/base/baseComponent';
 import { StatisticBlock } from '@/components/pages/report/statisticBlock';
 
-import { BaseComponent } from '../../base/baseComponent';
+interface DataItem {
+  color: string;
+  title: string;
+  value: string;
+  width: string;
+}
 
-const Chart = require('chart.js/auto');
+const dataTest: DataItem[] = [
+  {
+    color: '#ef4444',
+    title: 'Car',
+    value: '1200 $',
+    width: '95',
+  },
+  {
+    color: '#3b82f6',
+    title: 'Home',
+    value: '300 $',
+    width: '30',
+  },
+  {
+    color: '#10b981',
+    title: 'Cage',
+    value: '300 $',
+    width: '30',
+  },
+  {
+    color: '#a855f7',
+    title: 'Product',
+    value: '200 $',
+    width: '20',
+  },
+  {
+    color: '#f59e0b',
+    title: 'Bank',
+    value: '400 $',
+    width: '40',
+  },
+  {
+    color: '#3b82f6',
+    title: 'Medicine',
+    value: '300 $',
+    width: '30',
+  },
+  {
+    color: '#ef4444',
+    title: 'Car',
+    value: '1200 $',
+    width: '95',
+  },
+  {
+    color: '#3b82f6',
+    title: 'Home',
+    value: '300 $',
+    width: '30',
+  },
+  {
+    color: '#10b981',
+    title: 'Cage',
+    value: '300 $',
+    width: '30',
+  },
+  {
+    color: '#a855f7',
+    title: 'Product',
+    value: '200 $',
+    width: '20',
+  },
+  {
+    color: '#f59e0b',
+    title: 'Bank',
+    value: '400 $',
+    width: '40',
+  },
+  {
+    color: '#3b82f6',
+    title: 'Medicine',
+    value: '300 $',
+    width: '30',
+  },
+];
 
 export class Report extends BaseComponent {
   root: HTMLElement;
@@ -14,7 +93,6 @@ export class Report extends BaseComponent {
   barContainer: HTMLElement;
   bar: HTMLCanvasElement;
   statisticContainer: HTMLElement;
-  dataTest!: Array<{ color: string; title: string; value: string; width: string }>;
 
   constructor(root: HTMLElement) {
     super();
@@ -42,12 +120,12 @@ export class Report extends BaseComponent {
 
   getBar(container: HTMLCanvasElement): void {
     const data = {
-      labels: this.dataTest.map((item) => item.title),
+      labels: dataTest.map((item) => item.title),
       datasets: [
         {
           label: 'Percent',
-          data: this.dataTest.map((item) => item.width),
-          backgroundColor: this.dataTest.map((item) => item.color),
+          data: dataTest.map((item) => item.width),
+          backgroundColor: dataTest.map((item) => item.color),
           hoverOffset: 4,
         },
       ],
@@ -65,7 +143,7 @@ export class Report extends BaseComponent {
               color: '#57534e',
               font: {
                 size: 16,
-                weight: 300,
+                weight: '300',
               },
             },
           },
@@ -74,7 +152,7 @@ export class Report extends BaseComponent {
             padding: 4,
             font: {
               size: 26,
-              weight: 300,
+              weight: '300',
             },
             color: '#0284c7',
             text: 'Category statistics:',
@@ -85,23 +163,8 @@ export class Report extends BaseComponent {
   }
 
   getStatisticBlocks(): void {
-    this.dataTest = [
-      { color: '#ef4444', title: 'Car', value: '1200 $', width: '95' },
-      { color: '#3b82f6', title: 'Home', value: '300 $', width: '30' },
-      { color: '#10b981', title: 'Cage', value: '300 $', width: '30' },
-      { color: '#a855f7', title: 'Product', value: '200 $', width: '20' },
-      { color: '#f59e0b', title: 'Bank', value: '400 $', width: '40' },
-      { color: '#3b82f6', title: 'Medicine', value: '300 $', width: '30' },
-      { color: '#ef4444', title: 'Car', value: '1200 $', width: '95' },
-      { color: '#3b82f6', title: 'Home', value: '300 $', width: '30' },
-      { color: '#10b981', title: 'Cage', value: '300 $', width: '30' },
-      { color: '#a855f7', title: 'Product', value: '200 $', width: '20' },
-      { color: '#f59e0b', title: 'Bank', value: '400 $', width: '40' },
-      { color: '#3b82f6', title: 'Medicine', value: '300 $', width: '30' },
-    ];
-
-    new StatisticBlock(this.statisticContainer, 'Expenses', '2223 $', this.dataTest, 'stone-600');
-    new StatisticBlock(this.statisticContainer, 'Incomes', '8000 $', this.dataTest, 'sky-600');
+    new StatisticBlock(this.statisticContainer, 'Expenses', '2223 $', dataTest, 'stone-600');
+    new StatisticBlock(this.statisticContainer, 'Incomes', '8000 $', dataTest, 'sky-600');
   }
 
   render(): void {

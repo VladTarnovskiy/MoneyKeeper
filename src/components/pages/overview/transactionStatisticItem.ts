@@ -7,7 +7,7 @@ export class TransactionStatisticItem extends BaseComponent {
   title: string;
   value: string;
   width: string;
-  textColor?: string | undefined;
+  textColor: string;
 
   constructor(
     root: HTMLElement,
@@ -18,16 +18,17 @@ export class TransactionStatisticItem extends BaseComponent {
     textColor?: string,
   ) {
     super();
+
     this.root = root;
     this.color = color;
     this.title = title;
     this.width = width;
     this.value = value;
 
-    if (textColor !== null) {
-      this.textColor = textColor;
-    } else {
+    if (textColor === undefined) {
       this.textColor = 'stone-600';
+    } else {
+      this.textColor = textColor;
     }
 
     this.render();

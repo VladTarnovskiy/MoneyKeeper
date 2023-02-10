@@ -9,21 +9,22 @@ export class StatisticBlock extends BaseComponent {
   root: HTMLElement;
   title: string;
   sum: string;
-  titleColor: string | undefined;
+  titleColor: string;
   data: Data;
   constructor(root: HTMLElement, title: string, sum: string, data: Data, titleColor?: string) {
     super();
+
     this.root = root;
     this.title = title;
     this.sum = sum;
+    this.data = data;
 
-    if (titleColor) {
-      this.titleColor = titleColor;
-    } else {
+    if (titleColor === undefined) {
       this.titleColor = 'stone-600';
+    } else {
+      this.titleColor = titleColor;
     }
 
-    this.data = data;
     this.render();
   }
 

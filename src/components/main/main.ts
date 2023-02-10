@@ -1,7 +1,7 @@
-import { BaseComponent } from '../base/baseComponent';
-import { Calendar } from '../pages/calendar/calendar';
-import { Overview } from '../pages/overview/overview';
-import { Report } from '../pages/report/report';
+import { BaseComponent } from '@/components/base/baseComponent';
+import { Calendar } from '@/components/pages/calendar/calendar';
+import { Overview } from '@/components/pages/overview/overview';
+import { Report } from '@/components/pages/report/report';
 
 import { SideBar } from './sideBar';
 
@@ -11,8 +11,8 @@ export class Main extends BaseComponent {
   sideBar: SideBar;
   content: HTMLElement;
   calendar: Calendar;
-  calendarHTML: HTMLElement;
-  overviewHTML: HTMLElement;
+  calendarHtml: HTMLElement;
+  overviewHtml: HTMLElement;
   reportContainer: HTMLElement;
   report: Report;
   overview: Overview;
@@ -24,11 +24,11 @@ export class Main extends BaseComponent {
     this.container = this.createElem('main', 'container mx-auto flex');
     this.content = this.createElem('section', 'content w-full border-t-2 border-l-2 p-3');
     this.sideBar = new SideBar(this.container);
-    this.overviewHTML = this.createElem('overview', undefined);
-    this.overview = new Overview(this.overviewHTML);
+    this.overviewHtml = this.createElem('overview', undefined);
+    this.overview = new Overview(this.overviewHtml);
     this.container.appendChild(this.content);
-    this.calendarHTML = this.createElem('section', undefined);
-    this.calendar = new Calendar(this.calendarHTML);
+    this.calendarHtml = this.createElem('section', undefined);
+    this.calendar = new Calendar(this.calendarHtml);
     this.reportContainer = this.createElem('section', undefined);
     this.report = new Report(this.reportContainer);
   }
@@ -40,10 +40,10 @@ export class Main extends BaseComponent {
   updateMain(main: string, index: number): void {
     if (main === '/calendar') {
       this.content.textContent = '';
-      this.content.appendChild(this.calendarHTML);
+      this.content.appendChild(this.calendarHtml);
     } else if (main === '/overview') {
       this.content.textContent = '';
-      this.content.appendChild(this.overviewHTML);
+      this.content.appendChild(this.overviewHtml);
     } else if (main === '/report') {
       this.content.textContent = '';
       this.content.appendChild(this.reportContainer);

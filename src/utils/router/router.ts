@@ -1,12 +1,19 @@
 import { routing } from './typesOfRout';
 
-import type { Controller } from '../controller';
+interface IRouter {
+  onupdate: (main: string, index: number) => void;
+  changePages: () => void;
+}
 
 export class Router {
-  controller: Controller;
+  onupdate: (main: string, index: number) => void;
+  changePages: () => void;
+  chengedPages: boolean;
 
-  constructor(controller: Controller) {
-    this.controller = controller;
+  constructor(prop: IRouter) {
+    this.onupdate = prop.onupdate;
+    this.changePages = prop.changePages;
+    this.chengedPages = false;
   }
 
   queryListener(): void {
@@ -22,13 +29,17 @@ export class Router {
   routeCallback(): void {
     const path = location.pathname;
     const pageIndex = routing.indexOf(path);
-
-    if (pageIndex > -1) {
+    let singIn: boolean
+    if (localStorage.signIn) {singIn = localStorage.signIn;}
+    else singIn = false
+    if (singIn && !this.chengedPages) {this.changePages(); this.chengedPages = true;}
+    if (pageIndex > -1 && singIn) {
       localStorage.query = path;
-      this.controller.view.main.updateMain(path, pageIndex);
-    } else {
-      this.controller.view.main.updateMain('eror', 0);
-      localStorage.query = '/404';
+      this.onupdate(path, pageIndex);
     }
+    //  else {
+    //   this.onupdate('error', 0);
+    //   localStorage.query = '/404';
+    // }
   }
 }

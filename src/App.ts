@@ -1,10 +1,25 @@
+import { Router } from '@/utils/router';
+
+import { Model } from '@/components/model/model';
+import { View } from '@/components/view';
+
 import { Controller } from './utils/controller';
 
 export class App {
   controller: Controller;
 
   constructor() {
-    this.controller = new Controller();
+    const model = new Model();
+    const view = new View({
+      onlogin: model.loginUser.bind(model),
+      onregistration: model.registerUser.bind(model),
+    });
+    const router = new Router({
+      onupdate: view.main.updateMain.bind(view.main),
+      changePages: view.changePages.bind(view)
+    });
+
+    this.controller = new Controller(model, view, router);
   }
 
   init(): void {

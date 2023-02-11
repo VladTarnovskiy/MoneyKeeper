@@ -102,6 +102,8 @@ export class Authorization extends BaseComponent {
         });
 
         this.message = this.replace(this.message, message);
+        setTimeout(() => { location.hash = '#overview';}, 2000)
+        localStorage.signIn = 'true'
       } else {
         const message = this.createElem2('div', {
           class: 'h-6 mx-auto text-center text-red-500',
@@ -114,6 +116,6 @@ export class Authorization extends BaseComponent {
   }
 
   render(): void {
-    this.root.replaceWith(this.container);
+    this.root.append(this.container);
   }
 }

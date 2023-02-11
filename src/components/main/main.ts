@@ -5,18 +5,18 @@ import { Overview } from '../pages/overview/overview';
 import { SideBar } from './sideBar';
 
 export class Main extends BaseComponent {
-  root: HTMLElement;
   container: HTMLElement;
   sideBar: SideBar;
   content: HTMLElement;
   calendar: Calendar;
   calendarHtml: HTMLElement;
   overviewHtml: HTMLElement;
+  bodyPage: HTMLElement;
   overview: Overview;
 
-  constructor(root: HTMLElement) {
+  constructor(bodyPage: HTMLElement) {
     super();
-    this.root = root;
+    this.bodyPage = bodyPage;
     this.container = this.createElem('main', 'container mx-auto flex');
     this.content = this.createElem('section', 'content w-full border-t-2 border-l-2 p-3');
     this.sideBar = new SideBar(this.container);
@@ -28,16 +28,17 @@ export class Main extends BaseComponent {
   }
 
   render(): void {
-    this.root.appendChild(this.container);
+    this.bodyPage.appendChild(this.container);
   }
 
   updateMain(main: string, index: number): void {
     if (main === '/calendar') {
       this.content.textContent = '';
-      this.content.appendChild(this.calendarHtml);
+      this.content.append(this.calendarHtml);
     } else if (main === '/overview') {
       this.content.textContent = '';
-      this.content.appendChild(this.overviewHtml);
+      console.log('overview')
+      this.content.append(this.overviewHtml);
     } else {
       this.content.textContent = main;
     }

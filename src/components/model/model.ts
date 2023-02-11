@@ -22,7 +22,8 @@ export class Model {
 
       const out = await this.checkResponse<T>(response);
 
-      localStorage.setItem('userdata', JSON.stringify(out.data));
+      localStorage.userdata = JSON.stringify(out.data);
+      console.log(localStorage)
 
       return out;
     } catch (error) {
@@ -42,7 +43,9 @@ export class Model {
 
       const out = await this.checkResponse<T>(response);
 
-      localStorage.setItem('userdata', JSON.stringify(out.data));
+      // localStorage.setItem('userdata', JSON.stringify(out.data));
+      localStorage.userdata = JSON.stringify(out.data);
+      console.log(localStorage)
 
       return out;
     } catch (error) {

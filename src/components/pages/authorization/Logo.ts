@@ -1,17 +1,17 @@
 import { BaseComponent } from '../../base/baseComponent';
 
-// interface ILogo {
-//   text: string;
-// }
+interface ILogo {
+  text: string;
+}
 
 export class Logo extends BaseComponent {
   node: HTMLElement;
 
-  constructor() {
+  constructor(prop: ILogo) {
     super();
-    this.node = this.build();
+    this.node = this.build(prop);
   }
-  build(): HTMLElement {
+  build(prop: ILogo): HTMLElement {
     const input = this.appendElem(
       {
         div: {
@@ -26,7 +26,7 @@ export class Logo extends BaseComponent {
         },
         h2: {
           class: 'mt-6 text-center text-3xl font-bold tracking-tight text-gray-900',
-          textContent: 'Sign in to your account',
+          textContent: prop.text,
         },
       },
     );

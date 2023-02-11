@@ -42,6 +42,7 @@ export interface ISetting {
 }
 
 export interface ISettingReq {
+  name: string;
   lang: string;
   theme: string;
   currency: string;

@@ -1,9 +1,6 @@
-import { TransactionStatisticItem } from '@/components/pages/overview/transactionStatisticItem';
+import { BaseComponent } from '@/components/base/baseComponent';
+import { ReportStatisticItem } from '@/components/pages/report/reportStatisticItem';
 import type { Data } from '@/components/pages/report/type';
-
-import { BaseComponent } from '../../base/baseComponent';
-
-import './scrollBar.pcss';
 
 export class StatisticBlock extends BaseComponent {
   root: HTMLElement;
@@ -46,12 +43,12 @@ export class StatisticBlock extends BaseComponent {
     );
 
     this.data.forEach((item) => {
-      new TransactionStatisticItem(
+      new ReportStatisticItem(
         statisticItems,
         item.color,
         item.title,
         item.width,
-        `${item.value} ( ${item.width}% )`,
+        `${item.value}`,
         'stone-500',
       );
     });

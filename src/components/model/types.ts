@@ -34,6 +34,7 @@ export interface PostJsonResponse<T> {
 }
 
 export interface ISetting {
+  name: string;
   lang: string;
   theme: string;
   currency: string;

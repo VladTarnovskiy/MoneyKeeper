@@ -1,18 +1,17 @@
 import { BaseComponent } from '../../base/baseComponent';
 
-// interface IInput {
-//   text: string;
-//   style?: string;
-// }
+interface IInputPassword {
+  disabled: boolean;
+}
 
 export class InputPassword extends BaseComponent {
   node: HTMLElement;
 
-  constructor() {
+  constructor(prop: IInputPassword) {
     super();
-    this.node = this.build();
+    this.node = this.build(prop);
   }
-  build(): HTMLElement {
+  build(prop: IInputPassword): HTMLElement {
     const input = this.appendElem(
       {
         div: {},
@@ -25,6 +24,7 @@ export class InputPassword extends BaseComponent {
         },
         input: {
           id: 'password',
+          disabled: prop.disabled,
           name: 'password',
           placeholder: 'Password',
           required: 'true',

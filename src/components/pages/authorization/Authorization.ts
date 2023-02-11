@@ -1,19 +1,39 @@
 import { BaseComponent } from '@/components/base/baseComponent';
-import type { IUser, IUserReq, PostJsonResponse } from '@/components/model/types';
+import type {
+  IUser,
+  IUserReq,
+  PostJsonResponse,
+  ISetting,
+  ISettingReq,
+  IUserDataReq,
+} from '@/components/model/types';
 import { Button } from '@/components/pages/authorization/Button';
 import { InputCheck } from '@/components/pages/authorization/InputCheck';
 import { InputEmail } from '@/components/pages/authorization/InputEmail';
+import { InputName } from '@/components/pages/authorization/InputName';
 import { InputPassword } from '@/components/pages/authorization/InputPassword';
 import { Logo } from '@/components/pages/authorization/Logo';
 
 interface IAuthorization {
   onlogin: <T, D = object>(data: D) => Promise<PostJsonResponse<T>>;
   onregistration: <T, D = object>(data: D) => Promise<PostJsonResponse<T>>;
+  onsetting: <T>(dataU: ISetting) => Promise<PostJsonResponse<T>>;
+  ongetuser: <T>() => Promise<PostJsonResponse<T>>;
 }
 
 interface IState {
   status: string;
+  inputCheck: boolean;
+  message: string;
 }
+
+const defaultSetting: ISetting = {
+  name: '',
+  lang: 'en',
+  theme: 'white',
+  currency: 'usd',
+  userId: 0,
+};
 
 export class Authorization extends BaseComponent {
   root: HTMLElement;
@@ -23,61 +43,97 @@ export class Authorization extends BaseComponent {
   form!: HTMLElement;
   message!: HTMLElement;
   inputCheck!: HTMLElement;
-  state: IState;
+  #state: IState;
   prop: IAuthorization;
 
   constructor(root: HTMLElement, prop: IAuthorization) {
     super();
     this.root = root;
-    this.state = {
-      status: 'login',
+    this.#state = {
+      status: 'Sign in',
+      inputCheck: false,
+      message: '',
     };
     this.prop = prop;
-    this.build();
+
     this.render();
+    this.ongetuser().catch((err: string) => new Error(err));
   }
 
-  build(): void {
+  set state(state: IState) {
+    this.#state = state;
+    this.update();
+  }
+
+  get state(): IState {
+    return this.#state;
+  }
+
+  async ongetuser(): Promise<void> {
+    const resp = await this.prop.ongetuser<IUserDataReq>();
+
+    if (resp.status === 200) {
+      this.state.status = 'Sign out';
+      this.state.message = `You sign in account: ${resp.data === undefined ? '' : resp.data.email}`;
+      this.state = this.state;
+    }
+  }
+
+  build(): HTMLElement {
     const container1 = this.createElem2('div', {
       class: '-space-y-px rounded-md shadow-sm',
     });
-    const inputEmail = new InputEmail().node;
-    const inputPassword = new InputPassword().node;
+    const inputName = this.state.status === 'Registration' ? new InputName().node : '';
+    const inputEmail = new InputEmail({ disabled: this.state.status === 'Sign out' }).node;
+    const inputPassword = new InputPassword({ disabled: this.state.status === 'Sign out' }).node;
 
-    container1.append(inputEmail, inputPassword);
+    container1.append(inputName, inputEmail, inputPassword);
 
-    this.inputCheck = new InputCheck({ onclick: this.onclickRegistration.bind(this) }).node;
+    const inputCheck = new InputCheck({
+      onclick: this.onclickRegistration.bind(this),
+      checked: this.state.inputCheck,
+      disabled: this.state.status === 'Sign out',
+    }).node;
+    const button = new Button({
+      text: `${this.state.status}`,
+    }).node;
 
-    this.button = new Button({ text: 'Sign in' }).node;
-
-    this.form = this.createElem2('form', {
+    const form = this.createElem2('form', {
       class: 'mt-8 space-y-6',
-      onsubmit: this.onsubmit.bind(this),
+      onsubmit: this.state.status === 'Sign out' ? this.onsignout.bind(this) : this.onsubmit.bind(this),
     });
-    this.form.append(container1, this.inputCheck, this.button);
-    this.logo = new Logo().node;
-    this.message = this.createElem2('div', {
-      class: 'h-6 mx-auto text-center text-red-500',
-      textContent: '',
+
+    form.append(container1, inputCheck, button);
+
+    const logo = new Logo({
+      text:
+        this.state.status === 'Registration' ? 'New account in the app' : 'Sign in to your account',
+    }).node;
+    const message = this.createElem2('div', {
+      class: `h-6 mx-auto text-center text-${
+        this.state.status === 'Sign out' || this.state.status === 'Sign in' ? 'green' : 'red'
+      }-500`,
+      textContent: this.state.message,
     });
-    this.logo.append(this.message, this.form);
-    this.container = this.createElem(
+
+    logo.append(message, form);
+    const container = this.createElem(
       'div',
       'flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8',
     );
-    this.container.append(this.logo);
+
+    container.append(logo);
+
+    return container;
   }
 
   onclickRegistration(event: Event): void {
     const target = event.target as HTMLInputElement;
 
-    target.checked ? (this.state.status = 'registration') : (this.state.status = 'login');
-
-    const button = new Button({ text: `${target.checked ? 'Registration' : 'Sign in'}` }).node;
-
-    this.button.replaceWith(button);
-    this.button = button;
-    this.form.onsubmit = this.onsubmit.bind(this);
+    target.checked ? (this.state.status = 'Registration') : (this.state.status = 'Sign in');
+    this.state.inputCheck = !this.state.inputCheck;
+    this.state.message = '';
+    this.state = this.state;
   }
 
   async onsubmit(event: Event): Promise<void> {
@@ -85,37 +141,57 @@ export class Authorization extends BaseComponent {
     const target = event.target as HTMLFormElement;
     const email = target.querySelector<HTMLInputElement>('#email-address')?.value;
     const password = target.querySelector<HTMLInputElement>('#password')?.value;
+    const name = target.querySelector<HTMLInputElement>('#user-name')?.value;
+
+    defaultSetting.name = name ?? '';
 
     if (email && password) {
       const resp =
-        this.state.status === 'registration'
+        this.state.status === 'Registration'
           ? await this.prop.onregistration<IUserReq, IUser>({ email, password })
           : await this.prop.onlogin<IUserReq, IUser>({ email, password });
 
       if (resp.status === 201 || resp.status === 200) {
-        this.state.status = 'login';
-        this.button = this.replace(this.button, new Button({ text: 'Sign out' }).node);
-        // this.logo = new Logo({text: 'You sign in account'}).node;
-        const message = this.createElem2('div', {
-          class: 'h-6 mx-auto text-center text-green-500',
-          textContent: 'You sign in account',
-        });
 
-        this.message = this.replace(this.message, message);
+        const resp2 =
+          resp.status === 201 ? await this.prop.onsetting<ISettingReq>(defaultSetting) : null;
+
+        this.state.status = 'Sign out';
+        this.state.message =
+          resp2 === null
+            ? `You sign in account: ${resp.data === undefined ? '' : resp.data.user.email}`
+            : `A new account has been created: ${
+                resp.data === undefined ? '' : resp.data.user.email
+              }`;
+        this.state = this.state;
         setTimeout(() => { location.hash = '#overview';}, 2000)
         localStorage.signIn = 'true'
-      } else {
-        const message = this.createElem2('div', {
-          class: 'h-6 mx-auto text-center text-red-500',
-          textContent: `${resp.message}`,
-        });
 
-        this.message = this.replace(this.message, message);
+      } else {
+        this.state.message = resp.message;
+        this.state = this.state;
       }
     }
   }
+  onsignout(): void {
+    this.state.status = 'Sign in';
+    this.state.message = 'You sign out';
+    localStorage.userdata = '';
+    this.state = this.state;
+  }
 
   render(): void {
+
+    this.container = this.build();
     this.root.append(this.container);
+  }
+
+  update(): void {
+    const container = this.build();
+
+    this.container.replaceWith(container);
+
+    this.container = container;
+
   }
 }

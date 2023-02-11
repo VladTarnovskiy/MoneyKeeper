@@ -28,7 +28,7 @@ export class Calendar extends BaseComponent {
     this.pageCalendarContent = this.createElem('div', 'page__calendar_content gap-2 flex flex-col');
     this.calendarHeaderContainer = this.createElem(
       'div',
-      'calendar__header_container border-2 p-2 basis-1/2',
+      'calendar__header_container flex flex-row xs:flex-col border-2 p-2 basis-1/2',
     );
     this.calendarMainContainer = this.createElem(
       'div',
@@ -36,7 +36,7 @@ export class Calendar extends BaseComponent {
     );
     this.calendarFooterContainer = this.createElem(
       'div',
-      'calendar__footer_container border-2 p-2 basis-1/2',
+      'calendar__footer_container border-2 p-2 basis-1/2 flex justify-end',
     );
     this.pageCalendarContent.append(
       this.calendarHeaderContainer,

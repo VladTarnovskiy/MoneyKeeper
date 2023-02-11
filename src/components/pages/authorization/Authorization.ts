@@ -152,6 +152,7 @@ export class Authorization extends BaseComponent {
           : await this.prop.onlogin<IUserReq, IUser>({ email, password });
 
       if (resp.status === 201 || resp.status === 200) {
+
         const resp2 =
           resp.status === 201 ? await this.prop.onsetting<ISettingReq>(defaultSetting) : null;
 
@@ -163,6 +164,9 @@ export class Authorization extends BaseComponent {
                 resp.data === undefined ? '' : resp.data.user.email
               }`;
         this.state = this.state;
+        setTimeout(() => { location.hash = '#overview';}, 2000)
+        localStorage.signIn = 'true'
+
       } else {
         this.state.message = resp.message;
         this.state = this.state;
@@ -177,6 +181,7 @@ export class Authorization extends BaseComponent {
   }
 
   render(): void {
+
     this.container = this.build();
     this.root.append(this.container);
   }
@@ -187,5 +192,6 @@ export class Authorization extends BaseComponent {
     this.container.replaceWith(container);
 
     this.container = container;
+
   }
 }

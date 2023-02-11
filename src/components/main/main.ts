@@ -1,6 +1,7 @@
-import { BaseComponent } from '../base/baseComponent';
-import { Calendar } from '../pages/calendar/calendar';
-import { Overview } from '../pages/overview/overview';
+import { BaseComponent } from '@/components/base/baseComponent';
+import { Calendar } from '@/components/pages/calendar/calendar';
+import { Overview } from '@/components/pages/overview/overview';
+import { Report } from '@/components/pages/report/report';
 
 import { SideBar } from './sideBar';
 
@@ -12,6 +13,8 @@ export class Main extends BaseComponent {
   calendarHtml: HTMLElement;
   overviewHtml: HTMLElement;
   bodyPage: HTMLElement;
+  reportHtml: HTMLElement;
+  report: Report;
   overview: Overview;
 
   constructor(bodyPage: HTMLElement) {
@@ -25,6 +28,8 @@ export class Main extends BaseComponent {
     this.container.appendChild(this.content);
     this.calendarHtml = this.createElem('section', undefined);
     this.calendar = new Calendar(this.calendarHtml);
+    this.reportHtml = this.createElem('section', undefined);
+    this.report = new Report(this.reportHtml);
   }
 
   render(): void {
@@ -34,11 +39,13 @@ export class Main extends BaseComponent {
   updateMain(main: string, index: number): void {
     if (main === '/calendar') {
       this.content.textContent = '';
-      this.content.append(this.calendarHtml);
+      this.content.appendChild(this.calendarHtml);
     } else if (main === '/overview') {
       this.content.textContent = '';
-      console.log('overview')
-      this.content.append(this.overviewHtml);
+      this.content.appendChild(this.overviewHtml);
+    } else if (main === '/report') {
+      this.content.textContent = '';
+      this.content.appendChild(this.reportHtml);
     } else {
       this.content.textContent = main;
     }

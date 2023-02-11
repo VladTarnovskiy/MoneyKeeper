@@ -1,3 +1,5 @@
+import { TransactionStatisticItem } from '@/components/pages/overview/transactionStatisticItem';
+
 import { calendar } from '../../../assets/svgStore';
 import { BaseComponent } from '../../base/baseComponent';
 
@@ -35,35 +37,10 @@ export class PeriodItem extends BaseComponent {
       this.title,
     );
 
-    const graphItemOne = this.createElem(
-      'div',
-      'graph__item w-full items-center text-sky-500 font-light flex gap-2',
-    );
-    const graphItemTitleOne = this.createElem('div', 'graph__item_title w-16', 'Income:');
-    const graphItemProgressOne = this.createElem('div', 'graph__item_progress h-4 grow');
-    const progressOneChecker = this.createElem('div', 'graph__item_checker h-4 w-full');
+    periodDescription.append(periodItemTitle);
+    new TransactionStatisticItem(periodDescription, this.color, 'Income', '50', '3000$', 'sky-500');
+    new TransactionStatisticItem(periodDescription, this.color, 'Expense', '90', '10000$');
 
-    progressOneChecker.style.backgroundColor = this.color;
-    graphItemProgressOne.appendChild(progressOneChecker);
-    const graphItemSumOne = this.createElem('div', 'graph__item_sum w-16 text-right', '1000 $');
-
-    graphItemOne.append(graphItemTitleOne, graphItemProgressOne, graphItemSumOne);
-
-    const graphItemTwo = this.createElem(
-      'div',
-      'graph__item w-full items-center text-stone-600 font-light flex gap-2',
-    );
-    const graphItemTitleTwo = this.createElem('div', 'graph__item_title w-16', 'Expense:');
-    const graphItemProgressTwo = this.createElem('div', 'graph__item_progress h-4 grow');
-    const progressTwoChecker = this.createElem('div', 'graph__item_checker h-4 w-full');
-
-    progressTwoChecker.style.backgroundColor = this.color;
-    graphItemProgressTwo.appendChild(progressTwoChecker);
-    const graphItemSumTwo = this.createElem('div', 'graph__item_sum w-16 text-right', '1000 $');
-
-    graphItemTwo.append(graphItemTitleTwo, graphItemProgressTwo, graphItemSumTwo);
-
-    periodDescription.append(periodItemTitle, graphItemOne, graphItemTwo);
     container.append(periodImg, periodDescription);
     this.root.appendChild(container);
   }

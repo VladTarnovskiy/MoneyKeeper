@@ -1,4 +1,3 @@
-// import { Controller } from '../utils/controller';
 import type { PostJsonResponse } from '@/components/model/types';
 import { Authorization } from '@/components/pages/authorization/Authorization';
 
@@ -18,20 +17,28 @@ export class View extends BaseComponent {
   main: Main;
   footer: Footer;
   authorization: Authorization;
-  // controller: Controller;
+  bodyPage: HTMLElement;
+  autorPage: HTMLElement;
 
   constructor(prop: IView) {
     super();
-    // this.controller = controller;
     this.root = document.body;
-    this.header = new Header(this.root);
-    this.main = new Main(this.root);
-    this.footer = new Footer(this.root);
-    this.authorization = new Authorization(this.root, {
+    this.bodyPage = this.createElem('div', 'bodyPage')
+    this.autorPage = this.createElem('div', 'autorPage')
+    this.header = new Header(this.bodyPage);
+    this.main = new Main(this.bodyPage);
+    this.footer = new Footer(this.bodyPage);
+    this.root.append(this.autorPage)
+    this.authorization = new Authorization(this.autorPage, {
       onlogin: prop.onlogin,
       onregistration: prop.onregistration,
     });
   }
+
+  changePages(): void {
+    this.root.replaceChild(this.bodyPage, this.autorPage);
+  }
+
 
   render(): void {
     this.header.render();

@@ -16,6 +16,7 @@ export class App {
     });
     const router = new Router({
       onupdate: view.main.updateMain.bind(view.main),
+      changePages: view.changePages.bind(view)
     });
 
     this.controller = new Controller(model, view, router);

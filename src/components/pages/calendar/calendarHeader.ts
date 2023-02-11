@@ -1,40 +1,48 @@
+import { CalendarCategoryChoice } from '@/components/pages/calendar/calendarCategoryChoice';
+import { CalendarYearChoice } from '@/components/pages/calendar/calendarYearChoice';
+
 import { BaseComponent } from '../../base/baseComponent';
 
 export class CalendarHeader extends BaseComponent {
   root: HTMLElement;
+  categoryContainer: HTMLElement;
+  yearContainer: HTMLElement;
 
   constructor(root: HTMLElement) {
     super();
     this.root = root;
-    //   this.container = this.createElem('div', 'content__container flex flex-col');
-    //   this.pageTitle = this.createElem(
-    //     'div',
-    //     'page__title ml-2 text-3xl text-sky-600 mb-5',
-    //     'Calendar',
-    //   );
-    //   this.pageContent = this.createElem('div', 'page__content gap-2 flex');
-    //   this.calendarHeaderContainer = this.createElem(
-    //     'div',
-    //     'expense__period border-2 p-2 basis-1/2',
-    //   );
-    //   this.calendarMainContainer = this.createElem(
-    //     'div',
-    //     'transactions__list border-2 p-2 basis-1/2',
-    //   );
-    //   this.calendarFooterContainer = this.createElem(
-    //     'div',
-    //     'transactions__list border-2 p-2 basis-1/2',
-    //   );
-    //   this.pageContent.append(this.calendarHeaderContainer, this.calendarMainContainer, this.calendarFooterContainer);
-    //   this.container.append(this.pageTitle, this.pageContent);
-    //   this.render();
-    //   this.calendarFooter = new CalendarFooter(this.calendarFooterContainer);
-    //   this.calendarHeader = new CalendarHeader(this.calendarHeaderContainer);
-    //   this.calendarMain = new CalendarMain(this.calendarMainContainer);
-    // }
+    this.categoryContainer = this.createElem(
+      'div',
+      'category__container flex flex-row w-1/2 xs:w-full mr-2',
+    );
+    this.createCategoryContainer();
+    this.yearContainer = this.createElem(
+      'div',
+      'year__container flex flex-row w-1/2 xs:w-full ml-2 xs:ml-0',
+    );
+    this.createYearContainer();
+    this.render();
+  }
 
-    // render(): void {
-    //   this.root.appendChild(this.container);
-    // }
+  createCategoryContainer(): void {
+    const categoryTitle = this.createElem(
+      'div',
+      'category__title w-1/2 text-xl',
+      'Expense сategory:',
+    );
+    const categoryChoice = this.createElem('div', 'category__choice flex flex-col w-1/2');
+    new CalendarCategoryChoice(categoryChoice);
+    this.categoryContainer.append(categoryTitle, categoryChoice);
+  }
+
+  createYearContainer(): void {
+    const yearTitle = this.createElem('div', 'year__title text-xl w-1/2', 'Year:');
+    const yearChoice = this.createElem('div', 'year__choice flex flex-col w-1/2');
+    new CalendarYearChoice(yearChoice);
+    this.yearContainer.append(yearTitle, yearChoice);
+  }
+
+  render(): void {
+    this.root.append(this.categoryContainer, this.yearContainer);
   }
 }

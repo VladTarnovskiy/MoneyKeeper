@@ -1,15 +1,20 @@
-import { BaseComponent } from '../../base/baseComponent';
+import { BaseComponent } from './baseComponent';
 
 export class InputSelect extends BaseComponent {
   root: HTMLElement;
   options: string[];
   title: string;
+  filterSelect: HTMLInputElement;
 
   constructor(root: HTMLElement, title: string, options: string[]) {
     super();
     this.root = root;
     this.title = title;
     this.options = options;
+    this.filterSelect = this.createElem<HTMLInputElement>(
+      'select',
+      'peer h-full w-full rounded-[7px] cursor-pointer border border-blue-gray-200 bg-transparent font-sans text-sm font-normal transition-all focus:border-2 focus:border-pink-500 focus:outline-0 disabled:border-0',
+    );
     this.render();
   }
 
@@ -18,17 +23,13 @@ export class InputSelect extends BaseComponent {
       'div',
       'relative h-8 w-full  min-w-[100px] max-w-[200px]',
     );
-    const filterSelect = this.createElem(
-      'select',
-      'peer h-full w-full rounded-[7px] cursor-pointer border border-blue-gray-200 bg-transparent font-sans text-sm font-normal transition-all focus:border-2 focus:border-pink-500 focus:outline-0 disabled:border-0',
-    );
 
     this.options.forEach((item) => {
       const option = this.createElem('option', 'option__item', item);
 
       option.setAttribute('value', item);
 
-      filterSelect.append(option);
+      this.filterSelect.append(option);
     });
 
     const inputLabel = this.createElem(
@@ -37,7 +38,7 @@ export class InputSelect extends BaseComponent {
       this.title,
     );
 
-    filterContainer.append(filterSelect, inputLabel);
+    filterContainer.append(this.filterSelect, inputLabel);
     this.root.appendChild(filterContainer);
   }
 }

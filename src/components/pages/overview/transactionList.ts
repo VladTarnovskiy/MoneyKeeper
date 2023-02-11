@@ -1,4 +1,4 @@
-import { InputSelect } from '@/components/pages/overview/inputSelect';
+import { InputSelect } from '@/components/base/inputSelect';
 
 import { BaseComponent } from '../../base/baseComponent';
 

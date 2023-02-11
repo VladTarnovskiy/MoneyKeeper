@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 
-import translationEn from './locales/translationEn.json';
-import translationRu from './locales/translationRu.json';
+import translationEn from './translationEn.json';
+import translationRu from './translationRu.json';
 
 i18next.init({
   lng: 'en',

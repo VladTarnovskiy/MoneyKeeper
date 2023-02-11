@@ -86,7 +86,7 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "chart.js": "^4.2.0",
+    "chart.js": "3.9.1",
     "chartjs-plugin-datalabels": "^2.2.0",
     "i18next": "^22.4.9"
   }

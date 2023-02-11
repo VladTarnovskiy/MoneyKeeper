@@ -25,7 +25,7 @@ export class Logo extends BaseComponent {
     const logoTitle = this.createElem(
       'div',
       'logo__title ml-2 text-3xl text-white font-semibold',
-      `${this.textTranslate('nestingLogo.logo')}`,
+      `${this.textTranslate('overview.logo')}`,
     );
 
     logo.append(logoImg, logoTitle);

@@ -7,7 +7,7 @@
     "./**/*.ts",
     "./**/*.cts",
     "./**/*.mts",
-    "src/i18next.js"
+    "src/locales/i18next.js"
   ],
   "exclude": ["node_modules"],
   "compilerOptions": {

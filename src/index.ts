@@ -1,5 +1,5 @@
 import './styles/index.pcss';
-import './i18next';
+import './locales/i18next';
 import { App } from './App';
 
 // void i18next.init({

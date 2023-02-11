@@ -1,8 +1,12 @@
 import i18next from 'i18next';
 
 export class BaseComponent {
-  createElem(element: string, classes: string | undefined, text?: string): HTMLElement {
-    const out = document.createElement(element);
+  createElem<T extends HTMLElement>(
+    element: string,
+    classes: string | undefined,
+    text?: string,
+  ): T {
+    const out = document.createElement(element) as T;
 
     if (classes !== undefined) {
       out.className = classes;

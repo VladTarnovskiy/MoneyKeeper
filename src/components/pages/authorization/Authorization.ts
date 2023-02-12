@@ -76,6 +76,11 @@ export class Authorization extends BaseComponent {
       this.state.status = 'Sign out';
       this.state.message = `You sign in account: ${resp.data === undefined ? '' : resp.data.email}`;
       this.state = this.state;
+    } else {
+      setTimeout(() => {
+        location.hash = '#signup';
+      }, 2000);
+      localStorage.signIn = '';
     }
   }
 

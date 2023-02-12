@@ -19,6 +19,7 @@ interface TElement {
   onsubmit?: (event: Event) => void;
   checked?: boolean;
   disabled?: boolean;
+  value?: string;
 }
 
 interface TComponent {
@@ -29,6 +30,8 @@ interface TComponent {
   h2?: TElement;
   button?: TElement;
   span?: TElement;
+  select?: TElement;
+  option?: TElement;
 }
 
 import i18next from 'i18next';

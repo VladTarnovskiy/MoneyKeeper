@@ -1,4 +1,13 @@
-import type { ISetting, ITransaction, IUser, IUserData, IUserReq, PostJsonResponse } from './types';
+import type {
+  ISetting,
+  ISettingReq,
+  ITransaction,
+  ITransactionReq,
+  IUser,
+  IUserData,
+  IUserReq,
+  PostJsonResponse,
+} from './types';
 
 const baseUrl = 'https://thankful-triangular-acapella.glitch.me';
 const basePath = {
@@ -10,6 +19,13 @@ const basePath = {
 };
 
 export class Model {
+  setting: ISettingReq[];
+  transaction: ITransactionReq[];
+
+  constructor() {
+    this.setting = [];
+    this.transaction = [];
+  }
   async registerUser<T, D = object>(data: D): Promise<PostJsonResponse<T>> {
     try {
       const response = await fetch(`${baseUrl}${basePath.register}`, {
@@ -128,7 +144,7 @@ export class Model {
     }
   }
 
-  async setSettings<ISettingReq>(dataU: ISetting): Promise<PostJsonResponse<ISettingReq>> {
+  async setSettings<T>(dataU: ISetting): Promise<PostJsonResponse<T>> {
     try {
       const data: IUserData = this.getStorage();
 
@@ -141,14 +157,21 @@ export class Model {
         },
         body: JSON.stringify(dataU),
       });
+      const out = await this.checkResponse<T>(response);
 
-      return await this.checkResponse<ISettingReq>(response);
+      if (out.status === 200 || out.status === 201) {
+        const arr = await this.getSettings();
+
+        arr.data === undefined ? (this.setting = []) : (this.setting = arr.data);
+      }
+
+      return out;
     } catch (error) {
       throw new Error(this.checkError(error));
     }
   }
 
-  async getSettings<ISettingReq>(): Promise<PostJsonResponse<ISettingReq[]>> {
+  async getSettings<T extends ISettingReq>(): Promise<PostJsonResponse<T[]>> {
     try {
       const data: IUserData = this.getStorage();
       const response = await fetch(`${baseUrl}${basePath.users}/${data.id}/settings`, {
@@ -157,17 +180,17 @@ export class Model {
           Authorization: `Bearer ${data.token}`,
         },
       });
+      const out = await this.checkResponse<T[]>(response);
 
-      return await this.checkResponse<ISettingReq[]>(response);
+      out.data === undefined ? (this.setting = []) : (this.setting = out.data);
+
+      return out;
     } catch (error) {
       throw new Error(this.checkError(error));
     }
   }
 
-  async updateSettings<ISettingReq>(
-    dataU: ISetting,
-    id: number,
-  ): Promise<PostJsonResponse<ISettingReq>> {
+  async updateSettings<T>(dataU: ISetting, id: number): Promise<PostJsonResponse<T>> {
     try {
       const data: IUserData = this.getStorage();
 
@@ -181,13 +204,21 @@ export class Model {
         body: JSON.stringify(dataU),
       });
 
-      return await this.checkResponse<ISettingReq>(response);
+      const out = await this.checkResponse<T>(response);
+
+      if (out.status === 200 || out.status === 201) {
+        const arr = await this.getSettings();
+
+        arr.data === undefined ? (this.setting = []) : (this.setting = arr.data);
+      }
+
+      return out;
     } catch (error) {
       throw new Error(this.checkError(error));
     }
   }
 
-  async deleteSettings<ISettingReq>(id: number): Promise<PostJsonResponse<ISettingReq>> {
+  async deleteSettings<T>(id: number): Promise<PostJsonResponse<T>> {
     try {
       const data: IUserData = this.getStorage();
       const response = await fetch(`${baseUrl}${basePath.settings}/${id}`, {
@@ -197,15 +228,21 @@ export class Model {
         },
       });
 
-      return await this.checkResponse<ISettingReq>(response);
+      const out = await this.checkResponse<T>(response);
+
+      if (out.status === 200 || out.status === 201) {
+        const arr = await this.getSettings();
+
+        arr.data === undefined ? (this.setting = []) : (this.setting = arr.data);
+      }
+
+      return out;
     } catch (error) {
       throw new Error(this.checkError(error));
     }
   }
 
-  async setTransactions<ITransactionReq>(
-    dataU: ITransaction,
-  ): Promise<PostJsonResponse<ITransactionReq>> {
+  async setTransactions<T>(dataU: ITransaction): Promise<PostJsonResponse<T>> {
     try {
       const data: IUserData = this.getStorage();
 
@@ -219,13 +256,21 @@ export class Model {
         body: JSON.stringify(dataU),
       });
 
-      return await this.checkResponse<ITransactionReq>(response);
+      const out = await this.checkResponse<T>(response);
+
+      if (out.status === 200 || out.status === 201) {
+        const arr = await this.getTransactions();
+
+        arr.data === undefined ? (this.transaction = []) : (this.transaction = arr.data);
+      }
+
+      return out;
     } catch (error) {
       throw new Error(this.checkError(error));
     }
   }
 
-  async getTransactions<ITransactionReq>(): Promise<PostJsonResponse<ITransactionReq[]>> {
+  async getTransactions<T extends ITransactionReq>(): Promise<PostJsonResponse<T[]>> {
     try {
       const data: IUserData = this.getStorage();
       const response = await fetch(`${baseUrl}${basePath.users}/${data.id}/transactions`, {
@@ -235,16 +280,17 @@ export class Model {
         },
       });
 
-      return await this.checkResponse<ITransactionReq[]>(response);
+      const out = await this.checkResponse<T[]>(response);
+
+      out.data === undefined ? (this.transaction = []) : (this.transaction = out.data);
+
+      return out;
     } catch (error) {
       throw new Error(this.checkError(error));
     }
   }
 
-  async updateTransactions<ITransactionReq>(
-    dataU: ITransaction,
-    id: number,
-  ): Promise<PostJsonResponse<ITransactionReq>> {
+  async updateTransactions<T>(dataU: ITransaction, id: number): Promise<PostJsonResponse<T>> {
     try {
       const data: IUserData = this.getStorage();
 
@@ -258,15 +304,21 @@ export class Model {
         body: JSON.stringify(dataU),
       });
 
-      return await this.checkResponse<ITransactionReq>(response);
+      const out = await this.checkResponse<T>(response);
+
+      if (out.status === 200 || out.status === 201) {
+        const arr = await this.getTransactions();
+
+        arr.data === undefined ? (this.transaction = []) : (this.transaction = arr.data);
+      }
+
+      return out;
     } catch (error) {
       throw new Error(this.checkError(error));
     }
   }
 
-  async deleteTransactions<ITransactionReq>(
-    id: number,
-  ): Promise<PostJsonResponse<ITransactionReq>> {
+  async deleteTransactions<T>(id: number): Promise<PostJsonResponse<T>> {
     try {
       const data: IUserData = this.getStorage();
       const response = await fetch(`${baseUrl}${basePath.transactions}/${id}`, {
@@ -276,7 +328,15 @@ export class Model {
         },
       });
 
-      return await this.checkResponse<ITransactionReq>(response);
+      const out = await this.checkResponse<T>(response);
+
+      if (out.status === 200 || out.status === 201) {
+        const arr = await this.getTransactions();
+
+        arr.data === undefined ? (this.transaction = []) : (this.transaction = arr.data);
+      }
+
+      return out;
     } catch (error) {
       throw new Error(this.checkError(error));
     }

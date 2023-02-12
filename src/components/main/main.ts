@@ -2,7 +2,9 @@ import { BaseComponent } from '@/components/base/baseComponent';
 import { Calendar } from '@/components/pages/calendar/calendar';
 import { Overview } from '@/components/pages/overview/overview';
 import { Report } from '@/components/pages/report/report';
+import { Transaction } from '@/components/pages/transaction/Transaction';
 import { Settings } from '@/components/pages/settings/setting';
+
 
 import { SideBar } from './sideBar';
 
@@ -18,8 +20,11 @@ export class Main extends BaseComponent {
   sideBar: SideBar;
   calendar: Calendar;
   overview: Overview;
+  transactionHtml: HTMLElement;
+  transaction: Transaction;
   settings: Settings;
   pagesHtmlArr: HTMLElement[];
+
 
   constructor(bodyPage: HTMLElement) {
     super();
@@ -34,11 +39,13 @@ export class Main extends BaseComponent {
     this.calendar = new Calendar(this.calendarHtml);
     this.reportHtml = this.createElem('section', undefined);
     this.report = new Report(this.reportHtml);
+    this.transactionHtml = this.createElem('section', undefined);
+    this.transaction = new Transaction(this.transactionHtml);
     this.settingHtml = this.createElem('section', undefined);
     this.settings = new Settings(this.settingHtml);
     this.pagesHtmlArr = [
       this.overviewHtml,
-      this.createElem('section', '/transaction'),
+      this.transactionHtml,
       this.reportHtml,
       this.calendarHtml,
       this.settingHtml,

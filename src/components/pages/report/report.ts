@@ -6,6 +6,7 @@ import { InputChartSelect } from '@/components/pages/report/inputChartSelect';
 import { StatisticBlock } from '@/components/pages/report/statisticBlock';
 
 import type { ChartTypeRegistry } from 'chart.js';
+import './report.pcss';
 
 interface DataItem {
   color: string;
@@ -19,7 +20,7 @@ const dataTest: DataItem[] = [
     color: '#ef4444',
     title: 'Car',
     value: '1200 $',
-    width: '95',
+    width: '100',
   },
   {
     color: '#3b82f6',

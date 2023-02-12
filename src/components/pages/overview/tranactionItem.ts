@@ -1,7 +1,7 @@
+import { BaseComponent } from '@/components/base/baseComponent';
+
 import expenseAssets from '@/assets/expense.png';
 import incomeAssets from '@/assets/income.png';
-
-import { BaseComponent } from '../../base/baseComponent';
 
 export class TransactionItem extends BaseComponent {
   root: HTMLElement;

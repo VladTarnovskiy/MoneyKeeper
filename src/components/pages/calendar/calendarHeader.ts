@@ -31,6 +31,7 @@ export class CalendarHeader extends BaseComponent {
       'Expense сategory:',
     );
     const categoryChoice = this.createElem('div', 'category__choice flex flex-col w-1/2');
+
     new CalendarCategoryChoice(categoryChoice);
     this.categoryContainer.append(categoryTitle, categoryChoice);
   }
@@ -38,6 +39,7 @@ export class CalendarHeader extends BaseComponent {
   createYearContainer(): void {
     const yearTitle = this.createElem('div', 'year__title text-xl w-1/2', 'Year:');
     const yearChoice = this.createElem('div', 'year__choice flex flex-col w-1/2');
+
     new CalendarYearChoice(yearChoice);
     this.yearContainer.append(yearTitle, yearChoice);
   }

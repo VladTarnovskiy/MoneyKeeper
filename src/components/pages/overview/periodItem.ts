@@ -1,7 +1,7 @@
-import { TransactionStatisticItem } from '@/components/pages/overview/transactionStatisticItem';
+import { BaseComponent } from '@/components/base/baseComponent';
+import { TransactionStatisticItem } from '@/components/base/statisticItem';
 
-import { calendar } from '../../../assets/svgStore';
-import { BaseComponent } from '../../base/baseComponent';
+import { calendar } from '@/assets/svgStore';
 
 export class PeriodItem extends BaseComponent {
   root: HTMLElement;

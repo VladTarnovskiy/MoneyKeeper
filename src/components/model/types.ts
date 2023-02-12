@@ -55,7 +55,7 @@ export interface ITransaction {
   category: string;
   subcategory: string;
   description: string;
-  data: string;
+  date: string;
   time: string;
   sum: number;
   userId: number;
@@ -66,7 +66,7 @@ export interface ITransactionReq {
   category: string;
   subcategory: string;
   description: string;
-  data: string;
+  date: string;
   time: string;
   sum: number;
   userId: number;

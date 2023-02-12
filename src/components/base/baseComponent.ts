@@ -20,6 +20,9 @@ interface TElement {
   checked?: boolean;
   disabled?: boolean;
   value?: string;
+  rows?: number;
+  cols?: number;
+  wrap?: string;
 }
 
 interface TComponent {
@@ -32,6 +35,7 @@ interface TComponent {
   span?: TElement;
   select?: TElement;
   option?: TElement;
+  textarea?: TElement;
 }
 
 import i18next from 'i18next';

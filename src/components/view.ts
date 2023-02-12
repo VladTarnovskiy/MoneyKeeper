@@ -1,4 +1,4 @@
-import type { ISetting, PostJsonResponse } from '@/components/model/types';
+import type { ISetting, ITransaction, PostJsonResponse } from '@/components/model/types';
 import { Authorization } from '@/components/pages/authorization/Authorization';
 
 import { BaseComponent } from './base/baseComponent';
@@ -11,6 +11,9 @@ interface IView {
   onregistration: <T, D = object>(data: D) => Promise<PostJsonResponse<T>>;
   onsetting: <ISettingReq>(dataU: ISetting) => Promise<PostJsonResponse<ISettingReq>>;
   ongetuser: <T>() => Promise<PostJsonResponse<T>>;
+  onsettransaction: <ITransactionReq>(
+    dataU: ITransaction,
+  ) => Promise<PostJsonResponse<ITransactionReq>>;
 }
 
 export class View extends BaseComponent {
@@ -28,7 +31,9 @@ export class View extends BaseComponent {
     this.bodyPage = this.createElem('div', 'bodyPage');
     this.autorPage = this.createElem('div', 'autorPage');
     this.header = new Header(this.bodyPage);
-    this.main = new Main(this.bodyPage);
+    this.main = new Main(this.bodyPage, {
+      onsettransaction: prop.onsettransaction,
+    });
     this.footer = new Footer(this.bodyPage);
     this.root.append(this.autorPage);
     this.authorization = new Authorization(this.autorPage, {

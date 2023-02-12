@@ -1,30 +1,14 @@
-import { BaseComponent } from '@/components/base/baseComponent';
-
 import { baseCategoryIncomeDataEng } from '@/components/base/baseCategoryData';
-// import type {
-//   IUser,
-//   IUserReq,
-//   PostJsonResponse,
-//   ISetting,
-//   ISettingReq,
-//   IUserDataReq,
-// } from '@/components/model/types';
-// import { Button } from '@/components/pages/authorization/Button';
-// import { InputCheck } from '@/components/pages/authorization/InputCheck';
-// import { InputSelect } from '@/components/base/inputSelect';
-// import { InputEmail } from '@/components/pages/authorization/InputEmail';
-// import { InputName } from '@/components/pages/authorization/InputName';
-// import { InputPassword } from '@/components/pages/authorization/InputPassword';
-import { InputType } from '@/components/pages/transaction/InputType';
+import { BaseComponent } from '@/components/base/baseComponent';
+import type { ITransactionReq, ITransaction, PostJsonResponse } from '@/components/model/types';
+import { Button } from '@/components/pages/authorization/Button';
+import { InputElem } from '@/components/pages/transaction/InputElem';
+import { InputElemArea } from '@/components/pages/transaction/InputElemArea';
+import { InputSelect } from '@/components/pages/transaction/InputSelect';
 
-// import { Logo } from '@/components/pages/authorization/Logo';
-
-// interface IAuthorization {
-//   onlogin: <T, D = object>(data: D) => Promise<PostJsonResponse<T>>;
-//   onregistration: <T, D = object>(data: D) => Promise<PostJsonResponse<T>>;
-//   onsetting: <T>(dataU: ISetting) => Promise<PostJsonResponse<T>>;
-//   ongetuser: <T>() => Promise<PostJsonResponse<T>>;
-// }
+interface ITransactionProp {
+  onsettransaction: <T>(dataU: ITransaction) => Promise<PostJsonResponse<T>>;
+}
 
 interface IState {
   status: string;
@@ -41,9 +25,9 @@ export class Transaction extends BaseComponent {
   message!: HTMLElement;
   inputCheck!: HTMLElement;
   #state: IState;
-  //   prop: IAuthorization;
+  prop: ITransactionProp;
 
-  constructor(root: HTMLElement) {
+  constructor(root: HTMLElement, prop: ITransactionProp) {
     super();
     this.root = root;
     this.#state = {
@@ -51,10 +35,9 @@ export class Transaction extends BaseComponent {
       inputCheck: false,
       message: '',
     };
-    // this.prop = prop;
+    this.prop = prop;
 
     this.render();
-    // this.ongetuser().catch((err: string) => new Error(err));
   }
 
   set state(state: IState) {
@@ -72,57 +55,77 @@ export class Transaction extends BaseComponent {
       textContent: 'Transactions',
     });
     const container1 = this.createElem2('div', {
-      class: 'grid grid-cols-1 gap-6',
+      class: 'grid grid-cols-1 gap-6 col-span-2',
     });
 
-    const inputType = new InputType({ title: 'Type notes', options: ['Expense', 'Income'] }).node;
-    const inputType2 = new InputType({ title: 'Category', options: baseCategoryIncomeDataEng })
+    const inputType = new InputSelect({ title: 'Type notes', options: ['Expense', 'Income'] }).node;
+    const inputCategory = new InputSelect({ title: 'Category', options: baseCategoryIncomeDataEng })
       .node;
 
-    // const inputSelect = new InputSelect(container1, 'Sort by', ['DateInc', 'DateDec', 'SumInc', 'SumDec']);
-    // const inputName = this.state.status === 'Registration' ? new InputName().node : '';
-    // const inputEmail = new InputEmail({ disabled: this.state.status === 'Sign out' }).node;
-    // const inputPassword = new InputPassword({ disabled: this.state.status === 'Sign out' }).node;
+    const inputDate = new InputElem({ title: 'Date', type: 'date' }).node;
 
-    container1.append(inputType, inputType2);
+    container1.append(inputType, inputCategory, inputDate);
 
-    // const inputCheck = new InputCheck({
-    //   onclick: this.onclickRegistration.bind(this),
-    //   checked: this.state.inputCheck,
-    //   disabled: this.state.status === 'Sign out',
-    // }).node;
-    // const button = new Button({
-    //   text: `${this.state.status}`,
-    // }).node;
+    const container3 = this.createElem2('div', {
+      class: 'grid grid-cols-1 gap-6 col-start-3 col-span-2',
+    });
 
-    // const form = this.createElem2('form', {
-    //   class: 'mt-8 space-y-6',
-    //   onsubmit:
-    //     this.state.status === 'Sign out' ? this.onsignout.bind(this) : this.onsubmit.bind(this),
-    // });
+    const inputSum = new InputElem({ title: 'Amount', type: 'number' }).node;
+    const inputSubcat = new InputElem({ title: 'Subcategory', type: 'text' }).node;
+    const inputTime = new InputElem({ title: 'Time', type: 'time' }).node;
 
-    // form.append(container1, inputCheck, button);
+    container3.append(inputSum, inputSubcat, inputTime);
 
-    // const logo = new Logo({
-    //   text:
-    //     this.state.status === 'Registration' ? 'New account in the app' : 'Sign in to your account',
-    // }).node;
-    // const message = this.createElem2('div', {
-    //   class: `h-6 mx-auto text-center text-${
-    //     this.state.status === 'Sign out' || this.state.status === 'Sign in' ? 'green' : 'red'
-    //   }-500`,
-    //   textContent: this.state.message,
-    // });
+    const inputDescription = new InputElemArea({ title: 'Description', type: 'textarea' }).node;
 
-    // logo.append(message, form); grid grid-cols-1 gap-6
-    const container2 = this.createElem('div', 'mt-8 max-w-md');
-    const container = this.createElem('div', 'antialiased text-gray-900 px-6');
+    const button = new Button({
+      text: 'Save',
+    }).node;
+    const container2 = this.createElem('div', 'grid grid-cols-4 mt-8 mb-4 gap-4');
+    const container = this.createElem2('form', {
+      class: 'antialiased text-gray-900 px-6',
+      onsubmit: this.onsubmit.bind(this),
+    });
 
-    container2.append(container1);
+    container2.append(container1, container3, inputDescription);
 
-    container.append(title, container2);
+    container.append(title, container2, button);
 
     return container;
+  }
+
+  async onsubmit(event: Event): Promise<void> {
+    event.preventDefault();
+    const target = event.target as HTMLFormElement;
+
+    const formElement = target.elements;
+
+    const set: ITransaction = {
+      type: '',
+      category: '',
+      subcategory: '',
+      description: '',
+      date: '',
+      time: '',
+      sum: 0,
+      userId: 0,
+    };
+
+    for (const iterator of formElement) {
+      const element: HTMLFormElement = iterator as HTMLFormElement;
+
+      if (element.id === 'sum' || element.id === 'userID') {
+        set[element.id] = Number(element.value);
+      } else if (element.id.length !== 0) {
+        set[element.id] = String(element.value);
+      }
+    }
+
+    const resp = await this.prop.onsettransaction<ITransactionReq>(set);
+
+    if (resp.status === 201 || resp.status === 200) {
+      this.state = this.state;
+    }
   }
 
   render(): void {

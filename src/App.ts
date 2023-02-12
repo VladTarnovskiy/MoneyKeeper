@@ -15,6 +15,7 @@ export class App {
       onregistration: model.registerUser.bind(model),
       onsetting: model.setSettings.bind(model),
       ongetuser: model.getUser.bind(model),
+      onsettransaction: model.setTransactions.bind(model),
     });
     const router = new Router({
       onupdate: view.main.updateMain.bind(view.main),

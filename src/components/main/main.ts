@@ -1,12 +1,18 @@
 import { BaseComponent } from '@/components/base/baseComponent';
+import type { ITransaction, PostJsonResponse } from '@/components/model/types';
 import { Calendar } from '@/components/pages/calendar/calendar';
 import { Overview } from '@/components/pages/overview/overview';
 import { Report } from '@/components/pages/report/report';
-import { Transaction } from '@/components/pages/transaction/Transaction';
 import { Settings } from '@/components/pages/settings/setting';
-
+import { Transaction } from '@/components/pages/transaction/Transaction';
 
 import { SideBar } from './sideBar';
+
+interface IMain {
+  onsettransaction: <ITransactionReq>(
+    dataU: ITransaction,
+  ) => Promise<PostJsonResponse<ITransactionReq>>;
+}
 
 export class Main extends BaseComponent {
   container: HTMLElement;
@@ -24,8 +30,7 @@ export class Main extends BaseComponent {
   transaction: Transaction;
   settings: Settings;
 
-
-  constructor(bodyPage: HTMLElement) {
+  constructor(bodyPage: HTMLElement, prop: IMain) {
     super();
     this.bodyPage = bodyPage;
     this.container = this.createElem('main', 'container mx-auto flex');
@@ -39,10 +44,11 @@ export class Main extends BaseComponent {
     this.reportHtml = this.createElem('section', undefined);
     this.report = new Report(this.reportHtml);
     this.transactionHtml = this.createElem('section', undefined);
-    this.transaction = new Transaction(this.transactionHtml);
+    this.transaction = new Transaction(this.transactionHtml, {
+      onsettransaction: prop.onsettransaction,
+    });
     this.settingHtml = this.createElem('section', undefined);
     this.settings = new Settings(this.settingHtml);
-
   }
 
   render(): void {
@@ -65,7 +71,6 @@ export class Main extends BaseComponent {
     } else if (main === '/settings') {
       this.content.textContent = '';
       this.content.appendChild(this.settingHtml);
-
     } else {
       this.content.textContent = main;
     }

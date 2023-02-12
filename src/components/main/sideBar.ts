@@ -53,7 +53,12 @@ export class SideBar extends BaseComponent {
       buttonsList.classList.remove('bg-sky-600');
       buttonsList.classList.add('hover:scale-105');
     });
-    (<HTMLButtonElement>this.buttonsList[index]).classList.add('bg-sky-600');
-    (<HTMLButtonElement>this.buttonsList[index]).classList.remove('hover:scale-105');
+
+    const activeButton: HTMLElement | undefined = this.buttonsList[index];
+
+    if (activeButton !== undefined) {
+      activeButton.classList.add('bg-sky-600');
+      activeButton.classList.remove('hover:scale-105');
+    }
   }
 }

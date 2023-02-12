@@ -23,12 +23,12 @@ export class View extends BaseComponent {
   constructor(prop: IView) {
     super();
     this.root = document.body;
-    this.bodyPage = this.createElem('div', 'bodyPage')
-    this.autorPage = this.createElem('div', 'autorPage')
+    this.bodyPage = this.createElem('div', 'bodyPage');
+    this.autorPage = this.createElem('div', 'autorPage');
     this.header = new Header(this.bodyPage);
     this.main = new Main(this.bodyPage);
     this.footer = new Footer(this.bodyPage);
-    this.root.append(this.autorPage)
+    this.root.append(this.autorPage);
     this.authorization = new Authorization(this.autorPage, {
       onlogin: prop.onlogin,
       onregistration: prop.onregistration,
@@ -38,7 +38,6 @@ export class View extends BaseComponent {
   changePages(): void {
     this.root.replaceChild(this.bodyPage, this.autorPage);
   }
-
 
   render(): void {
     this.header.render();

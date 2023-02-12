@@ -6,8 +6,7 @@ import { monthArrayEng } from './calendarMonthData';
 
 export class CalendarMain extends BaseComponent {
   root: HTMLElement;
-  mainMonthContainer!: HTMLElement;
-  calendarMonthProgress!: CalendarMonthProgress;
+  mainMonthContainer: HTMLElement;
 
   constructor(root: HTMLElement) {
     super();

@@ -54,7 +54,6 @@ export class CalendarCategoryChoice extends BaseComponent {
     this.root.appendChild(this.calendarCategory);
   }
 
-
   addListeners(): void {
     this.calendarCategory.addEventListener('click', (e) => {
       const target = <HTMLElement>e.target;

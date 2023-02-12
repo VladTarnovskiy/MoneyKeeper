@@ -2,15 +2,15 @@ import { BaseComponent } from '../../base/baseComponent';
 
 export class CalendarFooter extends BaseComponent {
   root: HTMLElement;
-  footerInfoContainer!: HTMLElement;
-  footerInfoTotal!: HTMLElement;
-  footerInfoTotalCount!: HTMLElement;
-  footerInfoAverage!: HTMLElement;
-  footerInfoAverageCount!: HTMLElement;
-  footerInfoTotalIncome!: HTMLElement;
-  footerInfoTotalIncomeCount!: HTMLElement;
-  footerInfoRatio!: HTMLElement;
-  footerInfoRatioCount!: HTMLElement;
+  footerInfoContainer: HTMLElement;
+  footerInfoTotal: HTMLElement;
+  footerInfoTotalCount: HTMLElement;
+  footerInfoAverage: HTMLElement;
+  footerInfoAverageCount: HTMLElement;
+  footerInfoTotalIncome: HTMLElement;
+  footerInfoTotalIncomeCount: HTMLElement;
+  footerInfoRatio: HTMLElement;
+  footerInfoRatioCount: HTMLElement;
 
   constructor(root: HTMLElement) {
     super();
@@ -19,12 +19,7 @@ export class CalendarFooter extends BaseComponent {
       'div',
       'footerInfo__container grid grid-cols-2 xs:grid-cols-1 gap-1 w-1/2 xs:w-full sm:w-2/3 md:w-3/5',
     );
-    this.createFooterInfo();
-    this.createFooterInfoCount();
-    this.render();
-  }
 
-  createFooterInfo(): void {
     this.footerInfoTotal = this.createElem(
       'div',
       'footerInfoTotal__title text-sm text-left',
@@ -41,9 +36,7 @@ export class CalendarFooter extends BaseComponent {
       'footerInfoRatio__title text-sm text-left',
       'Expenditure/Income:',
     );
-  }
 
-  createFooterInfoCount(): void {
     this.footerInfoTotalCount = this.createElem(
       'div',
       'footerInfoTotalCount__title text-sm text-right xs:text-left',
@@ -64,6 +57,8 @@ export class CalendarFooter extends BaseComponent {
       'footerInfoRatioCount__title text-sm text-right xs:text-left',
       '93.06 %',
     );
+
+    this.render();
   }
 
   render(): void {

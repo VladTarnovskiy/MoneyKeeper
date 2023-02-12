@@ -3,19 +3,15 @@ import { yearArray } from '@/components/pages/calendar/calendarMonthData';
 
 export class CalendarYearChoice extends BaseComponent {
   root: HTMLElement;
-  yearPopupClose!: HTMLElement;
-  yearPopup!: HTMLElement;
-  yearSwich!: HTMLElement;
-  yearSwichName!: HTMLElement;
-  calendarYear!: HTMLElement;
+  yearPopupClose: HTMLElement;
+  yearPopup: HTMLElement;
+  yearSwich: HTMLElement;
+  yearSwichName: HTMLElement;
+  calendarYear: HTMLElement;
 
   constructor(root: HTMLElement) {
     super();
     this.root = root;
-    this.createYearChoice();
-  }
-
-  createYearChoice(): void {
     this.calendarYear = this.createElem(
       'div',
       'flex items-center text-xl relative place-content-end',
@@ -30,6 +26,11 @@ export class CalendarYearChoice extends BaseComponent {
       'div',
       'w-28 max-h-40 bg-white z-10 rounded-lg absolute top-1/2 right-2 border-2 hidden p-4',
     );
+    this.yearPopupClose = this.createElem(
+      'div',
+      'yearPopup__close absolute cursor-pointer text-3xl right-3 top-0 hover:scale-110',
+      '×',
+    );
     this.createYearPop(this.yearPopup);
     this.addListeners();
     this.yearSwichName = this.createElem(
@@ -43,11 +44,6 @@ export class CalendarYearChoice extends BaseComponent {
   }
 
   createYearPop(yearPopup: HTMLElement): void {
-    this.yearPopupClose = this.createElem(
-      'div',
-      'yearPopup__close absolute cursor-pointer text-3xl right-3 top-0 hover:scale-110',
-      '×',
-    );
     const yearPopupAll: HTMLElement[] = [];
 
     yearArray.map((a) =>
@@ -64,17 +60,19 @@ export class CalendarYearChoice extends BaseComponent {
 
   addListeners(): void {
     this.calendarYear.addEventListener('click', (e) => {
-      const target = <HTMLElement>e.target;
-      const index = yearArray.indexOf(target.textContent!);
+      if (e.target instanceof HTMLElement) {
+        const { target } = e;
+        const index = yearArray.indexOf(target.textContent!);
 
-      if (target === this.yearPopupClose) {
-        this.closeYearPopup();
-      } else {
-        this.openYearPopup();
-      }
+        if (target === this.yearPopupClose) {
+          this.closeYearPopup();
+        } else {
+          this.openYearPopup();
+        }
 
-      if (index >= 0) {
-        this.yearSwichName.textContent = target.textContent;
+        if (index >= 0) {
+          this.yearSwichName.textContent = target.textContent;
+        }
       }
     });
   }

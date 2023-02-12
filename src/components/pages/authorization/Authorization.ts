@@ -102,8 +102,10 @@ export class Authorization extends BaseComponent {
         });
 
         this.message = this.replace(this.message, message);
-        setTimeout(() => { location.hash = '#overview';}, 2000)
-        localStorage.signIn = 'true'
+        setTimeout(() => {
+          location.hash = '#overview';
+        }, 2000);
+        localStorage.setItem('signIn', 'true');
       } else {
         const message = this.createElem2('div', {
           class: 'h-6 mx-auto text-center text-red-500',

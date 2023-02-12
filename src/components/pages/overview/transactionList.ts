@@ -1,6 +1,5 @@
+import { BaseComponent } from '@/components/base/baseComponent';
 import { InputSelect } from '@/components/base/inputSelect';
-
-import { BaseComponent } from '../../base/baseComponent';
 
 import { TransactionItem } from './tranactionItem';
 

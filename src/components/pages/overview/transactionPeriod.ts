@@ -1,4 +1,4 @@
-import { BaseComponent } from '../../base/baseComponent';
+import { BaseComponent } from '@/components/base/baseComponent';
 
 import { PeriodItem } from './periodItem';
 

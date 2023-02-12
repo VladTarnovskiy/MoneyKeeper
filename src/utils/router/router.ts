@@ -29,10 +29,19 @@ export class Router {
   routeCallback(): void {
     const path = location.pathname;
     const pageIndex = routing.indexOf(path);
-    let singIn: boolean
-    if (localStorage.signIn) {singIn = localStorage.signIn;}
-    else singIn = false
-    if (singIn && !this.chengedPages) {this.changePages(); this.chengedPages = true;}
+    let singIn: boolean;
+
+    if (localStorage.signIn) {
+      singIn = localStorage.signIn;
+    } else {
+      singIn = false;
+    }
+
+    if (singIn && !this.chengedPages) {
+      this.changePages();
+      this.chengedPages = true;
+    }
+
     if (pageIndex > -1 && singIn) {
       localStorage.query = path;
       this.onupdate(path, pageIndex);

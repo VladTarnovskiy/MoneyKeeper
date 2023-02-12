@@ -18,20 +18,11 @@
   },
   "eslint.workingDirectories": [
     {
-      "mode": "auto",
+      "mode": "auto"
     }
   ],
   "cSpell.language": "en,ru",
-  "cSpell.enableFiletypes": [
-    "ts",
-    "js",
-    "html",
-    "css",
-    "postcss",
-    "!json",
-    "!jsonc",
-    "!yaml",
-  ],
+  "cSpell.enableFiletypes": ["ts", "js", "html", "css", "postcss", "!json", "!jsonc", "!yaml"],
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.preferences.importModuleSpecifierEnding": "minimal",
   "splitHTMLAttributes.closingBracketOnNewLine": true,
@@ -49,6 +40,7 @@
     "webpack.config.*": "*.env, .env.*, .envrc, eslint.*, env.d.ts, prettier.*, svgo.config.*, stylelint.config.*",
     "package.json": ".browserslist*, .commitlint*, .editorconfig, .eslint*, .github*, .lintstagedrc*, .npm*, .nvmrc, .pnpm*, package-lock.json, .prettier*, .stylelint*, .vscode*, commitlint*, lint-staged*, pnpm*, tsconfig.*",
     "README*": "AUTHORS, BACKERS*, CHANGELOG*, CITATION*, CODE_OF_CONDUCT*, CODEOWNERS, CONTRIBUTING*, CONTRIBUTORS, COPYING, CREDITS, GOVERNANCE.MD, HISTORY.MD, LICENSE*, MAINTAINERS, SECURITY.MD, SPONSORS*",
-    "readme*": "authors, backers*, changelog*, citation*, code_of_conduct*, codeowners, contributing*, contributors, copying, credits, governance.md, history.md, license*, maintainers, security.md, sponsors*",
-  }
+    "readme*": "authors, backers*, changelog*, citation*, code_of_conduct*, codeowners, contributing*, contributors, copying, credits, governance.md, history.md, license*, maintainers, security.md, sponsors*"
+  },
+  "cSpell.words": ["languagedetector"]
 }

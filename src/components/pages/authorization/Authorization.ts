@@ -172,7 +172,7 @@ export class Authorization extends BaseComponent {
         setTimeout(() => {
           location.hash = '#overview';
         }, 2000);
-        localStorage.signIn = 'true';
+        localStorage.setItem('signIn', 'true');
       } else {
         this.state.message = resp.message;
         this.state = this.state;

@@ -1,32 +1,35 @@
 import { BaseComponent } from '@/components/base/baseComponent';
+import { SettingItem } from '@/components/pages/settings/inputRadioItem';
+import { InputTextItem } from '@/components/pages/settings/inputTextItem';
 
 export class Settings extends BaseComponent {
   root: HTMLElement;
-  settingsContainer: HTMLElement;
-  pageSettingsTitle: HTMLElement;
-  pageSettingsContent: HTMLElement;
+  container: HTMLElement;
+  pageTitle: HTMLElement;
+  pageContent: HTMLElement;
 
   constructor(root: HTMLElement) {
     super();
     this.root = root;
-    this.settingsContainer = this.createElem('div', 'content__settings_container flex flex-col');
-    this.pageSettingsTitle = this.createElem(
+    this.container = this.createElem('div', 'content__container flex flex-col');
+    this.pageTitle = this.createElem(
       'div',
       'page__title ml-2 text-3xl text-sky-600 mb-5',
       'Settings',
     );
-    this.pageSettingsContent = this.createElem(
-      'div',
-      'page__calendar_content gap-2 flex flex-col border-2 p-2 basis-1/2',
-    );
+    this.pageContent = this.createElem('div', 'page__content flex flex-col');
+    new SettingItem(this.pageContent, 'Language', ['EN', 'RU']);
+    new SettingItem(this.pageContent, 'Theme', ['light', 'dark']);
+    new SettingItem(this.pageContent, 'Currency', ['$', '€', '₽', '¥']);
+    new InputTextItem(this.pageContent, 'Username', 'name');
 
-    this.settingsContainer.append(this.pageSettingsTitle, this.pageSettingsContent);
-    // new CalendarMain(this.pageSettingsContent);
-    this.pageSettingsContent.textContent = 'Settings in process....';
+    // this.pageContent.appendChild(inputName);
+
+    this.container.append(this.pageTitle, this.pageContent);
     this.render();
   }
 
   render(): void {
-    this.root.appendChild(this.settingsContainer);
+    this.root.appendChild(this.container);
   }
 }

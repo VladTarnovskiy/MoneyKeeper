@@ -11,7 +11,7 @@ export class SideBar extends BaseComponent {
     this.render();
   }
   render(): void {
-    const sideBar = this.createElem('aside', 'h-[81.6vh] bg-sky-400');
+    const sideBar = this.createElem('aside', 'min-h-[81.6vh] bg-sky-400');
     const container = this.createElem('div', 'flex items-center flex-col text-white bg-sky-400');
 
     sideData.forEach((item, index) => {

@@ -17,6 +17,8 @@ interface TElement {
   onchange?: () => void;
   onclick?: (event: Event) => void;
   onsubmit?: (event: Event) => void;
+  checked?: boolean;
+  disabled?: boolean;
 }
 
 interface TComponent {
@@ -29,9 +31,15 @@ interface TComponent {
   span?: TElement;
 }
 
+import i18next from 'i18next';
+
 export class BaseComponent {
-  createElem(element: string, classes: string | undefined, text?: string): HTMLElement {
-    const out = document.createElement(element);
+  createElem<T extends HTMLElement>(
+    element: string,
+    classes: string | undefined,
+    text?: string,
+  ): T {
+    const out = document.createElement(element) as T;
 
     if (classes !== undefined) {
       out.className = classes;
@@ -74,5 +82,8 @@ export class BaseComponent {
     elem.replaceWith(node);
 
     return node;
+  }
+  textTranslate(key: string): string {
+    return i18next.t(key);
   }
 }

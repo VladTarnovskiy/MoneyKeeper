@@ -13,6 +13,8 @@ export class App {
     const view = new View({
       onlogin: model.loginUser.bind(model),
       onregistration: model.registerUser.bind(model),
+      onsetting: model.setSettings.bind(model),
+      ongetuser: model.getUser.bind(model),
     });
     const router = new Router({
       onupdate: view.main.updateMain.bind(view.main),

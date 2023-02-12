@@ -1,35 +1,35 @@
 import { BaseComponent } from '../../base/baseComponent';
 
-interface IInputEmail {
-  disabled: boolean;
-}
+// interface IInput {
+//   text: string;
+//   style?: string;
+// }
 
-export class InputEmail extends BaseComponent {
+export class InputName extends BaseComponent {
   node: HTMLElement;
 
-  constructor(prop: IInputEmail) {
+  constructor() {
     super();
-    this.node = this.build(prop);
+    this.node = this.build();
   }
-  build(prop: IInputEmail): HTMLElement {
+  build(): HTMLElement {
     const input = this.appendElem(
       {
         div: {},
       },
       {
         label: {
-          for: 'email-address',
+          for: 'user-name',
           class: 'sr-only',
-          textContent: 'Email address',
+          textContent: 'Your name',
         },
         input: {
-          id: 'email-address',
-          disabled: prop.disabled,
-          name: 'email',
-          placeholder: 'Email address',
+          id: 'user-name',
+          name: 'user-name',
+          placeholder: 'Your name',
           required: 'true',
-          autocomplete: 'email',
-          type: 'email',
+          autocomplete: 'on',
+          type: 'text',
           class:
             'relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm',
         },

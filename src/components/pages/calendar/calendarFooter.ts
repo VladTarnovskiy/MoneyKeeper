@@ -1,4 +1,4 @@
-import { BaseComponent } from '../../base/baseComponent';
+import { BaseComponent } from '@/components/base/baseComponent';
 
 export class CalendarFooter extends BaseComponent {
   root: HTMLElement;

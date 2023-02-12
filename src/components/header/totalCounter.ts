@@ -13,7 +13,11 @@ export class TotalCounter extends BaseComponent {
   }
   render(): void {
     const totalSum = this.createElem('div', 'flex items-center logo text-2xl');
-    const totalSumTitle = this.createElem('div', 'logo__title ml-2 text-white font-light', 'Total Balance:');
+    const totalSumTitle = this.createElem(
+      'div',
+      'logo__title ml-2 text-white font-light',
+      'Total Balance:',
+    );
     const totalSumCounter = this.createElem(
       'div',
       'logo__title ml-2 text-white',

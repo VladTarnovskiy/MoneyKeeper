@@ -11,7 +11,7 @@ export class InputSelect extends BaseComponent {
     this.root = root;
     this.title = title;
     this.options = options;
-    this.filterSelect = this.createElem<HTMLInputElement>(
+    this.filterSelect = this.createElem(
       'select',
       'peer h-full w-full rounded-[7px] cursor-pointer border border-blue-gray-200 bg-transparent font-sans text-sm font-normal transition-all focus:border-2 focus:border-pink-500 focus:outline-0 disabled:border-0',
     );

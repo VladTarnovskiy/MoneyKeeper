@@ -1,7 +1,6 @@
-import { CalendarCategoryChoice } from '@/components/pages/calendar/calendarCategoryChoice';
-import { CalendarYearChoice } from '@/components/pages/calendar/calendarYearChoice';
-
-import { BaseComponent } from '../../base/baseComponent';
+import { baseCategoryExpenditureDataEng } from '@/components/base/baseCategoryData';
+import { BaseComponent } from '@/components/base/baseComponent';
+import { InputSelect } from '@/components/base/inputSelect';
 
 export class CalendarHeader extends BaseComponent {
   root: HTMLElement;
@@ -32,7 +31,7 @@ export class CalendarHeader extends BaseComponent {
     );
     const categoryChoice = this.createElem('div', 'category__choice flex flex-col w-1/2');
 
-    new CalendarCategoryChoice(categoryChoice);
+    new InputSelect(categoryChoice, 'Select a category', baseCategoryExpenditureDataEng);
     this.categoryContainer.append(categoryTitle, categoryChoice);
   }
 
@@ -40,7 +39,7 @@ export class CalendarHeader extends BaseComponent {
     const yearTitle = this.createElem('div', 'year__title text-xl w-1/2', 'Year:');
     const yearChoice = this.createElem('div', 'year__choice flex flex-col w-1/2');
 
-    new CalendarYearChoice(yearChoice);
+    new InputSelect(yearChoice, 'Select year', ['2020', '2021', '2022', '2023']);
     this.yearContainer.append(yearTitle, yearChoice);
   }
 

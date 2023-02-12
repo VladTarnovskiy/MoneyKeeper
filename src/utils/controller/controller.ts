@@ -23,9 +23,9 @@ export class Controller {
   }
 
   checkRestartPage(): void {
-    const { query } = localStorage;
+    const query = localStorage.getItem('query');
 
-    if (query) {
+    if (typeof query === 'string') {
       history.pushState(null, '', `${location.origin}${query}`);
     } else {
       history.pushState(null, '', `${location.origin}/signup`);

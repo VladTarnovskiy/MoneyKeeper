@@ -15,7 +15,6 @@ export class Controller {
       onupdate: this.view.main.updateMain.bind(this.view.main),
       changePages: this.view.changePages.bind(this.view),
     });
-    // changePages: this.view.changePages)
   }
 
   addQueryListener(): void {

@@ -19,46 +19,28 @@ const basePath = {
 };
 
 export class Model {
-  setting: ISettingReq[];
-  transaction: ITransactionReq[];
+  #setting: ISettingReq[];
+  #transaction: ITransactionReq[];
 
   constructor() {
-    this.setting = [];
-    this.transaction = [
-      {
-        type: 'expense',
-        category: 'mobile',
-        subcategory: 'tele2',
-        description: 'апрель where are you',
-        date: '12.12.2018',
-        time: '18:40',
-        sum: 70,
-        userId: 2,
-        id: 1,
-      },
-      {
-        type: 'income',
-        category: 'mobile',
-        subcategory: 'mts',
-        description: 'апрель you are tiger',
-        date: '06/02/2023',
-        time: '17:38',
-        sum: 80,
-        userId: 4,
-        id: 2,
-      },
-      {
-        type: 'income',
-        category: 'mobile',
-        subcategory: 'mts',
-        description: 'апрель',
-        date: '06/02/2023',
-        time: '12:38',
-        sum: 400,
-        userId: 4,
-        id: 3,
-      },
-    ];
+    this.#setting = [];
+    this.#transaction = [];
+  }
+
+  get transaction(): ITransactionReq[] {
+    return this.#transaction;
+  }
+
+  set transaction(trans: ITransactionReq[]) {
+    this.#transaction = trans;
+  }
+
+  get setting(): ISettingReq[] {
+    return this.#setting;
+  }
+
+  set setting(set: ISettingReq[]) {
+    this.#setting = set;
   }
 
   async registerUser<T, D = object>(data: D): Promise<PostJsonResponse<T>> {

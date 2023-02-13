@@ -19,13 +19,30 @@ const basePath = {
 };
 
 export class Model {
-  setting: ISettingReq[];
-  transaction: ITransactionReq[];
+  #setting: ISettingReq[];
+  #transaction: ITransactionReq[];
 
   constructor() {
-    this.setting = [];
-    this.transaction = [];
+    this.#setting = [];
+    this.#transaction = [];
   }
+
+  get transaction(): ITransactionReq[] {
+    return this.#transaction;
+  }
+
+  set transaction(trans: ITransactionReq[]) {
+    this.#transaction = trans;
+  }
+
+  get setting(): ISettingReq[] {
+    return this.#setting;
+  }
+
+  set setting(set: ISettingReq[]) {
+    this.#setting = set;
+  }
+
   async registerUser<T, D = object>(data: D): Promise<PostJsonResponse<T>> {
     try {
       const response = await fetch(`${baseUrl}${basePath.register}`, {

@@ -10,13 +10,7 @@ export class Controller {
 
   constructor() {
     this.model = new Model();
-    this.view = new View({
-      onLogin: this.model.loginUser.bind(this.model),
-      onRegistration: this.model.registerUser.bind(this.model),
-      onSetting: this.model.setSettings.bind(this.model),
-      onGetUser: this.model.getUser.bind(this.model),
-      onSetTransaction: this.model.setTransactions.bind(this.model),
-    });
+    this.view = new View(this.model);
     this.router = new Router({
       onupdate: this.view.main.updateMain.bind(this.view.main),
       changePages: this.view.changePages.bind(this.view),

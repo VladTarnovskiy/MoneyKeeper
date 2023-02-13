@@ -1,8 +1,8 @@
 import { BaseComponent } from '@/components/base/baseComponent';
+import type { Model } from '@/components/model/model';
 import type {
   IUser,
   IUserReq,
-  PostJsonResponse,
   ISetting,
   ISettingReq,
   IUserDataReq,
@@ -13,13 +13,6 @@ import { InputEmail } from '@/components/pages/authorization/InputEmail';
 import { InputName } from '@/components/pages/authorization/InputName';
 import { InputPassword } from '@/components/pages/authorization/InputPassword';
 import { Logo } from '@/components/pages/authorization/Logo';
-
-interface IAuthorization {
-  onLogin: <T, D = object>(data: D) => Promise<PostJsonResponse<T>>;
-  onRegistration: <T, D = object>(data: D) => Promise<PostJsonResponse<T>>;
-  onSetting: <T>(dataU: ISetting) => Promise<PostJsonResponse<T>>;
-  onGetUser: <T>() => Promise<PostJsonResponse<T>>;
-}
 
 interface IState {
   status: string;
@@ -44,9 +37,9 @@ export class Authorization extends BaseComponent {
   message!: HTMLElement;
   inputCheck!: HTMLElement;
   #state: IState;
-  prop: IAuthorization;
+  model: Model;
 
-  constructor(root: HTMLElement, prop: IAuthorization) {
+  constructor(root: HTMLElement, model: Model) {
     super();
     this.root = root;
     this.#state = {
@@ -54,7 +47,7 @@ export class Authorization extends BaseComponent {
       inputCheck: false,
       message: '',
     };
-    this.prop = prop;
+    this.model = model;
 
     this.render();
     this.onGetUser().catch((err: string) => new Error(err));
@@ -70,7 +63,7 @@ export class Authorization extends BaseComponent {
   }
 
   async onGetUser(): Promise<void> {
-    const resp = await this.prop.onGetUser<IUserDataReq>();
+    const resp = await this.model.getUser<IUserDataReq>();
 
     if (resp.status === 200) {
       this.state.status = 'Sign out';
@@ -81,6 +74,8 @@ export class Authorization extends BaseComponent {
         location.hash = '#signup';
       }, 2000);
       localStorage.signIn = '';
+      localStorage.query = '';
+      localStorage.userdata = '';
     }
   }
 
@@ -157,12 +152,12 @@ export class Authorization extends BaseComponent {
     if (typeof email === 'string' && typeof password === 'string') {
       const resp =
         this.state.status === 'Registration'
-          ? await this.prop.onRegistration<IUserReq, IUser>({ email, password })
-          : await this.prop.onLogin<IUserReq, IUser>({ email, password });
+          ? await this.model.registerUser<IUserReq, IUser>({ email, password })
+          : await this.model.loginUser<IUserReq, IUser>({ email, password });
 
       if (resp.status === 201 || resp.status === 200) {
         const resp2 =
-          resp.status === 201 ? await this.prop.onSetting<ISettingReq>(defaultSetting) : null;
+          resp.status === 201 ? await this.model.setSettings<ISettingReq>(defaultSetting) : null;
 
         this.state.status = 'Sign out';
         this.state.message =

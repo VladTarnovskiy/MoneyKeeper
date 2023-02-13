@@ -1,4 +1,5 @@
 import { BaseComponent } from '@/components/base/baseComponent';
+import { Loader } from '@/components/loader/Loader';
 import type { Model } from '@/components/model/model';
 import type { ITransaction, PostJsonResponse } from '@/components/model/types';
 import { Calendar } from '@/components/pages/calendar/calendar';
@@ -32,6 +33,7 @@ export class Main extends BaseComponent {
   settings: Settings;
   pagesHtmlArr: HTMLElement[];
   model: Model;
+  loader: Loader;
 
   constructor(bodyPage: HTMLElement, prop: IMain, model: Model) {
     super();
@@ -39,9 +41,10 @@ export class Main extends BaseComponent {
     this.model = model;
     this.container = this.createElem('main', 'container mx-auto flex');
     this.content = this.createElem('section', 'content w-full border-t-2 border-l-2 p-3');
+    this.loader = new Loader(document.body);
     this.sideBar = new SideBar(this.container);
     this.overviewHtml = this.createElem('section', 'overview');
-    this.overview = new Overview(this.overviewHtml);
+    this.overview = new Overview(this.overviewHtml, this.model);
     this.container.appendChild(this.content);
     this.calendarHtml = this.createElem('section', undefined);
     this.calendar = new Calendar(this.calendarHtml);

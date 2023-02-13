@@ -24,7 +24,41 @@ export class Model {
 
   constructor() {
     this.setting = [];
-    this.transaction = [];
+    this.transaction = [
+      {
+        type: 'expense',
+        category: 'mobile',
+        subcategory: 'tele2',
+        description: 'апрель where are you',
+        date: '12.12.2018',
+        time: '18:40',
+        sum: 70,
+        userId: 2,
+        id: 1,
+      },
+      {
+        type: 'income',
+        category: 'mobile',
+        subcategory: 'mts',
+        description: 'апрель you are tiger',
+        date: '06/02/2023',
+        time: '17:38',
+        sum: 80,
+        userId: 4,
+        id: 2,
+      },
+      {
+        type: 'income',
+        category: 'mobile',
+        subcategory: 'mts',
+        description: 'апрель',
+        date: '06/02/2023',
+        time: '12:38',
+        sum: 400,
+        userId: 4,
+        id: 3,
+      },
+    ];
   }
   async registerUser<T, D = object>(data: D): Promise<PostJsonResponse<T>> {
     try {
@@ -283,6 +317,7 @@ export class Model {
       const out = await this.checkResponse<T[]>(response);
 
       out.data === undefined ? (this.transaction = []) : (this.transaction = out.data);
+      console.log(out);
 
       return out;
     } catch (error) {

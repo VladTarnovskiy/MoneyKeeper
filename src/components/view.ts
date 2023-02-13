@@ -1,4 +1,4 @@
-import { Model } from '@/components/model/model';
+import type { Model } from '@/components/model/model';
 // import type { ISetting, ITransaction, PostJsonResponse } from '@/components/model/types';
 import { Authorization } from '@/components/pages/authorization/Authorization';
 
@@ -33,7 +33,7 @@ export class View extends BaseComponent {
     this.bodyPage = this.createElem('div', 'bodyPage');
     this.autorPage = this.createElem('div', 'autorPage');
     this.header = new Header(this.bodyPage);
-    this.model = new Model();
+    this.model = model;
     this.main = new Main(
       this.bodyPage,
       {

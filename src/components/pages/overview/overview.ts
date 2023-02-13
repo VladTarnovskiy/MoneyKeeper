@@ -1,4 +1,5 @@
 import { BaseComponent } from '@/components/base/baseComponent';
+import type { Model } from '@/components/model/model';
 
 import { TransactionList } from './transactionList';
 import { TransactionPeriod } from './transactionPeriod';
@@ -12,10 +13,12 @@ export class Overview extends BaseComponent {
   transactionsListContainer: HTMLElement;
   transactionPeriod: TransactionPeriod;
   transactionList: TransactionList;
+  model: Model;
 
-  constructor(root: HTMLElement) {
+  constructor(root: HTMLElement, model: Model) {
     super();
     this.root = root;
+    this.model = model;
     this.container = this.createElem('div', 'content__container flex flex-col');
     this.pageTitle = this.createElem(
       'div',
@@ -34,7 +37,14 @@ export class Overview extends BaseComponent {
     this.pageContent.append(this.transactionPeriodContainer, this.transactionsListContainer);
     this.container.append(this.pageTitle, this.pageContent);
     this.transactionPeriod = new TransactionPeriod(this.transactionPeriodContainer);
-    this.transactionList = new TransactionList(this.transactionsListContainer);
+    this.transactionList = new TransactionList(
+      this.transactionsListContainer,
+      {
+        delete: this.model.deleteTransactions.bind(model),
+        getTransactions: this.model.getTransactions.bind(model),
+      },
+      model.transaction,
+    );
     this.render();
   }
 

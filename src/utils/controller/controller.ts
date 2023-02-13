@@ -11,11 +11,11 @@ export class Controller {
   constructor() {
     this.model = new Model();
     this.view = new View({
-      onlogin: this.model.loginUser.bind(this.model),
-      onregistration: this.model.registerUser.bind(this.model),
-      onsetting: this.model.setSettings.bind(this.model),
-      ongetuser: this.model.getUser.bind(this.model),
-      onsettransaction: this.model.setTransactions.bind(this.model),
+      onLogin: this.model.loginUser.bind(this.model),
+      onRegistration: this.model.registerUser.bind(this.model),
+      onSetting: this.model.setSettings.bind(this.model),
+      onGetUser: this.model.getUser.bind(this.model),
+      onSetTransaction: this.model.setTransactions.bind(this.model),
     });
     this.router = new Router({
       onupdate: this.view.main.updateMain.bind(this.view.main),

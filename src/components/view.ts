@@ -7,11 +7,11 @@ import { Header } from './header/header';
 import { Main } from './main/main';
 
 interface IView {
-  onlogin: <T, D = object>(data: D) => Promise<PostJsonResponse<T>>;
-  onregistration: <T, D = object>(data: D) => Promise<PostJsonResponse<T>>;
-  onsetting: <ISettingReq>(dataU: ISetting) => Promise<PostJsonResponse<ISettingReq>>;
-  ongetuser: <T>() => Promise<PostJsonResponse<T>>;
-  onsettransaction: <ITransactionReq>(
+  onLogin: <T, D = object>(data: D) => Promise<PostJsonResponse<T>>;
+  onRegistration: <T, D = object>(data: D) => Promise<PostJsonResponse<T>>;
+  onSetting: <ISettingReq>(dataU: ISetting) => Promise<PostJsonResponse<ISettingReq>>;
+  onGetUser: <T>() => Promise<PostJsonResponse<T>>;
+  onSetTransaction: <ITransactionReq>(
     dataU: ITransaction,
   ) => Promise<PostJsonResponse<ITransactionReq>>;
 }
@@ -32,15 +32,15 @@ export class View extends BaseComponent {
     this.autorPage = this.createElem('div', 'autorPage');
     this.header = new Header(this.bodyPage);
     this.main = new Main(this.bodyPage, {
-      onsettransaction: prop.onsettransaction,
+      onSetTransaction: prop.onSetTransaction,
     });
     this.footer = new Footer(this.bodyPage);
     this.root.append(this.autorPage);
     this.authorization = new Authorization(this.autorPage, {
-      onlogin: prop.onlogin,
-      onregistration: prop.onregistration,
-      onsetting: prop.onsetting,
-      ongetuser: prop.ongetuser,
+      onLogin: prop.onLogin,
+      onRegistration: prop.onRegistration,
+      onSetting: prop.onSetting,
+      onGetUser: prop.onGetUser,
     });
   }
 

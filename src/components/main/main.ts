@@ -9,7 +9,7 @@ import { Transaction } from '@/components/pages/transaction/Transaction';
 import { SideBar } from './sideBar';
 
 interface IMain {
-  onsettransaction: <ITransactionReq>(
+  onSetTransaction: <ITransactionReq>(
     dataU: ITransaction,
   ) => Promise<PostJsonResponse<ITransactionReq>>;
 }
@@ -46,7 +46,7 @@ export class Main extends BaseComponent {
     this.report = new Report(this.reportHtml);
     this.transactionHtml = this.createElem('section', undefined);
     this.transaction = new Transaction(this.transactionHtml, {
-      onsettransaction: prop.onsettransaction,
+      onSetTransaction: prop.onSetTransaction,
     });
     this.settingHtml = this.createElem('section', undefined);
     this.settings = new Settings(this.settingHtml);
@@ -57,13 +57,11 @@ export class Main extends BaseComponent {
       this.calendarHtml,
       this.settingHtml,
     ];
-
   }
 
   render(): void {
     this.bodyPage.appendChild(this.container);
   }
-
 
   updateMain(index: number): void {
     const pageMain: HTMLElement | undefined = this.pagesHtmlArr[index];

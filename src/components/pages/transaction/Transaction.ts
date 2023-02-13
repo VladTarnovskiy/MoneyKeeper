@@ -7,7 +7,7 @@ import { InputElemArea } from '@/components/pages/transaction/InputElemArea';
 import { InputSelect } from '@/components/pages/transaction/InputSelect';
 
 interface ITransactionProp {
-  onsettransaction: <T>(dataU: ITransaction) => Promise<PostJsonResponse<T>>;
+  onSetTransaction: <T>(dataU: ITransaction) => Promise<PostJsonResponse<T>>;
 }
 
 interface IState {
@@ -84,7 +84,10 @@ export class Transaction extends BaseComponent {
     const container2 = this.createElem('div', 'grid grid-cols-4 mt-8 mb-4 gap-4');
     const container = this.createElem2('form', {
       class: 'antialiased text-gray-900 px-6',
-      onsubmit: this.onsubmit.bind(this),
+      onsubmit: (event) => {
+        event.preventDefault();
+        this.onsubmit(event).catch((err: string) => new Error(err));
+      },
     });
 
     container2.append(container1, container3, inputDescription);
@@ -94,8 +97,7 @@ export class Transaction extends BaseComponent {
     return container;
   }
 
-  async onsubmit(event: Event): Promise<void> {
-    event.preventDefault();
+  onsubmit = async (event: Event): Promise<void> => {
     const target = event.target as HTMLFormElement;
 
     const formElement = target.elements;
@@ -121,12 +123,12 @@ export class Transaction extends BaseComponent {
       }
     }
 
-    const resp = await this.prop.onsettransaction<ITransactionReq>(set);
+    const resp = await this.prop.onSetTransaction<ITransactionReq>(set);
 
     if (resp.status === 201 || resp.status === 200) {
-      this.state = this.state;
+      this.update();
     }
-  }
+  };
 
   render(): void {
     this.container = this.build();

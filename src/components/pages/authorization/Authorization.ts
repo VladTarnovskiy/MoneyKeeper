@@ -15,10 +15,10 @@ import { InputPassword } from '@/components/pages/authorization/InputPassword';
 import { Logo } from '@/components/pages/authorization/Logo';
 
 interface IAuthorization {
-  onlogin: <T, D = object>(data: D) => Promise<PostJsonResponse<T>>;
-  onregistration: <T, D = object>(data: D) => Promise<PostJsonResponse<T>>;
-  onsetting: <T>(dataU: ISetting) => Promise<PostJsonResponse<T>>;
-  ongetuser: <T>() => Promise<PostJsonResponse<T>>;
+  onLogin: <T, D = object>(data: D) => Promise<PostJsonResponse<T>>;
+  onRegistration: <T, D = object>(data: D) => Promise<PostJsonResponse<T>>;
+  onSetting: <T>(dataU: ISetting) => Promise<PostJsonResponse<T>>;
+  onGetUser: <T>() => Promise<PostJsonResponse<T>>;
 }
 
 interface IState {
@@ -57,7 +57,7 @@ export class Authorization extends BaseComponent {
     this.prop = prop;
 
     this.render();
-    this.ongetuser().catch((err: string) => new Error(err));
+    this.onGetUser().catch((err: string) => new Error(err));
   }
 
   set state(state: IState) {
@@ -69,13 +69,13 @@ export class Authorization extends BaseComponent {
     return this.#state;
   }
 
-  async ongetuser(): Promise<void> {
-    const resp = await this.prop.ongetuser<IUserDataReq>();
+  async onGetUser(): Promise<void> {
+    const resp = await this.prop.onGetUser<IUserDataReq>();
 
     if (resp.status === 200) {
       this.state.status = 'Sign out';
       this.state.message = `You sign in account: ${resp.data === undefined ? '' : resp.data.email}`;
-      this.state = this.state;
+      this.update();
     } else {
       setTimeout(() => {
         location.hash = '#signup';
@@ -105,8 +105,12 @@ export class Authorization extends BaseComponent {
 
     const form = this.createElem2('form', {
       class: 'mt-8 space-y-6',
-      onsubmit:
-        this.state.status === 'Sign out' ? this.onsignout.bind(this) : this.onsubmit.bind(this),
+      onsubmit: (event) => {
+        event.preventDefault();
+        this.state.status === 'Sign out'
+          ? this.onSignOut()
+          : this.onSubmit(event).catch((err: string) => new Error(err));
+      },
     });
 
     form.append(container1, inputCheck, button);
@@ -139,11 +143,10 @@ export class Authorization extends BaseComponent {
     target.checked ? (this.state.status = 'Registration') : (this.state.status = 'Sign in');
     this.state.inputCheck = !this.state.inputCheck;
     this.state.message = '';
-    this.state = this.state;
+    this.update();
   }
 
-  async onsubmit(event: Event): Promise<void> {
-    event.preventDefault();
+  onSubmit = async (event: Event): Promise<void> => {
     const target = event.target as HTMLFormElement;
     const email = target.querySelector<HTMLInputElement>('#email-address')?.value;
     const password = target.querySelector<HTMLInputElement>('#password')?.value;
@@ -151,15 +154,15 @@ export class Authorization extends BaseComponent {
 
     defaultSetting.name = name ?? '';
 
-    if (email && password) {
+    if (typeof email === 'string' && typeof password === 'string') {
       const resp =
         this.state.status === 'Registration'
-          ? await this.prop.onregistration<IUserReq, IUser>({ email, password })
-          : await this.prop.onlogin<IUserReq, IUser>({ email, password });
+          ? await this.prop.onRegistration<IUserReq, IUser>({ email, password })
+          : await this.prop.onLogin<IUserReq, IUser>({ email, password });
 
       if (resp.status === 201 || resp.status === 200) {
         const resp2 =
-          resp.status === 201 ? await this.prop.onsetting<ISettingReq>(defaultSetting) : null;
+          resp.status === 201 ? await this.prop.onSetting<ISettingReq>(defaultSetting) : null;
 
         this.state.status = 'Sign out';
         this.state.message =
@@ -168,22 +171,22 @@ export class Authorization extends BaseComponent {
             : `A new account has been created: ${
                 resp.data === undefined ? '' : resp.data.user.email
               }`;
-        this.state = this.state;
+        this.update();
         setTimeout(() => {
           location.hash = '#overview';
         }, 2000);
         localStorage.setItem('signIn', 'true');
       } else {
         this.state.message = resp.message;
-        this.state = this.state;
+        this.update();
       }
     }
-  }
-  onsignout(): void {
+  };
+  onSignOut(): void {
     this.state.status = 'Sign in';
     this.state.message = 'You sign out';
     localStorage.userdata = '';
-    this.state = this.state;
+    this.update();
   }
 
   render(): void {

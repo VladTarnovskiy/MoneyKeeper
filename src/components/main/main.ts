@@ -1,4 +1,5 @@
 import { BaseComponent } from '@/components/base/baseComponent';
+import type { Model } from '@/components/model/model';
 import type { ITransaction, PostJsonResponse } from '@/components/model/types';
 import { Calendar } from '@/components/pages/calendar/calendar';
 import { Overview } from '@/components/pages/overview/overview';
@@ -30,10 +31,12 @@ export class Main extends BaseComponent {
   transaction: Transaction;
   settings: Settings;
   pagesHtmlArr: HTMLElement[];
+  model: Model;
 
-  constructor(bodyPage: HTMLElement, prop: IMain) {
+  constructor(bodyPage: HTMLElement, prop: IMain, model: Model) {
     super();
     this.bodyPage = bodyPage;
+    this.model = model;
     this.container = this.createElem('main', 'container mx-auto flex');
     this.content = this.createElem('section', 'content w-full border-t-2 border-l-2 p-3');
     this.sideBar = new SideBar(this.container);
@@ -57,13 +60,11 @@ export class Main extends BaseComponent {
       this.calendarHtml,
       this.settingHtml,
     ];
-
   }
 
   render(): void {
     this.bodyPage.appendChild(this.container);
   }
-
 
   updateMain(index: number): void {
     const pageMain: HTMLElement | undefined = this.pagesHtmlArr[index];

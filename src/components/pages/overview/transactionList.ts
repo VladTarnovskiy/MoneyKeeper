@@ -1,11 +1,11 @@
 import { BaseComponent } from '@/components/base/baseComponent';
 import { InputSelect } from '@/components/base/inputSelect';
-import type { ITransactionReq, PostJsonResponse, ITransaction } from '@/components/model/types';
+import type { PostJsonResponse, ITransaction } from '@/components/model/types';
 import { TransactionItem } from '@/components/pages/overview/tranactionItem';
 
 interface ITransactionsList {
   delete: <T>(id: number) => Promise<PostJsonResponse<T>>;
-  getTransactions: <T extends ITransactionReq>() => Promise<PostJsonResponse<T[]>>;
+  // getTransactions: <T extends ITransactionReq>() => Promise<PostJsonResponse<T[]>>;
 }
 
 export class TransactionList extends BaseComponent {
@@ -20,11 +20,16 @@ export class TransactionList extends BaseComponent {
   constructor(root: HTMLElement, prop: ITransactionsList, data: ITransaction[]) {
     super();
     this.root = root;
+    // console.log(data);
+
     this.sortContainer = this.createElem(
       'div',
       'transaction-list__sort gap-2 mb-4 flex justify-around',
     );
-    this.transactionItems = this.createElem('div', 'period__items flex flex-col');
+    this.transactionItems = this.createElem(
+      'div',
+      'period__items flex flex-col max-h-[36rem] overflow-y-scroll',
+    );
     this.sortItem = new InputSelect(this.sortContainer, 'Sort by', [
       'DateInc',
       'DateDec',
@@ -36,8 +41,7 @@ export class TransactionList extends BaseComponent {
       'Expense',
       'Income',
     ]);
-    this.transactionItem = new TransactionItem(this.transactionItems, 'expense', prop, data);
-    // this.transactionItemTwo = new TransactionItem(this.transactionItems, 'income');
+    this.transactionItem = new TransactionItem(this.transactionItems, prop, data);
     this.render();
   }
 

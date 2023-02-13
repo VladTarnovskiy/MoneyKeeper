@@ -12,7 +12,7 @@ export class Overview extends BaseComponent {
   transactionPeriodContainer: HTMLElement;
   transactionsListContainer: HTMLElement;
   transactionPeriod: TransactionPeriod;
-  transactionList: TransactionList;
+  // transactionList: TransactionList;
   model: Model;
 
   constructor(root: HTMLElement, model: Model) {
@@ -37,18 +37,19 @@ export class Overview extends BaseComponent {
     this.pageContent.append(this.transactionPeriodContainer, this.transactionsListContainer);
     this.container.append(this.pageTitle, this.pageContent);
     this.transactionPeriod = new TransactionPeriod(this.transactionPeriodContainer);
-    this.transactionList = new TransactionList(
-      this.transactionsListContainer,
-      {
-        delete: this.model.deleteTransactions.bind(model),
-        getTransactions: this.model.getTransactions.bind(model),
-      },
-      model.transaction,
-    );
-    this.render();
+    this.render().catch((err: string) => new Error(err));
   }
 
-  render(): void {
+  async render(): Promise<void> {
+    await this.model.getTransactions().catch((err: string) => new Error(err));
+    new TransactionList(
+      this.transactionsListContainer,
+      {
+        delete: this.model.deleteTransactions.bind(this.model),
+      },
+      this.model.transaction,
+    );
+
     this.root.appendChild(this.container);
   }
 }

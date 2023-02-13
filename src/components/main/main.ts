@@ -32,19 +32,19 @@ export class Main extends BaseComponent {
   transaction: Transaction;
   settings: Settings;
   pagesHtmlArr: HTMLElement[];
-  model: Model;
+  // model: Model;
   loader: Loader;
 
   constructor(bodyPage: HTMLElement, prop: IMain, model: Model) {
     super();
     this.bodyPage = bodyPage;
-    this.model = model;
+    // this.model = model;
     this.container = this.createElem('main', 'container mx-auto flex');
     this.content = this.createElem('section', 'content w-full border-t-2 border-l-2 p-3');
     this.loader = new Loader(document.body);
     this.sideBar = new SideBar(this.container);
     this.overviewHtml = this.createElem('section', 'overview');
-    this.overview = new Overview(this.overviewHtml, this.model);
+    this.overview = new Overview(this.overviewHtml, model);
     this.container.appendChild(this.content);
     this.calendarHtml = this.createElem('section', undefined);
     this.calendar = new Calendar(this.calendarHtml);

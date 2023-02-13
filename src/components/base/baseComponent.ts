@@ -1,3 +1,5 @@
+import './base.pcss';
+
 interface TElement {
   id?: string;
   name?: string;

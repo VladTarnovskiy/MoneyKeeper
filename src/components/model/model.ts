@@ -60,6 +60,7 @@ export class Model {
       },
     ];
   }
+
   async registerUser<T, D = object>(data: D): Promise<PostJsonResponse<T>> {
     try {
       const response = await fetch(`${baseUrl}${basePath.register}`, {
@@ -317,7 +318,7 @@ export class Model {
       const out = await this.checkResponse<T[]>(response);
 
       out.data === undefined ? (this.transaction = []) : (this.transaction = out.data);
-      console.log(out);
+      console.log(this.transaction);
 
       return out;
     } catch (error) {

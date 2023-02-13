@@ -1,38 +1,30 @@
 import { BaseComponent } from '@/components/base/baseComponent';
-import type { ITransactionReq, PostJsonResponse, ITransaction } from '@/components/model/types';
+import type { PostJsonResponse, ITransaction } from '@/components/model/types';
 
 import expenseAssets from '@/assets/expense.png';
 import incomeAssets from '@/assets/income.png';
 
 interface ITransactionsList {
   delete: <T>(id: number) => Promise<PostJsonResponse<T>>;
-  getTransactions: <T extends ITransactionReq>() => Promise<PostJsonResponse<T[]>>;
 }
 
 export class TransactionItem extends BaseComponent {
   root: HTMLElement;
-  transaction: string;
   prop: ITransactionsList;
   data: ITransaction[];
-  constructor(
-    root: HTMLElement,
-    transaction: string,
-    prop: ITransactionsList,
-    data: ITransaction[],
-  ) {
+  constructor(root: HTMLElement, prop: ITransactionsList, data: ITransaction[]) {
     super();
     this.root = root;
     this.prop = prop;
-    this.transaction = transaction;
     this.data = data;
-    this.render().catch((err: string) => new Error(err));
+    this.render();
   }
 
-  async render(): Promise<void> {
+  render(): void {
     let sign = '-';
 
-    await this.prop.getTransactions();
-    console.log(this.data);
+    // await this.prop.getTransactions();
+    // console.log(this.data);
     this.data.forEach((item) => {
       const container = this.createElem(
         'div',
@@ -62,7 +54,7 @@ export class TransactionItem extends BaseComponent {
         `${item.category}`,
       );
 
-      if (item.type === 'income') {
+      if (item.type === 'Income') {
         sign = '+';
       }
 
@@ -84,7 +76,7 @@ export class TransactionItem extends BaseComponent {
         `${item.subcategory}`,
       );
 
-      if (item.type === 'income') {
+      if (item.type === 'Income') {
         transactionItemTitleTwo.textContent = '';
       }
 
@@ -94,7 +86,7 @@ export class TransactionItem extends BaseComponent {
         `${item.date} (${item.time})`,
       );
 
-      if (item.type === 'expense') {
+      if (item.type === 'Expense') {
         transactionImg.style.backgroundImage = `url(${expenseAssets})`;
         transactionItemDescOne.classList.add('text-red-500');
       } else {
@@ -177,7 +169,7 @@ export class TransactionItem extends BaseComponent {
     );
     const transactionItemTitleOne = this.createElem('div', 'transaction__item_title', 'Sum:');
 
-    if (item.type === 'income') {
+    if (item.type === 'Income') {
       sign = '+';
     }
 
@@ -189,7 +181,7 @@ export class TransactionItem extends BaseComponent {
 
     transactionItemOne.append(transactionItemTitleOne, transactionItemDescOne);
 
-    if (item.type === 'expense') {
+    if (item.type === 'Expense') {
       transactionImg.style.backgroundImage = `url(${expenseAssets})`;
       transactionItemDescOne.classList.add('text-red-500');
     } else {

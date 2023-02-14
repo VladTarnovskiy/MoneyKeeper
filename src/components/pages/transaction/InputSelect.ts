@@ -3,6 +3,8 @@ import { BaseComponent } from '../../base/baseComponent';
 interface IInputSelect {
   title: string;
   options: string[];
+  onchange: (this: GlobalEventHandlers, event: Event) => void;
+  value: string;
 }
 
 export class InputSelect extends BaseComponent {
@@ -21,6 +23,7 @@ export class InputSelect extends BaseComponent {
     );
     const select = this.createElem2('select', {
       id: prop.title === 'Type notes' ? 'type' : prop.title.toLowerCase(),
+      onchange: prop.onchange,
       class:
         'eer h-full w-full rounded-[7px] cursor-pointer border border-blue-gray-200 bg-transparent font-sans text-1xl font-normal transition-all focus:border-2 focus:border-grey-500 focus:outline-0 disabled:border-0',
     });
@@ -30,6 +33,7 @@ export class InputSelect extends BaseComponent {
         this.createElem2('option', {
           value: option,
           textContent: option,
+          selected: option === prop.value,
         }),
       );
     });

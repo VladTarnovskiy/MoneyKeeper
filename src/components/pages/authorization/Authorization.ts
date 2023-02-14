@@ -30,12 +30,7 @@ const defaultSetting: ISetting = {
 
 export class Authorization extends BaseComponent {
   root: HTMLElement;
-  container!: HTMLElement;
-  button!: HTMLElement;
-  logo!: HTMLElement;
-  form!: HTMLElement;
-  message!: HTMLElement;
-  inputCheck!: HTMLElement;
+  container: HTMLElement;
   #state: IState;
   model: Model;
 
@@ -45,10 +40,10 @@ export class Authorization extends BaseComponent {
     this.#state = {
       status: 'Sign in',
       inputCheck: false,
-      message: 'Демо доступ { email: test@test.ru, password: test }',
+      message: 'Демо доступ [ email: test@test.ru, password: test ]',
     };
     this.model = model;
-
+    this.container = this.build();
     this.render();
     this.onGetUser().catch((err: string) => new Error(err));
   }
@@ -69,9 +64,6 @@ export class Authorization extends BaseComponent {
       this.state.status = 'Sign out';
       this.state.message = `You sign in account: ${resp.data === undefined ? '' : resp.data.email}`;
       this.update();
-      setTimeout(() => {
-        location.hash = '#overview';
-      }, 2000);
     } else {
       setTimeout(() => {
         location.hash = '#signup';
@@ -188,7 +180,6 @@ export class Authorization extends BaseComponent {
   }
 
   render(): void {
-    this.container = this.build();
     this.root.append(this.container);
   }
 

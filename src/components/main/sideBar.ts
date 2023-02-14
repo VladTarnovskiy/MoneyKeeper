@@ -17,9 +17,9 @@ export class SideBar extends BaseComponent {
     sideData.forEach((item, index) => {
       const sideBarItem = this.createElem(
         'button',
-        `${item.class} sideBar__item flex items-center flex-col justify-center w-24 h-32 border-t-2 hover:scale-105 hover:transition-all hover:bg-sky-600 active:scale-100`,
+        `${item.class} sideBar__item flex items-center flex-col justify-center w-24 h-32 hover:rounded hover:scale-95 hover:transition-all hover:bg-sky-600 active:scale-100`,
       );
-      const sideBarItemImg = this.createElem('div', 'button__img w-14 h-14');
+      const sideBarItemImg = this.createElem('div', 'button__img w-12 h-12');
 
       sideBarItemImg.innerHTML = item.img;
       const sideBarItemText = this.createElem('button', 'button__text mt-2', item.text);
@@ -30,13 +30,13 @@ export class SideBar extends BaseComponent {
         }
       });
 
-      if (index === 4) {
-        sideBarItem.classList.add('border-b-2');
-      }
+      // if (index === 4) {
+      //   sideBarItem.classList.add('');
+      // }
 
       if (index === 0) {
         sideBarItem.classList.add('bg-sky-600');
-        sideBarItem.classList.remove('hover:scale-105');
+        // sideBarItem.classList.remove('hover:scale-105');
       }
 
       sideBarItem.append(sideBarItemImg, sideBarItemText);
@@ -51,14 +51,14 @@ export class SideBar extends BaseComponent {
   buttonActive(index: number): void {
     this.buttonsList.forEach((buttonsList) => {
       buttonsList.classList.remove('bg-sky-600');
-      buttonsList.classList.add('hover:scale-105');
+      // buttonsList.classList.add('hover:scale-105');
     });
 
     const activeButton: HTMLElement | undefined = this.buttonsList[index];
 
     if (activeButton !== undefined) {
       activeButton.classList.add('bg-sky-600');
-      activeButton.classList.remove('hover:scale-105');
+      // activeButton.classList.remove('hover:scale-105');
     }
   }
 }

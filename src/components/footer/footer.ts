@@ -14,7 +14,7 @@ export class Footer extends BaseComponent {
   render(): void {
     const container = this.createElem(
       'footer',
-      ' container mx-auto flex justify-around items-center border-t-2 p-3 bg-sky-400',
+      ' container mx-auto flex justify-around items-center p-3 bg-sky-400',
     );
     const rsImg = this.createElem(
       'a',

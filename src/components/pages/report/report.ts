@@ -1,11 +1,11 @@
-import { Chart, registerables } from 'chart.js';
+import { Chart, registerables, type ChartTypeRegistry } from 'chart.js';
 
 Chart.register(...registerables);
 import { BaseComponent } from '@/components/base/baseComponent';
 import { InputChartSelect } from '@/components/pages/report/inputChartSelect';
 import { StatisticBlock } from '@/components/pages/report/statisticBlock';
 
-import type { ChartTypeRegistry } from 'chart.js';
+// import type { ChartTypeRegistry } from 'chart.js';
 import './report.pcss';
 
 interface DataItem {

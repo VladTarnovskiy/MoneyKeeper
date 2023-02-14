@@ -12,29 +12,39 @@ export class TransactionPeriod extends BaseComponent {
   periodItemYear: PeriodItem | undefined;
   periodItemAll: PeriodItem | undefined;
   transactionData: ITransactionReq[];
+  netIncome: HTMLElement;
+  updateTransactionList: (data: ITransactionReq[]) => void;
 
-  constructor(root: HTMLElement, transactionData: ITransactionReq[]) {
+  constructor(
+    root: HTMLElement,
+    transactionData: ITransactionReq[],
+    updateTransactionList: (data: ITransactionReq[]) => void,
+  ) {
     super();
     this.root = root;
     this.transactionData = transactionData;
+    this.updateTransactionList = updateTransactionList;
     this.periodItems = this.createElem('div', 'period__items flex flex-col');
+    this.netIncome = this.createElem(
+      'div',
+      'period__title text-2xl pb-2 font-light text-stone-600 border-b-2 ',
+      `Net Income for ${'All Time'}: ${0}${'$'}`,
+    );
+    this.getNetIncome(this.transactionData, 'All Time');
     this.renderPeriodItems();
     this.render();
   }
 
   renderPeriodItems(): void {
-    let allSum = 0;
-
-    this.transactionData.forEach((item) => {
-      allSum = allSum + item.sum;
-    });
     this.periodItemDay = new PeriodItem(
       this.periodItems,
       '#ef4444',
       'Today',
       '1',
       this.sortTransactionDate('today'),
-      allSum,
+      this.totalSum(this.sortTransactionDate('today')),
+      this.getNetIncome,
+      this.updateTransactionList,
     );
     this.periodItemWeek = new PeriodItem(
       this.periodItems,
@@ -42,7 +52,9 @@ export class TransactionPeriod extends BaseComponent {
       'This Week',
       '7',
       this.sortTransactionDate('week'),
-      allSum,
+      this.totalSum(this.sortTransactionDate('week')),
+      this.getNetIncome,
+      this.updateTransactionList,
     );
     this.periodItemMonth = new PeriodItem(
       this.periodItems,
@@ -50,7 +62,9 @@ export class TransactionPeriod extends BaseComponent {
       'This Month',
       '31',
       this.sortTransactionDate('month'),
-      allSum,
+      this.totalSum(this.sortTransactionDate('month')),
+      this.getNetIncome,
+      this.updateTransactionList,
     );
     this.periodItemYear = new PeriodItem(
       this.periodItems,
@@ -58,7 +72,9 @@ export class TransactionPeriod extends BaseComponent {
       'This Year',
       '365',
       this.sortTransactionDate('year'),
-      allSum,
+      this.totalSum(this.sortTransactionDate('year')),
+      this.getNetIncome,
+      this.updateTransactionList,
     );
     this.periodItemAll = new PeriodItem(
       this.periodItems,
@@ -66,7 +82,9 @@ export class TransactionPeriod extends BaseComponent {
       'All Time',
       'All',
       this.transactionData,
-      allSum,
+      this.totalSum(this.transactionData),
+      this.getNetIncome,
+      this.updateTransactionList,
     );
   }
 
@@ -118,15 +136,34 @@ export class TransactionPeriod extends BaseComponent {
     return filterData;
   }
 
+  totalSum(data: ITransactionReq[]): number {
+    let allSum = 0;
+
+    data.forEach((item) => {
+      allSum = allSum + item.sum;
+    });
+
+    return allSum;
+  }
+
+  getNetIncome = (data: ITransactionReq[], itemType: string): void => {
+    let netIncome = 0;
+
+    data.forEach((item) => {
+      item.type === 'Income' ? (netIncome += item.sum) : (netIncome -= item.sum);
+    });
+    this.netIncome.textContent = `Net Income (${itemType}): ${netIncome}${'$'}`;
+  };
+
   render(): void {
     const container = this.createElem('div', 'period__container flex flex-col');
     const periodTitle = this.createElem(
       'div',
-      'period__title text-2xl pb-16 font-light text-sky-600 border-b-2 ',
+      'period__title text-2xl pb-6 font-light text-sky-600',
       'Expense vs Income',
     );
 
-    container.append(periodTitle, this.periodItems);
+    container.append(periodTitle, this.netIncome, this.periodItems);
     this.root.appendChild(container);
   }
 }

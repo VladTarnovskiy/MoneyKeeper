@@ -2,9 +2,9 @@ import { BaseComponent } from '../base/baseComponent';
 
 export class TotalCounter extends BaseComponent {
   root: HTMLElement;
-  value: string;
+  value: number;
   currency: string;
-  constructor(root: HTMLElement, value: string, currency: string) {
+  constructor(root: HTMLElement, value: number, currency: string) {
     super();
     this.root = root;
     this.value = value;

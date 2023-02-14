@@ -13,27 +13,33 @@ export class View extends BaseComponent {
   footer: Footer;
   authorization: Authorization;
   bodyPage: HTMLElement;
-  autorPage: HTMLElement;
+  authorPage: HTMLElement;
+  model: Model;
 
   constructor(model: Model) {
     super();
     this.root = document.body;
+    this.model = model;
     this.bodyPage = this.createElem('div', 'bodyPage');
-    this.autorPage = this.createElem('div', 'autorPage');
-    this.header = new Header(this.bodyPage);
-    this.main = new Main(this.bodyPage, model);
+    this.authorPage = this.createElem('div', 'authorPage');
+    this.header = new Header(this.bodyPage, model);
+    this.main = new Main(this.bodyPage, model, this.updateHeaderSum.bind(this));
     this.footer = new Footer(this.bodyPage);
-    this.root.append(this.autorPage);
-    this.authorization = new Authorization(this.autorPage, model);
+    this.root.append(this.authorPage);
+    this.authorization = new Authorization(this.authorPage, model);
   }
 
   changePages(): void {
-    this.root.replaceChild(this.bodyPage, this.autorPage);
+    this.root.replaceChild(this.bodyPage, this.authorPage);
   }
 
   render(): void {
     this.header.render();
     this.main.render();
     this.footer.render();
+  }
+
+  updateHeaderSum(): void {
+    this.header.updateSum().catch((err: string) => new Error(err));
   }
 }

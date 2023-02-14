@@ -11,6 +11,8 @@ export class PeriodItem extends BaseComponent {
   date: string;
   transactionData: ITransactionReq[];
   allSum: number;
+  getData: (data: ITransactionReq[], itemType: string) => void;
+  updateTransactionList: (data: ITransactionReq[]) => void;
 
   constructor(
     root: HTMLElement,
@@ -19,6 +21,8 @@ export class PeriodItem extends BaseComponent {
     date: string,
     transactionData: ITransactionReq[],
     allSum: number,
+    getData: (data: ITransactionReq[], itemType: string) => void,
+    updateTransactionList: (data: ITransactionReq[]) => void,
   ) {
     super();
     this.root = root;
@@ -26,7 +30,9 @@ export class PeriodItem extends BaseComponent {
     this.title = title;
     this.date = date;
     this.transactionData = transactionData;
+    this.updateTransactionList = updateTransactionList;
     this.allSum = allSum;
+    this.getData = getData;
     this.render();
   }
 
@@ -35,6 +41,11 @@ export class PeriodItem extends BaseComponent {
       'div',
       'period__container items-center border-b-2 p-1 mb-4 flex hover:bg-gray-100 active:bg-gray-300 active:scale-[1] hover:scale-[1.013] hover:transition-all cursor-pointer',
     );
+
+    container.addEventListener('click', () => {
+      this.getData(this.transactionData, this.title);
+      this.updateTransactionList(this.transactionData);
+    });
     const periodImg = this.createElem('div', 'relative period__img w-14 h-14');
     const periodImgDescript = this.createElem(
       'div',
@@ -61,11 +72,19 @@ export class PeriodItem extends BaseComponent {
         : (sumExpense = sumExpense + item.sum);
     });
 
+    const getProgressWidth = (sum: number): string => {
+      if (this.allSum === 0) {
+        return '0';
+      }
+
+      return String(Math.ceil((sum * 100) / this.allSum));
+    };
+
     new TransactionStatisticItem(
       periodDescription,
       this.color,
       'Income',
-      ` ${Math.ceil((sumIncome * 100) / this.allSum)}`,
+      getProgressWidth(sumIncome),
       `${sumIncome}$`,
       'text-sky-500',
     );
@@ -74,7 +93,7 @@ export class PeriodItem extends BaseComponent {
       periodDescription,
       this.color,
       'Expense',
-      ` ${Math.ceil((sumExpense * 100) / this.allSum)}`,
+      getProgressWidth(sumExpense),
       `${sumExpense}$`,
     );
 

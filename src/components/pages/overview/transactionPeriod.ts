@@ -31,7 +31,7 @@ export class TransactionPeriod extends BaseComponent {
     const container = this.createElem('div', 'period__container flex flex-col');
     const periodTitle = this.createElem(
       'div',
-      'period__title text-2xl mb-2 font-light text-sky-600',
+      'period__title text-2xl mb-11 font-light text-sky-600',
       'Expense vs Income',
     );
 

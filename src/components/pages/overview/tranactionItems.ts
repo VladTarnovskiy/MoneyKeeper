@@ -1,5 +1,5 @@
 import { BaseComponent } from '@/components/base/baseComponent';
-import type { PostJsonResponse, ITransaction } from '@/components/model/types';
+import type { PostJsonResponse, ITransactionReq } from '@/components/model/types';
 
 import expenseAssets from '@/assets/expense.png';
 import incomeAssets from '@/assets/income.png';
@@ -8,11 +8,11 @@ interface ITransactionsList {
   delete: <T>(id: number) => Promise<PostJsonResponse<T>>;
 }
 
-export class TransactionItem extends BaseComponent {
+export class TransactionItems extends BaseComponent {
   root: HTMLElement;
   prop: ITransactionsList;
-  data: ITransaction[];
-  constructor(root: HTMLElement, prop: ITransactionsList, data: ITransaction[]) {
+  data: ITransactionReq[];
+  constructor(root: HTMLElement, prop: ITransactionsList, data: ITransactionReq[]) {
     super();
     this.root = root;
     this.prop = prop;
@@ -23,8 +23,6 @@ export class TransactionItem extends BaseComponent {
   render(): void {
     let sign = '-';
 
-    // await this.prop.getTransactions();
-    // console.log(this.data);
     this.data.forEach((item) => {
       const container = this.createElem(
         'div',
@@ -102,7 +100,7 @@ export class TransactionItem extends BaseComponent {
     });
   }
 
-  getContextMenu(e: MouseEvent, item: ITransaction): void {
+  getContextMenu(e: MouseEvent, item: ITransactionReq): void {
     const contextMenu = document.querySelector('.context-menu');
 
     if (contextMenu !== null) {
@@ -130,9 +128,13 @@ export class TransactionItem extends BaseComponent {
     });
     const removeItem = this.createElem(
       'ul',
-      'text-xl p-1 font-light text-stone-900 cursor-poinwdter hover:bg-slate-200',
+      'text-xl p-1 font-light text-stone-900 cursor-pointer hover:bg-slate-200',
       '☓ remove',
     );
+
+    removeItem.addEventListener('click', () => {
+      this.prop.delete(item.id).catch((err: string) => new Error(err));
+    });
 
     contMenuContainer.append(detailItem, removeItem);
     document.body.append(contMenuContainer);
@@ -141,7 +143,7 @@ export class TransactionItem extends BaseComponent {
     });
   }
 
-  getPopupItem(item: ITransaction): void {
+  getPopupItem(item: ITransactionReq): void {
     let sign = '-';
     const bgHide = this.createElem(
       'div',

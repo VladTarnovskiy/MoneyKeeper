@@ -1,20 +1,17 @@
-import { BaseComponent } from './baseComponent';
+import { BaseComponent } from '@/components/base/baseComponent';
 
 export class InputSelect extends BaseComponent {
   root: HTMLElement;
   options: string[];
   title: string;
   filterSelect: HTMLInputElement;
-  // prop!: (way: string) => void;
+  prop: (way: string) => void;
 
-  constructor(root: HTMLElement, title: string, options: string[]) {
+  constructor(root: HTMLElement, title: string, options: string[], prop: (way: string) => void) {
     super();
     this.root = root;
     this.title = title;
-
-    // if (prop === undefined) {
-    // this.prop = prop;
-    // }
+    this.prop = prop;
 
     this.options = options;
     this.filterSelect = this.createElem(
@@ -44,9 +41,9 @@ export class InputSelect extends BaseComponent {
       this.title,
     );
 
-    // this.filterSelect.addEventListener('click', () => {
-    //   this.prop(this.filterSelect.value);
-    // });
+    this.filterSelect.addEventListener('change', () => {
+      this.prop(this.filterSelect.value);
+    });
 
     filterContainer.append(this.filterSelect, inputLabel);
     this.root.appendChild(filterContainer);

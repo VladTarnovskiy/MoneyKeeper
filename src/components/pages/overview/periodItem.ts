@@ -33,7 +33,7 @@ export class PeriodItem extends BaseComponent {
   render(): void {
     const container = this.createElem(
       'div',
-      'period__container items-center border-b-2 p-1 mb-4 flex hover:bg-gray-100 active:bg-gray-300 active:scale-[1] hover:scale-[1.013] hover:transition-all cursor-pointer shadow',
+      'period__container items-center border-b-2 p-1 mb-4 flex hover:bg-gray-100 active:bg-gray-300 active:scale-[1] hover:scale-[1.013] hover:transition-all cursor-pointer',
     );
     const periodImg = this.createElem('div', 'relative period__img w-14 h-14');
     const periodImgDescript = this.createElem(

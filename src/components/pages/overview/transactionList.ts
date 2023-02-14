@@ -6,7 +6,6 @@ import { InputSelect } from './inputSelect';
 
 interface ITransactionsList {
   delete: <T>(id: number) => Promise<PostJsonResponse<T>>;
-  // getTransactions: <T extends ITransactionReq>() => Promise<PostJsonResponse<T[]>>;
 }
 
 export class TransactionList extends BaseComponent {

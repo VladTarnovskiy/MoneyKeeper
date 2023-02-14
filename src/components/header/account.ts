@@ -10,7 +10,7 @@ export class Account extends BaseComponent {
   }
   render(): void {
     const account = this.createElem('div', 'flex items-center logo text-xl relative');
-    const accountImg = this.createElem('div', 'account__img ml-2 text-white w-10 h-10');
+    const accountImg = this.createElem('div', 'account__img ml-2 text-white w-8 h-8');
 
     accountImg.innerHTML = svgStore.account;
     const accountSwich = this.createElem(

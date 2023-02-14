@@ -16,7 +16,7 @@ export class SettingItem extends BaseComponent {
   render(): void {
     const settingItemContainer = this.createElem('form', 'p-2 flex items-center');
     const settingItemTitle = this.createElem2('div', {
-      class: 'title__name text-2xl mb-2 mr-4 font-light min-w-[120px]',
+      class: 'title__name text-2xl mb-2 mr-4 font-light min-w-[120px] sm:hidden',
       textContent: `${this.title}:`,
     });
 

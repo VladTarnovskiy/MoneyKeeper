@@ -5,8 +5,6 @@ import { BaseComponent } from '@/components/base/baseComponent';
 import { InputChartSelect } from '@/components/pages/report/InputChartSelect';
 import { StatisticBlock } from '@/components/pages/report/statisticBlock';
 
-// import type { ChartTypeRegistry } from 'chart.js';
-
 interface DataItem {
   color: string;
   title: string;
@@ -105,7 +103,7 @@ export class Report extends BaseComponent {
     super();
     this.root = root;
     this.container = this.createElem('div', 'content__container flex flex-col');
-    this.graphType = 'pie';
+    this.graphType = 'polarArea';
     this.pageTitle = this.createElem(
       'div',
       'page__title ml-2 text-3xl text-sky-600 mb-5',

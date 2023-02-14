@@ -37,7 +37,7 @@ export class TransactionStatisticItem extends BaseComponent {
   render(): void {
     const graphItem = this.createElem(
       'div',
-      `w-full items-center text-${this.textColor} font-light flex gap-2`,
+      `w-full ${this.textColor} items-center font-light flex gap-2`,
     );
     const graphItemTitle = this.createElem('div', 'graph__item_title w-16', `${this.title}:`);
     const graphItemProgress = this.createElem('div', 'graph__item_progress h-4 grow');

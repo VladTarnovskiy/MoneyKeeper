@@ -1,5 +1,6 @@
 import { BaseComponent } from '@/components/base/baseComponent';
 import { TransactionStatisticItem } from '@/components/base/statisticItem';
+import type { ITransactionReq } from '@/components/model/types';
 
 import { calendar } from '@/assets/svgStore';
 
@@ -8,18 +9,31 @@ export class PeriodItem extends BaseComponent {
   color: string;
   title: string;
   date: string;
-  constructor(root: HTMLElement, color: string, title: string, date: string) {
+  transactionData: ITransactionReq[];
+  allSum: number;
+
+  constructor(
+    root: HTMLElement,
+    color: string,
+    title: string,
+    date: string,
+    transactionData: ITransactionReq[],
+    allSum: number,
+  ) {
     super();
     this.root = root;
     this.color = color;
     this.title = title;
     this.date = date;
+    this.transactionData = transactionData;
+    this.allSum = allSum;
     this.render();
   }
+
   render(): void {
     const container = this.createElem(
       'div',
-      'period__container items-center border-b-2 p-1 mb-4 flex',
+      'period__container items-center border-b-2 p-1 mb-4 flex hover:bg-gray-100 active:bg-gray-300 active:scale-[1] hover:scale-[1.013] hover:transition-all cursor-pointer shadow',
     );
     const periodImg = this.createElem('div', 'relative period__img w-14 h-14');
     const periodImgDescript = this.createElem(
@@ -38,8 +52,31 @@ export class PeriodItem extends BaseComponent {
     );
 
     periodDescription.append(periodItemTitle);
-    new TransactionStatisticItem(periodDescription, this.color, 'Income', '50', '3000$', 'sky-500');
-    new TransactionStatisticItem(periodDescription, this.color, 'Expense', '90', '10000$');
+    let sumIncome = 0;
+    let sumExpense = 0;
+
+    this.transactionData.forEach((item) => {
+      item.type === 'Income'
+        ? (sumIncome = sumIncome + item.sum)
+        : (sumExpense = sumExpense + item.sum);
+    });
+
+    new TransactionStatisticItem(
+      periodDescription,
+      this.color,
+      'Income',
+      ` ${Math.ceil((sumIncome * 100) / this.allSum)}`,
+      `${sumIncome}$`,
+      'text-sky-500',
+    );
+
+    new TransactionStatisticItem(
+      periodDescription,
+      this.color,
+      'Expense',
+      ` ${Math.ceil((sumExpense * 100) / this.allSum)}`,
+      `${sumExpense}$`,
+    );
 
     container.append(periodImg, periodDescription);
     this.root.appendChild(container);

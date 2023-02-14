@@ -15,7 +15,7 @@ export class TotalCounter extends BaseComponent {
     const totalSum = this.createElem('div', 'flex items-center logo text-2xl');
     const totalSumTitle = this.createElem(
       'div',
-      'logo__title ml-2 text-white font-light',
+      'logo__title ml-2 text-white font-light sm:hidden',
       'Total Balance:',
     );
     const totalSumCounter = this.createElem(

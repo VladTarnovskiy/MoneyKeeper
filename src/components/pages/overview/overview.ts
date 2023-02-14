@@ -11,8 +11,6 @@ export class Overview extends BaseComponent {
   pageContent: HTMLElement;
   transactionPeriodContainer: HTMLElement;
   transactionsListContainer: HTMLElement;
-  transactionPeriod: TransactionPeriod;
-  // transactionList: TransactionList;
   model: Model;
 
   constructor(root: HTMLElement, model: Model) {
@@ -25,7 +23,7 @@ export class Overview extends BaseComponent {
       'page__title ml-2 text-3xl text-sky-600 mb-5',
       'Overview',
     );
-    this.pageContent = this.createElem('div', 'page__content gap-2 flex');
+    this.pageContent = this.createElem('div', 'page__content gap-2 flex md:flex-col');
     this.transactionPeriodContainer = this.createElem(
       'div',
       'expense__period border-2 p-2 basis-1/2',
@@ -36,12 +34,12 @@ export class Overview extends BaseComponent {
     );
     this.pageContent.append(this.transactionPeriodContainer, this.transactionsListContainer);
     this.container.append(this.pageTitle, this.pageContent);
-    this.transactionPeriod = new TransactionPeriod(this.transactionPeriodContainer);
     this.render().catch((err: string) => new Error(err));
   }
 
   async render(): Promise<void> {
     await this.model.getTransactions().catch((err: string) => new Error(err));
+    new TransactionPeriod(this.transactionPeriodContainer, this.model.transaction);
     new TransactionList(
       this.transactionsListContainer,
       {
@@ -49,7 +47,6 @@ export class Overview extends BaseComponent {
       },
       this.model.transaction,
     );
-
     this.root.appendChild(this.container);
   }
 }

@@ -26,7 +26,7 @@ export class TransactionItems extends BaseComponent {
     this.data.forEach((item) => {
       const container = this.createElem(
         'div',
-        'transaction__container items-center border-2 rounded p-1 mb-2 flex',
+        'transaction__container items-center border-2 rounded p-1 mb-2 flex cursor-pointer cursor-alias hover:bg-gray-100',
       );
 
       container.addEventListener('contextmenu', (e) => {

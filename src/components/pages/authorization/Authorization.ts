@@ -45,7 +45,7 @@ export class Authorization extends BaseComponent {
     this.#state = {
       status: 'Sign in',
       inputCheck: false,
-      message: '',
+      message: 'Демо доступ { email: test@test.ru, password: test }',
     };
     this.model = model;
 
@@ -69,6 +69,9 @@ export class Authorization extends BaseComponent {
       this.state.status = 'Sign out';
       this.state.message = `You sign in account: ${resp.data === undefined ? '' : resp.data.email}`;
       this.update();
+      setTimeout(() => {
+        location.hash = '#overview';
+      }, 2000);
     } else {
       setTimeout(() => {
         location.hash = '#signup';

@@ -16,7 +16,7 @@ export class TotalCounter extends BaseComponent {
     const totalSumTitle = this.createElem(
       'div',
       'logo__title ml-2 text-white font-light',
-      'Total Balance:',
+      'Balance:',
     );
     const totalSumCounter = this.createElem(
       'div',

@@ -18,7 +18,7 @@ export class Footer extends BaseComponent {
     );
     const rsImg = this.createElem(
       'a',
-      'block w-32 h-12 bg-contain bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
+      'block w-32 h-8 bg-contain bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
     );
 
     rsImg.setAttribute(
@@ -34,21 +34,21 @@ export class Footer extends BaseComponent {
     const gitImages = this.createElem('div', 'flex justify-between');
     const rsImgOne = this.createElem(
       'a',
-      'block w-12 h-12 bg-contain mr-1 bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
+      'block w-10 h-10 bg-contain mr-2 bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
     );
 
     rsImgOne.setAttribute('href', 'https://github.com/IgorMotorin');
     rsImgOne.style.backgroundImage = `url(${githubLogoAssets})`;
     const rsImgTwo = this.createElem(
       'a',
-      'block w-12 h-12 bg-contain mr-1 bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
+      'block w-10 h-10 bg-contain mr-2 bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
     );
 
     rsImgTwo.setAttribute('href', 'https://github.com/VladTarnovskiy');
     rsImgTwo.style.backgroundImage = `url(${githubLogoAssets})`;
     const rsImgThree = this.createElem(
       'a',
-      'block w-12 h-12 bg-contain bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
+      'block w-10 h-10 bg-contain bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
     );
 
     rsImgThree.setAttribute('href', 'https://github.com/DenisKa13051992');

@@ -10,12 +10,12 @@ export class Account extends BaseComponent {
   }
   render(): void {
     const account = this.createElem('div', 'flex items-center logo text-xl relative');
-    const accountImg = this.createElem('div', 'account__img ml-2 text-white w-14 h-14');
+    const accountImg = this.createElem('div', 'account__img ml-2 text-white w-10 h-10');
 
     accountImg.innerHTML = svgStore.account;
     const accountSwich = this.createElem(
       'div',
-      'account__switch ml-1 text-white hover:cursor-pointer hover:scale-110 transition-all',
+      'account__switch ml-1 text-base text-white hover:cursor-pointer hover:scale-110 transition-all',
       '▼',
     );
 

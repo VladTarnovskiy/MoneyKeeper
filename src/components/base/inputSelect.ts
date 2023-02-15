@@ -34,7 +34,6 @@ export class InputSelect extends BaseComponent {
       const option = this.createElem('option', 'option__item', item);
 
       option.setAttribute('value', item);
-
       this.filterSelect.append(option);
     });
 
@@ -50,5 +49,9 @@ export class InputSelect extends BaseComponent {
 
     filterContainer.append(this.filterSelect, inputLabel);
     this.root.appendChild(filterContainer);
+  }
+
+  getFilterSelect(){
+    return this.filterSelect;
   }
 }

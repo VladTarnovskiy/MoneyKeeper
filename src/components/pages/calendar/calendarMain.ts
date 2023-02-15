@@ -1,35 +1,52 @@
 import { BaseComponent } from '@/components/base/baseComponent';
+import type { ITransactionReq } from '@/components/model/types';
 import { monthArrayEng } from '@/components/pages/calendar/calendarMonthData';
 import { CalendarMonthProgress } from '@/components/pages/calendar/calendarMonthProgress';
 
 export class CalendarMain extends BaseComponent {
   root: HTMLElement;
   mainMonthContainer: HTMLElement;
+  transactionData: ITransactionReq[];
+  yearMoney: number;
 
-  constructor(root: HTMLElement) {
+  constructor(root: HTMLElement, transactionData: ITransactionReq[]) {
     super();
     this.root = root;
+    this.transactionData = transactionData;
     this.mainMonthContainer = this.createElem(
       'div',
       'mainMonth__container grid grid-cols-4 xs:grid-cols-1 md:grid-cols-2 gap-1 w-full h=w',
     );
-    this.createMonth();
+    this.createMonth('Transport', '2023');
     this.render();
+    this.yearMoney = 0;
   }
 
-  createMonth(): void {
+  createMonth(category: string, year: string): void {
+    console.log(this.transactionData)
     const monthArrayHtmlelements: HTMLElement[] = [];
+    this.mainMonthContainer.textContent = '';
 
-    monthArrayEng.forEach((a) => {
-      const month = this.createElem(
+    monthArrayEng.forEach((a, index) => {
+      const monthHtml = this.createElem(
         'div',
         `mainMonth__${a} flex flex-col place-content-around h-48 border-2 p-3`,
       );
-
-      monthArrayHtmlelements.push(month);
-      new CalendarMonthProgress(month, a);
+      const money = this.getMonthTransactions(index, category, Number(year));
+      this.yearMoney += money;
+      monthArrayHtmlelements.push(monthHtml);
+      new CalendarMonthProgress(monthHtml, a, money);
     });
     this.mainMonthContainer.append(...monthArrayHtmlelements);
+  }
+
+  getMonthTransactions(index: number, categoryVal: string, year: number): number {
+    console.log(this.transactionData)
+   const monthData = this.transactionData.filter((a) => {return new Date(a.date).getMonth() === index && a.type === 'Expense' && a.category === categoryVal && new Date(a.date).getFullYear() === year})
+   console.log(monthData)
+   let monthMonew = 0;
+   monthData.forEach((a) => {monthMonew += a.sum});
+   return monthMonew;
   }
 
   render(): void {

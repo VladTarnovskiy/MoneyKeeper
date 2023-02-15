@@ -28,6 +28,7 @@ export class Model {
   }
 
   get transaction(): ITransactionReq[] {
+    console.log(this.#transaction)
     return this.#transaction;
   }
 

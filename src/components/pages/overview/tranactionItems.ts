@@ -1,86 +1,106 @@
 import { BaseComponent } from '@/components/base/baseComponent';
+import type { PostJsonResponse, ITransactionReq } from '@/components/model/types';
 
 import expenseAssets from '@/assets/expense.png';
 import incomeAssets from '@/assets/income.png';
 
-export class TransactionItem extends BaseComponent {
+interface ITransactionsList {
+  delete: <T>(id: number) => Promise<PostJsonResponse<T>>;
+}
+
+export class TransactionItems extends BaseComponent {
   root: HTMLElement;
-  transaction: string;
-  constructor(root: HTMLElement, transaction: string) {
+  prop: ITransactionsList;
+  data: ITransactionReq[];
+  constructor(root: HTMLElement, prop: ITransactionsList, data: ITransactionReq[]) {
     super();
     this.root = root;
-    this.transaction = transaction;
+    this.prop = prop;
+    this.data = data;
     this.render();
   }
 
   render(): void {
     let sign = '-';
-    const container = this.createElem(
-      'div',
-      'transaction__container items-center border-2 rounded p-1 mb-2 flex',
-    );
 
-    container.addEventListener('contextmenu', this.getContextMenu);
+    this.data.forEach((item) => {
+      const container = this.createElem(
+        'div',
+        'transaction__container items-center border-2 rounded p-1 mb-2 flex cursor-pointer cursor-alias hover:bg-gray-100',
+      );
 
-    const transactionImg = this.createElem(
-      'div',
-      'relative rounded-lg bg-contain transaction__img w-14 h-14',
-    );
-    const transactionDescription = this.createElem(
-      'div',
-      'transaction__description grow ml-2 flex flex-col',
-    );
+      container.addEventListener('contextmenu', (e) => {
+        this.getContextMenu(e, item);
+      });
 
-    const transactionItemOne = this.createElem(
-      'div',
-      'transaction__item font-normal w-full items-center text-stone-900 font-light flex justify-between gap-2',
-    );
-    const transactionItemTitleOne = this.createElem('div', 'transaction__item_title', 'Home');
+      const transactionImg = this.createElem(
+        'div',
+        'relative rounded-lg bg-contain transaction__img w-14 h-14',
+      );
+      const transactionDescription = this.createElem(
+        'div',
+        'transaction__description grow ml-2 flex flex-col',
+      );
 
-    if (this.transaction === 'income') {
-      sign = '+';
-    }
+      const transactionItemOne = this.createElem(
+        'div',
+        'transaction__item font-normal w-full items-center text-stone-900 font-light flex justify-between gap-2',
+      );
+      const transactionItemTitleOne = this.createElem(
+        'div',
+        'transaction__item_title',
+        `${item.category}`,
+      );
 
-    const transactionItemDescOne = this.createElem(
-      'div',
-      'transaction__item_sum text-right',
-      `${sign}3000$`,
-    );
+      if (item.type === 'Income') {
+        sign = '+';
+      }
 
-    transactionItemOne.append(transactionItemTitleOne, transactionItemDescOne);
+      const transactionItemDescOne = this.createElem(
+        'div',
+        'transaction__item_sum text-right',
+        `${sign} ${item.sum}$`,
+      );
 
-    const transactionItemTwo = this.createElem(
-      'div',
-      'transaction__item w-full items-center text-stone-900 font-light justify-between flex gap-2',
-    );
-    const transactionItemTitleTwo = this.createElem('div', 'transaction__item_title', 'Chair');
+      transactionItemOne.append(transactionItemTitleOne, transactionItemDescOne);
 
-    if (this.transaction === 'income') {
-      transactionItemTitleTwo.textContent = '';
-    }
+      const transactionItemTwo = this.createElem(
+        'div',
+        'transaction__item w-full items-center text-stone-900 font-light justify-between flex gap-2',
+      );
+      const transactionItemTitleTwo = this.createElem(
+        'div',
+        'transaction__item_title',
+        `${item.subcategory}`,
+      );
 
-    const transactionItemDescTwo = this.createElem(
-      'div',
-      'transaction__item_sum text-right',
-      '24.08.2023(14:11)',
-    );
+      if (item.type === 'Income') {
+        transactionItemTitleTwo.textContent = '';
+      }
 
-    if (this.transaction === 'expense') {
-      transactionImg.style.backgroundImage = `url(${expenseAssets})`;
-      transactionItemDescOne.classList.add('text-red-500');
-    } else {
-      transactionImg.style.backgroundImage = `url(${incomeAssets})`;
-      transactionItemDescOne.classList.add('text-green-500');
-    }
+      const transactionItemDescTwo = this.createElem(
+        'div',
+        'transaction__item_sum text-right',
+        `${item.date} (${item.time})`,
+      );
 
-    transactionItemTwo.append(transactionItemTitleTwo, transactionItemDescTwo);
+      if (item.type === 'Expense') {
+        transactionImg.style.backgroundImage = `url(${expenseAssets})`;
+        transactionItemDescOne.classList.add('text-red-500');
+      } else {
+        transactionImg.style.backgroundImage = `url(${incomeAssets})`;
+        transactionItemDescOne.classList.add('text-green-500');
+      }
 
-    transactionDescription.append(transactionItemOne, transactionItemTwo);
-    container.append(transactionImg, transactionDescription);
-    this.root.appendChild(container);
+      transactionItemTwo.append(transactionItemTitleTwo, transactionItemDescTwo);
+
+      transactionDescription.append(transactionItemOne, transactionItemTwo);
+      container.append(transactionImg, transactionDescription);
+      this.root.appendChild(container);
+    });
   }
 
-  getContextMenu = (e: MouseEvent): void => {
+  getContextMenu(e: MouseEvent, item: ITransactionReq): void {
     const contextMenu = document.querySelector('.context-menu');
 
     if (contextMenu !== null) {
@@ -104,7 +124,7 @@ export class TransactionItem extends BaseComponent {
     );
 
     detailItem.addEventListener('click', () => {
-      this.getPopupItem();
+      this.getPopupItem(item);
     });
     const removeItem = this.createElem(
       'ul',
@@ -112,14 +132,18 @@ export class TransactionItem extends BaseComponent {
       '☓ remove',
     );
 
+    removeItem.addEventListener('click', () => {
+      this.prop.delete(item.id).catch((err: string) => new Error(err));
+    });
+
     contMenuContainer.append(detailItem, removeItem);
     document.body.append(contMenuContainer);
     document.body.addEventListener('click', () => {
       contMenuContainer.remove();
     });
-  };
+  }
 
-  getPopupItem(): void {
+  getPopupItem(item: ITransactionReq): void {
     let sign = '-';
     const bgHide = this.createElem(
       'div',
@@ -147,19 +171,19 @@ export class TransactionItem extends BaseComponent {
     );
     const transactionItemTitleOne = this.createElem('div', 'transaction__item_title', 'Sum:');
 
-    if (this.transaction === 'income') {
+    if (item.type === 'Income') {
       sign = '+';
     }
 
     const transactionItemDescOne = this.createElem(
       'div',
       'transaction__item_sum text-right',
-      `${sign}3000$`,
+      `${sign}${item.sum}$`,
     );
 
     transactionItemOne.append(transactionItemTitleOne, transactionItemDescOne);
 
-    if (this.transaction === 'expense') {
+    if (item.type === 'Expense') {
       transactionImg.style.backgroundImage = `url(${expenseAssets})`;
       transactionItemDescOne.classList.add('text-red-500');
     } else {
@@ -170,15 +194,11 @@ export class TransactionItem extends BaseComponent {
     transactionItemOne.append(transactionItemTitleOne, transactionItemDescOne);
 
     transactionDescription.append(transactionItemOne);
-    this.transactionProperty(transactionDescription, 'Category', 'Home');
-    this.transactionProperty(transactionDescription, 'Subcategory', 'Chair');
-    this.transactionProperty(transactionDescription, 'Date', '23.05.2022');
-    this.transactionProperty(transactionDescription, 'Time', '14:00');
-    this.transactionProperty(
-      transactionDescription,
-      'Description',
-      'Keep that word description that word description that word description that word description that word description that word description',
-    );
+    this.transactionProperty(transactionDescription, 'Category', `${item.category}`);
+    this.transactionProperty(transactionDescription, 'Subcategory', `${item.subcategory}`);
+    this.transactionProperty(transactionDescription, 'Date', `${item.date}`);
+    this.transactionProperty(transactionDescription, 'Time', `${item.time}`);
+    this.transactionProperty(transactionDescription, 'Description', `${item.description}`);
     bgHide.addEventListener('click', () => {
       bgHide.remove();
       container.remove();

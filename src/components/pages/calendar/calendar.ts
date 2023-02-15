@@ -13,14 +13,19 @@ export class Calendar extends BaseComponent {
   calendarFooterContainer: HTMLElement;
   calendarMainContainer: HTMLElement;
   model: Model;
-  calendarHeader: CalendarHeader;
-  calendarFooter: CalendarFooter;
-  calendarMain: CalendarMain;
+  calendarHeader!: CalendarHeader;
+  calendarFooter!: CalendarFooter;
+  calendarMain!: CalendarMain;
+  yearInputElementVal: string;
+  categoryInputElementVal: string;
+
 
   constructor(root: HTMLElement, model: Model) {
     super();
     this.root = root;
     this.model = model;
+    this.yearInputElementVal = '2023';
+    this.categoryInputElementVal = 'All'
     this.calendarContainer = this.createElem('div', 'content__calendar_container flex flex-col');
     this.pageCalendarTitle = this.createElem(
       'div',
@@ -30,7 +35,7 @@ export class Calendar extends BaseComponent {
     this.pageCalendarContent = this.createElem('div', 'page__calendar_content gap-2 flex flex-col');
     this.calendarHeaderContainer = this.createElem(
       'div',
-      'calendar__header_container flex flex-row xs:flex-col border-2 p-2 basis-1/2',
+      'calendar__header_container flex flex-row xs:flex-col border-2 p-3 basis-1/2',
     );
     this.calendarMainContainer = this.createElem(
       'div',
@@ -46,14 +51,15 @@ export class Calendar extends BaseComponent {
       this.calendarFooterContainer,
     );
     this.calendarContainer.append(this.pageCalendarTitle, this.pageCalendarContent);
-    this.calendarHeader = new CalendarHeader(this.calendarHeaderContainer);
-    this.calendarFooter = new CalendarFooter(this.calendarFooterContainer);
-    this.getDataTransactions();
-    this.calendarMain = new CalendarMain(this.calendarMainContainer, this.model.transaction);
-    this.render();
+    this.render()
   }
 
-  render(): void {
+  async render():Promise<void> {
+    await this.model.getTransactions().catch((err: string) => new Error(err));
+    console.log(this.model.transaction)
+    this.calendarHeader = new CalendarHeader(this.calendarHeaderContainer, this.model.transaction);
+    this.calendarMain = new CalendarMain(this.calendarMainContainer, this.model.transaction);
+    this.calendarFooter = new CalendarFooter(this.calendarFooterContainer, this.model.transaction, '2023');
     this.addListeners();
     this.root.appendChild(this.calendarContainer);
 
@@ -63,20 +69,21 @@ export class Calendar extends BaseComponent {
     await this.model.getTransactions().catch((err: string) => new Error(err));
   }
 
-  updateCalendarMain(categoryValue: string, yearValue: string){
+  updateCalendarMain(){
     this.getDataTransactions();
+    this.yearInputElementVal = this.calendarHeader.yearInputElement.value;
+    this.categoryInputElementVal = this.calendarHeader.categoryInputElement.value;
     this.calendarMain.transactionData = this.model.transaction;
-    this.calendarMain.createMonth(categoryValue, yearValue)
+    this.calendarMain.createMonth(this.categoryInputElementVal, this.yearInputElementVal)
   }
 
   addListeners(){
-    const yearInputElement = this.calendarHeader.yearInputElement;
-    const categoryInputElement = this.calendarHeader.categoryInputElement;
-    yearInputElement.oninput = () => {
-      this.updateCalendarMain(categoryInputElement.value, yearInputElement.value);
+    this.calendarHeader.yearInputElement.oninput = () => {
+      this.updateCalendarMain();
+      this.calendarFooter.updateCalendarFooter(String(this.calendarHeader.yearInputElement.value))
     }
-    categoryInputElement.oninput = () => {
-      this.updateCalendarMain(categoryInputElement.value, yearInputElement.value);
+    this.calendarHeader.categoryInputElement.oninput = () => {
+      this.updateCalendarMain();
     }
   }
 }

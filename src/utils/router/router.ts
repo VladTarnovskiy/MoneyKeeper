@@ -29,7 +29,7 @@ export class Router {
   routeCallback(): void {
     const path = location.pathname;
     const pageIndex = routing.indexOf(path);
-    const singIn: string | null = localStorage.getItem('signIn');
+    const singIn: string | null = localStorage.getItem('userdata');
 
     if (Boolean(singIn) && !this.chengedPages) {
       this.changePages();

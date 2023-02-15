@@ -25,13 +25,13 @@ export class Main extends BaseComponent {
   transaction: Transaction;
   settings: Settings;
   pagesHtmlArr: HTMLElement[];
-  // model: Model;
+  model: Model;
   loader: Loader;
 
   constructor(bodyPage: HTMLElement, model: Model) {
     super();
     this.bodyPage = bodyPage;
-    // this.model = model;
+    this.model = model;
     this.container = this.createElem('main', 'container mx-auto flex');
     this.content = this.createElem('section', 'content w-full p-3');  
     this.loader = new Loader(document.body);
@@ -68,7 +68,7 @@ export class Main extends BaseComponent {
     if (pageMain instanceof HTMLElement) {
       this.content.append(pageMain);
     }
-
     this.sideBar.buttonActive(index);
+    try {if (index === 3) {this.calendar.updateCalendarMain();}} catch {}
   }
 }

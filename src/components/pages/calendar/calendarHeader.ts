@@ -1,6 +1,7 @@
-import { baseCategoryIncomeDataEng } from '@/components/base/baseCategoryData';
+import { baseCategoryExpenditureDataEng } from '@/components/base/baseCategoryData';
 import { BaseComponent } from '@/components/base/baseComponent';
 import { InputSelect } from '@/components/base/inputSelect';
+import type { ITransactionReq } from '@/components/model/types';
 
 export class CalendarHeader extends BaseComponent {
   root: HTMLElement;
@@ -8,11 +9,13 @@ export class CalendarHeader extends BaseComponent {
   yearContainer: HTMLElement;
   categoryInputElement: HTMLInputElement;
   yearInputElement: HTMLInputElement;
+  transactionData: ITransactionReq[];
+  yearsArr: string[];
 
-  constructor(root: HTMLElement) {
+  constructor(root: HTMLElement, transactionData: ITransactionReq[]) {
     super();
     this.root = root;
-
+    this.transactionData = transactionData;
     this.categoryContainer = this.createElem(
       'div',
       'category__container flex flex-row w-1/2 xs:w-full mr-2',
@@ -23,10 +26,9 @@ export class CalendarHeader extends BaseComponent {
       'Expense сategory:',
     );
     const categoryChoice = this.createElem('div', 'category__choice flex flex-col w-1/2');
-    const categoryInputSelect = new InputSelect(categoryChoice, 'Select a category', baseCategoryIncomeDataEng);
-    console.log(categoryInputSelect)
+    const categoryInputSelect = new InputSelect(categoryChoice, 'Select a category', ['All', ...baseCategoryExpenditureDataEng]);
     this.categoryInputElement = categoryInputSelect.getFilterSelect();
-    console.log(this.categoryInputElement, this.categoryInputElement.value)
+    console.log(this.categoryInputElement)
     this.categoryContainer.append(categoryTitle, categoryChoice);
 
     this.yearContainer = this.createElem(
@@ -35,12 +37,22 @@ export class CalendarHeader extends BaseComponent {
     );
     const yearTitle = this.createElem('div', 'year__title text-xl w-1/2', 'Year:');
     const yearChoice = this.createElem('div', 'year__choice flex flex-col w-1/2');
-    const yearInputSelect = new InputSelect(yearChoice, 'Select year', ['2023', '2022', '2021', '2020']);
+    this.yearsArr = ['2023', '2022', '2021', '2020']
+    this.createYearArr();
+    const yearInputSelect = new InputSelect(yearChoice, 'Select year', this.yearsArr);
     this.yearContainer.append(yearTitle, yearChoice);
     this.yearInputElement = yearInputSelect.getFilterSelect();
     console.log(this.yearInputElement)
-
     this.render();
+  }
+
+  createYearArr(){
+    const newYearArr: string[] = [];
+    this.transactionData.forEach((a) => {
+      newYearArr.push(String(new Date(a.date).getFullYear()));
+    })
+    console.log(newYearArr)
+    this.yearsArr = Array.from(new Set(newYearArr)).sort((a,b) => a < b ? 1 : -1);
   }
 
   render(): void {

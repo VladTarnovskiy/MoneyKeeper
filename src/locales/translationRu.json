@@ -1,3 +1,27 @@
 {
-  "logo": "Учет финансов"
+  "logo": "Учет финансов",
+  "CategoryIncome": {
+    "Salary": "Заработная плата",
+    "Stipend": "Стипендия",
+    "Pension": "Пенсия",
+    "Business": "Бизнес",
+    "Sales": "Продажи",
+    "Award": "Премия",
+    "Lottery": "Лотерея",
+    "Other": "Прочее"
+    },
+    "CategoryExpenditure": {
+    "Transport": "Транспорт",
+    "Bars and restaurants": "Бары и рестораны",
+    "Alcohol": "Алкоголь",
+    "Eating out": "Еда вне дома",
+    "Food": "Продукты",
+    "Health": "Здоровье",
+    "Entertainment": "Развлечения",
+    "Presents": "Подарки",
+    "Regular": "Регулярные",
+    "Clothing": "Одежда",
+    "Banking services": "Банковские операции",
+    "Other": "Прочее"
+    }
 }

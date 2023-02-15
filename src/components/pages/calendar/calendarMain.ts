@@ -17,15 +17,15 @@ export class CalendarMain extends BaseComponent {
       'div',
       'mainMonth__container grid grid-cols-4 xs:grid-cols-1 md:grid-cols-2 gap-1 w-full h=w',
     );
-    this.createMonth('Transport', '2023');
+    this.createMonth('All', '2023');
     this.render();
     this.yearMoney = 0;
   }
 
   createMonth(category: string, year: string): void {
-    console.log(this.transactionData)
-    const monthArrayHtmlelements: HTMLElement[] = [];
+    const monthArrayHtmlElements: HTMLElement[] = [];
     this.mainMonthContainer.textContent = '';
+    const everyMonthMoney: number[] = [];
 
     monthArrayEng.forEach((a, index) => {
       const monthHtml = this.createElem(
@@ -34,18 +34,24 @@ export class CalendarMain extends BaseComponent {
       );
       const money = this.getMonthTransactions(index, category, Number(year));
       this.yearMoney += money;
-      monthArrayHtmlelements.push(monthHtml);
-      new CalendarMonthProgress(monthHtml, a, money);
+      monthArrayHtmlElements.push(monthHtml);
+      everyMonthMoney.push(money)
     });
-    this.mainMonthContainer.append(...monthArrayHtmlelements);
+    const everyMonthMoneySort = [...everyMonthMoney];
+    const maxMonthMoney = everyMonthMoneySort.sort((a, b) => a > b ? 1 : -1)[everyMonthMoney.length - 1];
+    monthArrayEng.forEach((a, index) => {
+      new CalendarMonthProgress(<HTMLElement>monthArrayHtmlElements[index], a, <number>everyMonthMoney[index], <number>maxMonthMoney);
+    })
+    this.mainMonthContainer.append(...monthArrayHtmlElements);
   }
 
   getMonthTransactions(index: number, categoryVal: string, year: number): number {
-    console.log(this.transactionData)
-   const monthData = this.transactionData.filter((a) => {return new Date(a.date).getMonth() === index && a.type === 'Expense' && a.category === categoryVal && new Date(a.date).getFullYear() === year})
-   console.log(monthData)
+   const monthData = this.transactionData.filter((a) => {return new Date(a.date).getMonth() === index && a.type === 'Expense' && new Date(a.date).getFullYear() === year})
+   let monthDataRes = [];
+   if (categoryVal === 'All'){ monthDataRes = monthData;}
+   else {monthDataRes = monthData.filter((a) => {return a.category === categoryVal})}
    let monthMonew = 0;
-   monthData.forEach((a) => {monthMonew += a.sum});
+   monthDataRes.forEach((a) => {monthMonew += a.sum});
    return monthMonew;
   }
 

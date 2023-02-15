@@ -28,7 +28,6 @@ export class Model {
   }
 
   get transaction(): ITransactionReq[] {
-    console.log(this.#transaction)
     return this.#transaction;
   }
 
@@ -318,7 +317,6 @@ export class Model {
       const out = await this.checkResponse<T[]>(response);
 
       out.data === undefined ? (this.transaction = []) : (this.transaction = out.data);
-      console.log(this.transaction);
 
       return out;
     } catch (error) {

@@ -24,7 +24,7 @@ export class Header extends BaseComponent {
 
     this.container = this.createElem(
       'header',
-      ' container mx-auto flex justify-between p-3 pl-4 mb-4 items-center',
+      ' container mx-auto flex justify-between p-3 pl-4 mb-4 items-center text-sky-600',
     );
 
     this.totalCounterContainer = this.createElem('div', 'totalCounterContainer w-fit h-fit');

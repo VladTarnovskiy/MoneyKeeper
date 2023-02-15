@@ -20,8 +20,8 @@ export class Logo extends BaseComponent {
       },
       {
         img: {
-          class: 'mx-auto h-12 w-auto',
-          src: 'https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600',
+          class: 'mx-auto h-32 w-auto',
+          src: './logo.png',
           alt: 'Your Company',
         },
         h2: {

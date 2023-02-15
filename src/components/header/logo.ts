@@ -13,7 +13,7 @@ export class Logo extends BaseComponent {
     const logo = this.createElem('div', 'flex items-center logo');
     const logoImg = this.createElem(
       'img',
-      'logo__img h-20 w-20 hover:scale-110 hover:cursor-pointer hover:transition-all active:scale-100',
+      'logo__img h-16 w-16 hover:scale-110 hover:cursor-pointer hover:transition-all hover:rotate-180 active:scale-100',
     );
 
     logoImg.setAttribute('src', logoAssets);
@@ -24,7 +24,7 @@ export class Logo extends BaseComponent {
     });
     const logoTitle = this.createElem(
       'div',
-      'logo__title ml-2 text-3xl text-white font-semibold md:hidden',
+      'logo__title ml-4 text-2xl text-sky-600 font-semibold',
       `${this.textTranslate('overview.logo')}`,
     );
 

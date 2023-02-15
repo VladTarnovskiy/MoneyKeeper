@@ -21,7 +21,7 @@ export class Calendar extends BaseComponent {
     this.calendarContainer = this.createElem('div', 'content__calendar_container flex flex-col');
     this.pageCalendarTitle = this.createElem(
       'div',
-      'page__title ml-2 text-3xl text-sky-600 mb-5',
+      'page__title ml-2 text-3xl text-sky-600 mb-5 bg-sky-100 rounded pl-2',
       'Calendar',
     );
     this.pageCalendarContent = this.createElem('div', 'page__calendar_content gap-2 flex flex-col');

@@ -75,8 +75,15 @@ export class Model {
 
       const out = await this.checkResponse<T>(response);
 
-      // localStorage.setItem('userdata', JSON.stringify(out.data));
       localStorage.userdata = JSON.stringify(out.data);
+
+      if (out.status === 200 || out.status === 201) {
+        const arr1 = await this.getSettings();
+        const arr2 = await this.getTransactions();
+
+        arr1.data === undefined ? (this.setting = []) : (this.setting = arr1.data);
+        arr2.data === undefined ? (this.transaction = []) : (this.transaction = arr2.data);
+      }
 
       return out;
     } catch (error) {
@@ -104,7 +111,17 @@ export class Model {
         },
       });
 
-      return await this.checkResponse<T>(response);
+      const out = await this.checkResponse<T>(response);
+
+      if (out.status === 200 || out.status === 201) {
+        const arr1 = await this.getSettings();
+        const arr2 = await this.getTransactions();
+
+        arr1.data === undefined ? (this.setting = []) : (this.setting = arr1.data);
+        arr2.data === undefined ? (this.transaction = []) : (this.transaction = arr2.data);
+      }
+
+      return out;
     } catch (error) {
       throw new Error(this.checkError(error));
     }

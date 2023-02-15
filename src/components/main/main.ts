@@ -33,7 +33,7 @@ export class Main extends BaseComponent {
     this.bodyPage = bodyPage;
     // this.model = model;
     this.container = this.createElem('main', 'container mx-auto flex');
-    this.content = this.createElem('section', 'content w-full border-t-2 border-l-2 p-3');
+    this.content = this.createElem('section', 'content w-full p-3');  
     this.loader = new Loader(document.body);
     this.sideBar = new SideBar(this.container);
     this.overviewHtml = this.createElem('section', 'overview');

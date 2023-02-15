@@ -22,20 +22,15 @@ interface IState {
 
 const defaultSetting: ISetting = {
   name: '',
-  lang: 'en',
-  theme: 'white',
-  currency: 'usd',
+  lang: 'EN',
+  theme: 'Light',
+  currency: 'eur',
   userId: 0,
 };
 
 export class Authorization extends BaseComponent {
   root: HTMLElement;
-  container!: HTMLElement;
-  button!: HTMLElement;
-  logo!: HTMLElement;
-  form!: HTMLElement;
-  message!: HTMLElement;
-  inputCheck!: HTMLElement;
+  container: HTMLElement;
   #state: IState;
   model: Model;
 
@@ -45,10 +40,10 @@ export class Authorization extends BaseComponent {
     this.#state = {
       status: 'Sign in',
       inputCheck: false,
-      message: '',
+      message: 'Демо доступ [ email: test@test.ru, password: test ]',
     };
     this.model = model;
-
+    this.container = this.build();
     this.render();
     this.onGetUser().catch((err: string) => new Error(err));
   }
@@ -185,7 +180,6 @@ export class Authorization extends BaseComponent {
   }
 
   render(): void {
-    this.container = this.build();
     this.root.append(this.container);
   }
 

@@ -120,7 +120,7 @@ export class Report extends BaseComponent {
     this.inputChartSelect = new InputChartSelect(
       this.barContainer,
       'Chart type',
-      ['pie', 'doughnut', 'radar', 'polarArea'],
+      ['polarArea', 'pie', 'radar', 'doughnut'],
       this.getBar,
       this.bar,
     );
@@ -145,10 +145,10 @@ export class Report extends BaseComponent {
         },
       ],
     };
-    const x = graphType as keyof ChartTypeRegistry;
+    const type = graphType as keyof ChartTypeRegistry;
 
     this.chart = new Chart(container, {
-      type: x,
+      type,
       data,
       options: {
         plugins: {

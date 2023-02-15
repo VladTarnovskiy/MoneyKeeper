@@ -2,9 +2,9 @@ import { BaseComponent } from '../base/baseComponent';
 
 export class TotalCounter extends BaseComponent {
   root: HTMLElement;
-  value: string;
+  value: number;
   currency: string;
-  constructor(root: HTMLElement, value: string, currency: string) {
+  constructor(root: HTMLElement, value: number, currency: string) {
     super();
     this.root = root;
     this.value = value;
@@ -15,7 +15,7 @@ export class TotalCounter extends BaseComponent {
     const totalSum = this.createElem('div', 'flex items-center logo text-2xl');
     const totalSumTitle = this.createElem(
       'div',
-      'logo__title ml-2 text-sky-600 font-light',
+      'logo__title ml-2 text-sky-600 font-light xs:hidden',
       'Balance:',
     );
     const totalSumCounter = this.createElem(

@@ -1,32 +1,82 @@
 import { BaseComponent } from '@/components/base/baseComponent';
+import { Button } from '@/components/pages/authorization/Button';
+import { InputCheck } from '@/components/pages/authorization/InputCheck';
 import { SettingItem } from '@/components/pages/settings/inputRadioItem';
 import { InputTextItem } from '@/components/pages/settings/inputTextItem';
+// import { InputElem } from '@/components/pages/transaction/InputElem';
+
+interface IStateSetting {
+  status: string;
+  inputCheck: boolean;
+  message: string;
+}
 
 export class Settings extends BaseComponent {
   root: HTMLElement;
   container: HTMLElement;
-  pageTitle: HTMLElement;
-  pageContent: HTMLElement;
+  #state: IStateSetting;
 
   constructor(root: HTMLElement) {
     super();
     this.root = root;
-    this.container = this.createElem('div', 'content__container flex flex-col');
-    this.pageTitle = this.createElem(
+    this.#state = {
+      status: '200',
+      inputCheck: false,
+      message: '',
+    };
+    this.container = this.build();
+    this.render();
+  }
+  set state(state: IStateSetting) {
+    this.#state = state;
+    this.update();
+  }
+
+  get state(): IStateSetting {
+    return this.#state;
+  }
+
+  build(): HTMLElement {
+    const container = this.createElem('div', 'content__container flex flex-col');
+    const pageTitle = this.createElem(
       'div',
-      'page__title ml-2 text-3xl text-sky-600 mb-5',
+      'page__title ml-2 text-3xl text-sky-600 mb-4 bg-sky-100 rounded pl-2',
       'Settings',
     );
-    this.pageContent = this.createElem('div', 'page__content flex flex-col');
-    new SettingItem(this.pageContent, 'Language', ['EN', 'RU']);
-    new SettingItem(this.pageContent, 'Theme', ['light', 'dark']);
-    new SettingItem(this.pageContent, 'Currency', ['$', '€', '₽', '¥']);
-    new InputTextItem(this.pageContent, 'Username', 'name');
+    const pageContent = this.createElem('div', 'flex flex-col mt-4');
 
-    // this.pageContent.appendChild(inputName);
+    new InputTextItem(pageContent, 'Username', 'name');
+    new SettingItem(pageContent, 'Language', ['EN', 'RU']);
+    new SettingItem(pageContent, 'Theme', ['Light', 'Dark']);
+    new SettingItem(pageContent, 'Currency', ['$', '€', '₽', '¥']);
 
-    this.container.append(this.pageTitle, this.pageContent);
-    this.render();
+    const container1 = this.createElem('div', 'content__container flex flex-col gap-4');
+    const message = this.createElem2('div', {
+      class: `h-6 mx-auto text-center text-${this.state.status === '200' ? 'green' : 'red'}-500`,
+      textContent: this.state.message,
+    });
+    const inputCheck = new InputCheck({
+      onclick: () => {},
+      checked: false,
+      disabled: false,
+    }).node;
+    const inputButton = new Button({
+      text: 'Save settings',
+    }).node;
+
+    container1.append(inputCheck, inputButton);
+    pageContent.append(container1);
+    container.append(pageTitle, message, pageContent);
+
+    return container;
+  }
+
+  update(): void {
+    const container = this.build();
+
+    this.container.replaceWith(container);
+
+    this.container = container;
   }
 
   render(): void {

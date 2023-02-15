@@ -59,7 +59,7 @@ export class Transaction extends BaseComponent {
 
   build(): HTMLElement {
     const title = this.createElem2('div', {
-      class: '<page__title ml-2 text-3xl text-sky-600 mb-5',
+      class: 'page__title ml-2 text-3xl text-sky-600 bg-sky-100 rounded pl-2 mb-5',
       textContent: 'Transactions',
     });
     const container1 = this.createElem2('div', {
@@ -105,7 +105,7 @@ export class Transaction extends BaseComponent {
 
     const container2 = this.createElem('div', 'grid grid-cols-4 mt-8 mb-4 gap-4');
     const container = this.createElem2('form', {
-      class: 'antialiased text-gray-900 px-6',
+      class: 'antialiased text-gray-900 px-1',
       onsubmit: (event) => {
         event.preventDefault();
         this.onsubmit(event).catch((err: string) => new Error(err));

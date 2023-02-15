@@ -14,15 +14,15 @@ export class InputTextItem extends BaseComponent {
   }
 
   render(): void {
-    const inputItemContainer = this.createElem('form', 'p-2 flex items-center');
+    const inputItemContainer = this.createElem('div', 'p-2 flex items-center');
     const inputItemTitle = this.createElem2('div', {
-      class: 'title__name text-2xl mb-2 mr-4 font-light min-w-[120px]',
+      class: 'title__name text-base mb-2 mr-4 font-light min-w-[120px]',
       textContent: `${this.title}:`,
     });
 
     inputItemContainer.append(inputItemTitle);
     const inputTextName = this.createElem2('input', {
-      class: 'input__name pl-2 w-60 border-black rounded h-10 border-[1px]',
+      class: 'input__name pl-2 w-60 border rounded h-10 border-[1px]',
       type: 'text',
       placeholder: 'Enter username',
     });

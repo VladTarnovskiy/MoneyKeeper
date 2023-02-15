@@ -18,7 +18,7 @@ export class Header extends BaseComponent {
     this.root = root;
     this.container = this.createElem(
       'header',
-      ' container mx-auto flex justify-between p-3 bg-sky-400',
+      ' container mx-auto flex justify-between p-3 pl-4 mb-4 text-sky-600',
     );
     this.logo = new Logo(this.container);
     this.totalCounter = new TotalCounter(this.container, this.value, this.currency);

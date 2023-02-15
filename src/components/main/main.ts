@@ -29,7 +29,7 @@ export class Main extends BaseComponent {
     super();
     this.bodyPage = bodyPage;
     this.container = this.createElem('main', 'container mx-auto flex');
-    this.content = this.createElem('section', 'content w-full border-l-2 p-3');
+    this.content = this.createElem('section', 'content w-full p-3');
     this.sideBar = new SideBar(this.container);
     this.overviewHtml = this.createElem('section', 'overview');
     this.overview = new Overview(this.overviewHtml);

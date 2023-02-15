@@ -22,9 +22,9 @@ interface IState {
 
 const defaultSetting: ISetting = {
   name: '',
-  lang: 'en',
-  theme: 'white',
-  currency: 'usd',
+  lang: 'EN',
+  theme: 'Light',
+  currency: 'eur',
   userId: 0,
 };
 

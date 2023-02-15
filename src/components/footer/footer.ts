@@ -14,7 +14,7 @@ export class Footer extends BaseComponent {
   render(): void {
     const container = this.createElem(
       'footer',
-      ' container mx-auto flex justify-around items-center p-3 bg-sky-400',
+      ' container mx-auto flex justify-around items-center p-3 text-sky-600',
     );
     const rsImg = this.createElem(
       'a',
@@ -28,7 +28,7 @@ export class Footer extends BaseComponent {
     rsImg.style.backgroundImage = `url(${rsLogoAssets})`;
     const productionDate = this.createElem(
       'div',
-      'account__img text-xl text-white font-light h-fit',
+      'account__img text-xl text-sky-600 font-light h-fit',
       '©2023',
     );
     const gitImages = this.createElem('div', 'flex justify-between');

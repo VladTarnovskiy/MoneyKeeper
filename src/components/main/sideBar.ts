@@ -11,8 +11,11 @@ export class SideBar extends BaseComponent {
     this.render();
   }
   render(): void {
-    const sideBar = this.createElem('aside', 'min-h-[81.6vh] bg-sky-400');
-    const container = this.createElem('div', 'flex items-center flex-col text-white bg-sky-400');
+    const sideBar = this.createElem('aside', 'min-h-[81.6vh] bg-sky-400 rounded-r-lg border-0');
+    const container = this.createElem(
+      'div',
+      'flex items-center flex-col text-white bg-sky-400 rounded-r-lg',
+    );
 
     sideData.forEach((item, index) => {
       const sideBarItem = this.createElem(
@@ -35,7 +38,7 @@ export class SideBar extends BaseComponent {
       // }
 
       if (index === 0) {
-        sideBarItem.classList.add('bg-sky-600');
+        sideBarItem.classList.add('bg-sky-600', 'rounded-tr-lg');
         // sideBarItem.classList.remove('hover:scale-105');
       }
 

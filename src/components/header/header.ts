@@ -21,10 +21,12 @@ export class Header extends BaseComponent {
     super();
     this.root = root;
     this.model = model;
+
     this.container = this.createElem(
       'header',
-      ' container mx-auto flex justify-between p-3 bg-sky-400 items-center',
+      ' container mx-auto flex justify-between p-3 pl-4 mb-4 items-center',
     );
+
     this.totalCounterContainer = this.createElem('div', 'totalCounterContainer w-fit h-fit');
     this.getTotalSum().catch((err: string) => new Error(err));
   }

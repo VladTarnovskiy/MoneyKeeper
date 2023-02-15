@@ -16,7 +16,7 @@ interface TElement {
   method?: string;
   src?: string;
   alt?: string;
-  onchange?: () => void;
+  onchange?: (this: GlobalEventHandlers, event: Event) => void;
   onclick?: (this: GlobalEventHandlers, event: MouseEvent) => void;
   onsubmit?: (event: Event) => void;
   checked?: boolean;

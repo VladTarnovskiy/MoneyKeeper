@@ -106,7 +106,7 @@ export class Report extends BaseComponent {
     this.graphType = 'polarArea';
     this.pageTitle = this.createElem(
       'div',
-      'page__title ml-2 text-3xl text-sky-600 mb-5',
+      'page__title ml-2 text-3xl text-sky-600 mb-5 bg-sky-100 rounded pl-2',
       'Report',
     );
     this.pageContent = this.createElem('div', 'page__content flex xl:flex-col');

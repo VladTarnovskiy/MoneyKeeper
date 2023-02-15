@@ -56,7 +56,9 @@ export class Settings extends BaseComponent {
       textContent: this.state.message,
     });
     const inputCheck = new InputCheck({
-      onclick: () => {},
+      onclick: () => {
+        return;
+      },
       checked: false,
       disabled: false,
     }).node;

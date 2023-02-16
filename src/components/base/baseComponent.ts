@@ -4,7 +4,7 @@ interface TElement {
   id?: string;
   name?: string;
   placeholder?: string;
-  required?: string;
+  required?: boolean;
   autocomplete?: string;
   type?: string;
   class?: string;

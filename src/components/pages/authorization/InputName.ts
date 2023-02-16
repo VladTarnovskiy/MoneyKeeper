@@ -27,7 +27,7 @@ export class InputName extends BaseComponent {
           id: 'user-name',
           name: 'user-name',
           placeholder: 'Your name',
-          required: 'true',
+          required: true,
           autocomplete: 'on',
           type: 'text',
           class:

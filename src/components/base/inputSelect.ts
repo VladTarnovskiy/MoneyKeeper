@@ -50,8 +50,4 @@ export class InputSelect extends BaseComponent {
     filterContainer.append(this.filterSelect, inputLabel);
     this.root.appendChild(filterContainer);
   }
-
-  getFilterSelect(){
-    return this.filterSelect;
-  }
 }

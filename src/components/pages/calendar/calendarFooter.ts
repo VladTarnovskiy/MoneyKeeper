@@ -12,7 +12,7 @@ export class CalendarFooter extends BaseComponent {
   footerInfoTotalIncomeCount: HTMLElement;
   footerInfoRatio: HTMLElement;
   footerInfoRatioCount: HTMLElement;
-  transactionData: ITransactionReq[]
+  transactionData: ITransactionReq[];
   year: string;
 
   constructor(root: HTMLElement, transactionData: ITransactionReq[], year: string) {
@@ -66,17 +66,36 @@ export class CalendarFooter extends BaseComponent {
     this.render();
   }
 
-  updateCalendarFooter(year: string){
+  updateCalendarFooter(year: string): void {
     let totalIncomeValue = 0;
+
     this.year = year;
     let totalExpenditureValue = 0;
-    this.transactionData.forEach((a) => {if (new Date(a.date).getFullYear() === Number(this.year)){if (a.type === 'Income') {totalIncomeValue += a.sum} else {totalExpenditureValue += a.sum}}});
-    this.footerInfoTotalIncomeCount.textContent = String(totalIncomeValue) + '$';
-    this.footerInfoTotalCount.textContent = String(totalExpenditureValue) + '$';
-    this.footerInfoAverageCount.textContent = String(Math.round(totalExpenditureValue / 1.2) / 10) + '$/month'
-    const expensIncome = totalExpenditureValue / totalIncomeValue
-    if (isFinite(expensIncome)) {this.footerInfoRatioCount.style.display = 'block'; this.footerInfoRatio.style.display = 'block';this.footerInfoRatioCount.textContent = String(Math.round(expensIncome * 100)) + '%'}
-    else {this.footerInfoRatioCount.style.display = 'none'; this.footerInfoRatio.style.display = 'none'}
+
+    this.transactionData.forEach((a) => {
+      if (new Date(a.date).getFullYear() === Number(this.year)) {
+        if (a.type === 'Income') {
+          totalIncomeValue += a.sum;
+        } else {
+          totalExpenditureValue += a.sum;
+        }
+      }
+    });
+    this.footerInfoTotalIncomeCount.textContent = `${String(totalIncomeValue)}$`;
+    this.footerInfoTotalCount.textContent = `${String(totalExpenditureValue)}$`;
+    this.footerInfoAverageCount.textContent = `${String(
+      Math.round(totalExpenditureValue / 1.2) / 10,
+    )}$/month`;
+    const expensIncome = totalExpenditureValue / totalIncomeValue;
+
+    if (isFinite(expensIncome)) {
+      this.footerInfoRatioCount.style.display = 'block';
+      this.footerInfoRatio.style.display = 'block';
+      this.footerInfoRatioCount.textContent = `${String(Math.round(expensIncome * 100))}%`;
+    } else {
+      this.footerInfoRatioCount.style.display = 'none';
+      this.footerInfoRatio.style.display = 'none';
+    }
   }
 
   render(): void {

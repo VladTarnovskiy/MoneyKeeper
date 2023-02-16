@@ -17,10 +17,18 @@ export class CalendarMonthProgress extends BaseComponent {
       'div',
       `${month}__progress h-4 bg-[#EF4444]`,
     );
-    const monthCount: HTMLElement = this.createElem('div', `${month}__count w-1/2 text-xl`, String(this.money) + '$');
+    const monthCount: HTMLElement = this.createElem(
+      'div',
+      `${month}__count w-1/2 text-xl`,
+      `${String(this.money)}$`,
+    );
 
     this.root.append(monthTitle, monthProgress, monthCount);
-    if (this.money > 0) {monthProgress.style.width = `${this.money / this.maxMonthMoney * 100}%`}
-    else {monthProgress.style.width = '0px'}
+
+    if (this.money > 0) {
+      monthProgress.style.width = `${(this.money / this.maxMonthMoney) * 100}%`;
+    } else {
+      monthProgress.style.width = '0px';
+    }
   }
 }

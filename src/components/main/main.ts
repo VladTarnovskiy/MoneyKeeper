@@ -71,7 +71,11 @@ export class Main extends BaseComponent {
     if (pageMain instanceof HTMLElement) {
       this.content.append(pageMain);
     }
+
     this.sideBar.buttonActive(index);
-    try {if (index === 3) {this.calendar.updateCalendarMain();}} catch {}
+
+    if (index === 3) {
+      this.calendar.updateCalendar();
+    }
   }
 }

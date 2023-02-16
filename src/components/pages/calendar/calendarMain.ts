@@ -23,36 +23,60 @@ export class CalendarMain extends BaseComponent {
   }
 
   createMonth(category: string, year: string): void {
-    const monthArrayHtmlElements: HTMLElement[] = [];
     this.mainMonthContainer.textContent = '';
     const everyMonthMoney: number[] = [];
+    const maxMonthMoney = this.getMaxMonthMoney(everyMonthMoney, category, year);
 
     monthArrayEng.forEach((a, index) => {
       const monthHtml = this.createElem(
         'div',
         `mainMonth__${a} flex flex-col place-content-around h-48 border-2 p-3`,
       );
-      const money = this.getMonthTransactions(index, category, Number(year));
-      this.yearMoney += money;
-      monthArrayHtmlElements.push(monthHtml);
-      everyMonthMoney.push(money)
+
+      new CalendarMonthProgress(monthHtml, a, Number(everyMonthMoney[index]), maxMonthMoney);
+      this.mainMonthContainer.append(monthHtml);
     });
+  }
+
+  getMaxMonthMoney(everyMonthMoney: number[], category: string, year: string): number {
+    for (let i = 0; i < 12; i += 1) {
+      const money = this.getMonthTransactions(i, category, Number(year));
+
+      this.yearMoney += money;
+      everyMonthMoney.push(money);
+    }
+
     const everyMonthMoneySort = [...everyMonthMoney];
-    const maxMonthMoney = everyMonthMoneySort.sort((a, b) => a > b ? 1 : -1)[everyMonthMoney.length - 1];
-    monthArrayEng.forEach((a, index) => {
-      new CalendarMonthProgress(<HTMLElement>monthArrayHtmlElements[index], a, <number>everyMonthMoney[index], <number>maxMonthMoney);
-    })
-    this.mainMonthContainer.append(...monthArrayHtmlElements);
+    const maxMonthMoney = everyMonthMoneySort.sort((a, b) => (a < b ? 1 : -1))[0];
+
+    return Number(maxMonthMoney);
   }
 
   getMonthTransactions(index: number, categoryVal: string, year: number): number {
-   const monthData = this.transactionData.filter((a) => {return new Date(a.date).getMonth() === index && a.type === 'Expense' && new Date(a.date).getFullYear() === year})
-   let monthDataRes = [];
-   if (categoryVal === 'All'){ monthDataRes = monthData;}
-   else {monthDataRes = monthData.filter((a) => {return a.category === categoryVal})}
-   let monthMonew = 0;
-   monthDataRes.forEach((a) => {monthMonew += a.sum});
-   return monthMonew;
+    const monthData = this.transactionData.filter((a) => {
+      return (
+        new Date(a.date).getMonth() === index &&
+        a.type === 'Expense' &&
+        new Date(a.date).getFullYear() === year
+      );
+    });
+    let monthDataRes = [];
+
+    if (categoryVal === 'All') {
+      monthDataRes = monthData;
+    } else {
+      monthDataRes = monthData.filter((a) => {
+        return a.category === categoryVal;
+      });
+    }
+
+    let monthMoney = 0;
+
+    monthDataRes.forEach((a) => {
+      monthMoney += a.sum;
+    });
+
+    return monthMoney;
   }
 
   render(): void {

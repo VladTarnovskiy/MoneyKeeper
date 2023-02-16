@@ -43,6 +43,7 @@ export class PeriodItem extends BaseComponent {
     );
 
     container.addEventListener('click', () => {
+      localStorage.setItem('periodTransaction', `${this.title}`);
       this.getData(this.transactionData, this.title);
       this.updateTransactionList(this.transactionData);
     });

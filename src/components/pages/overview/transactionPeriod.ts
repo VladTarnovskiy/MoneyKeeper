@@ -30,7 +30,7 @@ export class TransactionPeriod extends BaseComponent {
       'period__title text-2xl pb-2 font-light text-stone-600 border-b-2 ',
       `Net Income for ${'All Time'}: ${0}${'$'}`,
     );
-    this.getNetIncome(this.transactionData, 'All Time');
+    this.getDataFromStorage();
     this.renderPeriodItems();
     this.render();
   }
@@ -51,8 +51,8 @@ export class TransactionPeriod extends BaseComponent {
       '#3b82f6',
       'This Week',
       '7',
-      this.sortTransactionDate('week'),
-      this.totalSum(this.sortTransactionDate('week')),
+      this.sortTransactionDate('This Week'),
+      this.totalSum(this.sortTransactionDate('This Week')),
       this.getNetIncome,
       this.updateTransactionList,
     );
@@ -61,8 +61,8 @@ export class TransactionPeriod extends BaseComponent {
       '#10b981',
       'This Month',
       '31',
-      this.sortTransactionDate('month'),
-      this.totalSum(this.sortTransactionDate('month')),
+      this.sortTransactionDate('This Month'),
+      this.totalSum(this.sortTransactionDate('This Month')),
       this.getNetIncome,
       this.updateTransactionList,
     );
@@ -71,8 +71,8 @@ export class TransactionPeriod extends BaseComponent {
       '#a855f7',
       'This Year',
       '365',
-      this.sortTransactionDate('year'),
-      this.totalSum(this.sortTransactionDate('year')),
+      this.sortTransactionDate('This Year'),
+      this.totalSum(this.sortTransactionDate('This Year')),
       this.getNetIncome,
       this.updateTransactionList,
     );
@@ -97,7 +97,7 @@ export class TransactionPeriod extends BaseComponent {
     };
 
     switch (way) {
-      case 'today':
+      case 'Today':
         filterData = this.transactionData.filter(
           (item) =>
             getTransactionDate(item).getFullYear() === date.getFullYear() &&
@@ -106,7 +106,7 @@ export class TransactionPeriod extends BaseComponent {
         );
         break;
 
-      case 'week':
+      case 'This Week':
         filterData = this.transactionData.filter(
           (item) =>
             getTransactionDate(item).getFullYear() === date.getFullYear() &&
@@ -115,7 +115,7 @@ export class TransactionPeriod extends BaseComponent {
         );
         break;
 
-      case 'month':
+      case 'This Month':
         filterData = this.transactionData.filter(
           (item) =>
             getTransactionDate(item).getFullYear() === date.getFullYear() &&
@@ -123,7 +123,7 @@ export class TransactionPeriod extends BaseComponent {
         );
         break;
 
-      case 'year':
+      case 'This Year':
         filterData = this.transactionData.filter(
           (item) => getTransactionDate(item).getFullYear() === date.getFullYear(),
         );
@@ -154,6 +154,19 @@ export class TransactionPeriod extends BaseComponent {
     });
     this.netIncome.textContent = `Net Income (${itemType}): ${netIncome}${'$'}`;
   };
+
+  getDataFromStorage(): void {
+    // const storagePeriodTransaction = localStorage.getItem('periodTransaction');
+
+    // if (storagePeriodTransaction === null) {
+    this.getNetIncome(this.transactionData, 'All Time');
+    // } else {
+    //   this.sortTransactionDate(storagePeriodTransaction);
+    //   this.getNetIncome(this.transactionData, storagePeriodTransaction);
+    //   console.log(storagePeriodTransaction);
+    //   console.log(this.transactionData);
+    // }
+  }
 
   render(): void {
     const container = this.createElem('div', 'period__container flex flex-col');

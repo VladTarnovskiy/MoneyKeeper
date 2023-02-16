@@ -34,6 +34,11 @@ export class InputSelect extends BaseComponent {
 
       this.filterSelect.append(option);
     });
+    const storageTransactionSelectType = localStorage.getItem(`${this.title}`);
+
+    if (storageTransactionSelectType !== null) {
+      this.filterSelect.value = storageTransactionSelectType;
+    }
 
     const inputLabel = this.createElem(
       'label',
@@ -42,6 +47,7 @@ export class InputSelect extends BaseComponent {
     );
 
     this.filterSelect.addEventListener('change', () => {
+      localStorage.setItem(`${this.title}`, `${this.filterSelect.value}`);
       this.prop(this.filterSelect.value);
     });
 

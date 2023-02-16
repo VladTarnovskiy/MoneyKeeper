@@ -2,16 +2,16 @@ import { Chart } from 'chart.js';
 
 import { InputSelect } from '@/components/base/inputSelect';
 
-export class InputChartSelect extends InputSelect {
+export class InputTypeTransactionSelect extends InputSelect {
   type: string;
-  callBack: (container: HTMLCanvasElement, graphType: string) => void;
+  callBack: (dataType: string) => void;
   callCont: HTMLCanvasElement;
 
   constructor(
     root: HTMLElement,
     title: string,
     options: string[],
-    callBack: (container: HTMLCanvasElement, graphType: string) => void,
+    callBack: (dataType: string) => void,
     callCont: HTMLCanvasElement,
   ) {
     super(root, title, options);
@@ -25,23 +25,23 @@ export class InputChartSelect extends InputSelect {
   }
 
   getValue(): string {
-    const storageChartType = localStorage.getItem('chartTypeTransaction');
+    const storageTransType = localStorage.getItem('reportTypeTransaction');
 
-    if (storageChartType !== null) {
-      this.filterSelect.value = storageChartType;
+    if (storageTransType !== null) {
+      this.filterSelect.value = storageTransType;
     }
 
     this.filterSelect.addEventListener('change', () => {
       this.type = String(this.filterSelect.value);
       const chartStatus = Chart.getChart('chart');
 
-      localStorage.setItem('chartTypeTransaction', `${this.type}`);
+      localStorage.setItem('reportTypeTransaction', `${this.type}`);
 
       if (chartStatus !== undefined) {
         chartStatus.destroy();
       }
 
-      this.callBack(this.callCont, this.type);
+      this.callBack(this.type);
     });
 
     return this.type;

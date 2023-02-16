@@ -31,7 +31,7 @@ export class Main extends BaseComponent {
     super();
     this.bodyPage = bodyPage;
     this.container = this.createElem('main', 'container mx-auto flex');
-    this.content = this.createElem('section', 'content w-full p-3');  
+    this.content = this.createElem('section', 'content w-full p-3');
     this.loader = new Loader(document.body);
     this.sideBar = new SideBar(this.container);
     this.overviewHtml = this.createElem('section', 'overview');
@@ -40,7 +40,7 @@ export class Main extends BaseComponent {
     this.calendarHtml = this.createElem('section', undefined);
     this.calendar = new Calendar(this.calendarHtml);
     this.reportHtml = this.createElem('section', undefined);
-    this.report = new Report(this.reportHtml);
+    this.report = new Report(this.reportHtml, model);
     this.transactionHtml = this.createElem('section', undefined);
     this.transaction = new Transaction(this.transactionHtml, model);
     this.settingHtml = this.createElem('section', undefined);

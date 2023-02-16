@@ -67,7 +67,13 @@ export class Authorization extends BaseComponent {
       this.access = true;
       this.update();
       setTimeout(() => {
-        location.hash = '#overview';
+        const lastPath = localStorage.getItem('query');
+
+        if (typeof lastPath === 'string') {
+          location.hash = `#${lastPath.slice(1)}`;
+        } else {
+          location.hash = '#overview';
+        }
       }, 1000);
     } else {
       setTimeout(() => {

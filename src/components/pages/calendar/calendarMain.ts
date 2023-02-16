@@ -30,7 +30,7 @@ export class CalendarMain extends BaseComponent {
     monthArrayEng.forEach((a, index) => {
       const monthHtml = this.createElem(
         'div',
-        `mainMonth__${a} flex flex-col place-content-around h-48 border-2 p-3`,
+        `mainMonth__${a} flex flex-col place-content-around h-40 border-2 p-3`,
       );
 
       new CalendarMonthProgress(monthHtml, a, Number(everyMonthMoney[index]), maxMonthMoney);

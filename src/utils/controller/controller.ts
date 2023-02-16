@@ -22,10 +22,6 @@ export class Controller {
     this.router.queryListener();
   }
 
-  getDataFromModel(): string {
-    return 'data from model';
-  }
-
   checkRestartPage(): void {
     const query = localStorage.getItem('query');
 

@@ -66,6 +66,12 @@ export class CalendarHeader extends BaseComponent {
     if (typeof thisYear === 'string' && newYearArr.includes(thisYear)) {
       this.yearInputElement.value = thisYear;
     }
+
+    const thisCategory = localStorage.getItem('calendarCategory');
+
+    if (typeof thisCategory === 'string') {
+      this.categoryInputElement.value = thisCategory;
+    }
   }
 
   render(): void {

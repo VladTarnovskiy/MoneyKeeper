@@ -77,5 +77,9 @@ export class Main extends BaseComponent {
     if (index === 3) {
       this.calendar.updateCalendar();
     }
+
+    if (index === 0) {
+      this.overview.rebuild();
+    }
   }
 }

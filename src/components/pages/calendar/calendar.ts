@@ -97,6 +97,7 @@ export class Calendar extends BaseComponent {
     };
 
     this.calendarHeader.categoryInputElement.oninput = () => {
+      localStorage.setItem('calendarCategory', this.calendarHeader.categoryInputElement.value);
       this.updateCalendarMain();
     };
   }

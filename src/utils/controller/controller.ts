@@ -14,15 +14,12 @@ export class Controller {
     this.router = new Router({
       onupdate: this.view.main.updateMain.bind(this.view.main),
       changePages: this.view.changePages.bind(this.view),
+      access: this.view.authorization.checkAccess.bind(this.view.authorization),
     });
   }
 
   addQueryListener(): void {
     this.router.queryListener();
-  }
-
-  getDataFromModel(): string {
-    return 'data from model';
   }
 
   checkRestartPage(): void {

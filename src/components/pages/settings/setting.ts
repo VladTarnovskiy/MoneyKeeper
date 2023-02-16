@@ -1,4 +1,6 @@
 import { BaseComponent } from '@/components/base/baseComponent';
+import type { Model } from '@/components/model/model';
+import type { ISetting, ISettingReq } from '@/components/model/types';
 import { Button } from '@/components/pages/authorization/Button';
 import { InputCheck } from '@/components/pages/authorization/InputCheck';
 import { SettingItem } from '@/components/pages/settings/inputRadioItem';
@@ -7,25 +9,29 @@ import { InputTextItem } from '@/components/pages/settings/inputTextItem';
 
 interface IStateSetting {
   status: string;
-  inputCheck: boolean;
+  settingBlock: boolean;
+  deleteBlock: boolean;
   message: string;
+  setting: ISettingReq[];
 }
 
 export class Settings extends BaseComponent {
-  root: HTMLElement;
-  container: HTMLElement;
+  node: HTMLElement;
   #state: IStateSetting;
+  model: Model;
 
-  constructor(root: HTMLElement) {
+  constructor(model: Model) {
     super();
-    this.root = root;
     this.#state = {
       status: '200',
-      inputCheck: false,
+      settingBlock: true,
+      deleteBlock: true,
       message: '',
+      setting: model.setting,
     };
-    this.container = this.build();
-    this.render();
+    this.model = model;
+    this.node = this.build();
+    this.update();
   }
   set state(state: IStateSetting) {
     this.#state = state;
@@ -43,12 +49,42 @@ export class Settings extends BaseComponent {
       'page__title ml-2 text-3xl text-sky-600 mb-4 bg-sky-100 rounded pl-2',
       'Settings',
     );
-    const pageContent = this.createElem('div', 'flex flex-col mt-4');
+    const pageContent = this.createElem('form', 'flex flex-col mt-4 border rounded');
 
-    new InputTextItem(pageContent, 'Username', 'name');
-    new SettingItem(pageContent, 'Language', ['EN', 'RU']);
-    new SettingItem(pageContent, 'Theme', ['Light', 'Dark']);
-    new SettingItem(pageContent, 'Currency', ['$', '€', '₽', '¥']);
+    pageContent.onsubmit = this.onSubmit;
+
+    const set: ISettingReq = this.model.setting[0] ?? {
+      name: '',
+      lang: 'EN',
+      theme: 'Light',
+      currency: 'EUR',
+      userId: 0,
+      id: 0,
+    };
+
+    const inputText = new InputTextItem({
+      title: 'Name',
+      value: set.name,
+      disabled: this.state.settingBlock,
+    }).node;
+    const inputLang = new SettingItem({
+      title: 'Language',
+      options: ['EN', 'RU'],
+      value: set.lang,
+      disabled: this.state.settingBlock,
+    }).node;
+    const inputTheme = new SettingItem({
+      title: 'Theme',
+      options: ['Light', 'Dark'],
+      value: set.theme,
+      disabled: this.state.settingBlock,
+    }).node;
+    const inputCurrency = new SettingItem({
+      title: 'Currency',
+      options: ['USD', 'EUR', 'RUB', 'YEN'],
+      value: set.currency,
+      disabled: this.state.settingBlock,
+    }).node;
 
     const container1 = this.createElem('div', 'content__container flex flex-col gap-4');
     const message = this.createElem2('div', {
@@ -56,32 +92,125 @@ export class Settings extends BaseComponent {
       textContent: this.state.message,
     });
     const inputCheck = new InputCheck({
-      onclick: () => {
-        return;
-      },
-      checked: false,
+      onclick: this.onCheck,
+      checked: !this.state.settingBlock,
       disabled: false,
+      label: 'change settings',
     }).node;
     const inputButton = new Button({
       text: 'Save settings',
+      disabled: this.state.settingBlock,
+      onClick: () => {
+        return;
+      },
     }).node;
 
+    const container2 = this.createElem(
+      'div',
+      'content__container flex flex-col  mt-4 ml-2 justify-end gap-4 border rounded',
+    );
+    const inputCheck2 = new InputCheck({
+      onclick: this.onCheckDel,
+      checked: !this.state.deleteBlock,
+      disabled: false,
+      label: 'Delete account',
+    }).node;
+    const inputButton2 = new Button({
+      text: 'Delete',
+      type: 'button',
+      disabled: this.state.deleteBlock,
+      onClick: this.onClick,
+    }).node;
+
+    container2.append(inputCheck2, inputButton2);
+
+    const container3 = this.createElem('div', 'flex flex-raw gap-4');
+
     container1.append(inputCheck, inputButton);
-    pageContent.append(container1);
-    container.append(pageTitle, message, pageContent);
+    pageContent.append(inputText, inputLang, inputTheme, inputCurrency, container1);
+    container3.append(pageContent, container2);
+    container.append(pageTitle, message, container3);
 
     return container;
+  }
+  onCheck = (): void => {
+    this.state.settingBlock = !this.state.settingBlock;
+    this.state.message = '';
+    this.update();
+  };
+
+  onCheckDel = (): void => {
+    this.state.deleteBlock = !this.state.deleteBlock;
+    this.state.message = this.state.deleteBlock
+      ? ''
+      : 'Attention! You are permanently deleting your account!';
+    this.state.status = this.state.deleteBlock ? '200' : '400';
+    this.update();
+  };
+
+  onClick = (): void => {
+    console.log('delete');
+  };
+
+  onSubmit = async (event: Event): Promise<void> => {
+    event.preventDefault();
+    const target = event.target as HTMLFormElement;
+
+    const formElement = target.elements;
+
+    const set: ISetting = {
+      name: '',
+      lang: 'EN',
+      theme: 'Light',
+      currency: 'EUR',
+      userId: this.model.setting[0]?.userId ?? 0,
+    };
+
+    for (const iterator of formElement) {
+      const element: HTMLFormElement = iterator as HTMLFormElement;
+
+      if (element.type === 'radio') {
+        if (element.id === 'language' && element.checked === true) {
+          set.lang = String(element.value);
+        }
+
+        if (element.id === 'theme' && element.checked === true) {
+          set.theme = String(element.value);
+        }
+
+        if (element.id === 'currency' && element.checked === true) {
+          set.currency = String(element.value);
+        }
+      }
+
+      if (element.type === 'text') {
+        set.name = String(element.value);
+      }
+    }
+
+    await this.updateSetting(set);
+  };
+
+  async updateSetting(set: ISetting): Promise<void> {
+    const resp = await this.model.updateSettings<ISettingReq>(set, this.model.setting[0]?.id ?? 0);
+
+    if (resp.status === 201 || resp.status === 200) {
+      this.state.message = 'Setting save';
+      this.state.status = '200';
+      this.state.settingBlock = true;
+      this.update();
+    } else {
+      this.state.message = 'Setting save fault';
+      this.state.status = '400';
+      this.update();
+    }
   }
 
   update(): void {
     const container = this.build();
 
-    this.container.replaceWith(container);
+    this.node.replaceWith(container);
 
-    this.container = container;
-  }
-
-  render(): void {
-    this.root.appendChild(this.container);
+    this.node = container;
   }
 }

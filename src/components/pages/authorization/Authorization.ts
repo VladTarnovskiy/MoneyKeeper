@@ -33,6 +33,7 @@ export class Authorization extends BaseComponent {
   container: HTMLElement;
   #state: IState;
   model: Model;
+  access = false;
 
   constructor(root: HTMLElement, model: Model) {
     super();
@@ -63,13 +64,24 @@ export class Authorization extends BaseComponent {
     if (resp.status === 200) {
       this.state.status = 'Sign out';
       this.state.message = `You sign in account: ${resp.data === undefined ? '' : resp.data.email}`;
+      this.access = true;
       this.update();
+      setTimeout(() => {
+        const lastPath = localStorage.getItem('query');
+
+        if (typeof lastPath === 'string') {
+          location.hash = `#${lastPath.slice(1)}`;
+        } else {
+          location.hash = '#overview';
+        }
+      }, 1000);
     } else {
       setTimeout(() => {
         location.hash = '#signup';
-      }, 2000);
-      localStorage.signIn = '';
-      localStorage.query = '';
+      }, 1000);
+      this.access = false;
+      // localStorage.signIn = '';
+      localStorage.query = '/signup';
       localStorage.userdata = '';
     }
   }
@@ -91,6 +103,9 @@ export class Authorization extends BaseComponent {
     }).node;
     const button = new Button({
       text: `${this.state.status}`,
+      onClick: () => {
+        return;
+      },
     }).node;
 
     const form = this.createElem2('form', {
@@ -165,8 +180,10 @@ export class Authorization extends BaseComponent {
         setTimeout(() => {
           location.hash = '#overview';
         }, 2000);
-        localStorage.setItem('signIn', 'true');
+        // localStorage.setItem('signIn', 'true');
+        this.access = true;
       } else {
+        this.access = false;
         this.state.message = resp.message;
         this.update();
       }
@@ -177,6 +194,10 @@ export class Authorization extends BaseComponent {
     this.state.message = 'You sign out';
     localStorage.userdata = '';
     this.update();
+  }
+
+  checkAccess(): boolean {
+    return this.access;
   }
 
   render(): void {

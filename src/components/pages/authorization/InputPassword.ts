@@ -27,7 +27,7 @@ export class InputPassword extends BaseComponent {
           disabled: prop.disabled,
           name: 'password',
           placeholder: 'Password',
-          required: 'true',
+          required: true,
           autocomplete: 'current-password',
           type: 'password',
           class:

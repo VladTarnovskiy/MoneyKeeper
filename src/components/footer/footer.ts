@@ -18,7 +18,7 @@ export class Footer extends BaseComponent {
     );
     const rsImg = this.createElem(
       'a',
-      'block w-32 h-8 bg-contain bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
+      'block w-32 h-8 bg-contain bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100 sm:hidden',
     );
 
     rsImg.setAttribute(

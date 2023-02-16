@@ -1,37 +1,41 @@
 import { BaseComponent } from '../../base/baseComponent';
 
-export class SettingItem extends BaseComponent {
-  root: HTMLElement;
-  options: string[];
+interface IPropInput {
   title: string;
+  options: string[];
+  value: string;
+  disabled: boolean;
+}
 
-  constructor(root: HTMLElement, title: string, options: string[]) {
+export class SettingItem extends BaseComponent {
+  node: HTMLElement;
+
+  constructor(prop: IPropInput) {
     super();
-    this.root = root;
-    this.title = title;
-    this.options = options;
-    this.render();
+    this.node = this.render(prop);
   }
 
-  render(): void {
-    const settingItemContainer = this.createElem('div', 'p-2 flex items-center');
+  render(prop: IPropInput): HTMLElement {
+    const settingItemContainer = this.createElem('div', 'p-2 flex justify-between');
     const settingItemTitle = this.createElem2('div', {
       class: 'title__name text-base mb-2 mr-4 font-light min-w-[120px] sm:hidden',
-      textContent: `${this.title}:`,
+      textContent: `${prop.title}:`,
     });
 
     settingItemContainer.append(settingItemTitle);
 
-    this.options.forEach((item, index) => {
+    prop.options.forEach((item, index) => {
       const option = this.createElem2('input', {
         class: 'option__item ml-2 w-5 h-5 hover:cursor-pointer',
         type: 'radio',
-        id: item,
-        name: this.title,
+        id: prop.title.toLowerCase(),
+        name: prop.title,
+        checked: item === prop.value,
+        disabled: prop.disabled,
       });
 
       if (index === 0) {
-        option.setAttribute('checked', 'checked');
+        // option.setAttribute('checked', 'checked');
       }
 
       option.setAttribute('value', item);
@@ -46,6 +50,7 @@ export class SettingItem extends BaseComponent {
 
       settingItemContainer.append(settingItemLabel);
     });
-    this.root.appendChild(settingItemContainer);
+
+    return settingItemContainer;
   }
 }

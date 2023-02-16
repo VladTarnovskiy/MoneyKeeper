@@ -2,7 +2,7 @@ import { Chart, registerables, type ChartTypeRegistry } from 'chart.js';
 
 Chart.register(...registerables);
 import { BaseComponent } from '@/components/base/baseComponent';
-import { InputChartSelect } from '@/components/pages/report/InputChartSelect';
+import { InputChartSelect } from '@/components/pages/report/inputChartSelect';
 import { StatisticBlock } from '@/components/pages/report/statisticBlock';
 
 interface DataItem {

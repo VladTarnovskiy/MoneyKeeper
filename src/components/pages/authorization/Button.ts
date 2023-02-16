@@ -5,6 +5,9 @@ import { BaseComponent } from '../../base/baseComponent';
 interface IButton {
   text: string;
   style?: string;
+  disabled?: boolean;
+  type?: string;
+  onClick: (this: GlobalEventHandlers, event: MouseEvent) => void;
 }
 
 export class Button extends BaseComponent {
@@ -12,17 +15,22 @@ export class Button extends BaseComponent {
 
   constructor(prop: IButton) {
     super();
-    this.node = this.createElem2('div', {});
+    this.node = this.createElem2('div', {
+      class: 'flex justify-end',
+    });
     this.build(prop);
   }
   build(prop: IButton): void {
     const button = this.appendElem(
       {
         button: {
-          type: 'submit',
-          class:
-            'group relative flex w-1/3 justify-center rounded-md border border-transparent bg-sky-400 py-2 px-4 text-sm font-medium text-white hover:bg-sky-500 focus:outline-none focus:ring-2 focus:bg-sky-500 focus:ring-offset-2',
+          type: prop.type ?? 'submit',
+          class: `group ${
+            prop.disabled === undefined ? '' : 'disabled:opacity-50'
+          } relative flex w-60 justify-center rounded-md border border-transparent bg-sky-400 py-2 px-4 text-sm font-medium text-white hover:bg-sky-500 focus:outline-none focus:ring-2 focus:bg-sky-500 focus:ring-offset-2`,
           textContent: `${prop.text}`,
+          disabled: prop.disabled ?? false,
+          onclick: prop.onClick,
         },
       },
       {

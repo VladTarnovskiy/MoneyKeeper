@@ -97,6 +97,9 @@ export class Transaction extends BaseComponent {
 
     const button = new Button({
       text: 'Save',
+      onClick: () => {
+        return;
+      },
     }).node;
     const message = this.createElem2('div', {
       class: `h-12 mx-auto text-center text-${this.state.status === '200' ? 'green' : 'red'}-500`,

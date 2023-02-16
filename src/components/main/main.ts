@@ -31,7 +31,7 @@ export class Main extends BaseComponent {
     super();
     this.bodyPage = bodyPage;
     this.container = this.createElem('main', 'container mx-auto flex');
-    this.content = this.createElem('section', 'content w-full p-3');  
+    this.content = this.createElem('section', 'content w-full p-3');
     this.loader = new Loader(document.body);
     this.sideBar = new SideBar(this.container);
     this.overviewHtml = this.createElem('section', 'overview');
@@ -44,7 +44,8 @@ export class Main extends BaseComponent {
     this.transactionHtml = this.createElem('section', undefined);
     this.transaction = new Transaction(this.transactionHtml, model);
     this.settingHtml = this.createElem('section', undefined);
-    this.settings = new Settings(this.settingHtml);
+    this.settings = new Settings(model);
+    this.settingHtml.append(this.settings.node);
     this.pagesHtmlArr = [
       this.overviewHtml,
       this.transactionHtml,
@@ -59,6 +60,10 @@ export class Main extends BaseComponent {
   }
 
   updateMain(index: number): void {
+    if (index === 4) {
+      this.settings.update();
+    }
+
     const pageMain: HTMLElement | undefined = this.pagesHtmlArr[index];
 
     this.content.textContent = '';

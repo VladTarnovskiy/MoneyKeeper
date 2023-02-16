@@ -42,7 +42,7 @@ export class Main extends BaseComponent {
     this.reportHtml = this.createElem('section', undefined);
     this.report = new Report(this.reportHtml);
     this.transactionHtml = this.createElem('section', undefined);
-    this.transaction = new Transaction(this.transactionHtml, model);
+    this.transaction = new Transaction(this.transactionHtml, model, updateHeaderSum);
     this.settingHtml = this.createElem('section', undefined);
     this.settings = new Settings(model);
     this.settingHtml.append(this.settings.node);

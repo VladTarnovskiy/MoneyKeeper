@@ -87,16 +87,19 @@ export class Transaction extends BaseComponent {
     });
 
     const inputSum = new InputElem({ title: 'Amount', type: 'number' }).node;
-    const inputSubcat = new InputElem({ title: 'Subcategory', type: 'text' }).node;
+    const inputSubcategory = new InputElem({ title: 'Subcategory', type: 'text' }).node;
     const inputTime = new InputElem({ title: 'Time', type: 'time' }).node;
 
-    container1.append(inputType, inputCategory, inputSubcat);
+    container1.append(inputType, inputCategory, inputSubcategory);
     container3.append(inputSum, inputDate, inputTime);
 
     const inputDescription = new InputElemArea({ title: 'Description', type: 'textarea' }).node;
 
     const button = new Button({
       text: 'Save',
+      onClick: () => {
+        return;
+      },
     }).node;
     const message = this.createElem2('div', {
       class: `h-12 mx-auto text-center text-${this.state.status === '200' ? 'green' : 'red'}-500`,
@@ -114,7 +117,7 @@ export class Transaction extends BaseComponent {
 
     container2.append(container1, container3, inputDescription);
 
-    container.append(title, container2, message, button);
+    container.append(title, message, container2, button);
 
     return container;
   }

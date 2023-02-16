@@ -4,6 +4,7 @@ interface IInput {
   onclick: (event: Event) => void;
   checked: boolean;
   disabled: boolean;
+  label?: string;
 }
 
 export class InputCheck extends BaseComponent {
@@ -22,18 +23,18 @@ export class InputCheck extends BaseComponent {
       },
       {
         input: {
-          id: 'remember-me',
+          id: prop.label ?? 'remember',
           disabled: prop.disabled,
-          name: 'remember-me',
+          name: prop.label ?? 'remember',
           type: 'checkbox',
-          class: 'h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500',
+          class: 'h-4 w-4 rounded border-gray-300 ml-2 text-indigo-600 focus:ring-indigo-500',
           onclick: prop.onclick,
           checked: prop.checked,
         },
         label: {
-          for: 'remember-me',
+          for: prop.label ?? 'remember',
           class: 'ml-2 text-sm text-gray-900',
-          textContent: 'New account',
+          textContent: prop.label ?? 'New account',
         },
       },
     );

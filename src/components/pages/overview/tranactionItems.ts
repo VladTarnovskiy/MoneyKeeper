@@ -6,6 +6,7 @@ import incomeAssets from '@/assets/income.png';
 
 interface ITransactionsList {
   delete: <T>(id: number) => Promise<PostJsonResponse<T>>;
+  rebuild: () => void;
 }
 
 export class TransactionItems extends BaseComponent {
@@ -21,9 +22,8 @@ export class TransactionItems extends BaseComponent {
   }
 
   render(): void {
-    let sign = '-';
-
     this.data.forEach((item) => {
+      let sign = '-';
       const container = this.createElem(
         'div',
         'transaction__container items-center border-2 rounded p-1 mb-2 flex cursor-pointer cursor-alias hover:bg-gray-100',
@@ -134,6 +134,7 @@ export class TransactionItems extends BaseComponent {
 
     removeItem.addEventListener('click', () => {
       this.prop.delete(item.id).catch((err: string) => new Error(err));
+      this.prop.rebuild();
     });
 
     contMenuContainer.append(detailItem, removeItem);

@@ -33,9 +33,9 @@ export class SideBar extends BaseComponent {
         }
       });
 
-      // if (index === 4) {
-      //   sideBarItem.classList.add('');
-      // }
+      if (index === 4) {
+        sideBarItem.classList.add('rounded-br-lg');
+      }
 
       if (index === 0) {
         sideBarItem.classList.add('bg-sky-600', 'rounded-tr-lg');

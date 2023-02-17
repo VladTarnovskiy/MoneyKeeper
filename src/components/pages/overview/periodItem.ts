@@ -11,7 +11,7 @@ export class PeriodItem extends BaseComponent {
   date: string;
   transactionData: ITransactionReq[];
   allSum: number;
-  getData: (data: ITransactionReq[], itemType: string) => void;
+  getNetIncome: (data: ITransactionReq[], itemType: string) => void;
   updateTransactionList: (data: ITransactionReq[]) => void;
 
   constructor(
@@ -21,7 +21,7 @@ export class PeriodItem extends BaseComponent {
     date: string,
     transactionData: ITransactionReq[],
     allSum: number,
-    getData: (data: ITransactionReq[], itemType: string) => void,
+    getNetIncome: (data: ITransactionReq[], itemType: string) => void,
     updateTransactionList: (data: ITransactionReq[]) => void,
   ) {
     super();
@@ -32,7 +32,7 @@ export class PeriodItem extends BaseComponent {
     this.transactionData = transactionData;
     this.updateTransactionList = updateTransactionList;
     this.allSum = allSum;
-    this.getData = getData;
+    this.getNetIncome = getNetIncome;
     this.render();
   }
 
@@ -44,7 +44,7 @@ export class PeriodItem extends BaseComponent {
 
     container.addEventListener('click', () => {
       localStorage.setItem('periodTransaction', `${this.title}`);
-      this.getData(this.transactionData, this.title);
+      this.getNetIncome(this.transactionData, this.title);
       this.updateTransactionList(this.transactionData);
     });
     const periodImg = this.createElem('div', 'relative period__img w-14 h-14');

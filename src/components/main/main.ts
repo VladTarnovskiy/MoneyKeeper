@@ -40,7 +40,7 @@ export class Main extends BaseComponent {
     this.calendarHtml = this.createElem('section', undefined);
     this.calendar = new Calendar(this.calendarHtml, model);
     this.reportHtml = this.createElem('section', undefined);
-    this.report = new Report(this.reportHtml);
+    this.report = new Report(this.reportHtml, model);
     this.transactionHtml = this.createElem('section', undefined);
     this.transaction = new Transaction(this.transactionHtml, model, updateHeaderSum);
     this.settingHtml = this.createElem('section', undefined);

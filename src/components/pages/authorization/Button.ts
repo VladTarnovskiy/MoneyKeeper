@@ -21,6 +21,23 @@ export class Button extends BaseComponent {
     this.build(prop);
   }
   build(prop: IButton): void {
+    const tmp: {
+      Delete: string;
+      Save: string;
+      Reset: string;
+      'Sign in': string;
+      'Save settings': string;
+      'Sign out': string;
+      Registration: string;
+    } = {
+      Delete: this.textTranslate('Settings.Button2'),
+      Save: this.textTranslate('Transaction.Save'),
+      Reset: this.textTranslate('Transaction.Reset'),
+      'Save settings': this.textTranslate('Settings.Button1'),
+      'Sign in': this.textTranslate('Authorization.Button1'),
+      'Sign out': this.textTranslate('Authorization.Button3'),
+      Registration: this.textTranslate('Authorization.Button2'),
+    };
     const button = this.appendElem(
       {
         button: {
@@ -34,7 +51,7 @@ export class Button extends BaseComponent {
           } focus:outline-none focus:ring-2 focus:${
             prop.text === 'Delete' ? 'bg-red-600' : 'bg-sky-500'
           } focus:ring-offset-2`,
-          textContent: `${prop.text}`,
+          textContent: String(tmp[prop.text]),
           disabled: prop.disabled ?? false,
           onclick: prop.onClick,
         },

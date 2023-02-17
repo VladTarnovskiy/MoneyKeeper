@@ -47,7 +47,7 @@ export class Settings extends BaseComponent {
     const pageTitle = this.createElem(
       'div',
       'page__title ml-2 text-3xl text-sky-600 mb-4 bg-sky-100 rounded pl-2',
-      'Settings',
+      this.textTranslate('Settings.Title'),
     );
     const pageContent = this.createElem('form', 'flex flex-col mt-4 border rounded');
 
@@ -95,7 +95,7 @@ export class Settings extends BaseComponent {
       onclick: this.onCheck,
       checked: !this.state.settingBlock,
       disabled: false,
-      label: 'change settings',
+      label: this.textTranslate('Settings.Check1'),
     }).node;
     const inputButton = new Button({
       text: 'Save settings',
@@ -113,7 +113,7 @@ export class Settings extends BaseComponent {
       onclick: this.onCheckDel,
       checked: !this.state.deleteBlock,
       disabled: false,
-      label: 'Delete account',
+      label: this.textTranslate('Settings.Check2'),
     }).node;
     const inputButton2 = new Button({
       text: 'Delete',
@@ -141,9 +141,7 @@ export class Settings extends BaseComponent {
 
   onCheckDel = (): void => {
     this.state.deleteBlock = !this.state.deleteBlock;
-    this.state.message = this.state.deleteBlock
-      ? ''
-      : 'Attention! You are permanently deleting your account!';
+    this.state.message = this.state.deleteBlock ? '' : this.textTranslate('Settings.Message1');
     this.state.status = this.state.deleteBlock ? '200' : '400';
     this.update();
   };
@@ -153,13 +151,13 @@ export class Settings extends BaseComponent {
       .deleteAccount()
       .then((res) => {
         if (res.status === 200) {
-          this.state.message = 'Your account deleting.';
+          this.state.message = this.textTranslate('Settings.Message2');
           localStorage.userdata = '';
           setTimeout(() => {
             location.hash = '#signup';
           }, 2000);
         } else {
-          this.state.message = 'Fault deleting. ';
+          this.state.message = this.textTranslate('Settings.Message3');
         }
 
         this.update();
@@ -212,12 +210,12 @@ export class Settings extends BaseComponent {
     const resp = await this.model.updateSettings<ISettingReq>(set, this.model.setting[0]?.id ?? 0);
 
     if (resp.status === 201 || resp.status === 200) {
-      this.state.message = 'Setting save';
+      this.state.message = this.textTranslate('Settings.Message4');
       this.state.status = '200';
       this.state.settingBlock = true;
       this.update();
     } else {
-      this.state.message = 'Setting save fault';
+      this.state.message = this.textTranslate('Settings.Message5');
       this.state.status = '400';
       this.update();
     }

@@ -6,7 +6,7 @@ import translationRu from './translationRu.json';
 
 // i18next.use(LanguageDetector).init({
 i18next.init({
-  lng: 'en',
+  lng: 'ru',
   resources: {
     en: {
       translation: translationEn,

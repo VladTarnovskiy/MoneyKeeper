@@ -16,10 +16,21 @@ export class SettingItem extends BaseComponent {
   }
 
   render(prop: IPropInput): HTMLElement {
+    const tmp: {
+      Name: string;
+      Language: string;
+      Theme: string;
+      Currency: string;
+    } = {
+      Name: this.textTranslate('Settings.Name'),
+      Language: this.textTranslate('Settings.Language'),
+      Theme: this.textTranslate('Settings.Themes'),
+      Currency: this.textTranslate('Settings.Currency'),
+    };
     const settingItemContainer = this.createElem('div', 'p-2 flex justify-between');
     const settingItemTitle = this.createElem2('div', {
       class: 'title__name text-base mb-2 mr-4 font-light min-w-[120px] sm:hidden',
-      textContent: `${prop.title}:`,
+      textContent: `${String(tmp[prop.title])}:`,
     });
 
     settingItemContainer.append(settingItemTitle);

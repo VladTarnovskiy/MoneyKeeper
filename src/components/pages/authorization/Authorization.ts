@@ -41,7 +41,9 @@ export class Authorization extends BaseComponent {
     this.#state = {
       status: 'Sign in',
       inputCheck: false,
-      message: 'Демо доступ [ email: test@test.ru, password: test ]',
+      message: `${this.textTranslate(
+        'Authorization.Message4',
+      )} [ email: test@test.ru, password: test ]`,
     };
     this.model = model;
     this.container = this.build();
@@ -63,7 +65,9 @@ export class Authorization extends BaseComponent {
 
     if (resp.status === 200) {
       this.state.status = 'Sign out';
-      this.state.message = `You sign in account: ${resp.data === undefined ? '' : resp.data.email}`;
+      this.state.message = `${this.textTranslate('Authorization.Message1')} ${
+        resp.data === undefined ? '' : resp.data.email
+      }`;
       // this.access = true;
       this.update();
       setTimeout(() => {
@@ -122,7 +126,9 @@ export class Authorization extends BaseComponent {
 
     const logo = new Logo({
       text:
-        this.state.status === 'Registration' ? 'New account in the app' : 'Sign in to your account',
+        this.state.status === 'Registration'
+          ? `${this.textTranslate('Authorization.Logo2')}`
+          : `${this.textTranslate('Authorization.Logo1')}`,
     }).node;
     const message = this.createElem2('div', {
       class: `h-6 mx-auto text-center text-${
@@ -172,8 +178,10 @@ export class Authorization extends BaseComponent {
         this.state.status = 'Sign out';
         this.state.message =
           resp2 === null
-            ? `You sign in account: ${resp.data === undefined ? '' : resp.data.user.email}`
-            : `A new account has been created: ${
+            ? `${this.textTranslate('Authorization.Message1')} ${
+                resp.data === undefined ? '' : resp.data.user.email
+              }`
+            : `${this.textTranslate('Authorization.Message2')} ${
                 resp.data === undefined ? '' : resp.data.user.email
               }`;
         this.update();
@@ -191,7 +199,7 @@ export class Authorization extends BaseComponent {
   };
   onSignOut(): void {
     this.state.status = 'Sign in';
-    this.state.message = 'You sign out';
+    this.state.message = `${this.textTranslate('Authorization.Message3')}`;
     localStorage.userdata = '';
     this.update();
   }
@@ -207,7 +215,9 @@ export class Authorization extends BaseComponent {
     this.#state = {
       status: 'Sign in',
       inputCheck: false,
-      message: 'Демо доступ [ email: test@test.ru, password: test ]',
+      message: `${this.textTranslate(
+        'Authorization.Message4',
+      )} [ email: test@test.ru, password: test ]`,
     };
   }
   update(): void {

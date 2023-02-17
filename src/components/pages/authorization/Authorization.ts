@@ -64,7 +64,7 @@ export class Authorization extends BaseComponent {
     if (resp.status === 200) {
       this.state.status = 'Sign out';
       this.state.message = `You sign in account: ${resp.data === undefined ? '' : resp.data.email}`;
-      this.access = true;
+      // this.access = true;
       this.update();
       setTimeout(() => {
         location.hash = '#overview';
@@ -73,8 +73,8 @@ export class Authorization extends BaseComponent {
       setTimeout(() => {
         location.hash = '#signup';
       }, 1000);
-      this.access = false;
-      // localStorage.signIn = '';
+      // this.access = false;
+
       localStorage.query = '/signup';
       localStorage.userdata = '';
     }
@@ -174,10 +174,10 @@ export class Authorization extends BaseComponent {
         setTimeout(() => {
           location.hash = '#overview';
         }, 2000);
-        // localStorage.setItem('signIn', 'true');
-        this.access = true;
+
+        // this.access = true;
       } else {
-        this.access = false;
+        // this.access = false;
         this.state.message = resp.message;
         this.update();
       }
@@ -190,14 +190,20 @@ export class Authorization extends BaseComponent {
     this.update();
   }
 
-  checkAccess(): boolean {
-    return this.access;
-  }
+  // checkAccess(): boolean {
+  //   return this.access;
+  // }
 
   render(): void {
     this.root.append(this.container);
   }
-
+  reset(): void {
+    this.#state = {
+      status: 'Sign in',
+      inputCheck: false,
+      message: 'Демо доступ [ email: test@test.ru, password: test ]',
+    };
+  }
   update(): void {
     const container = this.build();
 

@@ -32,6 +32,12 @@ export class View extends BaseComponent {
   changePages(): void {
     this.root.replaceChild(this.bodyPage, this.authorPage);
   }
+  changePagesAut(): void {
+    this.authorization.reset();
+    this.authorization.update();
+    this.root.replaceChild(this.authorPage, this.bodyPage);
+    // this.authorization.update();
+  }
 
   render(): void {
     this.header.render();

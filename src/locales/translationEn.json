@@ -2,5 +2,29 @@
   "other": "Other",
   "overview": {
     "logo": "MoneyKeeper"
+  },
+  "CategoryIncome": {
+  "Salary": "Salary",
+  "Stipend": "Stipend",
+  "Pension": "Pension",
+  "Business": "Business",
+  "Sales": "Sales",
+  "Award": "Award",
+  "Lottery": "Lottery",
+  "Other": "Other"
+  },
+  "CategoryExpenditure": {
+  "Transport": "Transport",
+  "Bars and restaurants": "Bars and restaurants",
+  "Alcohol": "Alcohol",
+  "Eating out": "Eating out",
+  "Food": "Food",
+  "Health": "Health",
+  "Entertainment": "Entertainment",
+  "Presents": "Presents",
+  "Regular": "Regular",
+  "Clothing": "Clothing",
+  "Banking services": "Banking services",
+  "Other": "Other"
   }
 }

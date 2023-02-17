@@ -28,4 +28,4 @@ export const monthArrayRu: string[] = [
   'Декабрь',
 ];
 
-export const yearArray: string[] = ['2020', '2021', '2022', '2023'];
+export const yearArray: string[] = ['2023', '2022', '2021', '2020'];

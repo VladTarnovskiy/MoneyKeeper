@@ -1,14 +1,20 @@
 import { BaseComponent } from '@/components/base/baseComponent';
 import { ReportStatisticItem } from '@/components/pages/report/reportStatisticItem';
-import type { Data } from '@/components/pages/report/type';
+import type { ReportDataItem } from '@/components/pages/report/type';
 
 export class StatisticBlock extends BaseComponent {
   root: HTMLElement;
   title: string;
   sum: string;
   titleColor: string;
-  data: Data;
-  constructor(root: HTMLElement, title: string, sum: string, data: Data, titleColor?: string) {
+  data: ReportDataItem[];
+  constructor(
+    root: HTMLElement,
+    title: string,
+    sum: string,
+    data: ReportDataItem[],
+    titleColor?: string,
+  ) {
     super();
 
     this.root = root;
@@ -43,14 +49,7 @@ export class StatisticBlock extends BaseComponent {
     );
 
     this.data.forEach((item) => {
-      new ReportStatisticItem(
-        statisticItems,
-        item.color,
-        item.title,
-        item.width,
-        `${item.value}`,
-        'stone-500',
-      );
+      new ReportStatisticItem(statisticItems, item.color, item.title, item.width, `${item.value}`);
     });
     statisticTitleContainer.append(statisticTitle, statisticTitleSum);
     container.append(statisticTitleContainer, statisticItems);

@@ -38,11 +38,11 @@ export class Main extends BaseComponent {
     this.overview = new Overview(this.overviewHtml, model, updateHeaderSum);
     this.container.appendChild(this.content);
     this.calendarHtml = this.createElem('section', undefined);
-    this.calendar = new Calendar(this.calendarHtml);
+    this.calendar = new Calendar(this.calendarHtml, model);
     this.reportHtml = this.createElem('section', undefined);
-    this.report = new Report(this.reportHtml);
+    this.report = new Report(this.reportHtml, model);
     this.transactionHtml = this.createElem('section', undefined);
-    this.transaction = new Transaction(this.transactionHtml, model);
+    this.transaction = new Transaction(this.transactionHtml, model, updateHeaderSum);
     this.settingHtml = this.createElem('section', undefined);
     this.settings = new Settings(model);
     this.settingHtml.append(this.settings.node);
@@ -73,5 +73,13 @@ export class Main extends BaseComponent {
     }
 
     this.sideBar.buttonActive(index);
+
+    if (index === 3) {
+      this.calendar.updateCalendar();
+    }
+
+    if (index === 0) {
+      this.overview.rebuild();
+    }
   }
 }

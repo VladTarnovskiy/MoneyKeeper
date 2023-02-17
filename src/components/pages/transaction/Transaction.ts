@@ -27,10 +27,12 @@ export class Transaction extends BaseComponent {
   container: HTMLElement;
   #state: IState;
   model: Model;
+  updateHeaderSum: () => void;
 
-  constructor(root: HTMLElement, model: Model) {
+  constructor(root: HTMLElement, model: Model, updateHeaderSum: () => void) {
     super();
     this.root = root;
+    this.updateHeaderSum = updateHeaderSum;
     this.#state = {
       status: '',
       message: '',
@@ -169,6 +171,7 @@ export class Transaction extends BaseComponent {
       this.state.message = 'Transaction save';
       this.state.status = '200';
       this.update();
+      this.updateHeaderSum();
     } else {
       this.state.message = 'Transaction fault';
       this.state.status = '400';

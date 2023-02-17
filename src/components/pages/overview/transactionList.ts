@@ -36,17 +36,18 @@ export class TransactionList extends BaseComponent {
     );
     this.sortItem = new InputSelect(
       this.sortContainer,
-      'Sort by',
+      'Sort transactions',
       ['DateInc', 'DateDec', 'SumInc', 'SumDec'],
       this.getSortData,
     );
     this.filterItem = new InputSelect(
       this.sortContainer,
-      'Filter by',
+      'Filter transactions',
       ['All', 'Expense', 'Income'],
       this.getFilterData,
     );
     this.transactionItem = new TransactionItems(this.transactionItems, prop, transationData);
+    this.getDataFromStorage();
     this.render();
   }
 
@@ -105,6 +106,19 @@ export class TransactionList extends BaseComponent {
     this.transactionItems.replaceChildren();
     this.transactionItem = new TransactionItems(this.transactionItems, this.prop, this.filterData);
   };
+
+  getDataFromStorage(): void {
+    const storageSortTransType = localStorage.getItem('Sort transactions');
+    const storageFilterTransType = localStorage.getItem('Filter transactions');
+
+    if (storageSortTransType !== null) {
+      this.getSortData(storageSortTransType);
+    }
+
+    if (storageFilterTransType !== null) {
+      this.getFilterData(storageFilterTransType);
+    }
+  }
 
   render(): void {
     const container = this.createElem('div', 'transaction-list__container flex flex-col');

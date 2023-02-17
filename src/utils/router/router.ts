@@ -37,7 +37,7 @@ export class Router {
     const pageIndex = routing.indexOf(path);
     // const singIn: string | null = localStorage.getItem('signIn');
 
-    // console.log(this.access())
+    // console.log(this.access());
 
     if (this.access() && !this.chengedPages) {
       this.changePages();

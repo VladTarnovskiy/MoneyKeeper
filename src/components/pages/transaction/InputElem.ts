@@ -3,6 +3,7 @@ import { BaseComponent } from '../../base/baseComponent';
 interface IInputElem {
   title: string;
   type: string;
+  value: string;
 }
 
 export class InputElem extends BaseComponent {
@@ -28,6 +29,8 @@ export class InputElem extends BaseComponent {
       id: prop.title === 'Amount' ? 'sum' : prop.title.toLowerCase(),
       required: prop.title !== 'Subcategory',
       type: prop.type,
+      value: prop.type === 'number' ? Number(prop.value) : prop.value,
+      min: 0,
       class:
         'eer h-full w-full rounded-[7px] cursor-pointer border text-right border-blue-gray-200 bg-transparent font-sans text-1xl font-normal transition-all focus:border-2 focus:border-grey-500 focus:outline-0 disabled:border-0',
     });

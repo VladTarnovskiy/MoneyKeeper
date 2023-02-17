@@ -64,6 +64,11 @@ export class Main extends BaseComponent {
       this.settings.update();
     }
 
+    if (index === 1) {
+      this.transaction.resetMsg();
+      this.transaction.update();
+    }
+
     const pageMain: HTMLElement | undefined = this.pagesHtmlArr[index];
 
     this.content.textContent = '';

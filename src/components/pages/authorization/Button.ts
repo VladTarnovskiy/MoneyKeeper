@@ -24,7 +24,7 @@ export class Button extends BaseComponent {
     const button = this.appendElem(
       {
         button: {
-          type: prop.type ?? 'submit',
+          type: prop.type === 'button' ? 'button' : 'submit',
           class: `group ${
             prop.disabled === undefined ? '' : 'disabled:opacity-50'
           } relative flex w-60 justify-center rounded-md border border-transparent ${

@@ -35,7 +35,7 @@ export class View extends BaseComponent {
   changePagesAut(): void {
     this.authorization.reset();
     this.authorization.update();
-    this.root.replaceChild(this.authorPage, this.bodyPage);
+    this.bodyPage.replaceWith(this.authorPage);
     // this.authorization.update();
   }
 

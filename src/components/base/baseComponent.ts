@@ -21,7 +21,7 @@ interface TElement {
   onsubmit?: (event: Event) => void;
   checked?: boolean;
   disabled?: boolean;
-  value?: string;
+  value?: string | number;
   rows?: number;
   cols?: number;
   wrap?: string;

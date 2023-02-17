@@ -46,7 +46,7 @@ export class Settings extends BaseComponent {
     const container = this.createElem('div', 'content__container flex flex-col');
     const pageTitle = this.createElem(
       'div',
-      'page__title ml-2 text-3xl text-sky-600 mb-4 bg-sky-100 rounded pl-2',
+      'page__title ml-2 text-3xl dark:font-semibold dark:text-stone-600 dark:bg-gray-400 text-sky-600 mb-4 bg-sky-100 rounded pl-2',
       'Settings',
     );
     const pageContent = this.createElem('form', 'flex flex-col mt-4 border rounded');
@@ -85,6 +85,17 @@ export class Settings extends BaseComponent {
       value: set.currency,
       disabled: this.state.settingBlock,
     }).node;
+
+    inputTheme.addEventListener('click', (e) => {
+      const { target } = e;
+      const inputs = inputTheme.querySelectorAll('.option__item');
+
+      for (const a of inputs) {
+        if (target === a) {
+          document.body.className = (a as HTMLInputElement).defaultValue.toLowerCase();
+        }
+      }
+    });
 
     const container1 = this.createElem('div', 'content__container flex flex-col gap-4');
     const message = this.createElem2('div', {

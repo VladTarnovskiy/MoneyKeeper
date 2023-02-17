@@ -27,7 +27,7 @@ export class TransactionPeriod extends BaseComponent {
     this.periodItems = this.createElem('div', 'period__items flex flex-col');
     this.netIncome = this.createElem(
       'div',
-      'period__title text-2xl pb-2 font-light text-stone-600 border-b-2 ',
+      'period__title text-2xl pb-2 font-light text-stone-600 border-b-2',
       `Net Income for ${'All Time'}: ${0}${'$'}`,
     );
     this.getDataFromStorage();
@@ -172,7 +172,7 @@ export class TransactionPeriod extends BaseComponent {
     const container = this.createElem('div', 'period__container flex flex-col');
     const periodTitle = this.createElem(
       'div',
-      'period__title text-2xl pb-6 font-light text-sky-600',
+      'period__title text-2xl pb-6 font-light text-sky-600  dark:font-medium dark:text-stone-600',
       'Expense vs Income',
     );
 

@@ -58,7 +58,7 @@ export class TransactionItems extends BaseComponent {
 
       const transactionItemDescOne = this.createElem(
         'div',
-        'transaction__item_sum text-right',
+        'transaction__item_sum text-right dark:font-semibold',
         `${sign} ${item.sum}$`,
       );
 
@@ -89,7 +89,7 @@ export class TransactionItems extends BaseComponent {
         transactionItemDescOne.classList.add('text-red-500');
       } else {
         transactionImg.style.backgroundImage = `url(${incomeAssets})`;
-        transactionItemDescOne.classList.add('text-green-500');
+        transactionItemDescOne.classList.add('text-green-500', 'dark:text-green-900');
       }
 
       transactionItemTwo.append(transactionItemTitleTwo, transactionItemDescTwo);
@@ -154,7 +154,11 @@ export class TransactionItems extends BaseComponent {
       'div',
       'fixed transaction__container z-20 bg-white items-center shadow-2xl border-[1px] rounded p-1 mb-2 flex flex-col -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2',
     );
-    const title = this.createElem('div', 'page__title ml-2 text-3xl text-sky-600 mb-5', 'Detail');
+    const title = this.createElem(
+      'div',
+      'page__title ml-2 text-3xl text-sky-600 dark:text-sky-900 dark:font-bold mb-5',
+      'Detail',
+    );
 
     const transactionImg = this.createElem(
       'div',
@@ -170,7 +174,11 @@ export class TransactionItems extends BaseComponent {
       'div',
       'transaction__item font-normal w-full items-center text-stone-900 font-light flex justify-between gap-2',
     );
-    const transactionItemTitleOne = this.createElem('div', 'transaction__item_title', 'Sum:');
+    const transactionItemTitleOne = this.createElem(
+      'div',
+      'transaction__item_title dark:font-semibold',
+      'Sum:',
+    );
 
     if (item.type === 'Income') {
       sign = '+';
@@ -178,7 +186,7 @@ export class TransactionItems extends BaseComponent {
 
     const transactionItemDescOne = this.createElem(
       'div',
-      'transaction__item_sum text-right',
+      'transaction__item_sum text-right dark:font-semibold',
       `${sign}${item.sum}$`,
     );
 
@@ -189,7 +197,7 @@ export class TransactionItems extends BaseComponent {
       transactionItemDescOne.classList.add('text-red-500');
     } else {
       transactionImg.style.backgroundImage = `url(${incomeAssets})`;
-      transactionItemDescOne.classList.add('text-green-500');
+      transactionItemDescOne.classList.add('text-green-500', 'dark:text-green-900');
     }
 
     transactionItemOne.append(transactionItemTitleOne, transactionItemDescOne);

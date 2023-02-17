@@ -11,16 +11,19 @@ export class SideBar extends BaseComponent {
     this.render();
   }
   render(): void {
-    const sideBar = this.createElem('aside', 'min-h-[81.6vh] bg-sky-400 rounded-r-lg border-0');
+    const sideBar = this.createElem(
+      'aside',
+      'min-h-[81.6vh] bg-sky-400 rounded-r-lg border-0 dark:bg-gray-800',
+    );
     const container = this.createElem(
       'div',
-      'flex items-center flex-col text-white bg-sky-400 rounded-r-lg',
+      'flex items-center flex-col text-white bg-sky-400 rounded-r-lg dark:bg-gray-800',
     );
 
     sideData.forEach((item, index) => {
       const sideBarItem = this.createElem(
         'button',
-        `${item.class} sideBar__item flex items-center flex-col justify-center w-24 h-32 hover:rounded hover:scale-95 hover:transition-all hover:bg-sky-600 active:scale-100`,
+        `${item.class} sideBar__item flex items-center flex-col justify-center w-24 h-32 hover:rounded hover:scale-95 hover:transition-all hover:bg-sky-600 dark:hover:bg-stone-500 active:scale-100`,
       );
       const sideBarItemImg = this.createElem('div', 'button__img w-12 h-12');
 
@@ -54,6 +57,7 @@ export class SideBar extends BaseComponent {
   buttonActive(index: number): void {
     this.buttonsList.forEach((buttonsList) => {
       buttonsList.classList.remove('bg-sky-600');
+      buttonsList.classList.remove('dark:bg-stone-500');
       // buttonsList.classList.add('hover:scale-105');
     });
 
@@ -61,6 +65,7 @@ export class SideBar extends BaseComponent {
 
     if (activeButton !== undefined) {
       activeButton.classList.add('bg-sky-600');
+      activeButton.classList.add('dark:bg-stone-500');
       // activeButton.classList.remove('hover:scale-105');
     }
   }

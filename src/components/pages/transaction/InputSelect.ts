@@ -19,7 +19,9 @@ export class InputSelect extends BaseComponent {
     const inputLabel = this.createElem(
       'label',
       'w-fit h-min bg-white p-1 absolute left-2 -top-3 flex h-full w-full text-[11px] leading-tight text-stone-500 transition-all',
-      prop.title,
+      prop.title === 'Type notes'
+        ? this.textTranslate('Transaction.TypeNotes')
+        : this.textTranslate('Transaction.Category'),
     );
     const select = this.createElem2('select', {
       id: prop.title === 'Type notes' ? 'type' : prop.title.toLowerCase(),

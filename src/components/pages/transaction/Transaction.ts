@@ -37,8 +37,8 @@ export class Transaction extends BaseComponent {
     this.#state = {
       status: '',
       message: '',
-      type: 'Income',
-      category: 'Salary',
+      type: `${this.textTranslate('Transaction.Income')}`,
+      category: `${this.textTranslate('CategoryIncome.Salary')}`,
       date: '',
       time: '',
       amount: 0,
@@ -58,8 +58,8 @@ export class Transaction extends BaseComponent {
     this.#state = {
       status: '',
       message: '',
-      type: 'Income',
-      category: 'Salary',
+      type: `${this.textTranslate('Transaction.Income')}`,
+      category: `${this.textTranslate('CategoryIncome.Salary')}`,
       date: '',
       time: '',
       amount: 0,
@@ -81,7 +81,7 @@ export class Transaction extends BaseComponent {
   build(): HTMLElement {
     const title = this.createElem2('div', {
       class: 'page__title ml-2 text-3xl text-sky-600 bg-sky-100 rounded pl-2 mb-5',
-      textContent: 'Transactions',
+      textContent: `${this.textTranslate('Transaction.Title')}`,
     });
     const container1 = this.createElem2('div', {
       class: 'grid grid-cols-1 gap-6 col-span-2',
@@ -89,35 +89,43 @@ export class Transaction extends BaseComponent {
 
     const inputType = new InputSelect({
       title: 'Type notes',
-      options: ['Expense', 'Income'],
+      options: [
+        this.textTranslate('Transaction.Expense'),
+        this.textTranslate('Transaction.Income'),
+      ],
       onchange: this.onChangeType,
       value: this.state.type,
     }).node;
+    const inDataEng: string[] = baseCategoryIncomeDataEng.map((item) => {
+      return this.textTranslate(`CategoryIncome.${item}`);
+    });
+    const exDataEng: string[] = baseCategoryExpenditureDataEng.map((item) => {
+      return this.textTranslate(`CategoryExpenditure.${item}`);
+    });
     const inputCategory = new InputSelect({
       title: 'Category',
-      options:
-        this.state.type === 'Income' ? baseCategoryIncomeDataEng : baseCategoryExpenditureDataEng,
+      options: this.state.type === this.textTranslate('Transaction.Income') ? inDataEng : exDataEng,
       onchange: this.onChangeCategory,
       value: this.state.category,
     }).node;
 
-    const inputDate = new InputElem({ title: 'Date', type: 'date', value: this.state.date }).node;
+    const inputDate = new InputElem({ title: 'date', type: 'date', value: this.state.date }).node;
 
     const container3 = this.createElem2('div', {
       class: 'grid grid-cols-1 gap-6 col-start-3 col-span-2',
     });
 
     const inputSum = new InputElem({
-      title: 'Amount',
+      title: 'amount',
       type: 'number',
       value: String(this.state.amount),
     }).node;
     const inputSubcategory = new InputElem({
-      title: 'Subcategory',
+      title: 'subcategory',
       type: 'text',
       value: this.state.subcategory,
     }).node;
-    const inputTime = new InputElem({ title: 'Time', type: 'time', value: this.state.time }).node;
+    const inputTime = new InputElem({ title: 'time', type: 'time', value: this.state.time }).node;
 
     container1.append(inputType, inputCategory, inputSubcategory);
     container3.append(inputSum, inputDate, inputTime);
@@ -129,13 +137,13 @@ export class Transaction extends BaseComponent {
     }).node;
 
     const button = new Button({
-      text: 'Save',
+      text: 'save',
       onClick: () => {
         return;
       },
     }).node;
     const buttonClean = new Button({
-      text: 'Reset',
+      text: 'reset',
       onClick: this.reset,
       type: 'button',
     }).node;
@@ -147,7 +155,7 @@ export class Transaction extends BaseComponent {
     const container2 = this.createElem('div', 'grid grid-cols-4 mt-8 mb-4 gap-4');
     const container4 = this.createElem('div', 'flex flex-row justify-end mt-8 mb-4 gap-4');
 
-    container4.append(button, buttonClean);
+    container4.append(buttonClean, button);
     const container = this.createElem2('form', {
       class: 'antialiased text-gray-900 px-1 border rounded',
       onsubmit: (event) => {
@@ -227,12 +235,12 @@ export class Transaction extends BaseComponent {
     const resp = await this.model.setTransactions<ITransactionReq>(set);
 
     if (resp.status === 201 || resp.status === 200) {
-      this.state.message = 'Transaction save';
+      this.state.message = `${this.textTranslate('Transaction.Message1')}`;
       this.state.status = '200';
       this.update();
       this.updateHeaderSum();
     } else {
-      this.state.message = 'Transaction fault';
+      this.state.message = `${this.textTranslate('Transaction.Message2')}`;
       this.state.status = '400';
       this.update();
     }

@@ -37,12 +37,12 @@ export class Overview extends BaseComponent {
   async render(): Promise<void> {
     const transactionPeriodContainer = this.createElem(
       'div',
-      'expense__period border-2 p-2 basis-1/2',
+      'expense__period border-2 p-2 basis-1/2 rounded',
     );
 
     this.transactionsListContainer = this.createElem(
       'div',
-      'transactions__list border-2 p-2 basis-1/2',
+      'transactions__list border-2 p-2 basis-1/2 rounded',
     );
 
     this.pageContent.append(transactionPeriodContainer, this.transactionsListContainer);

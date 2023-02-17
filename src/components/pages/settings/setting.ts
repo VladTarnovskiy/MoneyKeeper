@@ -149,7 +149,24 @@ export class Settings extends BaseComponent {
   };
 
   onClick = (): void => {
-    console.log('delete');
+    this.model
+      .deleteAccount()
+      .then((res) => {
+        if (res.status === 200) {
+          this.state.message = 'Your account deleting.';
+          localStorage.userdata = '';
+          setTimeout(() => {
+            location.hash = '#signup';
+          }, 2000);
+        } else {
+          this.state.message = 'Fault deleting. ';
+        }
+
+        this.update();
+      })
+      .catch((err: string) => {
+        new Error(err);
+      });
   };
 
   onSubmit = async (event: Event): Promise<void> => {

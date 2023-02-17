@@ -3,6 +3,7 @@ import { BaseComponent } from '../../base/baseComponent';
 interface IInputElemArea {
   title: string;
   type: string;
+  value: string;
 }
 
 export class InputElemArea extends BaseComponent {
@@ -24,14 +25,16 @@ export class InputElemArea extends BaseComponent {
       'w-fit h-min bg-white p-1 absolute left-2 -top-3 flex h-full w-full text-[11px] leading-tight text-stone-500 transition-all',
       prop.title,
     );
-    const select = this.createElem2(prop.type, {
+    const select: HTMLTextAreaElement = this.createElem2(prop.type, {
       id: prop.title.toLowerCase(),
       cols: 10,
       rows: 20,
       wrap: 'soft',
       class:
         'eer h-full w-full rounded-[7px] cursor-pointer border text-right border-blue-gray-200 bg-transparent font-sans text-1xl font-normal transition-all focus:border-2 focus:border-grey-500 focus:outline-0 disabled:border-0',
-    });
+    }) as HTMLTextAreaElement;
+
+    select.value = prop.value;
 
     input.append(select, inputLabel);
 

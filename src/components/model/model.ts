@@ -21,10 +21,12 @@ const basePath = {
 export class Model {
   #setting: ISettingReq[];
   #transaction: ITransactionReq[];
+  #access: boolean;
 
   constructor() {
     this.#setting = [];
     this.#transaction = [];
+    this.#access = false;
   }
 
   get transaction(): ITransactionReq[] {
@@ -57,6 +59,14 @@ export class Model {
 
       localStorage.userdata = JSON.stringify(out.data);
 
+      if (out.status === 200 || out.status === 201) {
+        this.#access = true;
+      } else {
+        this.#access = false;
+      }
+
+      // localStorage.userdata = JSON.stringify(out.data);
+
       return out;
     } catch (error) {
       throw new Error(this.checkError(error));
@@ -78,11 +88,15 @@ export class Model {
       localStorage.userdata = JSON.stringify(out.data);
 
       if (out.status === 200 || out.status === 201) {
+        // localStorage.userdata = JSON.stringify(out.data);
+        this.#access = true;
         const arr1 = await this.getSettings();
         const arr2 = await this.getTransactions();
 
         arr1.data === undefined ? (this.setting = []) : (this.setting = arr1.data);
         arr2.data === undefined ? (this.transaction = []) : (this.transaction = arr2.data);
+      } else {
+        this.#access = false;
       }
 
       return out;
@@ -119,6 +133,9 @@ export class Model {
 
         arr1.data === undefined ? (this.setting = []) : (this.setting = arr1.data);
         arr2.data === undefined ? (this.transaction = []) : (this.transaction = arr2.data);
+        this.#access = true;
+      } else {
+        this.#access = false;
       }
 
       return out;
@@ -136,6 +153,7 @@ export class Model {
     if (response.status === 200 || response.status === 201) {
       const json = (await response.json()) as Awaited<Promise<T>>;
 
+      this.#access = true;
       output.data = json;
     } else {
       output.message = String(await response.json());
@@ -380,5 +398,31 @@ export class Model {
     const err = error instanceof Error ? JSON.stringify(error) : '';
 
     return err;
+  }
+
+  async deleteAccount(): Promise<PostJsonResponse<IUser>> {
+    const arr1: Array<Promise<PostJsonResponse<ISettingReq>>> = [];
+    const setting: ISettingReq[] = this.setting.slice();
+
+    for await (const res of setting) {
+      arr1.push(this.deleteSettings<ISettingReq>(res.id));
+    }
+
+    const arr2: Array<Promise<PostJsonResponse<ITransactionReq>>> = [];
+
+    const transaction: ITransactionReq[] = this.transaction.slice();
+
+    for await (const res of transaction) {
+      arr2.push(this.deleteTransactions<ITransactionReq>(res.id));
+    }
+
+    const response = await this.deleteUser<IUser>();
+
+    this.#access = false;
+
+    return response;
+  }
+  checkAccess(): boolean {
+    return this.#access;
   }
 }

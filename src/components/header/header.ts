@@ -28,19 +28,18 @@ export class Header extends BaseComponent {
     );
 
     this.totalCounterContainer = this.createElem('div', 'totalCounterContainer w-fit h-fit');
-    this.getTotalSum().catch((err: string) => new Error(err));
+    this.getTotalSum();
   }
 
-  async getTotalSum(): Promise<void> {
-    await this.updateData();
+  getTotalSum(): void {
+    this.updateData();
     this.logo = new Logo(this.container);
     this.totalCounter = new TotalCounter(this.totalCounterContainer, this.value, this.currency);
     this.container.appendChild(this.totalCounterContainer);
-    this.account = new Account(this.container);
+    this.account = new Account(this.container, this.model);
   }
 
-  async updateData(): Promise<void> {
-    await this.model.getTransactions().catch((err: string) => new Error(err));
+  updateData(): void {
     let sum = 0;
 
     this.model.transaction.forEach((item) => {
@@ -53,8 +52,8 @@ export class Header extends BaseComponent {
     this.value = sum;
   }
 
-  async updateSum(): Promise<void> {
-    await this.updateData();
+  updateSum(): void {
+    this.updateData();
     this.totalCounterContainer.replaceChildren();
     this.totalCounter = new TotalCounter(this.totalCounterContainer, this.value, this.currency);
   }

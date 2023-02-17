@@ -46,6 +46,6 @@ export class View extends BaseComponent {
   }
 
   updateHeaderSum(): void {
-    this.header.updateSum().catch((err: string) => new Error(err));
+    this.header.updateSum();
   }
 }

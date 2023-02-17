@@ -109,23 +109,23 @@ export class Transaction extends BaseComponent {
       value: this.state.category,
     }).node;
 
-    const inputDate = new InputElem({ title: 'Date', type: 'date', value: this.state.date }).node;
+    const inputDate = new InputElem({ title: 'date', type: 'date', value: this.state.date }).node;
 
     const container3 = this.createElem2('div', {
       class: 'grid grid-cols-1 gap-6 col-start-3 col-span-2',
     });
 
     const inputSum = new InputElem({
-      title: 'Amount',
+      title: 'amount',
       type: 'number',
       value: String(this.state.amount),
     }).node;
     const inputSubcategory = new InputElem({
-      title: 'Subcategory',
+      title: 'subcategory',
       type: 'text',
       value: this.state.subcategory,
     }).node;
-    const inputTime = new InputElem({ title: 'Time', type: 'time', value: this.state.time }).node;
+    const inputTime = new InputElem({ title: 'time', type: 'time', value: this.state.time }).node;
 
     container1.append(inputType, inputCategory, inputSubcategory);
     container3.append(inputSum, inputDate, inputTime);
@@ -137,13 +137,13 @@ export class Transaction extends BaseComponent {
     }).node;
 
     const button = new Button({
-      text: 'Save',
+      text: 'save',
       onClick: () => {
         return;
       },
     }).node;
     const buttonClean = new Button({
-      text: 'Reset',
+      text: 'reset',
       onClick: this.reset,
       type: 'button',
     }).node;
@@ -155,7 +155,7 @@ export class Transaction extends BaseComponent {
     const container2 = this.createElem('div', 'grid grid-cols-4 mt-8 mb-4 gap-4');
     const container4 = this.createElem('div', 'flex flex-row justify-end mt-8 mb-4 gap-4');
 
-    container4.append(button, buttonClean);
+    container4.append(buttonClean, button);
     const container = this.createElem2('form', {
       class: 'antialiased text-gray-900 px-1 border rounded',
       onsubmit: (event) => {

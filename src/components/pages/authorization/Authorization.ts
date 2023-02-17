@@ -39,7 +39,7 @@ export class Authorization extends BaseComponent {
     super();
     this.root = root;
     this.#state = {
-      status: 'Sign in',
+      status: 'signIn',
       inputCheck: false,
       message: `${this.textTranslate(
         'Authorization.Message4',
@@ -64,7 +64,7 @@ export class Authorization extends BaseComponent {
     const resp = await this.model.getUser<IUserDataReq>();
 
     if (resp.status === 200) {
-      this.state.status = 'Sign out';
+      this.state.status = 'signOut';
       this.state.message = `${this.textTranslate('Authorization.Message1')} ${
         resp.data === undefined ? '' : resp.data.email
       }`;
@@ -94,16 +94,16 @@ export class Authorization extends BaseComponent {
     const container1 = this.createElem2('div', {
       class: '-space-y-px rounded-md shadow-sm',
     });
-    const inputName = this.state.status === 'Registration' ? new InputName().node : '';
-    const inputEmail = new InputEmail({ disabled: this.state.status === 'Sign out' }).node;
-    const inputPassword = new InputPassword({ disabled: this.state.status === 'Sign out' }).node;
+    const inputName = this.state.status === 'registration' ? new InputName().node : '';
+    const inputEmail = new InputEmail({ disabled: this.state.status === 'signOut' }).node;
+    const inputPassword = new InputPassword({ disabled: this.state.status === 'signOut' }).node;
 
     container1.append(inputName, inputEmail, inputPassword);
 
     const inputCheck = new InputCheck({
       onclick: this.onclickRegistration.bind(this),
       checked: this.state.inputCheck,
-      disabled: this.state.status === 'Sign out',
+      disabled: this.state.status === 'signOut',
     }).node;
     const button = new Button({
       text: `${this.state.status}`,
@@ -116,7 +116,7 @@ export class Authorization extends BaseComponent {
       class: 'mt-8 space-y-6',
       onsubmit: (event) => {
         event.preventDefault();
-        this.state.status === 'Sign out'
+        this.state.status === 'signOut'
           ? this.onSignOut()
           : this.onSubmit(event).catch((err: string) => new Error(err));
       },
@@ -126,13 +126,13 @@ export class Authorization extends BaseComponent {
 
     const logo = new Logo({
       text:
-        this.state.status === 'Registration'
+        this.state.status === 'registration'
           ? `${this.textTranslate('Authorization.Logo2')}`
           : `${this.textTranslate('Authorization.Logo1')}`,
     }).node;
     const message = this.createElem2('div', {
       class: `h-6 mx-auto text-center text-${
-        this.state.status === 'Sign out' || this.state.status === 'Sign in' ? 'green' : 'red'
+        this.state.status === 'signOut' || this.state.status === 'signIn' ? 'green' : 'red'
       }-500`,
       textContent: this.state.message,
     });
@@ -151,7 +151,7 @@ export class Authorization extends BaseComponent {
   onclickRegistration(event: Event): void {
     const target = event.target as HTMLInputElement;
 
-    target.checked ? (this.state.status = 'Registration') : (this.state.status = 'Sign in');
+    target.checked ? (this.state.status = 'registration') : (this.state.status = 'signIn');
     this.state.inputCheck = !this.state.inputCheck;
     this.state.message = '';
     this.update();
@@ -167,7 +167,7 @@ export class Authorization extends BaseComponent {
 
     if (typeof email === 'string' && typeof password === 'string') {
       const resp =
-        this.state.status === 'Registration'
+        this.state.status === 'registration'
           ? await this.model.registerUser<IUserReq, IUser>({ email, password })
           : await this.model.loginUser<IUserReq, IUser>({ email, password });
 
@@ -175,7 +175,7 @@ export class Authorization extends BaseComponent {
         const resp2 =
           resp.status === 201 ? await this.model.setSettings<ISettingReq>(defaultSetting) : null;
 
-        this.state.status = 'Sign out';
+        this.state.status = 'signOut';
         this.state.message =
           resp2 === null
             ? `${this.textTranslate('Authorization.Message1')} ${
@@ -198,7 +198,7 @@ export class Authorization extends BaseComponent {
     }
   };
   onSignOut(): void {
-    this.state.status = 'Sign in';
+    this.state.status = 'signIn';
     this.state.message = `${this.textTranslate('Authorization.Message3')}`;
     localStorage.userdata = '';
     this.update();
@@ -213,7 +213,7 @@ export class Authorization extends BaseComponent {
   }
   reset(): void {
     this.#state = {
-      status: 'Sign in',
+      status: 'signIn',
       inputCheck: false,
       message: `${this.textTranslate(
         'Authorization.Message4',

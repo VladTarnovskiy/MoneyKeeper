@@ -63,24 +63,24 @@ export class Settings extends BaseComponent {
     };
 
     const inputText = new InputTextItem({
-      title: 'Name',
+      title: 'name',
       value: set.name,
       disabled: this.state.settingBlock,
     }).node;
     const inputLang = new SettingItem({
-      title: 'Language',
+      title: 'language',
       options: ['EN', 'RU'],
       value: set.lang,
       disabled: this.state.settingBlock,
     }).node;
     const inputTheme = new SettingItem({
-      title: 'Theme',
+      title: 'theme',
       options: ['Light', 'Dark'],
       value: set.theme,
       disabled: this.state.settingBlock,
     }).node;
     const inputCurrency = new SettingItem({
-      title: 'Currency',
+      title: 'currency',
       options: ['USD', 'EUR', 'RUB', 'YEN'],
       value: set.currency,
       disabled: this.state.settingBlock,
@@ -98,7 +98,7 @@ export class Settings extends BaseComponent {
       label: this.textTranslate('Settings.Check1'),
     }).node;
     const inputButton = new Button({
-      text: 'Save settings',
+      text: 'saveSettings',
       disabled: this.state.settingBlock,
       onClick: () => {
         return;
@@ -116,7 +116,7 @@ export class Settings extends BaseComponent {
       label: this.textTranslate('Settings.Check2'),
     }).node;
     const inputButton2 = new Button({
-      text: 'Delete',
+      text: 'delete',
       type: 'button',
       disabled: this.state.deleteBlock,
       onClick: this.onClick,

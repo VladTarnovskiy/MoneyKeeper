@@ -17,15 +17,15 @@ export class SettingItem extends BaseComponent {
 
   render(prop: IPropInput): HTMLElement {
     const tmp: {
-      Name: string;
-      Language: string;
-      Theme: string;
-      Currency: string;
+      name: string;
+      language: string;
+      theme: string;
+      currency: string;
     } = {
-      Name: this.textTranslate('Settings.Name'),
-      Language: this.textTranslate('Settings.Language'),
-      Theme: this.textTranslate('Settings.Themes'),
-      Currency: this.textTranslate('Settings.Currency'),
+      name: this.textTranslate('Settings.Name'),
+      language: this.textTranslate('Settings.Language'),
+      theme: this.textTranslate('Settings.Themes'),
+      currency: this.textTranslate('Settings.Currency'),
     };
     const settingItemContainer = this.createElem('div', 'p-2 flex justify-between');
     const settingItemTitle = this.createElem2('div', {

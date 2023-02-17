@@ -20,12 +20,12 @@ export class TransactionList extends BaseComponent {
   filterData: ITransactionReq[];
   prop: ITransactionsList;
 
-  constructor(root: HTMLElement, prop: ITransactionsList, transationData: ITransactionReq[]) {
+  constructor(root: HTMLElement, prop: ITransactionsList, transactionData: ITransactionReq[]) {
     super();
     this.root = root;
     this.prop = prop;
-    this.transactionData = transationData;
-    this.filterData = transationData;
+    this.transactionData = transactionData;
+    this.filterData = transactionData;
     this.sortContainer = this.createElem(
       'div',
       'transaction-list__sort gap-2 mb-4 flex justify-around',
@@ -46,9 +46,8 @@ export class TransactionList extends BaseComponent {
       ['All', 'Expense', 'Income'],
       this.getFilterData,
     );
-    this.transactionItem = new TransactionItems(this.transactionItems, prop, transationData);
-    this.getDataFromStorage();
-    this.render();
+    this.transactionItem = new TransactionItems(this.transactionItems, prop, transactionData);
+    // this.render();
   }
 
   getSortData = (way: string): void => {
@@ -120,7 +119,8 @@ export class TransactionList extends BaseComponent {
     }
   }
 
-  render(): void {
+  render = (): void => {
+    this.getDataFromStorage();
     const container = this.createElem('div', 'transaction-list__container flex flex-col');
     const transactionListTitle = this.createElem(
       'div',
@@ -130,5 +130,5 @@ export class TransactionList extends BaseComponent {
 
     container.append(transactionListTitle, this.sortContainer, this.transactionItems);
     this.root.appendChild(container);
-  }
+  };
 }

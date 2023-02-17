@@ -14,7 +14,6 @@ export class Overview extends BaseComponent {
   transactionsList!: TransactionList;
   transactionsListContainer!: HTMLElement;
   model: Model;
-  data: ITransactionReq[];
   updateHeaderSum: () => void;
 
   constructor(root: HTMLElement, model: Model, updateHeaderSum: () => void) {
@@ -22,7 +21,6 @@ export class Overview extends BaseComponent {
     this.root = root;
     this.model = model;
     this.updateHeaderSum = updateHeaderSum;
-    this.data = model.transaction;
     this.container = this.createElem('div', 'content__container flex flex-col');
     this.pageTitle = this.createElem(
       'div',
@@ -31,10 +29,10 @@ export class Overview extends BaseComponent {
     );
 
     this.pageContent = this.createElem('div', 'page__content gap-2 flex md:flex-col');
-    this.render().catch((err: string) => new Error(err));
+    // this.render();
   }
 
-  async render(): Promise<void> {
+  render(): void {
     const transactionPeriodContainer = this.createElem(
       'div',
       'expense__period border-2 p-2 basis-1/2 rounded',
@@ -47,27 +45,26 @@ export class Overview extends BaseComponent {
 
     this.pageContent.append(transactionPeriodContainer, this.transactionsListContainer);
     this.container.append(this.pageTitle, this.pageContent);
-    await this.model.getTransactions().catch((err: string) => new Error(err));
-    this.data = this.model.transaction;
-    this.transactionPeriod = new TransactionPeriod(
-      transactionPeriodContainer,
-      this.model.transaction,
-      this.updateTransactionList,
-    );
     this.transactionsList = new TransactionList(
       this.transactionsListContainer,
       {
         delete: this.model.deleteTransactions.bind(this.model),
         rebuild: this.rebuild,
       },
-      this.data,
+      this.model.transaction,
     );
     this.root.appendChild(this.container);
+    this.transactionPeriod = new TransactionPeriod(
+      transactionPeriodContainer,
+      this.model.transaction,
+      this.updateTransactionList,
+      this.transactionsList.render,
+    );
   }
 
   rebuild = (): void => {
     this.pageContent.replaceChildren();
-    this.render().catch((err: string) => new Error(err));
+    this.render();
     this.updateHeaderSum();
   };
 
@@ -81,5 +78,6 @@ export class Overview extends BaseComponent {
       },
       data,
     );
+    this.transactionsList.render();
   };
 }

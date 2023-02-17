@@ -15,10 +15,21 @@ export class InputTextItem extends BaseComponent {
   }
 
   render(prop: IPropInputText): HTMLElement {
+    const tmp: {
+      name: string;
+      language: string;
+      theme: string;
+      currency: string;
+    } = {
+      name: this.textTranslate('Settings.Name'),
+      language: this.textTranslate('Settings.Language'),
+      theme: this.textTranslate('Settings.Themes'),
+      currency: this.textTranslate('Settings.Currency'),
+    };
     const inputItemContainer = this.createElem('div', 'p-2 flex justify-between');
     const inputItemTitle = this.createElem2('div', {
       class: 'title__name text-base mb-2 mr-4 font-light min-w-[120px] sm:hidden',
-      textContent: `${prop.title}:`,
+      textContent: `${String(tmp[prop.title])}:`,
     });
 
     const inputTextName = this.createElem2('input', {

@@ -14,6 +14,17 @@ export class InputElem extends BaseComponent {
     this.node = this.build(prop);
   }
   build(prop: IInputElem): HTMLElement {
+    const tmp: {
+      amount: string;
+      date: string;
+      time: string;
+      subcategory: string;
+    } = {
+      amount: this.textTranslate('Transaction.Amount'),
+      date: this.textTranslate('Transaction.Date'),
+      time: this.textTranslate('Transaction.Time'),
+      subcategory: this.textTranslate('Transaction.SubCategory'),
+    };
     const input = this.createElem(
       'div',
       `relative h-8 w-full  min-w-[100px] max-w-auto ${
@@ -23,11 +34,11 @@ export class InputElem extends BaseComponent {
     const inputLabel = this.createElem(
       'label',
       'w-fit h-min bg-white p-1 absolute left-2 -top-3 flex h-full w-full text-[11px] leading-tight text-stone-500 transition-all',
-      prop.title,
+      String(tmp[prop.title]),
     );
     const select = this.createElem2('input', {
-      id: prop.title === 'Amount' ? 'sum' : prop.title.toLowerCase(),
-      required: prop.title !== 'Subcategory',
+      id: prop.title === 'amount' ? 'sum' : prop.title.toLowerCase(),
+      required: prop.title !== 'subcategory',
       type: prop.type,
       value: prop.type === 'number' ? Number(prop.value) : prop.value,
       min: 0,

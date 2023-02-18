@@ -24,8 +24,8 @@ export class Logo extends BaseComponent {
     });
     const logoTitle = this.createElem(
       'div',
-      'logo__title ml-4 text-2xl text-sky-600 dark:font-semibold dark:text-stone-600 font-semibold md:hidden',
-      `${this.textTranslate('overview.logo')}`,
+      'logo__title ml-4 text-2xl text-sky-600 font-semibold md:hidden',
+      `${this.textTranslate('Overview.Logo')}`,
     );
 
     logo.append(logoImg, logoTitle);

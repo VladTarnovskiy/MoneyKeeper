@@ -14,23 +14,26 @@ export class TransactionPeriod extends BaseComponent {
   transactionData: ITransactionReq[];
   netIncome: HTMLElement;
   updateTransactionList: (data: ITransactionReq[]) => void;
+  renderTransactionList: () => void;
 
   constructor(
     root: HTMLElement,
     transactionData: ITransactionReq[],
     updateTransactionList: (data: ITransactionReq[]) => void,
+    renderTransactionList: () => void,
   ) {
     super();
     this.root = root;
     this.transactionData = transactionData;
     this.updateTransactionList = updateTransactionList;
+    this.renderTransactionList = renderTransactionList;
+
     this.periodItems = this.createElem('div', 'period__items flex flex-col');
     this.netIncome = this.createElem(
       'div',
       'period__title text-2xl pb-2 font-light text-stone-600 border-b-2',
       `Net Income for ${'All Time'}: ${0}${'$'}`,
     );
-    this.getDataFromStorage();
     this.renderPeriodItems();
     this.render();
   }
@@ -41,8 +44,8 @@ export class TransactionPeriod extends BaseComponent {
       '#ef4444',
       'Today',
       '1',
-      this.sortTransactionDate('today'),
-      this.totalSum(this.sortTransactionDate('today')),
+      this.sortTransactionDate('Today'),
+      this.totalSum(this.sortTransactionDate('Today')),
       this.getNetIncome,
       this.updateTransactionList,
     );
@@ -91,7 +94,6 @@ export class TransactionPeriod extends BaseComponent {
   sortTransactionDate(way: string): ITransactionReq[] {
     let filterData: ITransactionReq[] = [];
     const date = new Date();
-
     const getTransactionDate = (item: ITransactionReq): Date => {
       return new Date(`${item.date}T${item.time}:00`);
     };
@@ -156,19 +158,22 @@ export class TransactionPeriod extends BaseComponent {
   };
 
   getDataFromStorage(): void {
-    // const storagePeriodTransaction = localStorage.getItem('periodTransaction');
+    const storagePeriodTransaction = localStorage.getItem('periodTransaction');
 
-    // if (storagePeriodTransaction === null) {
-    this.getNetIncome(this.transactionData, 'All Time');
-    // } else {
-    //   this.sortTransactionDate(storagePeriodTransaction);
-    //   this.getNetIncome(this.transactionData, storagePeriodTransaction);
-    //   console.log(storagePeriodTransaction);
-    //   console.log(this.transactionData);
-    // }
+    if (storagePeriodTransaction === null) {
+      this.getNetIncome(this.transactionData, 'All Time');
+      this.renderTransactionList();
+    } else {
+      this.getNetIncome(
+        this.sortTransactionDate(storagePeriodTransaction),
+        storagePeriodTransaction,
+      );
+      this.updateTransactionList(this.sortTransactionDate(storagePeriodTransaction));
+    }
   }
 
   render(): void {
+    this.getDataFromStorage();
     const container = this.createElem('div', 'period__container flex flex-col');
     const periodTitle = this.createElem(
       'div',

@@ -1,3 +1,4 @@
+// import { t } from 'i18next';
 import {
   baseCategoryIncomeDataEng,
   baseCategoryExpenditureDataEng,
@@ -36,8 +37,8 @@ export class Transaction extends BaseComponent {
     this.#state = {
       status: '',
       message: '',
-      type: 'Income',
-      category: 'Salary',
+      type: `${this.textTranslate('Transaction.Income')}`,
+      category: `${this.textTranslate('CategoryIncome.Salary')}`,
       date: '',
       time: '',
       amount: 0,
@@ -50,6 +51,24 @@ export class Transaction extends BaseComponent {
     this.render();
   }
 
+  resetMsg(): void {
+    this.state.message = '';
+  }
+  reset = (): void => {
+    this.#state = {
+      status: '',
+      message: '',
+      type: `${this.textTranslate('Transaction.Income')}`,
+      category: `${this.textTranslate('CategoryIncome.Salary')}`,
+      date: '',
+      time: '',
+      amount: 0,
+      subcategory: '',
+      description: '',
+    };
+    this.update();
+  };
+
   set state(state: IState) {
     this.#state = state;
     this.update();
@@ -61,9 +80,8 @@ export class Transaction extends BaseComponent {
 
   build(): HTMLElement {
     const title = this.createElem2('div', {
-      class:
-        'page__title ml-2 dark:font-semibold dark:text-stone-600 dark:bg-gray-400 text-3xl text-sky-600 bg-sky-100 rounded pl-2 mb-5',
-      textContent: 'Transactions',
+      class: 'page__title ml-2 text-3xl text-sky-600 dark:font-semibold dark:text-stone-600 dark:bg-gray-400 bg-sky-100 rounded pl-2 mb-5',
+      textContent: `${this.textTranslate('Transaction.Title')}`,
     });
     const container1 = this.createElem2('div', {
       class: 'grid grid-cols-1 gap-6 col-span-2',
@@ -71,38 +89,63 @@ export class Transaction extends BaseComponent {
 
     const inputType = new InputSelect({
       title: 'Type notes',
-      options: ['Expense', 'Income'],
+      options: [
+        this.textTranslate('Transaction.Expense'),
+        this.textTranslate('Transaction.Income'),
+      ],
       onchange: this.onChangeType,
       value: this.state.type,
     }).node;
+    const inDataEng: string[] = baseCategoryIncomeDataEng.map((item) => {
+      return this.textTranslate(`CategoryIncome.${item}`);
+    });
+    const exDataEng: string[] = baseCategoryExpenditureDataEng.map((item) => {
+      return this.textTranslate(`CategoryExpenditure.${item}`);
+    });
     const inputCategory = new InputSelect({
       title: 'Category',
-      options:
-        this.state.type === 'Income' ? baseCategoryIncomeDataEng : baseCategoryExpenditureDataEng,
+      options: this.state.type === this.textTranslate('Transaction.Income') ? inDataEng : exDataEng,
       onchange: this.onChangeCategory,
       value: this.state.category,
     }).node;
 
-    const inputDate = new InputElem({ title: 'Date', type: 'date' }).node;
+    const inputDate = new InputElem({ title: 'date', type: 'date', value: this.state.date }).node;
 
     const container3 = this.createElem2('div', {
       class: 'grid grid-cols-1 gap-6 col-start-3 col-span-2',
     });
 
-    const inputSum = new InputElem({ title: 'Amount', type: 'number' }).node;
-    const inputSubcategory = new InputElem({ title: 'Subcategory', type: 'text' }).node;
-    const inputTime = new InputElem({ title: 'Time', type: 'time' }).node;
+    const inputSum = new InputElem({
+      title: 'amount',
+      type: 'number',
+      value: String(this.state.amount),
+    }).node;
+    const inputSubcategory = new InputElem({
+      title: 'subcategory',
+      type: 'text',
+      value: this.state.subcategory,
+    }).node;
+    const inputTime = new InputElem({ title: 'time', type: 'time', value: this.state.time }).node;
 
     container1.append(inputType, inputCategory, inputSubcategory);
     container3.append(inputSum, inputDate, inputTime);
 
-    const inputDescription = new InputElemArea({ title: 'Description', type: 'textarea' }).node;
+    const inputDescription = new InputElemArea({
+      title: 'Description',
+      type: 'textarea',
+      value: this.state.description,
+    }).node;
 
     const button = new Button({
-      text: 'Save',
+      text: 'save',
       onClick: () => {
         return;
       },
+    }).node;
+    const buttonClean = new Button({
+      text: 'reset',
+      onClick: this.reset,
+      type: 'button',
     }).node;
     const message = this.createElem2('div', {
       class: `h-12 mx-auto text-center text-${this.state.status === '200' ? 'green' : 'red'}-500`,
@@ -110,8 +153,11 @@ export class Transaction extends BaseComponent {
     });
 
     const container2 = this.createElem('div', 'grid grid-cols-4 mt-8 mb-4 gap-4');
+    const container4 = this.createElem('div', 'flex flex-row justify-end mt-8 mb-4 gap-4');
+
+    container4.append(buttonClean, button);
     const container = this.createElem2('form', {
-      class: 'antialiased text-gray-900 px-1',
+      class: 'antialiased text-gray-900 px-1 border rounded',
       onsubmit: (event) => {
         event.preventDefault();
         this.onsubmit(event).catch((err: string) => new Error(err));
@@ -120,9 +166,12 @@ export class Transaction extends BaseComponent {
 
     container2.append(container1, container3, inputDescription);
 
-    container.append(title, message, container2, button);
+    container.append(message, container2, container4);
+    const containerFull = this.createElem('div', 'content__container flex flex-col');
 
-    return container;
+    containerFull.append(title, container);
+
+    return containerFull;
   }
 
   onChangeType = (event: Event): void => {
@@ -130,14 +179,31 @@ export class Transaction extends BaseComponent {
 
     this.state.message = '';
     this.state.type = target.value;
+    this.saveValue();
+
     this.update();
   };
+
+  saveValue(): void {
+    const amount: HTMLInputElement | null = this.container.querySelector('#sum');
+    const date: HTMLInputElement | null = this.container.querySelector('#date');
+    const time: HTMLInputElement | null = this.container.querySelector('#time');
+    const subcategory: HTMLInputElement | null = this.container.querySelector('#subcategory');
+    const description: HTMLTextAreaElement | null = this.container.querySelector('#description');
+
+    this.state.amount = amount === null ? 0 : Number(amount.value);
+    this.state.date = date === null ? '' : String(date.value);
+    this.state.time = time === null ? '' : String(time.value);
+    this.state.subcategory = subcategory === null ? '' : String(subcategory.value);
+    this.state.description = description === null ? '' : String(description.value);
+  }
 
   onChangeCategory = (event: Event): void => {
     const target = event.target as HTMLInputElement;
 
     this.state.message = '';
     this.state.category = target.value;
+    this.saveValue();
     this.update();
   };
   onsubmit = async (event: Event): Promise<void> => {
@@ -169,12 +235,12 @@ export class Transaction extends BaseComponent {
     const resp = await this.model.setTransactions<ITransactionReq>(set);
 
     if (resp.status === 201 || resp.status === 200) {
-      this.state.message = 'Transaction save';
+      this.state.message = `${this.textTranslate('Transaction.Message1')}`;
       this.state.status = '200';
       this.update();
       this.updateHeaderSum();
     } else {
-      this.state.message = 'Transaction fault';
+      this.state.message = `${this.textTranslate('Transaction.Message2')}`;
       this.state.status = '400';
       this.update();
     }

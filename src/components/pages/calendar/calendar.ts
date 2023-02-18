@@ -72,8 +72,8 @@ export class Calendar extends BaseComponent {
   }
 
   updateCalendarMain(): void {
-    this.yearInputElementVal = this.calendarHeader.yearInputElement.value;
-    this.categoryInputElementVal = this.calendarHeader.categoryInputElement.value;
+    this.yearInputElementVal = String(this.calendarHeader.yearInputElement.value);
+    this.categoryInputElementVal = String(this.calendarHeader.categoryInputElement.value);
     this.updateTransactionData();
     this.calendarMain.createMonth(this.categoryInputElementVal, this.yearInputElementVal);
   }
@@ -92,7 +92,7 @@ export class Calendar extends BaseComponent {
   addListeners(): void {
     this.calendarHeader.yearContainer.oninput = () => {
       this.updateCalendarMain();
-      localStorage.setItem('calendarYear', this.calendarHeader.yearInputElement.value);
+      localStorage.setItem('calendarYear', String(this.calendarHeader.yearInputElement.value));
       this.calendarFooter.updateCalendarFooter(String(this.calendarHeader.yearInputElement.value));
     };
 

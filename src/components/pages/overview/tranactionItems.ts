@@ -133,8 +133,12 @@ export class TransactionItems extends BaseComponent {
     );
 
     removeItem.addEventListener('click', () => {
-      this.prop.delete(item.id).catch((err: string) => new Error(err));
-      this.prop.rebuild();
+      this.prop
+        .delete(item.id)
+        .then(() => {
+          this.prop.rebuild();
+        })
+        .catch((err: string) => new Error(err));
     });
 
     contMenuContainer.append(detailItem, removeItem);

@@ -32,6 +32,12 @@ export class View extends BaseComponent {
   changePages(): void {
     this.root.replaceChild(this.bodyPage, this.authorPage);
   }
+  changePagesAut(): void {
+    this.authorization.reset();
+    this.authorization.update();
+    this.bodyPage.replaceWith(this.authorPage);
+    // this.authorization.update();
+  }
 
   render(): void {
     this.header.render();
@@ -40,6 +46,6 @@ export class View extends BaseComponent {
   }
 
   updateHeaderSum(): void {
-    this.header.updateSum().catch((err: string) => new Error(err));
+    this.header.updateSum();
   }
 }

@@ -22,16 +22,16 @@ export const baseCategoryIncomeDataRu = [
 
 export const baseCategoryExpenditureDataEng = [
   'Transport',
-  'BarsAndRestaurants',
+  'Bars and restaurants',
   'Alcohol',
-  'EatingOut',
+  'Eating out',
   'Food',
   'Health',
   'Entertainment',
   'Presents',
   'Regular',
   'Clothing',
-  'BankingServices',
+  'Banking services',
   'Other',
 ];
 

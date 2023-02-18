@@ -34,7 +34,7 @@ export class InputCheck extends BaseComponent {
         label: {
           for: prop.label ?? 'remember',
           class: 'ml-2 text-sm text-gray-900',
-          textContent: prop.label ?? 'New account',
+          textContent: prop.label ?? `${this.textTranslate('Authorization.Check')}`,
         },
       },
     );

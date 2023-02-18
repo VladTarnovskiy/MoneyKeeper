@@ -19,12 +19,12 @@ export class Report extends BaseComponent {
   container: HTMLElement;
   pageTitle: HTMLElement;
   pageContent: HTMLElement;
-  barContainer: HTMLElement;
-  selectContainer: HTMLElement;
-  bar: HTMLCanvasElement;
-  statisticContainer: HTMLElement;
-  inputChartSelect: InputChartSelect;
-  inputTypeTransactionSelect: InputTypeTransactionSelect;
+  barContainer!: HTMLElement;
+  selectContainer!: HTMLElement;
+  bar!: HTMLCanvasElement;
+  statisticContainer!: HTMLElement;
+  inputChartSelect!: InputChartSelect;
+  inputTypeTransactionSelect!: InputTypeTransactionSelect;
   chart!: Chart<keyof ChartTypeRegistry, string[], string>;
   model: Model;
   reportDataItemExpense: ReportDataItem[] = [];
@@ -46,6 +46,10 @@ export class Report extends BaseComponent {
       this.textTranslate('Report.title'),
     );
     this.pageContent = this.createElem('div', 'page__content flex xl:flex-col');
+    this.rebuild();
+  }
+
+  render(): void {
     this.barContainer = this.createElem(
       'div',
       'page__content flex flex-col items-center self-start justify-self-center w-[900px] h-full xl:w-[500px] xl:order-first xl:self-center',
@@ -114,7 +118,9 @@ export class Report extends BaseComponent {
     this.barContainer.append(this.bar);
     this.pageContent.append(this.statisticContainer, this.barContainer);
     this.container.append(this.pageTitle, this.pageContent);
-    this.getStatisticBlocks().catch((err: string) => new Error(err));
+    this.getStatisticBlocks();
+    // this.root.replaceChildren();
+    // this.root.appendChild(this.container);
   }
 
   getBar = (container: HTMLCanvasElement, graphType: string): void => {
@@ -177,8 +183,8 @@ export class Report extends BaseComponent {
     this.getBar(this.bar, this.graphType);
   };
 
-  async getStatisticBlocks(): Promise<void> {
-    await this.model.getTransactions().catch((err: string) => new Error(err));
+  getStatisticBlocks(): void {
+    // await this.model.getTransactions().catch((err: string) => new Error(err));
 
     new StatisticBlock(
       this.statisticContainer,
@@ -195,7 +201,7 @@ export class Report extends BaseComponent {
       'sky-600',
     );
     this.getBar(this.bar, this.graphType);
-    this.render();
+    // this.render();
   }
 
   getTotalSum(type: string): number {
@@ -280,8 +286,11 @@ export class Report extends BaseComponent {
     }
   }
 
-  render(): void {
+  rebuild(): void {
+    console.log('hi');
     this.root.replaceChildren();
     this.root.appendChild(this.container);
+
+    this.render();
   }
 }

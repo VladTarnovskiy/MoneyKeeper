@@ -64,6 +64,7 @@ export class TransactionList extends BaseComponent {
         },
       ],
       this.getSortData,
+      'Sort transactions',
     );
     this.filterItem = new InputSelect(
       this.sortContainer,
@@ -90,6 +91,7 @@ export class TransactionList extends BaseComponent {
         },
       ],
       this.getFilterData,
+      'Filter transactions',
     );
     this.transactionItem = new TransactionItems(this.transactionItems, prop, transactionData);
     // this.render();

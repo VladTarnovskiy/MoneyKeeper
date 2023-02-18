@@ -7,12 +7,14 @@ export class InputSelect extends BaseComponent {
   title: string;
   filterSelect: HTMLInputElement;
   prop: (way: string) => void;
+  storageLabel: string;
 
   constructor(
     root: HTMLElement,
     title: string,
     options: SelectOptions[],
     prop: (way: string) => void,
+    storageLabel: string,
   ) {
     super();
     this.root = root;
@@ -20,6 +22,7 @@ export class InputSelect extends BaseComponent {
     this.prop = prop;
 
     this.options = options;
+    this.storageLabel = storageLabel;
     this.filterSelect = this.createElem(
       'select',
       'peer h-full w-full rounded-[7px] cursor-pointer border border-blue-gray-200 bg-transparent font-sans text-sm font-normal transition-all focus:border-2 focus:border-pink-500 focus:outline-0 disabled:border-0',
@@ -45,7 +48,7 @@ export class InputSelect extends BaseComponent {
 
       this.filterSelect.append(option);
     });
-    const storageTransactionSelectType = localStorage.getItem(`${this.title}`);
+    const storageTransactionSelectType = localStorage.getItem(`${this.storageLabel}`);
 
     if (storageTransactionSelectType !== null) {
       this.filterSelect.value = storageTransactionSelectType;
@@ -58,7 +61,8 @@ export class InputSelect extends BaseComponent {
     );
 
     this.filterSelect.addEventListener('change', () => {
-      localStorage.setItem(`${this.title}`, `${this.filterSelect.value}`);
+      // console.log('fhjg');
+      localStorage.setItem(this.storageLabel, `${this.filterSelect.value}`);
       this.prop(this.filterSelect.value);
     });
 

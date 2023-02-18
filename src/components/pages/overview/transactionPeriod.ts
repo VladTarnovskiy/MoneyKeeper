@@ -50,6 +50,7 @@ export class TransactionPeriod extends BaseComponent {
       this.totalSum(this.sortTransactionDate('Today')),
       this.getNetIncome,
       this.updateTransactionList,
+      'Today',
     );
     this.periodItemWeek = new PeriodItem(
       this.periodItems,
@@ -60,6 +61,7 @@ export class TransactionPeriod extends BaseComponent {
       this.totalSum(this.sortTransactionDate('This Week')),
       this.getNetIncome,
       this.updateTransactionList,
+      'This Week',
     );
     this.periodItemMonth = new PeriodItem(
       this.periodItems,
@@ -70,6 +72,7 @@ export class TransactionPeriod extends BaseComponent {
       this.totalSum(this.sortTransactionDate('This Month')),
       this.getNetIncome,
       this.updateTransactionList,
+      'This Month',
     );
     this.periodItemYear = new PeriodItem(
       this.periodItems,
@@ -80,6 +83,7 @@ export class TransactionPeriod extends BaseComponent {
       this.totalSum(this.sortTransactionDate('This Year')),
       this.getNetIncome,
       this.updateTransactionList,
+      'This Year',
     );
     this.periodItemAll = new PeriodItem(
       this.periodItems,
@@ -90,6 +94,7 @@ export class TransactionPeriod extends BaseComponent {
       this.totalSum(this.transactionData),
       this.getNetIncome,
       this.updateTransactionList,
+      'All Time',
     );
   }
 
@@ -134,6 +139,7 @@ export class TransactionPeriod extends BaseComponent {
         break;
 
       default:
+        filterData = this.transactionData;
         break;
     }
 

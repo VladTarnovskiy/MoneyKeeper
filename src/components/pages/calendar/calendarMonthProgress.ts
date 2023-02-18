@@ -12,7 +12,11 @@ export class CalendarMonthProgress extends BaseComponent {
     this.month = month;
     this.maxMonthMoney = maxMonthMoney;
     this.money = money;
-    const monthTitle: HTMLElement = this.createElem('div', `${month}__title w-1/2 text-xl`, month);
+    const monthTitle: HTMLElement = this.createElem(
+      'div',
+      `${month}__title w-1/2 text-xl`,
+      `${this.textTranslate(`monthes.${month}`)}`,
+    );
     const monthProgress: HTMLElement = this.createElem(
       'div',
       `${month}__progress h-4 bg-[#EF4444]`,

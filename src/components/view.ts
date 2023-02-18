@@ -20,7 +20,7 @@ export class View extends BaseComponent {
     super();
     this.root = document.body;
     this.model = model;
-    this.bodyPage = this.createElem('div', 'bodyPage');
+    this.bodyPage = this.createElem('div', 'bodyPage dark:bg-gray-400');
     this.authorPage = this.createElem('div', 'authorPage');
     this.header = new Header(this.bodyPage, model);
     this.main = new Main(this.bodyPage, model, this.updateHeaderSum.bind(this));

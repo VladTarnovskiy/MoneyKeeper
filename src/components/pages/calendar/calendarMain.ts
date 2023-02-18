@@ -17,7 +17,7 @@ export class CalendarMain extends BaseComponent {
       'div',
       'mainMonth__container grid grid-cols-4 xs:grid-cols-1 md:grid-cols-2 gap-1 w-full h=w',
     );
-    this.createMonth('All', '2023');
+    this.createMonth(`${this.textTranslate('CategoryExpenditure.All')}`, '2023');
     this.render();
     this.yearMoney = 0;
   }
@@ -62,11 +62,14 @@ export class CalendarMain extends BaseComponent {
     });
     let monthDataRes = [];
 
-    if (categoryVal === 'All') {
+    if (categoryVal === 'All' || categoryVal === 'Все') {
       monthDataRes = monthData;
     } else {
       monthDataRes = monthData.filter((a) => {
-        return a.category === categoryVal;
+        return (
+          a.category === categoryVal ||
+          `${this.textTranslate(`CategoryExpenditure.${a.category}`)}` === categoryVal
+        );
       });
     }
 

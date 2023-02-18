@@ -44,7 +44,7 @@ export class Button extends BaseComponent {
           type: prop.type === 'button' ? 'button' : 'submit',
           class: `group ${
             prop.disabled === undefined ? '' : 'disabled:opacity-50'
-          } relative flex w-60 justify-center rounded-md border border-transparent ${
+          } relative dark:bg-stone-500 flex w-60 justify-center rounded-md border border-transparent ${
             prop.text === 'delete' ? 'bg-red-400' : 'bg-sky-400'
           } py-2 px-4 text-sm font-medium text-white ${
             prop.text === 'delete' ? 'hover:bg-red-600' : 'hover:bg-sky-500'

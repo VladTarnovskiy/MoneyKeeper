@@ -43,7 +43,7 @@ export class InputElem extends BaseComponent {
       value: prop.type === 'number' ? Number(prop.value) : prop.value,
       min: 0,
       class:
-        'eer h-full w-full rounded-[7px] cursor-pointer border text-right border-blue-gray-200 bg-transparent font-sans text-1xl font-normal transition-all focus:border-2 focus:border-grey-500 focus:outline-0 disabled:border-0',
+        'eer h-full w-full rounded-[7px] cursor-pointer border text-right border-blue-gray-200 dark:bg-gray-300 bg-transparent font-sans text-1xl font-normal transition-all focus:border-2 focus:border-grey-500 focus:outline-0 disabled:border-0',
     });
 
     input.append(select, inputLabel);

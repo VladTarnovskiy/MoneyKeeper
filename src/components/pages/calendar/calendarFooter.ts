@@ -28,18 +28,22 @@ export class CalendarFooter extends BaseComponent {
     this.footerInfoTotal = this.createElem(
       'div',
       'footerInfoTotal__title text-sm text-left',
-      'Expenditure total:',
+      `${this.textTranslate('CalendarPage.ExpenditureTotal')}`,
     );
-    this.footerInfoAverage = this.createElem('div', 'average__title text-sm text-left', 'Average:');
+    this.footerInfoAverage = this.createElem(
+      'div',
+      'average__title text-sm text-left',
+      `${this.textTranslate('CalendarPage.Average')}`,
+    );
     this.footerInfoTotalIncome = this.createElem(
       'div',
       'footerInfoTotalIncome__title text-sm text-left',
-      'Total income:',
+      `${this.textTranslate('CalendarPage.TotalIncome')}`,
     );
     this.footerInfoRatio = this.createElem(
       'div',
       'footerInfoRatio__title text-sm text-left',
-      'Expenditure/Income:',
+      `${this.textTranslate('CalendarPage.ExpenditureIncome')}`,
     );
 
     this.footerInfoTotalCount = this.createElem(
@@ -50,7 +54,7 @@ export class CalendarFooter extends BaseComponent {
     this.footerInfoAverageCount = this.createElem(
       'div',
       'averageCount__title text-sm text-right xs:text-left',
-      '292.4 $/month',
+      `292.4 $/` + `${this.textTranslate('CalendarPage.month')}`,
     );
     this.footerInfoTotalIncomeCount = this.createElem(
       'div',
@@ -85,7 +89,7 @@ export class CalendarFooter extends BaseComponent {
     this.footerInfoTotalCount.textContent = `${String(totalExpenditureValue)}$`;
     this.footerInfoAverageCount.textContent = `${String(
       Math.round(totalExpenditureValue / 1.2) / 10,
-    )}$/month`;
+    )}$/${this.textTranslate('CalendarPage.month')}`;
     const expensIncome = totalExpenditureValue / totalIncomeValue;
 
     if (isFinite(expensIncome)) {

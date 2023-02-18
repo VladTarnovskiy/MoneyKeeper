@@ -28,13 +28,13 @@ export class Calendar extends BaseComponent {
     this.calendarContainer = this.createElem('div', 'content__calendar_container flex flex-col');
     this.pageCalendarTitle = this.createElem(
       'div',
-      'page__title ml-2 text-3xl text-sky-600 mb-5 bg-sky-100 rounded pl-2',
-      'Calendar',
+      'page__title ml-2 text-3xl dark:font-semibold dark:text-stone-600 dark:bg-gray-400 text-sky-600 mb-5 bg-sky-100 rounded pl-2',
+      `${this.textTranslate('CalendarPage.Calendar')}`,
     );
     this.pageCalendarContent = this.createElem('div', 'page__calendar_content gap-2 flex flex-col');
     this.calendarHeaderContainer = this.createElem(
       'div',
-      'calendar__header_container flex flex-row xs:flex-col border-2 p-3 basis-1/2',
+      'calendar__header_container flex flex-row md:flex-col md:gap-y-3 gap-x-2 border-2 p-2 basis-1/2',
     );
     this.calendarMainContainer = this.createElem(
       'div',

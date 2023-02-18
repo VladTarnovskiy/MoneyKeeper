@@ -1,3 +1,5 @@
+import i18next from 'i18next';
+
 import { BaseComponent } from '@/components/base/baseComponent';
 import type { Model } from '@/components/model/model';
 import type { ISetting, ISettingReq } from '@/components/model/types';
@@ -213,6 +215,9 @@ export class Settings extends BaseComponent {
       this.state.message = this.textTranslate('Settings.Message4');
       this.state.status = '200';
       this.state.settingBlock = true;
+      this.model.setting[0]?.lang === 'EN'
+        ? i18next.changeLanguage('en').catch((err: string) => new Error(err))
+        : i18next.changeLanguage('ru').catch((err: string) => new Error(err));
       this.update();
     } else {
       this.state.message = this.textTranslate('Settings.Message5');

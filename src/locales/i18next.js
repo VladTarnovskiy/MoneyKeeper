@@ -6,7 +6,7 @@ import translationRu from './translationRu.json';
 
 // i18next.use(LanguageDetector).init({
 i18next.init({
-  lng: 'ru',
+  lng: 'en',
   resources: {
     en: {
       translation: translationEn,
@@ -16,4 +16,4 @@ i18next.init({
     },
   },
 });
-// i18next.changeLanguage('ru');
+// i18next.changeLanguage('en');

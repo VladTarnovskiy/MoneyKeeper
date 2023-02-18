@@ -30,7 +30,11 @@ export class CalendarFooter extends BaseComponent {
       'footerInfoTotal__title text-sm text-left',
       `${this.textTranslate('CalendarPage.ExpenditureTotal')}`,
     );
-    this.footerInfoAverage = this.createElem('div', 'average__title text-sm text-left', `${this.textTranslate('CalendarPage.Average')}`);
+    this.footerInfoAverage = this.createElem(
+      'div',
+      'average__title text-sm text-left',
+      `${this.textTranslate('CalendarPage.Average')}`,
+    );
     this.footerInfoTotalIncome = this.createElem(
       'div',
       'footerInfoTotalIncome__title text-sm text-left',

@@ -66,9 +66,13 @@ export class CalendarMain extends BaseComponent {
       monthDataRes = monthData;
     } else {
       monthDataRes = monthData.filter((a) => {
-        return a.category === categoryVal || `${this.textTranslate('CategoryExpenditure.' + a.category)}` === categoryVal;
+        return (
+          a.category === categoryVal ||
+          `${this.textTranslate(`CategoryExpenditure.${a.category}`)}` === categoryVal
+        );
       });
     }
+
     let monthMoney = 0;
 
     monthDataRes.forEach((a) => {

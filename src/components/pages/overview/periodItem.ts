@@ -84,7 +84,7 @@ export class PeriodItem extends BaseComponent {
     new TransactionStatisticItem(
       periodDescription,
       this.color,
-      'Income',
+      this.textTranslate('Overview.income'),
       getProgressWidth(sumIncome),
       `${sumIncome}$`,
       'text-sky-500',
@@ -93,7 +93,7 @@ export class PeriodItem extends BaseComponent {
     new TransactionStatisticItem(
       periodDescription,
       this.color,
-      'Expense',
+      this.textTranslate('Overview.expense'),
       getProgressWidth(sumExpense),
       `${sumExpense}$`,
     );

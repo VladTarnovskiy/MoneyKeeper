@@ -43,7 +43,7 @@ export class Report extends BaseComponent {
     this.pageTitle = this.createElem(
       'div',
       'page__title ml-2 text-3xl text-sky-600 mb-5 bg-sky-100 rounded pl-2',
-      'Report',
+      this.textTranslate('Report.title'),
     );
     this.pageContent = this.createElem('div', 'page__content flex xl:flex-col');
     this.barContainer = this.createElem(
@@ -59,15 +59,53 @@ export class Report extends BaseComponent {
     this.bar.getContext('2d');
     this.inputChartSelect = new InputChartSelect(
       this.selectContainer,
-      'Chart type',
-      ['polarArea', 'pie', 'radar', 'doughnut'],
+      this.textTranslate('Report.chartType.title'),
+      [
+        {
+          option: `${this.textTranslate('Report.chartType.polarArea')}`,
+          value: 'polarArea',
+        },
+        {
+          option: `${this.textTranslate('Report.chartType.pie')}`,
+          value: 'pie',
+        },
+        {
+          option: `${this.textTranslate('Report.chartType.radar')}`,
+          value: 'radar',
+        },
+        {
+          option: `${this.textTranslate('Report.chartType.doughnut')}`,
+          value: 'doughnut',
+        },
+        // `${this.textTranslate('Report.chartType.polarArea')}`,
+        // `${this.textTranslate('Report.chartType.pie')}`,
+        // `${this.textTranslate('Report.chartType.radar')}`,
+        // `${this.textTranslate('Report.chartType.doughnut')}`,
+      ],
+      // ['polarArea', 'pie', 'radar', 'doughnut'],
       this.getBar,
       this.bar,
     );
     this.inputTypeTransactionSelect = new InputTypeTransactionSelect(
       this.selectContainer,
-      'Transactions type',
-      ['Expense', 'Income'],
+      this.textTranslate('Report.transactionsType.title'),
+      [
+        // {
+        //   option: `${this.textTranslate('Report.chartType.polarArea')}`,
+        //   value: 'polarArea',
+        // },
+        {
+          option: `${this.textTranslate('Report.transactionsType.expense')}`,
+          value: 'Expense',
+        },
+        {
+          option: `${this.textTranslate('Report.transactionsType.income')}`,
+          value: 'Income',
+        },
+        // `${this.textTranslate('Report.transactionsType.expense')}`,
+        // `${this.textTranslate('Report.transactionsType.income')}`,
+      ],
+      // ['Expense', 'Income'],
       this.getBarWithType,
       this.bar,
     );
@@ -94,7 +132,7 @@ export class Report extends BaseComponent {
       labels: reportDataItem.map((item) => item.title),
       datasets: [
         {
-          label: 'Percent, %',
+          label: `${this.textTranslate('Report.percent')}, %`,
           data: reportDataItem.map((item) => item.width),
           backgroundColor: reportDataItem.map((item) => item.color),
           hoverOffset: 4,
@@ -127,7 +165,7 @@ export class Report extends BaseComponent {
               weight: '300',
             },
             color: '#0284c7',
-            text: 'Category statistics:',
+            text: `${this.textTranslate('Report.chartTitle')}:`,
           },
         },
       },
@@ -144,14 +182,14 @@ export class Report extends BaseComponent {
 
     new StatisticBlock(
       this.statisticContainer,
-      'Expenses',
+      this.textTranslate('Report.titleOne'),
       `${this.getTotalSum('Expense')} $`,
       this.getData('Expense'),
       'stone-600',
     );
     new StatisticBlock(
       this.statisticContainer,
-      'Incomes',
+      this.textTranslate('Report.titleTwo'),
       `${this.getTotalSum('Income')} $`,
       this.getData('Income'),
       'sky-600',

@@ -1,24 +1,17 @@
-import { BaseComponent } from '@/components/base/baseComponent';
 import type { SelectOptions } from '@/components/types/types';
 
-export class InputSelect extends BaseComponent {
+import { BaseComponent } from './baseComponent';
+
+export class InputSelectTwo extends BaseComponent {
   root: HTMLElement;
   options: SelectOptions[];
   title: string;
   filterSelect: HTMLInputElement;
-  prop: (way: string) => void;
 
-  constructor(
-    root: HTMLElement,
-    title: string,
-    options: SelectOptions[],
-    prop: (way: string) => void,
-  ) {
+  constructor(root: HTMLElement, title: string, options: SelectOptions[]) {
     super();
     this.root = root;
     this.title = title;
-    this.prop = prop;
-
     this.options = options;
     this.filterSelect = this.createElem(
       'select',
@@ -33,23 +26,12 @@ export class InputSelect extends BaseComponent {
       'relative h-8 w-full  min-w-[100px] max-w-[200px]',
     );
 
-    this.options.forEach((item, index) => {
+    this.options.forEach((item) => {
       const option = this.createElem('option', 'option__item', item.option);
 
-      if (index === 0) {
-        option.setAttribute('checked', 'checked');
-        option.setAttribute('disabled', 'disabled');
-      }
-
       option.setAttribute('value', item.value);
-
       this.filterSelect.append(option);
     });
-    const storageTransactionSelectType = localStorage.getItem(`${this.title}`);
-
-    if (storageTransactionSelectType !== null) {
-      this.filterSelect.value = storageTransactionSelectType;
-    }
 
     const inputLabel = this.createElem(
       'label',
@@ -57,10 +39,9 @@ export class InputSelect extends BaseComponent {
       this.title,
     );
 
-    this.filterSelect.addEventListener('change', () => {
-      localStorage.setItem(`${this.title}`, `${this.filterSelect.value}`);
-      this.prop(this.filterSelect.value);
-    });
+    // this.filterSelect.addEventListener('click', () => {
+    //   this.prop(this.filterSelect.value);
+    // });
 
     filterContainer.append(this.filterSelect, inputLabel);
     this.root.appendChild(filterContainer);

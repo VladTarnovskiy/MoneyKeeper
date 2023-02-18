@@ -25,7 +25,7 @@ export class Overview extends BaseComponent {
     this.pageTitle = this.createElem(
       'div',
       'page__title ml-2 text-3xl text-sky-600 mb-5 bg-sky-100 rounded pl-2',
-      'Overview',
+      this.textTranslate('Overview.title'),
     );
 
     this.pageContent = this.createElem('div', 'page__content gap-2 flex md:flex-col');

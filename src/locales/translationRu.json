@@ -1,7 +1,70 @@
 {
   "other": "Прочее",
+  "Header": {
+    "logo": "Учет финансов",
+    "balance": "Баланс",
+    "username": "Имя пользователя",
+    "mail": "Почта"
+  },
   "Overview": {
-    "Logo": "Учет финансов"
+    "title": "Обзор",
+    "titlePeriod": "Доходы / Расходы",
+    "netIncome": "Чистая прибыль",
+    "calendar": {
+      "today": "За Сегодня",
+      "week": "За Неделю",
+      "month": "За Месяц",
+      "year": "За Год",
+      "allTime": "За Все время"
+    },
+    "income": "Доходы",
+    "expense": "Расходы",
+    "titleTransactions": "Транзакции",
+    "sort": {
+      "title": "Сортировка транзакций",
+      "default": "выбере способ сортировки",
+      "dateInc": "Дата по нарастанию",
+      "dateDec": "Дата по убыванию",
+      "sumInc": "Сумма по нарастанию",
+      "sumDec": "Сумма по убыванию"
+    },
+    "filter": {
+      "title": "Фильтрация транзакций",
+      "default": "выбере способ фильтрации",
+      "all": "Все",
+      "expense": "Расходы",
+      "income": "Доходы"
+    },
+    "popup": {
+      "detailBut": "детали",
+      "removeBut": "удалить",
+      "datail": "Детали",
+      "sum": "Сумма",
+      "category": "Категория",
+      "subcategory": "Субкатегория",
+      "date": "Дата",
+      "time": "Время",
+      "description": "Описание"
+    }
+  },
+  "Report": {
+    "title": "Отчет",
+    "titleOne": "Расходы",
+    "titleTwo": "Доходы",
+    "chartTitle": "Статистика по категориям",
+    "percent": "Проценты",
+    "chartType": {
+      "title": "Тип диаграммы",
+      "polarArea": "полярная область",
+      "pie": "пирог",
+      "radar": "радар",
+      "doughnut": "пончик"
+    },
+    "transactionsType": {
+      "title": "Transactions type",
+      "expense": "Расходы",
+      "income": "Доходы"
+    }
   },
   "Authorization": {
     "Logo1": "Войдите в свой аккаунт",
@@ -10,7 +73,7 @@
     "Message2": "Создан новый аккаунт:",
     "Message3": "Вы вышли из аккаунта",
     "Message4": "Демо доступ",
-    "Button1": "Вход" ,
+    "Button1": "Вход",
     "Button2": "Регистрация",
     "Button3": "Выход",
     "Check": "Новый аккаунт"
@@ -32,7 +95,7 @@
     "Message2": "Ошибка сохранения транзакции"
   },
   "Settings": {
-    "Title": "Настройки",    
+    "Title": "Настройки",
     "Name": "Имя пользователя",
     "Language": "Язык приложения",
     "Themes": "Тема",
@@ -46,7 +109,6 @@
     "Message3": "Ошибка удаления аккаунта.",
     "Message4": "Настройки сохранены.",
     "Message5": "Ошибка сохранения настроек."
-
   },
   "CategoryIncome": {
     "Salary": "Заработная плата",
@@ -57,8 +119,8 @@
     "Award": "Премия",
     "Lottery": "Лотерея",
     "Other": "Прочее"
-    },
-    "CategoryExpenditure": {
+  },
+  "CategoryExpenditure": {
     "Transport": "Транспорт",
     "Bars and restaurants": "Бары и рестораны",
     "Alcohol": "Алкоголь",
@@ -71,5 +133,5 @@
     "Clothing": "Одежда",
     "Banking services": "Банковские операции",
     "Other": "Прочее"
-    }
+  }
 }

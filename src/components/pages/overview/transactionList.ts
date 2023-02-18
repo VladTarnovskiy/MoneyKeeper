@@ -36,14 +36,59 @@ export class TransactionList extends BaseComponent {
     );
     this.sortItem = new InputSelect(
       this.sortContainer,
-      'Sort transactions',
-      ['DateInc', 'DateDec', 'SumInc', 'SumDec'],
+      this.textTranslate('Overview.sort.title'),
+      [
+        // `${this.textTranslate('Overview.sort.dateInc')}`,
+        // `${this.textTranslate('Overview.sort.dateDec')}`,
+        // `${this.textTranslate('Overview.sort.sumInc')}`,
+        // `${this.textTranslate('Overview.sort.sumDec')}`,
+        {
+          option: `${this.textTranslate('Overview.sort.default')}`,
+          value: '',
+        },
+        {
+          option: `${this.textTranslate('Overview.sort.dateInc')}`,
+          value: 'DateInc',
+        },
+        {
+          option: `${this.textTranslate('Overview.sort.dateDec')}`,
+          value: 'DateDec',
+        },
+        {
+          option: `${this.textTranslate('Overview.sort.sumInc')}`,
+          value: 'SumInc',
+        },
+        {
+          option: `${this.textTranslate('Overview.sort.sumDec')}`,
+          value: 'SumDec',
+        },
+      ],
       this.getSortData,
     );
     this.filterItem = new InputSelect(
       this.sortContainer,
-      'Filter transactions',
-      ['All', 'Expense', 'Income'],
+      this.textTranslate('Overview.filter.title'),
+      [
+        // `${this.textTranslate('Overview.filter.all')}`,
+        // `${this.textTranslate('Overview.filter.expense')}`,
+        // `${this.textTranslate('Overview.filter.income')}`,
+        {
+          option: `${this.textTranslate('Overview.filter.default')}`,
+          value: '',
+        },
+        {
+          option: `${this.textTranslate('Overview.filter.all')}`,
+          value: 'All',
+        },
+        {
+          option: `${this.textTranslate('Overview.filter.expense')}`,
+          value: 'Expense',
+        },
+        {
+          option: `${this.textTranslate('Overview.filter.income')}`,
+          value: 'Income',
+        },
+      ],
       this.getFilterData,
     );
     this.transactionItem = new TransactionItems(this.transactionItems, prop, transactionData);
@@ -125,7 +170,7 @@ export class TransactionList extends BaseComponent {
     const transactionListTitle = this.createElem(
       'div',
       'transaction-list text-2xl mb-4 font-light text-sky-600',
-      'Transactions',
+      this.textTranslate('Overview.titleTransactions'),
     );
 
     container.append(transactionListTitle, this.sortContainer, this.transactionItems);

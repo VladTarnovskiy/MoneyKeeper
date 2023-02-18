@@ -120,7 +120,7 @@ export class TransactionItems extends BaseComponent {
     const detailItem = this.createElem(
       'ul',
       'text-xl p-1 font-light border-b-[1px] border-stone-400 text-stone-900 cursor-pointer hover:bg-slate-200',
-      '☰ detail',
+      `☰ ${this.textTranslate('Overview.popup.detailBut')}`,
     );
 
     detailItem.addEventListener('click', () => {
@@ -129,7 +129,7 @@ export class TransactionItems extends BaseComponent {
     const removeItem = this.createElem(
       'ul',
       'text-xl p-1 font-light text-stone-900 cursor-pointer hover:bg-slate-200',
-      '☓ remove',
+      `☓ ${this.textTranslate('Overview.popup.removeBut')}`,
     );
 
     removeItem.addEventListener('click', () => {
@@ -158,7 +158,11 @@ export class TransactionItems extends BaseComponent {
       'div',
       'fixed transaction__container z-20 bg-white items-center shadow-2xl border-[1px] rounded p-1 mb-2 flex flex-col -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2',
     );
-    const title = this.createElem('div', 'page__title ml-2 text-3xl text-sky-600 mb-5', 'Detail');
+    const title = this.createElem(
+      'div',
+      'page__title ml-2 text-3xl text-sky-600 mb-5',
+      this.textTranslate('Overview.popup.datail'),
+    );
 
     const transactionImg = this.createElem(
       'div',
@@ -174,7 +178,11 @@ export class TransactionItems extends BaseComponent {
       'div',
       'transaction__item font-normal w-full items-center text-stone-900 font-light flex justify-between gap-2',
     );
-    const transactionItemTitleOne = this.createElem('div', 'transaction__item_title', 'Sum:');
+    const transactionItemTitleOne = this.createElem(
+      'div',
+      'transaction__item_title',
+      `${this.textTranslate('Overview.popup.sum')}:`,
+    );
 
     if (item.type === 'Income') {
       sign = '+';
@@ -199,11 +207,31 @@ export class TransactionItems extends BaseComponent {
     transactionItemOne.append(transactionItemTitleOne, transactionItemDescOne);
 
     transactionDescription.append(transactionItemOne);
-    this.transactionProperty(transactionDescription, 'Category', `${item.category}`);
-    this.transactionProperty(transactionDescription, 'Subcategory', `${item.subcategory}`);
-    this.transactionProperty(transactionDescription, 'Date', `${item.date}`);
-    this.transactionProperty(transactionDescription, 'Time', `${item.time}`);
-    this.transactionProperty(transactionDescription, 'Description', `${item.description}`);
+    this.transactionProperty(
+      transactionDescription,
+      this.textTranslate('Overview.popup.category'),
+      `${item.category}`,
+    );
+    this.transactionProperty(
+      transactionDescription,
+      this.textTranslate('Overview.popup.subcategory'),
+      `${item.subcategory}`,
+    );
+    this.transactionProperty(
+      transactionDescription,
+      this.textTranslate('Overview.popup.date'),
+      `${item.date}`,
+    );
+    this.transactionProperty(
+      transactionDescription,
+      this.textTranslate('Overview.popup.time'),
+      `${item.time}`,
+    );
+    this.transactionProperty(
+      transactionDescription,
+      this.textTranslate('Overview.popup.description'),
+      `${item.description}`,
+    );
     bgHide.addEventListener('click', () => {
       bgHide.remove();
       container.remove();

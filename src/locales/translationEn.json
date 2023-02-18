@@ -1,7 +1,69 @@
 {
   "other": "Other",
+  "Header": {
+    "logo": "MoneyKeeper",
+    "balance": "Balance",
+    "username": "Username",
+    "mail": "E-mail"
+  },
   "Overview": {
-    "Logo": "MoneyKeeper"
+    "title": "Overview",
+    "titlePeriod": " Income / Expense",
+    "netIncome": "Net Income",
+    "calendar": {
+      "today": "Today",
+      "week": "This Week",
+      "month": "This Month",
+      "year": "This Year",
+      "allTime": "All Time"
+    },
+    "income": "Income",
+    "expense": "Expense",
+    "titleTransactions": "Transactions",
+    "sort": {
+      "title": "Sort transactions",
+      "default": "choose sort way",
+      "dateInc": "DateInc",
+      "dateDec": "DateDec",
+      "sumInc": "SumInc",
+      "sumDec": "SumDec"
+    },
+    "filter": {
+      "title": "Filter transactions",
+      "default": "choose filter way",
+      "all": "All",
+      "expense": "Expense",
+      "income": "Income"
+    },
+    "popup": {
+      "detailBut": "detail",
+      "removeBut": "remove",
+      "datail": "Detail",
+      "sum": "Sum",
+      "category": "Category",
+      "subcategory": "Subcategory",
+      "date": "Date",
+      "time": "Time",
+      "description": "Description"
+    }
+  },
+  "Report": {
+    "title": "Report",
+    "titleOne": "Expenses",
+    "titleTwo": "Incomes",
+    "chartTitle": "Category statistics",
+    "percent": "Persent",
+    "chartType": {
+      "title": "Chart type",
+      "polarArea": "polarArea",
+      "pie": "pie",
+      "radar": "radar",
+      "doughnut": "doughnut"
+    },
+    "transactionsType": {
+      "expense": "Expense",
+      "income": "Income"
+    }
   },
   "Authorization": {
     "Logo1": "Sign in to your account",
@@ -10,7 +72,7 @@
     "Message2": "A new account has been created:",
     "Message3": "You sign out",
     "Message4": "Demo access",
-    "Button1": "Sign in" ,
+    "Button1": "Sign in",
     "Button2": "Registration",
     "Button3": "Sign out",
     "Check": "New account"
@@ -47,30 +109,29 @@
     "Message3": "Fault deleting.",
     "Message4": "Setting save",
     "Message5": "Setting save fault"
-
   },
   "CategoryIncome": {
-  "Salary": "Salary",
-  "Stipend": "Stipend",
-  "Pension": "Pension",
-  "Business": "Business",
-  "Sales": "Sales",
-  "Award": "Award",
-  "Lottery": "Lottery",
-  "Other": "Other"
+    "Salary": "Salary",
+    "Stipend": "Stipend",
+    "Pension": "Pension",
+    "Business": "Business",
+    "Sales": "Sales",
+    "Award": "Award",
+    "Lottery": "Lottery",
+    "Other": "Other"
   },
   "CategoryExpenditure": {
-  "Transport": "Transport",
-  "Bars and restaurants": "Bars and restaurants",
-  "Alcohol": "Alcohol",
-  "Eating out": "Eating out",
-  "Food": "Food",
-  "Health": "Health",
-  "Entertainment": "Entertainment",
-  "Presents": "Presents",
-  "Regular": "Regular",
-  "Clothing": "Clothing",
-  "Banking services": "Banking services",
-  "Other": "Other"
+    "Transport": "Transport",
+    "Bars and restaurants": "Bars and restaurants",
+    "Alcohol": "Alcohol",
+    "Eating out": "Eating out",
+    "Food": "Food",
+    "Health": "Health",
+    "Entertainment": "Entertainment",
+    "Presents": "Presents",
+    "Regular": "Regular",
+    "Clothing": "Clothing",
+    "Banking services": "Banking services",
+    "Other": "Other"
   }
 }

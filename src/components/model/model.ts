@@ -1,3 +1,5 @@
+import i18next from 'i18next';
+
 import type {
   ISetting,
   ISettingReq,
@@ -5,6 +7,7 @@ import type {
   ITransactionReq,
   IUser,
   IUserData,
+  IUserDataReq,
   IUserReq,
   PostJsonResponse,
 } from './types';
@@ -22,11 +25,25 @@ export class Model {
   #setting: ISettingReq[];
   #transaction: ITransactionReq[];
   #access: boolean;
+  userData: IUserReq;
 
   constructor() {
     this.#setting = [];
     this.#transaction = [];
     this.#access = false;
+    this.userData = this.getStorageData();
+    this.getUser<IUserDataReq>()
+      .then((res) => {
+        if (res.status === 200) {
+          this.#access = true;
+        } else {
+          this.#access = false;
+          localStorage.userdata = '';
+        }
+      })
+      .catch((err: string) => {
+        new Error(err);
+      });
   }
 
   get transaction(): ITransactionReq[] {
@@ -43,6 +60,9 @@ export class Model {
 
   set setting(set: ISettingReq[]) {
     this.#setting = set;
+    this.setting[0]?.lang === 'EN'
+      ? i18next.changeLanguage('en').catch((err: string) => new Error(err))
+      : i18next.changeLanguage('ru').catch((err: string) => new Error(err));
   }
 
   async registerUser<T, D = object>(data: D): Promise<PostJsonResponse<T>> {
@@ -113,6 +133,13 @@ export class Model {
       id: storage.user.id,
       token: storage.accessToken,
     };
+  }
+  getStorageData(): IUserReq {
+    const str = localStorage.getItem('userdata') ?? '';
+    const str2 = str.length === 0 ? '{}' : str;
+    const storage: IUserReq = JSON.parse(str2) as IUserReq;
+
+    return storage;
   }
 
   async getUser<T>(): Promise<PostJsonResponse<T>> {

@@ -167,10 +167,10 @@ export class Transaction extends BaseComponent {
 
     container2.append(container1, container3, inputDescription);
 
-    container.append(message, container2, container4);
+    container.append(container2, container4);
     const containerFull = this.createElem('div', 'content__container flex flex-col');
 
-    containerFull.append(title, container);
+    containerFull.append(title, message, container);
 
     return containerFull;
   }

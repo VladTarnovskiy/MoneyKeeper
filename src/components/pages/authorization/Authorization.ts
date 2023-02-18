@@ -1,12 +1,6 @@
 import { BaseComponent } from '@/components/base/baseComponent';
 import type { Model } from '@/components/model/model';
-import type {
-  IUser,
-  IUserReq,
-  ISetting,
-  ISettingReq,
-  IUserDataReq,
-} from '@/components/model/types';
+import type { IUser, IUserReq, ISetting, ISettingReq } from '@/components/model/types';
 import { Button } from '@/components/pages/authorization/Button';
 import { InputCheck } from '@/components/pages/authorization/InputCheck';
 import { InputEmail } from '@/components/pages/authorization/InputEmail';
@@ -48,7 +42,8 @@ export class Authorization extends BaseComponent {
     this.model = model;
     this.container = this.build();
     this.render();
-    this.onGetUser().catch((err: string) => new Error(err));
+    setTimeout(this.onGetUser, 1000);
+    // this.onGetUser();
   }
 
   set state(state: IState) {
@@ -60,24 +55,26 @@ export class Authorization extends BaseComponent {
     return this.#state;
   }
 
-  async onGetUser(): Promise<void> {
-    const resp = await this.model.getUser<IUserDataReq>();
+  onGetUser = (): void => {
+    // const resp = await this.model.getUser<IUserDataReq>();
+    // console.log(this.model.checkAccess())
 
-    if (resp.status === 200) {
+    if (this.model.checkAccess()) {
       this.state.status = 'signOut';
       this.state.message = `${this.textTranslate('Authorization.Message1')} ${
-        resp.data === undefined ? '' : resp.data.email
+        this.model.userData.user.email
       }`;
       // this.access = true;
       this.update();
       setTimeout(() => {
         const lastPath = localStorage.getItem('query');
 
-        if (typeof lastPath === 'string') {
+        if (typeof lastPath === 'string' && lastPath !== '/signup') {
           location.hash = `#${lastPath.slice(1)}`;
         } else {
           location.hash = '#overview';
         }
+        // location.hash = '#overview';
       }, 1000);
     } else {
       setTimeout(() => {
@@ -86,9 +83,8 @@ export class Authorization extends BaseComponent {
       // this.access = false;
 
       localStorage.query = '/signup';
-      localStorage.userdata = '';
     }
-  }
+  };
 
   build(): HTMLElement {
     const container1 = this.createElem2('div', {

@@ -16,4 +16,5 @@ i18next.init({
     },
   },
 });
-i18next.changeLanguage('ru');
+// i18next.changeLanguage('en');
+

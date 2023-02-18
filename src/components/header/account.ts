@@ -16,7 +16,7 @@ export class Account extends BaseComponent {
     this.model = model;
     const userDataReq = localStorage.getItem('userdata');
 
-    if (userDataReq === null) {
+    if (userDataReq === null || userDataReq.length === 0) {
       this.userData = {
         accessToken: 'string',
         user: {
@@ -67,7 +67,7 @@ export class Account extends BaseComponent {
       });
     });
 
-    let name = this.settings?.name;
+    let name = this.model.setting[0]?.name;
 
     if (name === undefined) {
       name = '';
@@ -77,7 +77,7 @@ export class Account extends BaseComponent {
     const popupLocation = this.createElem(
       'div',
       'popup__location',
-      `Email: ${this.userData.user.email}`,
+      `Email: ${this.model.userData.user.email}`,
     );
     const popupClose = this.createElem(
       'div',

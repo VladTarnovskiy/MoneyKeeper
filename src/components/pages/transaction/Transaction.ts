@@ -10,6 +10,7 @@ import { Button } from '@/components/pages/authorization/Button';
 import { InputElem } from '@/components/pages/transaction/InputElem';
 import { InputElemArea } from '@/components/pages/transaction/InputElemArea';
 import { InputSelect } from '@/components/pages/transaction/InputSelect';
+import { InputSelectTwo } from '@/components/pages/transaction/InputSelectTwo';
 
 interface IState {
   status: string;
@@ -88,11 +89,26 @@ export class Transaction extends BaseComponent {
       class: 'grid grid-cols-1 gap-6 col-span-2',
     });
 
-    const inputType = new InputSelect({
+    // const inputType = new InputSelect({
+    //   title: 'Type notes',
+    //   options: [
+    //     this.textTranslate('Transaction.Expense'),
+    //     this.textTranslate('Transaction.Income'),
+    //   ],
+    //   onchange: this.onChangeType,
+    //   value: this.state.type,
+    // }).node;
+    const inputType = new InputSelectTwo({
       title: 'Type notes',
       options: [
-        this.textTranslate('Transaction.Expense'),
-        this.textTranslate('Transaction.Income'),
+        {
+          option: this.textTranslate('Transaction.Expense'),
+          value: 'Expense',
+        },
+        {
+          option: this.textTranslate('Transaction.Income'),
+          value: 'Income',
+        },
       ],
       onchange: this.onChangeType,
       value: this.state.type,

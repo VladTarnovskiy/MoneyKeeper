@@ -132,6 +132,33 @@
     "Regular": "Регулярные",
     "Clothing": "Одежда",
     "Banking services": "Банковские операции",
-    "Other": "Прочее"
+    "Other": "Прочее",
+    "All": "Все"
+  },
+  "CalendarPage": {
+    "Calendar": "Календарь",
+    "ExpenditureTotal": "Расходов всего:",
+    "TotalIncome": "Доходов всего:",
+    "ExpenditureIncome": "Расходы/Доходы:",
+    "month": "месяц",
+    "ExpenseCategory": "Категория расходов:",
+    "SelectCategory": "Категория",
+    "Average": "Среднее расходов:",
+    "Year": "Год:",
+    "SelectYear": "Год"
+  },
+  "monthes": {
+    "January": "Январь",
+    "February": "Февраль",
+    "March": "Март",
+    "April": "Апрель",
+    "May": "Май",
+    "June": "Июнь",
+    "July": "Июль",
+    "August": "Август",
+    "September": "Сентябрь",
+    "October": "Октябрь",
+    "November": "Ноябрь",
+    "December": "Декабрь"
   }
 }

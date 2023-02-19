@@ -81,7 +81,8 @@ export class Transaction extends BaseComponent {
 
   build(): HTMLElement {
     const title = this.createElem2('div', {
-      class: 'page__title ml-2 text-3xl text-sky-600 bg-sky-100 rounded pl-2 mb-5',
+      class:
+        'page__title ml-2 text-3xl text-sky-600 dark:font-semibold dark:text-stone-600 dark:bg-gray-400 bg-sky-100 rounded pl-2 mb-5',
       textContent: `${this.textTranslate('Transaction.Title')}`,
     });
     const container1 = this.createElem2('div', {
@@ -182,10 +183,10 @@ export class Transaction extends BaseComponent {
 
     container2.append(container1, container3, inputDescription);
 
-    container.append(message, container2, container4);
+    container.append(container2, container4);
     const containerFull = this.createElem('div', 'content__container flex flex-col');
 
-    containerFull.append(title, container);
+    containerFull.append(title, message, container);
 
     return containerFull;
   }

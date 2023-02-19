@@ -58,7 +58,7 @@ export class TransactionItems extends BaseComponent {
 
       const transactionItemDescOne = this.createElem(
         'div',
-        'transaction__item_sum text-right',
+        'transaction__item_sum text-right dark:font-semibold',
         `${sign} ${item.sum}$`,
       );
 
@@ -89,7 +89,7 @@ export class TransactionItems extends BaseComponent {
         transactionItemDescOne.classList.add('text-red-500');
       } else {
         transactionImg.style.backgroundImage = `url(${incomeAssets})`;
-        transactionItemDescOne.classList.add('text-green-500');
+        transactionItemDescOne.classList.add('text-green-500', 'dark:text-green-900');
       }
 
       transactionItemTwo.append(transactionItemTitleTwo, transactionItemDescTwo);
@@ -160,7 +160,7 @@ export class TransactionItems extends BaseComponent {
     );
     const title = this.createElem(
       'div',
-      'page__title ml-2 text-3xl text-sky-600 mb-5',
+      'page__title ml-2 text-3xl text-sky-600 dark:text-sky-900 dark:font-bold mb-5',
       this.textTranslate('Overview.popup.datail'),
     );
 
@@ -180,7 +180,7 @@ export class TransactionItems extends BaseComponent {
     );
     const transactionItemTitleOne = this.createElem(
       'div',
-      'transaction__item_title',
+      'transaction__item_title dark:font-semibold',
       `${this.textTranslate('Overview.popup.sum')}:`,
     );
 
@@ -190,7 +190,7 @@ export class TransactionItems extends BaseComponent {
 
     const transactionItemDescOne = this.createElem(
       'div',
-      'transaction__item_sum text-right',
+      'transaction__item_sum text-right dark:font-semibold',
       `${sign}${item.sum}$`,
     );
 
@@ -201,7 +201,7 @@ export class TransactionItems extends BaseComponent {
       transactionItemDescOne.classList.add('text-red-500');
     } else {
       transactionImg.style.backgroundImage = `url(${incomeAssets})`;
-      transactionItemDescOne.classList.add('text-green-500');
+      transactionItemDescOne.classList.add('text-green-500', 'dark:text-green-900');
     }
 
     transactionItemOne.append(transactionItemTitleOne, transactionItemDescOne);

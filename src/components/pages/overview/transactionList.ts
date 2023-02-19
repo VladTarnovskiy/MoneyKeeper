@@ -171,7 +171,7 @@ export class TransactionList extends BaseComponent {
     const container = this.createElem('div', 'transaction-list__container flex flex-col');
     const transactionListTitle = this.createElem(
       'div',
-      'transaction-list text-2xl mb-4 font-light text-sky-600',
+      'transaction-list text-2xl mb-4 font-light text-sky-600 dark:font-medium dark:text-stone-600',
       this.textTranslate('Overview.titleTransactions'),
     );
 

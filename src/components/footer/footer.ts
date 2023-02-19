@@ -28,7 +28,7 @@ export class Footer extends BaseComponent {
     rsImg.style.backgroundImage = `url(${rsLogoAssets})`;
     const productionDate = this.createElem(
       'div',
-      'account__img text-xl text-sky-600 font-light h-fit',
+      'account__img text-xl text-sky-600 dark:font-semibold dark:text-stone-600 font-light h-fit',
       '©2023',
     );
     const gitImages = this.createElem('div', 'flex justify-between');

@@ -132,6 +132,33 @@
     "Regular": "Regular",
     "Clothing": "Clothing",
     "Banking services": "Banking services",
-    "Other": "Other"
+    "Other": "Other",
+    "All": "All"
+  },
+  "CalendarPage": {
+    "Calendar": "Calendar",
+    "ExpenditureTotal": "Expenditure total:",
+    "TotalIncome": "Total income:",
+    "ExpenditureIncome": "Expenditure/Income:",
+    "month": "month",
+    "ExpenseCategory": "Expense сategory:",
+    "SelectCategory": "Category",
+    "Average": "Average:",
+    "Year": "Year:",
+    "Select year": "Year"
+  },
+  "monthes": {
+    "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September": "September",
+    "October": "October",
+    "November": "November",
+    "December": "December"
   }
 }

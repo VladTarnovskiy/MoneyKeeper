@@ -1,3 +1,5 @@
+import i18next from 'i18next';
+
 import { BaseComponent } from '@/components/base/baseComponent';
 import type { Model } from '@/components/model/model';
 import type { ISetting, ISettingReq } from '@/components/model/types';
@@ -46,7 +48,7 @@ export class Settings extends BaseComponent {
     const container = this.createElem('div', 'content__container flex flex-col');
     const pageTitle = this.createElem(
       'div',
-      'page__title ml-2 text-3xl text-sky-600 mb-4 bg-sky-100 rounded pl-2',
+      'page__title ml-2 text-3xl text-sky-600 dark:font-semibold dark:text-stone-600 dark:bg-gray-400 mb-4 bg-sky-100 rounded pl-2',
       this.textTranslate('Settings.Title'),
     );
     const pageContent = this.createElem('form', 'flex flex-col mt-4 border rounded');
@@ -85,6 +87,17 @@ export class Settings extends BaseComponent {
       value: set.currency,
       disabled: this.state.settingBlock,
     }).node;
+
+    inputTheme.addEventListener('click', (e) => {
+      const { target } = e;
+      const inputs = inputTheme.querySelectorAll('.option__item');
+
+      for (const a of inputs) {
+        if (target === a) {
+          document.body.className = (a as HTMLInputElement).defaultValue.toLowerCase();
+        }
+      }
+    });
 
     const container1 = this.createElem('div', 'content__container flex flex-col gap-4');
     const message = this.createElem2('div', {
@@ -213,6 +226,9 @@ export class Settings extends BaseComponent {
       this.state.message = this.textTranslate('Settings.Message4');
       this.state.status = '200';
       this.state.settingBlock = true;
+      this.model.setting[0]?.lang === 'EN'
+        ? i18next.changeLanguage('en').catch((err: string) => new Error(err))
+        : i18next.changeLanguage('ru').catch((err: string) => new Error(err));
       this.update();
     } else {
       this.state.message = this.textTranslate('Settings.Message5');

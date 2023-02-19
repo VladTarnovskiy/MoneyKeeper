@@ -33,7 +33,7 @@ export class InputSelect extends BaseComponent {
   render(): void {
     const filterContainer = this.createElem(
       'div',
-      'relative h-8 w-full  min-w-[100px] max-w-[200px]',
+      'relative h-8 w-full min-w-[100px] max-w-[200px]',
     );
 
     this.options.forEach((item, index) => {

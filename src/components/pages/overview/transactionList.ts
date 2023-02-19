@@ -38,10 +38,6 @@ export class TransactionList extends BaseComponent {
       this.sortContainer,
       this.textTranslate('Overview.sort.title'),
       [
-        // `${this.textTranslate('Overview.sort.dateInc')}`,
-        // `${this.textTranslate('Overview.sort.dateDec')}`,
-        // `${this.textTranslate('Overview.sort.sumInc')}`,
-        // `${this.textTranslate('Overview.sort.sumDec')}`,
         {
           option: `${this.textTranslate('Overview.sort.default')}`,
           value: '',
@@ -70,9 +66,6 @@ export class TransactionList extends BaseComponent {
       this.sortContainer,
       this.textTranslate('Overview.filter.title'),
       [
-        // `${this.textTranslate('Overview.filter.all')}`,
-        // `${this.textTranslate('Overview.filter.expense')}`,
-        // `${this.textTranslate('Overview.filter.income')}`,
         {
           option: `${this.textTranslate('Overview.filter.default')}`,
           value: '',

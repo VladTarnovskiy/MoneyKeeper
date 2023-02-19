@@ -87,8 +87,8 @@ export class Main extends BaseComponent {
       this.overview.rebuild();
     }
 
-    // if (index === 2) {
-    //   this.report.rebuild();
-    // }
+    if (index === 2) {
+      this.report.rebuild();
+    }
   }
 }

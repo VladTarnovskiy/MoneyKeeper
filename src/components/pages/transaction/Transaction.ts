@@ -59,8 +59,8 @@ export class Transaction extends BaseComponent {
     this.#state = {
       status: '',
       message: '',
-      type: `${this.textTranslate('Transaction.Income')}`,
-      category: `${this.textTranslate('CategoryIncome.Salary')}`,
+      type: 'Income',
+      category: 'Salary',
       date: '',
       time: '',
       amount: 0,
@@ -100,15 +100,10 @@ export class Transaction extends BaseComponent {
     // }).node;
     const inputType = new InputSelectTwo({
       title: 'Type notes',
-      options: [
-        {
-          option: this.textTranslate('Transaction.Expense'),
-          value: 'Expense',
-        },
-        {
-          option: this.textTranslate('Transaction.Income'),
-          value: 'Income',
-        },
+      options: ['Expense', 'Income'],
+      optionsLang: [
+        this.textTranslate('Transaction.Expense'),
+        this.textTranslate('Transaction.Income'),
       ],
       onchange: this.onChangeType,
       value: this.state.type,
@@ -121,7 +116,9 @@ export class Transaction extends BaseComponent {
     });
     const inputCategory = new InputSelect({
       title: 'Category',
-      options: this.state.type === this.textTranslate('Transaction.Income') ? inDataEng : exDataEng,
+      options:
+        this.state.type === 'Income' ? baseCategoryIncomeDataEng : baseCategoryExpenditureDataEng,
+      optionsLang: this.state.type === 'Income' ? inDataEng : exDataEng,
       onchange: this.onChangeCategory,
       value: this.state.category,
     }).node;

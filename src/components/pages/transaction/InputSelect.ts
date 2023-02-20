@@ -3,6 +3,7 @@ import { BaseComponent } from '../../base/baseComponent';
 interface IInputSelect {
   title: string;
   options: string[];
+  optionsLang: string[];
   onchange: (this: GlobalEventHandlers, event: Event) => void;
   value: string;
 }
@@ -30,11 +31,11 @@ export class InputSelect extends BaseComponent {
         'eer h-full w-full rounded-[7px] cursor-pointer border border-blue-gray-200 bg-transparent font-sans text-1xl font-normal transition-all focus:border-2 focus:border-grey-500 focus:outline-0 disabled:border-0',
     });
 
-    prop.options.forEach((option) => {
+    prop.options.forEach((option, index) => {
       select.append(
         this.createElem2('option', {
           value: option,
-          textContent: option,
+          textContent: prop.optionsLang[index] ?? '',
           selected: option === prop.value,
         }),
       );

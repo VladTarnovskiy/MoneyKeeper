@@ -2,7 +2,7 @@ import i18next from 'i18next';
 
 import { BaseComponent } from '@/components/base/baseComponent';
 import type { Model } from '@/components/model/model';
-import type { ISetting, ISettingReq } from '@/components/model/types';
+import type { ISetting, ISettingReq, IUserDataReq } from '@/components/model/types';
 import { Button } from '@/components/pages/authorization/Button';
 import { InputCheck } from '@/components/pages/authorization/InputCheck';
 import { SettingItem } from '@/components/pages/settings/inputRadioItem';
@@ -56,7 +56,9 @@ export class Settings extends BaseComponent {
   }
 
   async getSetting(): Promise<void> {
-    await this.model.getSettings();
+    const resp = await this.model.getUser<IUserDataReq>();
+
+    resp.status === 200 && (await this.model.getSettings());
   }
 
   set state(state: IStateSetting) {

@@ -6,6 +6,13 @@
     "username": "Имя пользователя",
     "mail": "Почта"
   },
+  "Sidebar": {
+    "Overview": "Обзор",
+    "Transaction": "Транзакции",
+    "Report": "Отчет",
+    "Calendar": "Календарь",
+    "Settings": "Настройки"
+  },
   "Overview": {
     "title": "Обзор",
     "titlePeriod": "Доходы / Расходы",

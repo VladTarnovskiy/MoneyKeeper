@@ -1,3 +1,5 @@
+import i18next from 'i18next';
+
 import type { Model } from '@/components/model/model';
 import { Authorization } from '@/components/pages/authorization/Authorization';
 
@@ -5,7 +7,6 @@ import { BaseComponent } from './base/baseComponent';
 import { Footer } from './footer/footer';
 import { Header } from './header/header';
 import { Main } from './main/main';
-import i18next from 'i18next';
 
 export class View extends BaseComponent {
   root: HTMLElement;

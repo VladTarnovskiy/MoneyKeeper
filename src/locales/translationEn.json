@@ -6,6 +6,13 @@
     "username": "Username",
     "mail": "E-mail"
   },
+  "Sidebar": {
+    "Overview": "Overview",
+    "Transaction": "Transaction",
+    "Report": "Report",
+    "Calendar": "Calendar",
+    "Settings": "Settings"
+  },
   "Overview": {
     "title": "Overview",
     "titlePeriod": " Income / Expense",

@@ -10,7 +10,6 @@ import { Button } from '@/components/pages/authorization/Button';
 import { InputElem } from '@/components/pages/transaction/InputElem';
 import { InputElemArea } from '@/components/pages/transaction/InputElemArea';
 import { InputSelect } from '@/components/pages/transaction/InputSelect';
-import { InputSelectTwo } from '@/components/pages/transaction/InputSelectTwo';
 
 interface IState {
   status: string;
@@ -98,7 +97,7 @@ export class Transaction extends BaseComponent {
     //   onchange: this.onChangeType,
     //   value: this.state.type,
     // }).node;
-    const inputType = new InputSelectTwo({
+    const inputType = new InputSelect({
       title: 'Type notes',
       options: ['Expense', 'Income'],
       optionsLang: [

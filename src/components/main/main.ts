@@ -35,7 +35,8 @@ export class Main extends BaseComponent {
     this.sideBar = new SideBar();
     this.container.append(this.sideBar.node, this.content);
     this.overviewHtml = this.createElem('section', 'overview');
-    this.overview = new Overview(this.overviewHtml, model, updateHeaderSum);
+    this.overview = new Overview(model, updateHeaderSum);
+    this.overviewHtml.append(this.overview.node);
     // this.container.appendChild(this.content);
     this.calendarHtml = this.createElem('section', undefined);
     this.calendar = new Calendar(this.calendarHtml, model);
@@ -94,14 +95,12 @@ export class Main extends BaseComponent {
       this.overview.rebuild();
     }
 
-
     const pageMain: HTMLElement | undefined = this.pagesHtmlArr[index];
 
     this.content.textContent = '';
 
     if (pageMain instanceof HTMLElement) {
       this.content.append(pageMain);
-
     }
   }
 }

@@ -76,7 +76,6 @@ export class Account extends BaseComponent {
       name = '';
     }
 
-
     const popupName = this.createElem(
       'div',
       'popup__name mb-4',

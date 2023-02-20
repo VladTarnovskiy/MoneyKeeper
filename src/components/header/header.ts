@@ -37,7 +37,6 @@ export class Header extends BaseComponent {
       ' container mx-auto flex justify-between p-3 pl-4 mb-4 items-center text-sky-600',
     );
 
-
     const totalCounterContainer = this.createElem('div', 'totalCounterContainer w-fit h-fit');
     // this.updateData();
     const logo = new Logo();
@@ -47,8 +46,7 @@ export class Header extends BaseComponent {
 
     // this.totalCounterContainer = this.createElem('div', 'w-fit h-fit');
     // this.getTotalSum();
-    //}
-
+    // }
 
     totalCounterContainer.append(totalCounter.node);
     // container.appendChild(totalCounterContainer);

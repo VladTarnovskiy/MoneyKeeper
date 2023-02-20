@@ -38,6 +38,7 @@ export class View extends BaseComponent {
   async initLanguage(): Promise<void> {
     await this.model.getSettings();
 
+    // console.log(this.model.setting[0]?.lang)
     this.model.setting[0]?.lang === 'EN'
       ? i18next.changeLanguage('en').catch((err: string) => new Error(err))
       : i18next.changeLanguage('ru').catch((err: string) => new Error(err));

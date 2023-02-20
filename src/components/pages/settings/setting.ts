@@ -58,7 +58,7 @@ export class Settings extends BaseComponent {
   async getSetting(): Promise<void> {
     await this.model.getSettings();
   }
-  
+
   set state(state: IStateSetting) {
     this.#state = state;
     // this.update();

@@ -5,6 +5,7 @@ import { BaseComponent } from './base/baseComponent';
 import { Footer } from './footer/footer';
 import { Header } from './header/header';
 import { Main } from './main/main';
+import i18next from 'i18next';
 
 export class View extends BaseComponent {
   root: HTMLElement;
@@ -22,13 +23,26 @@ export class View extends BaseComponent {
     this.model = model;
     this.bodyPage = this.createElem('div', 'bodyPage dark:bg-gray-400');
     this.authorPage = this.createElem('div', 'authorPage');
-    this.header = new Header(this.bodyPage, model);
-    this.main = new Main(this.bodyPage, model, this.updateHeaderSum.bind(this));
-    this.footer = new Footer(this.bodyPage);
+    this.header = new Header(model);
+    this.main = new Main(model, this.updateHeaderSum.bind(this));
+    this.main.settings.updateView = this.render.bind(this);
+    this.footer = new Footer();
+    this.bodyPage.append(this.header.node, this.main.node, this.footer.node);
     this.root.append(this.authorPage);
-    this.authorization = new Authorization(this.authorPage, model);
+    this.authorization = new Authorization(model);
+    this.authorPage.append(this.authorization.node);
+    this.initLanguage().catch((err: string) => new Error(err));
   }
 
+  async initLanguage(): Promise<void> {
+    await this.model.getSettings();
+
+    this.model.setting[0]?.lang === 'EN'
+      ? i18next.changeLanguage('en').catch((err: string) => new Error(err))
+      : i18next.changeLanguage('ru').catch((err: string) => new Error(err));
+
+    this.render();
+  }
   changePages(): void {
     this.root.replaceChild(this.bodyPage, this.authorPage);
   }
@@ -40,12 +54,15 @@ export class View extends BaseComponent {
   }
 
   render(): void {
-    this.header.render();
-    this.main.render();
-    this.footer.render();
+    this.header.update();
+    this.main.update();
+    // this.footer.render();
   }
+  // update(): void {
+
+  // }
 
   updateHeaderSum(): void {
-    this.header.updateSum();
+    this.header.update();
   }
 }

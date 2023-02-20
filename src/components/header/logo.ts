@@ -3,13 +3,13 @@ import logoAssets from '@/assets/logo.png';
 import { BaseComponent } from '../base/baseComponent';
 
 export class Logo extends BaseComponent {
-  root: HTMLElement;
-  constructor(root: HTMLElement) {
+  node: HTMLElement;
+  constructor() {
     super();
-    this.root = root;
-    this.render();
+    this.node = this.build();
+    // this.render();
   }
-  render(): void {
+  build(): HTMLElement {
     const logo = this.createElem('div', 'flex items-center logo');
     const logoImg = this.createElem(
       'img',
@@ -29,6 +29,11 @@ export class Logo extends BaseComponent {
     );
 
     logo.append(logoImg, logoTitle);
-    this.root.appendChild(logo);
+
+    return logo;
   }
+  // render(): void {
+
+  //   // this.root.appendC/hild(logo);
+  // }
 }

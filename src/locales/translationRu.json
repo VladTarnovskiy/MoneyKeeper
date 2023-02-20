@@ -1,7 +1,17 @@
 {
   "other": "Прочее",
   "Overview": {
-    "Logo": "Учет финансов"
+    "Logo": "Учет финансов",
+    "Balance": "Баланс:",
+    "Username": "Имя",
+    "Email": "Почта"
+  },
+  "Sidebar": {
+    "Overview": "Обзор",
+    "Transaction": "Транзакции",
+    "Report": "Отчет",
+    "Calendar": "Календарь",
+    "Settings": "Настройки"
   },
   "Authorization": {
     "Logo1": "Войдите в свой аккаунт",

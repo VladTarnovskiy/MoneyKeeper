@@ -1,7 +1,17 @@
 {
   "other": "Other",
   "Overview": {
-    "Logo": "MoneyKeeper"
+    "Logo": "MoneyKeeper",
+    "Balance": "Balance",
+    "Username": "Username",
+    "Email": "Email"
+  },
+  "Sidebar": {
+    "Overview": "Overview",
+    "Transaction": "Transaction",
+    "Report": "Report",
+    "Calendar": "Calendar",
+    "Settings": "Settings"
   },
   "Authorization": {
     "Logo1": "Sign in to your account",

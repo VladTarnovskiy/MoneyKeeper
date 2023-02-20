@@ -16,7 +16,7 @@ export class Main extends BaseComponent {
   overviewHtml: HTMLElement;
   reportHtml: HTMLElement;
   settingHtml: HTMLElement;
-  bodyPage: HTMLElement;
+  node: HTMLElement;
   report: Report;
   sideBar: SideBar;
   calendar: Calendar;
@@ -27,16 +27,16 @@ export class Main extends BaseComponent {
   pagesHtmlArr: HTMLElement[];
   loader: Loader;
 
-  constructor(bodyPage: HTMLElement, model: Model, updateHeaderSum: () => void) {
+  constructor(model: Model, updateHeaderSum: () => void) {
     super();
-    this.bodyPage = bodyPage;
     this.container = this.createElem('main', 'container mx-auto flex');
     this.content = this.createElem('section', 'content w-full p-3');
     this.loader = new Loader(document.body);
-    this.sideBar = new SideBar(this.container);
+    this.sideBar = new SideBar();
+    this.container.append(this.sideBar.node, this.content);
     this.overviewHtml = this.createElem('section', 'overview');
     this.overview = new Overview(this.overviewHtml, model, updateHeaderSum);
-    this.container.appendChild(this.content);
+    // this.container.appendChild(this.content);
     this.calendarHtml = this.createElem('section', undefined);
     this.calendar = new Calendar(this.calendarHtml, model);
     this.reportHtml = this.createElem('section', undefined);
@@ -53,10 +53,21 @@ export class Main extends BaseComponent {
       this.calendarHtml,
       this.settingHtml,
     ];
+    this.node = this.container;
   }
 
-  render(): void {
-    this.bodyPage.appendChild(this.container);
+  // render(): void {
+  //   this.bodyPage.appendChild(this.container);
+  // }
+
+  update(): void {
+    this.overview.rebuild();
+    this.settings.update();
+    this.transaction.update();
+    this.report.render();
+    this.calendar.updateCalendar();
+    this.settings.update();
+    this.sideBar.update();
   }
 
   updateMain(index: number): void {
@@ -69,22 +80,26 @@ export class Main extends BaseComponent {
       this.transaction.update();
     }
 
-    const pageMain: HTMLElement | undefined = this.pagesHtmlArr[index];
-
-    this.content.textContent = '';
-
-    if (pageMain instanceof HTMLElement) {
-      this.content.append(pageMain);
-    }
-
     this.sideBar.buttonActive(index);
 
     if (index === 3) {
       this.calendar.updateCalendar();
     }
 
+    if (index === 2) {
+      this.report.render();
+    }
+
     if (index === 0) {
       this.overview.rebuild();
+    }
+
+    const pageMain: HTMLElement | undefined = this.pagesHtmlArr[index];
+
+    this.content.textContent = '';
+
+    if (pageMain instanceof HTMLElement) {
+      this.content.append(pageMain);
     }
   }
 }

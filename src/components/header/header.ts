@@ -7,39 +7,62 @@ import { Logo } from './logo';
 import { TotalCounter } from './totalCounter';
 
 export class Header extends BaseComponent {
-  root: HTMLElement;
-  container: HTMLElement;
-  logo!: Logo;
-  totalCounter!: TotalCounter;
-  account!: Account;
-  totalCounterContainer: HTMLElement;
-  value = 0;
-  currency = '$';
+  node: HTMLElement;
+  // container: HTMLElement;
+  // logo!: Logo;
+  // totalCounter!: TotalCounter;
+  // account!: Account;
+  // totalCounterContainer: HTMLElement;
+  // value = 0;
+  // currency = '$';
   model: Model;
+  state: {
+    value: number;
+    currency: string;
+  };
 
-  constructor(root: HTMLElement, model: Model) {
+  constructor(model: Model) {
     super();
-    this.root = root;
     this.model = model;
+    this.state = {
+      value: 0,
+      currency: '$',
+    };
+    this.node = this.build();
+  }
 
-    this.container = this.createElem(
+  build(): HTMLElement {
+    const container = this.createElem(
       'header',
       ' container mx-auto flex justify-between p-3 pl-4 mb-4 items-center text-sky-600',
     );
 
-    this.totalCounterContainer = this.createElem('div', 'totalCounterContainer w-fit h-fit');
-    this.getTotalSum();
+    const totalCounterContainer = this.createElem('div', 'totalCounterContainer w-fit h-fit');
+    // this.updateData();
+    const logo = new Logo();
+
+    // container.append(logo.node);
+    const totalCounter = new TotalCounter(this.updateData(), this.state.currency);
+
+    totalCounterContainer.append(totalCounter.node);
+    // container.appendChild(totalCounterContainer);
+    const account = new Account(this.model);
+
+    container.append(logo.node, totalCounterContainer, account.node);
+
+    return container;
   }
 
-  getTotalSum(): void {
-    this.updateData();
-    this.logo = new Logo(this.container);
-    this.totalCounter = new TotalCounter(this.totalCounterContainer, this.value, this.currency);
-    this.container.appendChild(this.totalCounterContainer);
-    this.account = new Account(this.container, this.model);
-  }
+  // getTotalSum(): void {
+  //   this.updateData();
+  //   this.logo = new Logo();
+  //   this.container.append(this.logo.node);
+  //   this.totalCounter = new TotalCounter(this.totalCounterContainer, this.value, this.currency);
+  //   this.container.appendChild(this.totalCounterContainer);
+  //   this.account = new Account(this.container, this.model);
+  // }
 
-  updateData(): void {
+  updateData(): number {
     let sum = 0;
 
     this.model.transaction.forEach((item) => {
@@ -49,16 +72,25 @@ export class Header extends BaseComponent {
         sum -= item.sum;
       }
     });
-    this.value = sum;
+
+    return sum;
   }
 
-  updateSum(): void {
-    this.updateData();
-    this.totalCounterContainer.replaceChildren();
-    this.totalCounter = new TotalCounter(this.totalCounterContainer, this.value, this.currency);
+  // updateSum(): void {
+  //   this.updateData();
+  //   this.totalCounterContainer.replaceChildren();
+  //   this.totalCounter = new TotalCounter(this.totalCounterContainer, this.value, this.currency);
+  // }
+
+  update(): void {
+    const node = this.build();
+
+    this.node.replaceWith(node);
+
+    this.node = node;
   }
 
-  render(): void {
-    this.root.appendChild(this.container);
-  }
+  // render(): void {
+  //   this.root.appendChild(this.container);
+  // }
 }

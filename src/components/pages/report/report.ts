@@ -16,15 +16,15 @@ import { InputChartSelect } from './inputChartSelect';
 
 export class Report extends BaseComponent {
   root: HTMLElement;
-  container: HTMLElement;
-  pageTitle: HTMLElement;
-  pageContent: HTMLElement;
-  barContainer: HTMLElement;
-  selectContainer: HTMLElement;
-  bar: HTMLCanvasElement;
-  statisticContainer: HTMLElement;
-  inputChartSelect: InputChartSelect;
-  inputTypeTransactionSelect: InputTypeTransactionSelect;
+  container!: HTMLElement;
+  pageTitle!: HTMLElement;
+  pageContent!: HTMLElement;
+  barContainer!: HTMLElement;
+  selectContainer!: HTMLElement;
+  bar!: HTMLCanvasElement;
+  statisticContainer!: HTMLElement;
+  inputChartSelect!: InputChartSelect;
+  inputTypeTransactionSelect!: InputTypeTransactionSelect;
   chart!: Chart<keyof ChartTypeRegistry, string[], string>;
   model: Model;
   reportDataItemExpense: ReportDataItem[] = [];
@@ -39,13 +39,19 @@ export class Report extends BaseComponent {
     this.transactionType = 'Expense';
     this.graphType = 'polarArea';
     this.getDataFromStorage();
+
+    this.rebuild();
+  }
+
+  render(): void {
     this.container = this.createElem('div', 'content__container flex flex-col');
     this.pageTitle = this.createElem(
       'div',
       'page__title ml-2 text-3xl dark:font-semibold dark:text-stone-600 dark:bg-gray-400 text-sky-600 mb-5 bg-sky-100 rounded pl-2',
-      'Report',
+      this.textTranslate('Report.title'),
     );
     this.pageContent = this.createElem('div', 'page__content flex xl:flex-col');
+    this.statisticContainer = this.createElem('div', 'mt-2 basis-full');
     this.barContainer = this.createElem(
       'div',
       'page__content flex flex-col items-center self-start justify-self-center w-[900px] h-full xl:w-[500px] xl:order-first xl:self-center',
@@ -59,24 +65,49 @@ export class Report extends BaseComponent {
     this.bar.getContext('2d');
     this.inputChartSelect = new InputChartSelect(
       this.selectContainer,
-      'Chart type',
-      ['polarArea', 'pie', 'radar', 'doughnut'],
+      this.textTranslate('Report.chartType.title'),
+      [
+        {
+          option: `${this.textTranslate('Report.chartType.polarArea')}`,
+          value: 'polarArea',
+        },
+        {
+          option: `${this.textTranslate('Report.chartType.pie')}`,
+          value: 'pie',
+        },
+        {
+          option: `${this.textTranslate('Report.chartType.radar')}`,
+          value: 'radar',
+        },
+        {
+          option: `${this.textTranslate('Report.chartType.doughnut')}`,
+          value: 'doughnut',
+        },
+      ],
       this.getBar,
       this.bar,
     );
     this.inputTypeTransactionSelect = new InputTypeTransactionSelect(
       this.selectContainer,
-      'Transactions type',
-      ['Expense', 'Income'],
+      this.textTranslate('Report.transactionsType.title'),
+      [
+        {
+          option: `${this.textTranslate('Report.transactionsType.expense')}`,
+          value: 'Expense',
+        },
+        {
+          option: `${this.textTranslate('Report.transactionsType.income')}`,
+          value: 'Income',
+        },
+      ],
       this.getBarWithType,
       this.bar,
     );
-    this.statisticContainer = this.createElem('div', 'mt-2 basis-full');
     this.barContainer.appendChild(this.selectContainer);
     this.barContainer.append(this.bar);
     this.pageContent.append(this.statisticContainer, this.barContainer);
     this.container.append(this.pageTitle, this.pageContent);
-    this.getStatisticBlocks().catch((err: string) => new Error(err));
+    this.getStatisticBlocks();
   }
 
   getBar = (container: HTMLCanvasElement, graphType: string): void => {
@@ -94,7 +125,7 @@ export class Report extends BaseComponent {
       labels: reportDataItem.map((item) => item.title),
       datasets: [
         {
-          label: 'Percent, %',
+          label: `${this.textTranslate('Report.percent')}, %`,
           data: reportDataItem.map((item) => item.width),
           backgroundColor: reportDataItem.map((item) => item.color),
           hoverOffset: 4,
@@ -127,7 +158,7 @@ export class Report extends BaseComponent {
               weight: '300',
             },
             color: '#0284c7',
-            text: 'Category statistics:',
+            text: `${this.textTranslate('Report.chartTitle')}:`,
           },
         },
       },
@@ -139,25 +170,23 @@ export class Report extends BaseComponent {
     this.getBar(this.bar, this.graphType);
   };
 
-  async getStatisticBlocks(): Promise<void> {
-    await this.model.getTransactions().catch((err: string) => new Error(err));
-
+  getStatisticBlocks(): void {
     new StatisticBlock(
       this.statisticContainer,
-      'Expenses',
+      this.textTranslate('Report.titleOne'),
       `${this.getTotalSum('Expense')} $`,
       this.getData('Expense'),
       'stone-600',
     );
+
     new StatisticBlock(
       this.statisticContainer,
-      'Incomes',
+      this.textTranslate('Report.titleTwo'),
       `${this.getTotalSum('Income')} $`,
       this.getData('Income'),
       'sky-600',
     );
     this.getBar(this.bar, this.graphType);
-    this.render();
   }
 
   getTotalSum(type: string): number {
@@ -176,6 +205,9 @@ export class Report extends BaseComponent {
     const items: ITransactionReq[] = [];
     const filerCategoryNoRepeat = new Set();
     const itemsExpenseCategory: string[] = [];
+
+    this.reportDataItemExpense = [];
+    this.reportDataItemIncome = [];
 
     this.model.transaction.forEach((item) => {
       if (item.type === type) {
@@ -214,7 +246,7 @@ export class Report extends BaseComponent {
           trans.title = item;
           trans.color = color;
           trans.value = trans.value + itemDef.sum;
-          trans.width = String(Math.round((trans.value * 100) / this.getTotalSum(type)));
+          trans.width = String(((trans.value * 100) / this.getTotalSum(type)).toFixed(1));
         }
       });
       type === 'Income'
@@ -242,8 +274,9 @@ export class Report extends BaseComponent {
     }
   }
 
-  render(): void {
+  rebuild(): void {
     this.root.replaceChildren();
-    this.root.appendChild(this.container);
+    this.render();
+    this.root.append(this.container);
   }
 }

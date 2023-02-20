@@ -94,7 +94,9 @@ export class CalendarHeader extends BaseComponent {
         }
       }
 
-      this.categoryInputElement.value = `${this.textTranslate('CategoryExpenditure.' + thisCategory)}`
+      this.categoryInputElement.value = `${this.textTranslate(
+        `CategoryExpenditure.${thisCategory}`,
+      )}`;
     }
   }
 

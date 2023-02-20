@@ -64,7 +64,7 @@ export class Main extends BaseComponent {
     this.overview.rebuild();
     this.settings.update();
     this.transaction.update();
-    this.report.render();
+    this.report.rebuild();
     this.calendar.updateCalendar();
     this.settings.update();
     this.sideBar.update();
@@ -87,12 +87,13 @@ export class Main extends BaseComponent {
     }
 
     if (index === 2) {
-      this.report.render();
+      this.report.rebuild();
     }
 
     if (index === 0) {
       this.overview.rebuild();
     }
+
 
     const pageMain: HTMLElement | undefined = this.pagesHtmlArr[index];
 
@@ -100,6 +101,7 @@ export class Main extends BaseComponent {
 
     if (pageMain instanceof HTMLElement) {
       this.content.append(pageMain);
+
     }
   }
 }

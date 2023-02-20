@@ -13,6 +13,7 @@ export class PeriodItem extends BaseComponent {
   allSum: number;
   getNetIncome: (data: ITransactionReq[], itemType: string) => void;
   updateTransactionList: (data: ITransactionReq[]) => void;
+  storageLabel: string;
 
   constructor(
     root: HTMLElement,
@@ -23,12 +24,14 @@ export class PeriodItem extends BaseComponent {
     allSum: number,
     getNetIncome: (data: ITransactionReq[], itemType: string) => void,
     updateTransactionList: (data: ITransactionReq[]) => void,
+    storageLabel: string,
   ) {
     super();
     this.root = root;
     this.color = color;
     this.title = title;
     this.date = date;
+    this.storageLabel = storageLabel;
     this.transactionData = transactionData;
     this.updateTransactionList = updateTransactionList;
     this.allSum = allSum;
@@ -43,7 +46,7 @@ export class PeriodItem extends BaseComponent {
     );
 
     container.addEventListener('click', () => {
-      localStorage.setItem('periodTransaction', `${this.title}`);
+      localStorage.setItem('periodTransaction', this.storageLabel);
       this.getNetIncome(this.transactionData, this.title);
       this.updateTransactionList(this.transactionData);
     });
@@ -84,7 +87,7 @@ export class PeriodItem extends BaseComponent {
     new TransactionStatisticItem(
       periodDescription,
       this.color,
-      'Income',
+      this.textTranslate('Overview.income'),
       getProgressWidth(sumIncome),
       `${sumIncome}$`,
       'text-sky-500',
@@ -93,7 +96,7 @@ export class PeriodItem extends BaseComponent {
     new TransactionStatisticItem(
       periodDescription,
       this.color,
-      'Expense',
+      this.textTranslate('Overview.expense'),
       getProgressWidth(sumExpense),
       `${sumExpense}$`,
     );

@@ -1,8 +1,9 @@
 import { Chart } from 'chart.js';
 
-import { InputSelect } from '@/components/base/inputSelect';
+import { InputSelectTwo } from '@/components/base/inputSelectTwo';
+import type { SelectOptions } from '@/components/types/types';
 
-export class InputChartSelect extends InputSelect {
+export class InputChartSelect extends InputSelectTwo {
   type: string;
   callBack: (container: HTMLCanvasElement, graphType: string) => void;
   callCont: HTMLCanvasElement;
@@ -10,7 +11,7 @@ export class InputChartSelect extends InputSelect {
   constructor(
     root: HTMLElement,
     title: string,
-    options: string[],
+    options: SelectOptions[],
     callBack: (container: HTMLCanvasElement, graphType: string) => void,
     callCont: HTMLCanvasElement,
   ) {

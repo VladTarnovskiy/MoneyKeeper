@@ -1,6 +1,7 @@
 import i18next from 'i18next';
 
 import type { Model } from '@/components/model/model';
+import type { IUserDataReq } from '@/components/model/types';
 import { Authorization } from '@/components/pages/authorization/Authorization';
 
 import { BaseComponent } from './base/baseComponent';
@@ -36,7 +37,9 @@ export class View extends BaseComponent {
   }
 
   async initLanguage(): Promise<void> {
-    await this.model.getSettings();
+    const resp = await this.model.getUser<IUserDataReq>();
+
+    resp.status === 200 && (await this.model.getSettings());
 
     // console.log(this.model.setting[0]?.lang)
     this.model.setting[0]?.lang === 'EN'

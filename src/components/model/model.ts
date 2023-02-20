@@ -111,7 +111,8 @@ export class Model {
 
   getStorage(): IUserData {
     const str = localStorage.getItem('userdata') ?? '';
-    const storage: IUserReq = JSON.parse(str) as IUserReq;
+    const str2 = str.length === 0 ? '{"accessToken": "","user": {"email": "","id": 0}}' : str;
+    const storage: IUserReq = JSON.parse(str2) as IUserReq;
 
     return {
       id: storage.user.id,

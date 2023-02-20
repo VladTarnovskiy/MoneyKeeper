@@ -44,6 +44,10 @@ export class Header extends BaseComponent {
     // container.append(logo.node);
     const totalCounter = new TotalCounter(this.updateData(), this.state.currency);
 
+    // this.totalCounterContainer = this.createElem('div', 'w-fit h-fit');
+    // this.getTotalSum();
+    // }
+
     totalCounterContainer.append(totalCounter.node);
     // container.appendChild(totalCounterContainer);
     const account = new Account(this.model);

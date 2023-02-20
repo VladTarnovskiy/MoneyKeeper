@@ -76,19 +76,15 @@ export class Account extends BaseComponent {
       name = '';
     }
 
-    // if (email === undefined) {
-    //   email = '';
-    // }
-
     const popupName = this.createElem(
       'div',
       'popup__name mb-4',
-      `${this.textTranslate('Overview.Username')}: ${name}`,
+      `${this.textTranslate('Header.username')}: ${name}`,
     );
     const popupLocation = this.createElem(
       'div',
       'popup__location',
-      `${this.textTranslate('Overview.Email')}: ${email}`,
+      `${this.textTranslate('Header.mail')}: ${email}`,
     );
     const popupClose = this.createElem(
       'div',

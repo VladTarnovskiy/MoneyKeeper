@@ -1,3 +1,5 @@
+import i18next from 'i18next';
+
 import type { Model } from '@/components/model/model';
 import { Authorization } from '@/components/pages/authorization/Authorization';
 
@@ -5,7 +7,6 @@ import { BaseComponent } from './base/baseComponent';
 import { Footer } from './footer/footer';
 import { Header } from './header/header';
 import { Main } from './main/main';
-import i18next from 'i18next';
 
 export class View extends BaseComponent {
   root: HTMLElement;
@@ -37,6 +38,7 @@ export class View extends BaseComponent {
   async initLanguage(): Promise<void> {
     await this.model.getSettings();
 
+    // console.log(this.model.setting[0]?.lang)
     this.model.setting[0]?.lang === 'EN'
       ? i18next.changeLanguage('en').catch((err: string) => new Error(err))
       : i18next.changeLanguage('ru').catch((err: string) => new Error(err));

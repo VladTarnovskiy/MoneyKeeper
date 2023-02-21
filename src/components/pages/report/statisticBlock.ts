@@ -48,9 +48,34 @@ export class StatisticBlock extends BaseComponent {
       `statisticItems p-2 max-h-72 overflow-y-scroll flex flex-col`,
     );
 
+    let sumLengthValue = 0;
+    let sumLengthTitle = 0;
+
     this.data.forEach((item) => {
-      new ReportStatisticItem(statisticItems, item.color, item.title, item.width, `${item.value}`);
+      const itemLengthValue = String(item.value).split('').length;
+      const itemLengthTitle = item.title.split('').length;
+
+      if (itemLengthValue > sumLengthValue) {
+        sumLengthValue = itemLengthValue;
+      }
+
+      if (itemLengthTitle > sumLengthTitle) {
+        sumLengthTitle = itemLengthTitle;
+      }
     });
+
+    this.data.forEach((item) => {
+      new ReportStatisticItem(
+        statisticItems,
+        item.color,
+        item.title,
+        item.width,
+        `${item.value}`,
+        sumLengthValue * 9,
+        sumLengthTitle * 9,
+      );
+    });
+
     statisticTitleContainer.append(statisticTitle, statisticTitleSum);
     container.append(statisticTitleContainer, statisticItems);
     this.root.appendChild(container);

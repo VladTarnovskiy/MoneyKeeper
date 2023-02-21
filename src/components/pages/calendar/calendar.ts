@@ -36,10 +36,7 @@ export class Calendar extends BaseComponent {
       'div',
       'calendar__header_container flex flex-row md:flex-col md:gap-y-3 gap-x-2 border-2 p-2 basis-1/2',
     );
-    this.calendarMainContainer = this.createElem(
-      'div',
-      'calendar__main_container border-2 p-2 basis-1/2',
-    );
+    this.calendarMainContainer = this.createElem('div', 'calendar__main_container basis-1/2');
     this.calendarFooterContainer = this.createElem(
       'div',
       'calendar__footer_container border-2 p-2 basis-1/2 flex justify-end',
@@ -51,12 +48,8 @@ export class Calendar extends BaseComponent {
     );
     this.calendarContainer.append(this.pageCalendarTitle, this.pageCalendarContent);
     this.calendarHeader = new CalendarHeader(this.calendarHeaderContainer, this.model.transaction);
-    this.calendarMain = new CalendarMain(this.calendarMainContainer, this.model.transaction);
-    this.calendarFooter = new CalendarFooter(
-      this.calendarFooterContainer,
-      this.model.transaction,
-      '2023',
-    );
+    this.calendarMain = new CalendarMain(this.calendarMainContainer, this.model);
+    this.calendarFooter = new CalendarFooter(this.calendarFooterContainer, this.model, '2023');
     this.render();
   }
 
@@ -66,6 +59,7 @@ export class Calendar extends BaseComponent {
   }
 
   updateCalendar(): void {
+    this.pageCalendarTitle.textContent = `${this.textTranslate('CalendarPage.Calendar')}`;
     this.updateCalendarHeader();
     this.updateCalendarMain();
     this.calendarFooter.updateCalendarFooter(this.yearInputElementVal);
@@ -86,8 +80,6 @@ export class Calendar extends BaseComponent {
 
   updateTransactionData(): void {
     this.calendarHeader.transactionData = this.model.transaction;
-    this.calendarMain.transactionData = this.model.transaction;
-    this.calendarFooter.transactionData = this.model.transaction;
   }
 
   addListeners(): void {

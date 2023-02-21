@@ -1,21 +1,17 @@
+import type { SelectOptions } from '@/components/types/types';
+
 import { BaseComponent } from './baseComponent';
 
-export class InputSelect extends BaseComponent {
+export class InputSelectTwo extends BaseComponent {
   root: HTMLElement;
-  options: string[];
+  options: SelectOptions[];
   title: string;
   filterSelect: HTMLInputElement;
-  // prop!: (way: string) => void;
 
-  constructor(root: HTMLElement, title: string, options: string[]) {
+  constructor(root: HTMLElement, title: string, options: SelectOptions[]) {
     super();
     this.root = root;
     this.title = title;
-
-    // if (prop === undefined) {
-    // this.prop = prop;
-    // }
-
     this.options = options;
     this.filterSelect = this.createElem(
       'select',
@@ -31,15 +27,15 @@ export class InputSelect extends BaseComponent {
     );
 
     this.options.forEach((item) => {
-      const option = this.createElem('option', 'option__item', item);
+      const option = this.createElem('option', 'option__item', item.option);
 
-      option.setAttribute('value', item);
+      option.setAttribute('value', item.value);
       this.filterSelect.append(option);
     });
 
     const inputLabel = this.createElem(
       'label',
-      'w-fit h-min bg-white p-1 absolute left-2 -top-3 flex h-full w-full text-[11px] leading-tight dark:rounded-md text-stone-900 dark:bg-gray-400/10 dark:font-semibold transition-all',
+      'w-fit h-min bg-white p-1 absolute left-2 -top-3 flex h-full w-full text-[11px] leading-tight text-stone-500 dark:rounded-md text-stone-900 dark:bg-gray-400/10 dark:font-semibold transition-all',
       this.title,
     );
 

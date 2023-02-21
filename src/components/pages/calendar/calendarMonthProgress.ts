@@ -6,7 +6,13 @@ export class CalendarMonthProgress extends BaseComponent {
   money: number;
   maxMonthMoney: number;
 
-  constructor(root: HTMLElement, month: string, money: number, maxMonthMoney: number) {
+  constructor(
+    root: HTMLElement,
+    month: string,
+    money: number,
+    maxMonthMoney: number,
+    currencyName: string,
+  ) {
     super();
     this.root = root;
     this.month = month;
@@ -24,7 +30,7 @@ export class CalendarMonthProgress extends BaseComponent {
     const monthCount: HTMLElement = this.createElem(
       'div',
       `${month}__count w-1/2 text-xl`,
-      `${String(this.money)}$`,
+      `${String(this.money) + currencyName}`,
     );
 
     this.root.append(monthTitle, monthProgress, monthCount);

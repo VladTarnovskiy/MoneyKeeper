@@ -6,33 +6,33 @@ import { TransactionList } from './transactionList';
 import { TransactionPeriod } from './transactionPeriod';
 
 export class Overview extends BaseComponent {
-  root: HTMLElement;
-  container: HTMLElement;
-  pageTitle: HTMLElement;
-  pageContent: HTMLElement;
+  node: HTMLElement;
+  container!: HTMLElement;
+  pageTitle!: HTMLElement;
+  pageContent!: HTMLElement;
   transactionPeriod!: TransactionPeriod;
   transactionsList!: TransactionList;
   transactionsListContainer!: HTMLElement;
   model: Model;
   updateHeaderSum: () => void;
 
-  constructor(root: HTMLElement, model: Model, updateHeaderSum: () => void) {
+  constructor(model: Model, updateHeaderSum: () => void) {
     super();
-    this.root = root;
     this.model = model;
     this.updateHeaderSum = updateHeaderSum;
+    // this.render();
+    this.node = this.build();
+  }
+
+  build(): HTMLElement {
     this.container = this.createElem('div', 'content__container flex flex-col');
     this.pageTitle = this.createElem(
       'div',
       'page__title ml-2 text-3xl text-sky-600 dark:font-semibold dark:text-stone-600 dark:bg-gray-400 mb-5 bg-sky-100 rounded pl-2',
-      'Overview',
+      this.textTranslate('Overview.title'),
     );
 
     this.pageContent = this.createElem('div', 'page__content gap-2 flex md:flex-col');
-    // this.render();
-  }
-
-  render(): void {
     const transactionPeriodContainer = this.createElem(
       'div',
       'expense__period border-2 p-2 basis-1/2 rounded',
@@ -53,13 +53,22 @@ export class Overview extends BaseComponent {
       },
       this.model.transaction,
     );
-    this.root.appendChild(this.container);
     this.transactionPeriod = new TransactionPeriod(
       transactionPeriodContainer,
       this.model.transaction,
       this.updateTransactionList,
-      this.transactionsList.render,
+      this.transactionsList.render.bind(this.transactionsList),
     );
+
+    return this.container;
+  }
+
+  render(): void {
+    const node = this.build();
+
+    this.node.replaceWith(node);
+
+    this.node = node;
   }
 
   rebuild = (): void => {

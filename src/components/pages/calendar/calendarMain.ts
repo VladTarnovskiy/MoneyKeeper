@@ -1,18 +1,18 @@
 import { BaseComponent } from '@/components/base/baseComponent';
-import type { ITransactionReq } from '@/components/model/types';
+import type { Model } from '@/components/model/model';
 import { monthArrayEng } from '@/components/pages/calendar/calendarMonthData';
 import { CalendarMonthProgress } from '@/components/pages/calendar/calendarMonthProgress';
 
 export class CalendarMain extends BaseComponent {
   root: HTMLElement;
   mainMonthContainer: HTMLElement;
-  transactionData: ITransactionReq[];
   yearMoney: number;
+  model: Model;
 
-  constructor(root: HTMLElement, transactionData: ITransactionReq[]) {
+  constructor(root: HTMLElement, model: Model) {
     super();
     this.root = root;
-    this.transactionData = transactionData;
+    this.model = model;
     this.mainMonthContainer = this.createElem(
       'div',
       'mainMonth__container grid grid-cols-4 xs:grid-cols-1 md:grid-cols-2 gap-1 w-full h=w',
@@ -33,7 +33,13 @@ export class CalendarMain extends BaseComponent {
         `mainMonth__${a} flex flex-col place-content-around h-40 border-2 p-3`,
       );
 
-      new CalendarMonthProgress(monthHtml, a, Number(everyMonthMoney[index]), maxMonthMoney);
+      new CalendarMonthProgress(
+        monthHtml,
+        a,
+        Number(everyMonthMoney[index]),
+        maxMonthMoney,
+        this.model.currencyName,
+      );
       this.mainMonthContainer.append(monthHtml);
     });
   }
@@ -53,7 +59,7 @@ export class CalendarMain extends BaseComponent {
   }
 
   getMonthTransactions(index: number, categoryVal: string, year: number): number {
-    const monthData = this.transactionData.filter((a) => {
+    const monthData = this.model.transaction.filter((a) => {
       return (
         new Date(a.date).getMonth() === index &&
         a.type === 'Expense' &&

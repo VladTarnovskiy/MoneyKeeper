@@ -25,6 +25,7 @@ interface TElement {
   rows?: number;
   cols?: number;
   wrap?: string;
+  selected?: boolean;
 }
 
 interface TComponent {

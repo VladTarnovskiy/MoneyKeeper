@@ -5,18 +5,18 @@ import { svgStore } from '../../assets/svgStore';
 import { BaseComponent } from '../base/baseComponent';
 
 export class Account extends BaseComponent {
-  root: HTMLElement;
+  node: HTMLElement;
   model: Model;
   settings: ISettingReq | undefined;
   userData: IUserReq;
 
-  constructor(root: HTMLElement, model: Model) {
+  constructor(model: Model) {
     super();
-    this.root = root;
+
     this.model = model;
     const userDataReq = localStorage.getItem('userdata');
 
-    if (userDataReq === null) {
+    if (userDataReq === null || userDataReq.length === 0) {
       this.userData = {
         accessToken: 'string',
         user: {
@@ -40,8 +40,10 @@ export class Account extends BaseComponent {
 
         .catch((err: string) => new Error(err));
     }
+
+    this.node = this.render();
   }
-  render(): void {
+  render(): HTMLElement {
     const account = this.createElem(
       'div',
       'flex items-center logo text-xl relative hover:cursor-pointer',
@@ -67,17 +69,22 @@ export class Account extends BaseComponent {
       });
     });
 
-    let name = this.settings?.name;
+    let name = this.model.setting[0]?.name;
+    const { email } = this.model.userData.user;
 
     if (name === undefined) {
       name = '';
     }
 
-    const popupName = this.createElem('div', 'popup__name mb-4', `Username: ${name}`);
+    const popupName = this.createElem(
+      'div',
+      'popup__name mb-4',
+      `${this.textTranslate('Header.username')}: ${name}`,
+    );
     const popupLocation = this.createElem(
       'div',
       'popup__location',
-      `Email: ${this.userData.user.email}`,
+      `${this.textTranslate('Header.mail')}: ${email}`,
     );
     const popupClose = this.createElem(
       'div',
@@ -91,6 +98,7 @@ export class Account extends BaseComponent {
     });
     popup.append(popupName, popupLocation, popupClose);
     account.append(accountImg, accountSwitch, popup);
-    this.root.appendChild(account);
+
+    return account;
   }
 }

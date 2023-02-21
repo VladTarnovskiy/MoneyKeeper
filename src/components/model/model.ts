@@ -22,11 +22,15 @@ export class Model {
   #setting: ISettingReq[];
   #transaction: ITransactionReq[];
   #access: boolean;
+  userData: IUserReq;
+  currencyName: string;
 
   constructor() {
     this.#setting = [];
     this.#transaction = [];
     this.#access = false;
+    this.userData = this.getStorageData();
+    this.currencyName = '$';
   }
 
   get transaction(): ITransactionReq[] {
@@ -45,6 +49,12 @@ export class Model {
     this.#setting = set;
   }
 
+  getCurrency(valueName: string): void {
+    const currencyData = { USD: '$', EUR: '€', RUB: '₽', YEN: '¥' };
+
+    this.currencyName = currencyData[valueName];
+  }
+
   async registerUser<T, D = object>(data: D): Promise<PostJsonResponse<T>> {
     try {
       const response = await fetch(`${baseUrl}${basePath.register}`, {
@@ -58,6 +68,7 @@ export class Model {
       const out = await this.checkResponse<T>(response);
 
       localStorage.userdata = JSON.stringify(out.data);
+      this.userData = this.getStorageData();
 
       if (out.status === 200 || out.status === 201) {
         this.#access = true;
@@ -86,6 +97,7 @@ export class Model {
       const out = await this.checkResponse<T>(response);
 
       localStorage.userdata = JSON.stringify(out.data);
+      this.userData = this.getStorageData();
 
       if (out.status === 200 || out.status === 201) {
         // localStorage.userdata = JSON.stringify(out.data);
@@ -107,12 +119,20 @@ export class Model {
 
   getStorage(): IUserData {
     const str = localStorage.getItem('userdata') ?? '';
-    const storage: IUserReq = JSON.parse(str) as IUserReq;
+    const str2 = str.length === 0 ? '{"accessToken": "","user": {"email": "","id": 0}}' : str;
+    const storage: IUserReq = JSON.parse(str2) as IUserReq;
 
     return {
       id: storage.user.id,
       token: storage.accessToken,
     };
+  }
+  getStorageData(): IUserReq {
+    const str = localStorage.getItem('userdata') ?? '';
+    const str2 = str.length === 0 ? '{"accessToken": "","user": {"email": "","id": 0}}' : str;
+    const storage: IUserReq = JSON.parse(str2) as IUserReq;
+
+    return storage;
   }
 
   async getUser<T>(): Promise<PostJsonResponse<T>> {
@@ -136,6 +156,7 @@ export class Model {
         this.#access = true;
       } else {
         this.#access = false;
+        localStorage.userdata = '';
       }
 
       return out;
@@ -235,6 +256,10 @@ export class Model {
       const out = await this.checkResponse<T[]>(response);
 
       out.data === undefined ? (this.setting = []) : (this.setting = out.data);
+
+      if (this.setting[0] !== undefined) {
+        this.getCurrency(this.setting[0].currency);
+      }
 
       return out;
     } catch (error) {

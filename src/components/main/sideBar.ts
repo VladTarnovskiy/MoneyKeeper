@@ -2,15 +2,14 @@ import { BaseComponent } from '../base/baseComponent';
 import { sideData } from '../base/baseData';
 
 export class SideBar extends BaseComponent {
-  root: HTMLElement;
+  node: HTMLElement;
   buttonsList: HTMLElement[] = [];
-  constructor(root: HTMLElement) {
+  constructor() {
     super();
 
-    this.root = root;
-    this.render();
+    this.node = this.render();
   }
-  render(): void {
+  render(): HTMLElement {
     const sideBar = this.createElem(
       'aside',
       'min-h-[81.6vh] bg-sky-400 rounded-r-lg border-0 dark:bg-gray-800',
@@ -19,6 +18,7 @@ export class SideBar extends BaseComponent {
       'div',
       'flex items-center flex-col text-white bg-sky-400 rounded-r-lg dark:bg-gray-800',
     );
+
     this.buttonsList.splice(0, this.buttonsList.length);
 
     sideData.forEach((item, index) => {
@@ -29,7 +29,11 @@ export class SideBar extends BaseComponent {
       const sideBarItemImg = this.createElem('div', 'button__img w-12 h-12');
 
       sideBarItemImg.innerHTML = item.img;
-      const sideBarItemText = this.createElem('button', 'button__text mt-2', item.text);
+      const sideBarItemText = this.createElem(
+        'button',
+        'button__text mt-2',
+        this.textTranslate(`Sidebar.${item.text}`),
+      );
 
       sideBarItem.addEventListener('click', () => {
         if (location.pathname.slice(1) !== item.hash.slice(1)) {
@@ -53,7 +57,15 @@ export class SideBar extends BaseComponent {
       sideBar.appendChild(container);
     });
 
-    this.root.appendChild(sideBar);
+    return sideBar;
+  }
+
+  update(): void {
+    const node = this.render();
+
+    this.node.replaceWith(node);
+
+    this.node = node;
   }
 
   buttonActive(index: number): void {
@@ -64,6 +76,7 @@ export class SideBar extends BaseComponent {
     });
 
     const activeButton: HTMLElement | undefined = this.buttonsList[index];
+
     if (activeButton !== undefined) {
       activeButton.classList.add('bg-sky-600');
       activeButton.classList.add('dark:bg-stone-500');

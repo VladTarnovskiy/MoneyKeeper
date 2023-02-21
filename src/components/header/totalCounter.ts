@@ -1,22 +1,22 @@
 import { BaseComponent } from '../base/baseComponent';
 
 export class TotalCounter extends BaseComponent {
-  root: HTMLElement;
+  node: HTMLElement;
   value: number;
   currency: string;
-  constructor(root: HTMLElement, value: number, currency: string) {
+  constructor(value: number, currency: string) {
     super();
-    this.root = root;
     this.value = value;
     this.currency = currency;
-    this.render();
+    this.node = this.render();
   }
-  render(): void {
+
+  render(): HTMLElement {
     const totalSum = this.createElem('div', 'flex items-center logo text-2xl');
     const totalSumTitle = this.createElem(
       'div',
       'logo__title ml-2 text-sky-600 dark:font-semibold dark:text-stone-600 font-light xs:hidden',
-      'Balance:',
+      `${this.textTranslate('Header.balance')}: `,
     );
     const totalSumCounter = this.createElem(
       'div',
@@ -25,6 +25,7 @@ export class TotalCounter extends BaseComponent {
     );
 
     totalSum.append(totalSumTitle, totalSumCounter);
-    this.root.appendChild(totalSum);
+
+    return totalSum;
   }
 }

@@ -58,8 +58,8 @@ export class Transaction extends BaseComponent {
     this.#state = {
       status: '',
       message: '',
-      type: `${this.textTranslate('Transaction.Income')}`,
-      category: `${this.textTranslate('CategoryIncome.Salary')}`,
+      type: 'Income',
+      category: 'Salary',
       date: '',
       time: '',
       amount: 0,
@@ -88,9 +88,19 @@ export class Transaction extends BaseComponent {
       class: 'grid grid-cols-1 gap-6 col-span-2',
     });
 
+    // const inputType = new InputSelect({
+    //   title: 'Type notes',
+    //   options: [
+    //     this.textTranslate('Transaction.Expense'),
+    //     this.textTranslate('Transaction.Income'),
+    //   ],
+    //   onchange: this.onChangeType,
+    //   value: this.state.type,
+    // }).node;
     const inputType = new InputSelect({
       title: 'Type notes',
-      options: [
+      options: ['Expense', 'Income'],
+      optionsLang: [
         this.textTranslate('Transaction.Expense'),
         this.textTranslate('Transaction.Income'),
       ],
@@ -105,7 +115,9 @@ export class Transaction extends BaseComponent {
     });
     const inputCategory = new InputSelect({
       title: 'Category',
-      options: this.state.type === this.textTranslate('Transaction.Income') ? inDataEng : exDataEng,
+      options:
+        this.state.type === 'Income' ? baseCategoryIncomeDataEng : baseCategoryExpenditureDataEng,
+      optionsLang: this.state.type === 'Income' ? inDataEng : exDataEng,
       onchange: this.onChangeCategory,
       value: this.state.category,
     }).node;
@@ -167,10 +179,10 @@ export class Transaction extends BaseComponent {
 
     container2.append(container1, container3, inputDescription);
 
-    container.append(message, container2, container4);
+    container.append(container2, container4);
     const containerFull = this.createElem('div', 'content__container flex flex-col');
 
-    containerFull.append(title, container);
+    containerFull.append(title, message, container);
 
     return containerFull;
   }

@@ -29,15 +29,14 @@ const defaultSetting: ISetting = {
 };
 
 export class Authorization extends BaseComponent {
-  root: HTMLElement;
-  container: HTMLElement;
+  node: HTMLElement;
+  // container: HTMLElement;
   #state: IState;
   model: Model;
   access = false;
 
-  constructor(root: HTMLElement, model: Model) {
+  constructor(model: Model) {
     super();
-    this.root = root;
     this.#state = {
       status: 'signIn',
       inputCheck: false,
@@ -46,9 +45,11 @@ export class Authorization extends BaseComponent {
       )} [ email: test@test.ru, password: test ]`,
     };
     this.model = model;
-    this.container = this.build();
-    this.render();
+    // this.container = this.build();
+    // this.render();
+    // setTimeout(this.onGetUser, 1000);
     this.onGetUser().catch((err: string) => new Error(err));
+    this.node = this.build();
   }
 
   set state(state: IState) {
@@ -60,35 +61,44 @@ export class Authorization extends BaseComponent {
     return this.#state;
   }
 
-  async onGetUser(): Promise<void> {
-    const resp = await this.model.getUser<IUserDataReq>();
+  onGetUser = async (): Promise<void> => {
+    await this.model.getUser<IUserDataReq>();
+    // console.log(this.model.checkAccess())
 
-    if (resp.status === 200) {
+    if (this.model.checkAccess()) {
       this.state.status = 'signOut';
       this.state.message = `${this.textTranslate('Authorization.Message1')} ${
-        resp.data === undefined ? '' : resp.data.email
+        this.model.userData.user.email
       }`;
       // this.access = true;
       this.update();
-      setTimeout(() => {
-        const lastPath = localStorage.getItem('query');
+      // setTimeout(() => {
+      //   const lastPath = localStorage.getItem('query');
 
-        if (typeof lastPath === 'string') {
-          location.hash = `#${lastPath.slice(1)}`;
-        } else {
-          location.hash = '#overview';
-        }
-      }, 1000);
+      //   if (typeof lastPath === 'string' && lastPath !== '/signup') {
+      //     location.hash = `#${lastPath.slice(1)}`;
+      //   } else {
+      //     location.hash = '#overview';
+      //   }
+      //   // location.hash = '#overview';
+      // }, 1000);
+
+      const lastPath = localStorage.getItem('query');
+
+      if (typeof lastPath === 'string' && lastPath !== '/signup') {
+        location.hash = `#${lastPath.slice(1)}`;
+      } else {
+        location.hash = '#overview';
+      }
     } else {
-      setTimeout(() => {
-        location.hash = '#signup';
-      }, 1000);
+      // setTimeout(() => {
+      //   location.hash = '#signup';
+      // }, 1000);
       // this.access = false;
-
+      location.hash = '#signup';
       localStorage.query = '/signup';
-      localStorage.userdata = '';
     }
-  }
+  };
 
   build(): HTMLElement {
     const container1 = this.createElem2('div', {
@@ -185,10 +195,10 @@ export class Authorization extends BaseComponent {
                 resp.data === undefined ? '' : resp.data.user.email
               }`;
         this.update();
-        setTimeout(() => {
-          location.hash = '#overview';
-        }, 2000);
-
+        // setTimeout(() => {
+        //   location.hash = '#overview';
+        // }, 2000);
+        location.hash = '#overview';
         // this.access = true;
       } else {
         // this.access = false;
@@ -208,9 +218,9 @@ export class Authorization extends BaseComponent {
   //   return this.access;
   // }
 
-  render(): void {
-    this.root.append(this.container);
-  }
+  // render(): void {
+  //   this.root.append(this.container);
+  // }
   reset(): void {
     this.#state = {
       status: 'signIn',
@@ -223,8 +233,8 @@ export class Authorization extends BaseComponent {
   update(): void {
     const container = this.build();
 
-    this.container.replaceWith(container);
+    this.node.replaceWith(container);
 
-    this.container = container;
+    this.node = container;
   }
 }

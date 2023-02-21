@@ -1,5 +1,5 @@
 import { BaseComponent } from '@/components/base/baseComponent';
-import type { ITransactionReq } from '@/components/model/types';
+import type { Model } from '@/components/model/model';
 
 export class CalendarFooter extends BaseComponent {
   root: HTMLElement;
@@ -12,13 +12,13 @@ export class CalendarFooter extends BaseComponent {
   footerInfoTotalIncomeCount: HTMLElement;
   footerInfoRatio: HTMLElement;
   footerInfoRatioCount: HTMLElement;
-  transactionData: ITransactionReq[];
   year: string;
+  model: Model;
 
-  constructor(root: HTMLElement, transactionData: ITransactionReq[], year: string) {
+  constructor(root: HTMLElement, model: Model, year: string) {
     super();
     this.root = root;
-    this.transactionData = transactionData;
+    this.model = model;
     this.year = year;
     this.footerInfoContainer = this.createElem(
       'div',
@@ -49,17 +49,17 @@ export class CalendarFooter extends BaseComponent {
     this.footerInfoTotalCount = this.createElem(
       'div',
       'footerInfoTotalCount__title text-sm text-right xs:text-left',
-      '2.885 $',
+      `2.885 ${this.model.currencyName}`,
     );
     this.footerInfoAverageCount = this.createElem(
       'div',
       'averageCount__title text-sm text-right xs:text-left',
-      `292.4 $/` + `${this.textTranslate('CalendarPage.month')}`,
+      `292.4 ${this.model.currencyName}/` + `${this.textTranslate('CalendarPage.month')}`,
     );
     this.footerInfoTotalIncomeCount = this.createElem(
       'div',
       'footerInfoTotalIncomeCount__title text-sm text-right xs:text-left',
-      '3.100 $',
+      `3.100 ${this.model.currencyName}`,
     );
     this.footerInfoRatioCount = this.createElem(
       'div',
@@ -76,7 +76,7 @@ export class CalendarFooter extends BaseComponent {
     this.year = year;
     let totalExpenditureValue = 0;
 
-    this.transactionData.forEach((a) => {
+    this.model.transaction.forEach((a) => {
       if (new Date(a.date).getFullYear() === Number(this.year)) {
         if (a.type === 'Income') {
           totalIncomeValue += a.sum;
@@ -85,11 +85,15 @@ export class CalendarFooter extends BaseComponent {
         }
       }
     });
-    this.footerInfoTotalIncomeCount.textContent = `${String(totalIncomeValue)}$`;
-    this.footerInfoTotalCount.textContent = `${String(totalExpenditureValue)}$`;
-    this.footerInfoAverageCount.textContent = `${String(
-      Math.round(totalExpenditureValue / 1.2) / 10,
-    )}$/${this.textTranslate('CalendarPage.month')}`;
+    this.footerInfoTotalIncomeCount.textContent = `${
+      String(totalIncomeValue) + this.model.currencyName
+    }`;
+    this.footerInfoTotalCount.textContent = `${
+      String(totalExpenditureValue) + this.model.currencyName
+    }`;
+    this.footerInfoAverageCount.textContent = `${
+      String(Math.round(totalExpenditureValue / 1.2) / 10) + this.model.currencyName
+    }/${this.textTranslate('CalendarPage.month')}`;
     const expensIncome = totalExpenditureValue / totalIncomeValue;
 
     if (isFinite(expensIncome)) {

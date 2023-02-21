@@ -1,6 +1,8 @@
+import i18next from 'i18next';
+
 import { BaseComponent } from '@/components/base/baseComponent';
 import type { Model } from '@/components/model/model';
-import type { ISetting, ISettingReq } from '@/components/model/types';
+import type { ISetting, ISettingReq, IUserDataReq } from '@/components/model/types';
 import { Button } from '@/components/pages/authorization/Button';
 import { InputCheck } from '@/components/pages/authorization/InputCheck';
 import { SettingItem } from '@/components/pages/settings/inputRadioItem';
@@ -13,29 +15,55 @@ interface IStateSetting {
   deleteBlock: boolean;
   message: string;
   setting: ISettingReq[];
+  set: ISettingReq;
 }
 
 export class Settings extends BaseComponent {
   node: HTMLElement;
   #state: IStateSetting;
   model: Model;
+  updateView: () => void = () => {
+    return;
+  };
 
   constructor(model: Model) {
     super();
+    this.model = model;
     this.#state = {
       status: '200',
       settingBlock: true,
       deleteBlock: true,
       message: '',
       setting: model.setting,
+      set: {
+        name: '',
+        lang: 'EN',
+        theme: 'Light',
+        currency: 'EUR',
+        userId: 0,
+        id: 0,
+      },
     };
-    this.model = model;
+
+    this.getSetting().finally(() => {
+      if (this.model.setting[0] !== undefined) {
+        this.#state.set = this.model.setting[0];
+      }
+    });
+
     this.node = this.build();
-    this.update();
+    // this.update();
   }
+
+  async getSetting(): Promise<void> {
+    const resp = await this.model.getUser<IUserDataReq>();
+
+    resp.status === 200 && (await this.model.getSettings());
+  }
+
   set state(state: IStateSetting) {
     this.#state = state;
-    this.update();
+    // this.update();
   }
 
   get state(): IStateSetting {
@@ -53,50 +81,52 @@ export class Settings extends BaseComponent {
 
     pageContent.onsubmit = this.onSubmit;
 
-    const set: ISettingReq = this.model.setting[0] ?? {
-      name: '',
-      lang: 'EN',
-      theme: 'Light',
-      currency: 'EUR',
-      userId: 0,
-      id: 0,
-    };
-
     const inputText = new InputTextItem({
       title: 'name',
-      value: set.name,
+      value: this.state.set.name,
       disabled: this.state.settingBlock,
     }).node;
     const inputLang = new SettingItem({
       title: 'language',
       options: ['EN', 'RU'],
-      value: set.lang,
+      value: this.state.set.lang,
       disabled: this.state.settingBlock,
     }).node;
     const inputTheme = new SettingItem({
       title: 'theme',
       options: ['Light', 'Dark'],
-      value: set.theme,
+      value: this.state.set.theme,
       disabled: this.state.settingBlock,
     }).node;
     const inputCurrency = new SettingItem({
       title: 'currency',
       options: ['USD', 'EUR', 'RUB', 'YEN'],
-      value: set.currency,
+      value: this.state.set.currency,
       disabled: this.state.settingBlock,
     }).node;
 
     inputTheme.addEventListener('click', (e) => {
       const { target } = e;
-      const inputs = inputTheme.querySelectorAll('.option__item');
+      const elem = target as HTMLInputElement;
 
-      for (const a of inputs) {
-        if (target === a) {
-          document.body.className = (a as HTMLInputElement).defaultValue.toLowerCase();
-        }
+      if (elem.name === 'theme') {
+        this.state.set.theme = elem.defaultValue;
+        document.body.className = elem.defaultValue.toLowerCase();
       }
     });
 
+    inputCurrency.addEventListener('click', (e) => {
+      const { target } = e;
+      const elem = target as HTMLInputElement;
+
+      if (elem.name === 'currency') {
+        this.state.set.currency = elem.defaultValue;
+        this.model.getCurrency(elem.defaultValue);
+        this.updateView();
+      }
+    });
+
+    inputLang.addEventListener('click', this.eventLang);
     const container1 = this.createElem('div', 'content__container flex flex-col gap-4');
     const message = this.createElem2('div', {
       class: `h-6 mx-auto text-center text-${this.state.status === '200' ? 'green' : 'red'}-500`,
@@ -144,6 +174,19 @@ export class Settings extends BaseComponent {
 
     return container;
   }
+
+  eventLang = (e: Event): void => {
+    const { target } = e;
+    const lang = (target as HTMLInputElement).defaultValue;
+
+    console.log(lang);
+
+    this.state.set.lang = lang;
+
+    i18next.changeLanguage(lang.toLowerCase()).catch((err: string) => new Error(err));
+    this.updateView();
+  };
+
   onCheck = (): void => {
     this.state.settingBlock = !this.state.settingBlock;
     this.state.message = '';
@@ -164,9 +207,7 @@ export class Settings extends BaseComponent {
         if (res.status === 200) {
           this.state.message = this.textTranslate('Settings.Message2');
           localStorage.userdata = '';
-          setTimeout(() => {
-            location.hash = '#signup';
-          }, 2000);
+          location.hash = '#signup';
         } else {
           this.state.message = this.textTranslate('Settings.Message3');
         }
@@ -224,6 +265,9 @@ export class Settings extends BaseComponent {
       this.state.message = this.textTranslate('Settings.Message4');
       this.state.status = '200';
       this.state.settingBlock = true;
+      this.model.setting[0]?.lang === 'EN'
+        ? i18next.changeLanguage('en').catch((err: string) => new Error(err))
+        : i18next.changeLanguage('ru').catch((err: string) => new Error(err));
       this.update();
     } else {
       this.state.message = this.textTranslate('Settings.Message5');

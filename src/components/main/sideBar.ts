@@ -19,6 +19,7 @@ export class SideBar extends BaseComponent {
       'div',
       'flex items-center flex-col text-white bg-sky-400 rounded-r-lg dark:bg-gray-800',
     );
+    this.buttonsList.splice(0, this.buttonsList.length);
 
     sideData.forEach((item, index) => {
       const sideBarItem = this.createElem(
@@ -46,6 +47,7 @@ export class SideBar extends BaseComponent {
       }
 
       sideBarItem.append(sideBarItemImg, sideBarItemText);
+
       this.buttonsList.push(sideBarItem);
       container.appendChild(sideBarItem);
       sideBar.appendChild(container);
@@ -62,7 +64,6 @@ export class SideBar extends BaseComponent {
     });
 
     const activeButton: HTMLElement | undefined = this.buttonsList[index];
-
     if (activeButton !== undefined) {
       activeButton.classList.add('bg-sky-600');
       activeButton.classList.add('dark:bg-stone-500');

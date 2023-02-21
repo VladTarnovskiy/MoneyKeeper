@@ -80,6 +80,7 @@ export class Calendar extends BaseComponent {
 
   updateCalendarHeader(): void {
     this.updateTransactionData();
+    this.calendarHeader.createCategoryChoice();
     this.calendarHeader.createYearArr();
   }
 
@@ -96,7 +97,7 @@ export class Calendar extends BaseComponent {
       this.calendarFooter.updateCalendarFooter(String(this.calendarHeader.yearInputElement.value));
     };
 
-    this.calendarHeader.categoryInputElement.oninput = () => {
+    this.calendarHeader.categoryContainer.oninput = () => {
       localStorage.setItem('calendarCategory', this.calendarHeader.categoryInputElement.value);
       this.updateCalendarMain();
     };

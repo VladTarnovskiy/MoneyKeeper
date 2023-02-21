@@ -10,11 +10,12 @@ export class CalendarHeader extends BaseComponent {
   root: HTMLElement;
   categoryContainer: HTMLElement;
   yearContainer: HTMLElement;
-  categoryInputElement: HTMLInputElement;
+  categoryInputElement!: HTMLInputElement;
   yearInputElement!: HTMLInputElement;
   transactionData: ITransactionReq[];
   yearsArr: string[];
   yearChoice: HTMLElement;
+  categoryChoice: HTMLElement;
 
   constructor(root: HTMLElement, transactionData: ITransactionReq[]) {
     super();
@@ -29,18 +30,9 @@ export class CalendarHeader extends BaseComponent {
       'category__title w-1/2 text-xl',
       `${this.textTranslate('CalendarPage.ExpenseCategory')}`,
     );
-    const categoryChoice = this.createElem('div', 'category__choice flex flex-col w-1/2');
-    const categoryTranslate: string[] = baseCategoryExpenditureDataEng.map((a) => {
-      return `${this.textTranslate(`CategoryExpenditure.${a}`)}`;
-    });
-    const categoryInputSelect = new InputSelect(
-      categoryChoice,
-      `${this.textTranslate('CalendarPage.SelectCategory')}`,
-      [`${this.textTranslate('CategoryExpenditure.All')}`, ...categoryTranslate],
-    );
-
-    this.categoryInputElement = categoryInputSelect.filterSelect;
-    this.categoryContainer.append(categoryTitle, categoryChoice);
+    this.categoryChoice = this.createElem('div', 'category__choice flex flex-col w-1/2');
+    this.createCategoryChoice();
+    this.categoryContainer.append(categoryTitle, this.categoryChoice);
 
     this.yearContainer = this.createElem(
       'div',
@@ -60,6 +52,20 @@ export class CalendarHeader extends BaseComponent {
 
     this.render();
   }
+
+    createCategoryChoice(){
+      this.categoryChoice.replaceChildren();
+      const categoryTranslate: string[] = baseCategoryExpenditureDataEng.map((a) => {
+        return `${this.textTranslate(`CategoryExpenditure.${a}`)}`;
+      });
+      const categoryInputSelect = new InputSelect(
+        this.categoryChoice,
+        `${this.textTranslate('CalendarPage.SelectCategory')}`,
+        [`${this.textTranslate('CategoryExpenditure.All')}`, ...categoryTranslate],
+      );
+  
+      this.categoryInputElement = categoryInputSelect.filterSelect;
+    }
 
   createYearArr(): void {
     this.yearChoice.textContent = '';
@@ -93,8 +99,7 @@ export class CalendarHeader extends BaseComponent {
           thisCategory = categoryName;
         }
       }
-
-      this.categoryInputElement.value = `${this.textTranslate('CategoryExpenditure.' + thisCategory)}`
+      this.categoryInputElement.value = `${this.textTranslate('CategoryExpenditure.' + thisCategory)}`;
     }
   }
 

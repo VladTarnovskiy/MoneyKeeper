@@ -38,7 +38,7 @@ export class CalendarMain extends BaseComponent {
         a,
         Number(everyMonthMoney[index]),
         maxMonthMoney,
-        this.model.currencyName,
+        this.model.currencySign,
       );
       this.mainMonthContainer.append(monthHtml);
     });

@@ -121,7 +121,7 @@ export class Settings extends BaseComponent {
 
       if (elem.name === 'currency') {
         this.state.set.currency = elem.defaultValue;
-        this.model.getCurrency(elem.defaultValue);
+        this.model.setCurrency(elem.defaultValue);
         this.updateView();
       }
     });
@@ -268,6 +268,9 @@ export class Settings extends BaseComponent {
       this.model.setting[0]?.lang === 'EN'
         ? i18next.changeLanguage('en').catch((err: string) => new Error(err))
         : i18next.changeLanguage('ru').catch((err: string) => new Error(err));
+      if (this.model.setting[0] !== undefined) {
+        this.model.setCurrency(this.model.setting[0].currency);
+      }
       this.update();
     } else {
       this.state.message = this.textTranslate('Settings.Message5');

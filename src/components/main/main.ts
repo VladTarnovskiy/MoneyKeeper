@@ -28,6 +28,7 @@ export class Main extends BaseComponent {
   settings: Settings;
   pagesHtmlArr: HTMLElement[];
   loader: Loader;
+  model: Model;
 
   constructor(model: Model, updateHeaderSum: () => void) {
     super();
@@ -35,6 +36,7 @@ export class Main extends BaseComponent {
     this.content = this.createElem('section', 'content w-full p-3');
     this.loader = new Loader(document.body);
     this.sideBar = new SideBar();
+    this.model = model;
     this.container.append(this.sideBar.node, this.content);
     this.overviewHtml = this.createElem('section', 'overview');
     this.overview = new Overview(model, updateHeaderSum);
@@ -71,7 +73,6 @@ export class Main extends BaseComponent {
     this.calendar.updateCalendar();
     this.settings.update();
     this.sideBar.update();
-
     const path = localStorage.getItem('query');
     const pageIndex = Number(routing.indexOf(String(path)));
 

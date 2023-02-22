@@ -23,14 +23,14 @@ export class Model {
   #transaction: ITransactionReq[];
   #access: boolean;
   userData: IUserReq;
-  currencyName: string;
+  currencySign: string;
 
   constructor() {
     this.#setting = [];
     this.#transaction = [];
     this.#access = false;
     this.userData = this.getStorageData();
-    this.currencyName = '$';
+    this.currencySign = '$';
   }
 
   get transaction(): ITransactionReq[] {
@@ -49,10 +49,9 @@ export class Model {
     this.#setting = set;
   }
 
-  getCurrency(valueName: string): void {
+  setCurrency(valueName: string): void {
     const currencyData = { USD: '$', EUR: '€', RUB: '₽', YEN: '¥' };
-
-    this.currencyName = currencyData[valueName];
+    this.currencySign = currencyData[valueName];
   }
 
   async registerUser<T, D = object>(data: D): Promise<PostJsonResponse<T>> {
@@ -154,6 +153,9 @@ export class Model {
         arr1.data === undefined ? (this.setting = []) : (this.setting = arr1.data);
         arr2.data === undefined ? (this.transaction = []) : (this.transaction = arr2.data);
         this.#access = true;
+        if (this.setting[0] !== undefined) {
+          this.setCurrency(this.setting[0].currency);
+        }
       } else {
         this.#access = false;
         localStorage.userdata = '';
@@ -256,10 +258,6 @@ export class Model {
       const out = await this.checkResponse<T[]>(response);
 
       out.data === undefined ? (this.setting = []) : (this.setting = out.data);
-
-      if (this.setting[0] !== undefined) {
-        this.getCurrency(this.setting[0].currency);
-      }
 
       return out;
     } catch (error) {

@@ -49,17 +49,17 @@ export class CalendarFooter extends BaseComponent {
     this.footerInfoTotalCount = this.createElem(
       'div',
       'footerInfoTotalCount__title text-sm text-right xs:text-left',
-      `2.885 ${this.model.currencyName}`,
+      `2.885 ${this.model.currencySign}`,
     );
     this.footerInfoAverageCount = this.createElem(
       'div',
       'averageCount__title text-sm text-right xs:text-left',
-      `292.4 ${this.model.currencyName}/` + `${this.textTranslate('CalendarPage.month')}`,
+      `292.4 ${this.model.currencySign}/` + `${this.textTranslate('CalendarPage.month')}`,
     );
     this.footerInfoTotalIncomeCount = this.createElem(
       'div',
       'footerInfoTotalIncomeCount__title text-sm text-right xs:text-left',
-      `3.100 ${this.model.currencyName}`,
+      `3.100 ${this.model.currencySign}`,
     );
     this.footerInfoRatioCount = this.createElem(
       'div',
@@ -86,13 +86,13 @@ export class CalendarFooter extends BaseComponent {
       }
     });
     this.footerInfoTotalIncomeCount.textContent = `${
-      String(totalIncomeValue) + this.model.currencyName
+      String(totalIncomeValue) + this.model.currencySign
     }`;
     this.footerInfoTotalCount.textContent = `${
-      String(totalExpenditureValue) + this.model.currencyName
+      String(totalExpenditureValue) + this.model.currencySign
     }`;
     this.footerInfoAverageCount.textContent = `${
-      String(Math.round(totalExpenditureValue / 1.2) / 10) + this.model.currencyName
+      String(Math.round(totalExpenditureValue / 1.2) / 10) + this.model.currencySign
     }/${this.textTranslate('CalendarPage.month')}`;
     const expensIncome = totalExpenditureValue / totalIncomeValue;
 

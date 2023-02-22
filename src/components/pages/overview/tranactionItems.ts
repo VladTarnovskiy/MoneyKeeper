@@ -49,7 +49,9 @@ export class TransactionItems extends BaseComponent {
       const transactionItemTitleOne = this.createElem(
         'div',
         'transaction__item_title',
-        `${item.category}`,
+        item.type === 'Expense'
+          ? this.textTranslate(`CategoryExpenditure.${item.category}`)
+          : this.textTranslate(`CategoryIncome.${item.category}`),
       );
 
       if (item.type === 'Income') {
@@ -74,9 +76,9 @@ export class TransactionItems extends BaseComponent {
         `${item.subcategory}`,
       );
 
-      if (item.type === 'Income') {
-        transactionItemTitleTwo.textContent = '';
-      }
+      // if (item.type === 'Income') {
+      //   transactionItemTitleTwo.textContent = '';
+      // }
 
       const transactionItemDescTwo = this.createElem(
         'div',
@@ -210,7 +212,9 @@ export class TransactionItems extends BaseComponent {
     this.transactionProperty(
       transactionDescription,
       this.textTranslate('Overview.popup.category'),
-      `${item.category}`,
+      item.type === 'Expense'
+        ? this.textTranslate(`CategoryExpenditure.${item.category}`)
+        : this.textTranslate(`CategoryIncome.${item.category}`),
     );
     this.transactionProperty(
       transactionDescription,

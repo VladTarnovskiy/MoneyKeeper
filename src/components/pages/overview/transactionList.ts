@@ -87,7 +87,6 @@ export class TransactionList extends BaseComponent {
       'Filter transactions',
     );
     this.transactionItem = new TransactionItems(this.transactionItems, prop, transactionData);
-    // this.render();
   }
 
   getSortData = (way: string): void => {

@@ -206,8 +206,7 @@ export class Report extends BaseComponent {
     const filerCategoryNoRepeat = new Set();
     const itemsExpenseCategory: string[] = [];
 
-    this.reportDataItemExpense = [];
-    this.reportDataItemIncome = [];
+    type === 'Income' ? (this.reportDataItemIncome = []) : (this.reportDataItemExpense = []);
 
     this.model.transaction.forEach((item) => {
       if (item.type === type) {
@@ -243,7 +242,10 @@ export class Report extends BaseComponent {
             color = '#3b82f6';
           }
 
-          trans.title = item;
+          trans.title =
+            type === 'Income'
+              ? this.textTranslate(`CategoryIncome.${item}`)
+              : this.textTranslate(`CategoryExpenditure.${item}`);
           trans.color = color;
           trans.value = trans.value + itemDef.sum;
           trans.width = String(((trans.value * 100) / this.getTotalSum(type)).toFixed(1));

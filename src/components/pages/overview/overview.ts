@@ -20,7 +20,6 @@ export class Overview extends BaseComponent {
     super();
     this.model = model;
     this.updateHeaderSum = updateHeaderSum;
-    // this.render();
     this.node = this.build();
   }
 

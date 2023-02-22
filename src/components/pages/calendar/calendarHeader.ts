@@ -10,11 +10,12 @@ export class CalendarHeader extends BaseComponent {
   root: HTMLElement;
   categoryContainer: HTMLElement;
   yearContainer: HTMLElement;
-  categoryInputElement: HTMLInputElement;
+  categoryInputElement!: HTMLInputElement;
   yearInputElement!: HTMLInputElement;
   transactionData: ITransactionReq[];
   yearsArr: string[];
   yearChoice: HTMLElement;
+  categoryChoice: HTMLElement;
 
   constructor(root: HTMLElement, transactionData: ITransactionReq[]) {
     super();
@@ -24,45 +25,46 @@ export class CalendarHeader extends BaseComponent {
       'div',
       'category__container flex flex-row w-1/2 md:w-full',
     );
-    const categoryTitle = this.createElem(
-      'div',
-      'category__title w-1/2 text-xl',
-      `${this.textTranslate('CalendarPage.ExpenseCategory')}`,
-    );
-    const categoryChoice = this.createElem('div', 'category__choice flex flex-col w-1/2');
-    const categoryTranslate: string[] = baseCategoryExpenditureDataEng.map((a) => {
-      return `${this.textTranslate(`CategoryExpenditure.${a}`)}`;
-    });
-    const categoryInputSelect = new InputSelect(
-      categoryChoice,
-      `${this.textTranslate('CalendarPage.SelectCategory')}`,
-      [`${this.textTranslate('CategoryExpenditure.All')}`, ...categoryTranslate],
-    );
 
-    this.categoryInputElement = categoryInputSelect.filterSelect;
-    this.categoryContainer.append(categoryTitle, categoryChoice);
+    this.categoryChoice = this.createElem('div', 'category__choice flex flex-col w-1/2');
+    this.createCategoryChoice();
 
     this.yearContainer = this.createElem(
       'div',
       'year__container flex flex-row w-1/2 md:w-full xs:ml-0',
     );
-    const yearTitle = this.createElem(
-      'div',
-      'year__title text-xl w-1/2',
-      `${this.textTranslate('CalendarPage.Year')}`,
-    );
-
     this.yearChoice = this.createElem('div', 'year__choice flex flex-col w-1/2');
     this.yearsArr = ['2023', '2022', '2021', '2020'];
     this.createYearArr();
 
-    this.yearContainer.append(yearTitle, this.yearChoice);
-
     this.render();
   }
 
+  createCategoryChoice(): void {
+    this.categoryChoice.replaceChildren();
+    this.categoryContainer.replaceChildren();
+    const categoryTranslate: string[] = baseCategoryExpenditureDataEng.map((a) => {
+      return `${this.textTranslate(`CategoryExpenditure.${a}`)}`;
+    });
+    const categoryInputSelect = new InputSelect(
+      this.categoryChoice,
+      `${this.textTranslate('CalendarPage.SelectCategory')}`,
+      [`${this.textTranslate('CategoryExpenditure.All')}`, ...categoryTranslate],
+    );
+
+    this.categoryInputElement = categoryInputSelect.filterSelect;
+    const categoryTitle = this.createElem(
+      'div',
+      'category__title w-1/2 text-xl',
+      `${this.textTranslate('CalendarPage.ExpenseCategory')}`,
+    );
+
+    this.categoryContainer.append(categoryTitle, this.categoryChoice);
+  }
+
   createYearArr(): void {
-    this.yearChoice.textContent = '';
+    this.yearChoice.replaceChildren();
+    this.yearContainer.replaceChildren();
     const newYearArr: string[] = [];
 
     this.transactionData.forEach((a) => {
@@ -88,16 +90,22 @@ export class CalendarHeader extends BaseComponent {
       const indexCategory: number = baseCategoryExpenditureDataRu.indexOf(thisCategory);
       const categoryName = baseCategoryExpenditureDataEng[indexCategory];
 
-      if (typeof thisCategory === 'string' && indexCategory >= 0) {
-        if (typeof categoryName === 'string') {
-          thisCategory = categoryName;
-        }
+      if (typeof categoryName === 'string' && indexCategory >= 0) {
+        thisCategory = categoryName;
       }
 
       this.categoryInputElement.value = `${this.textTranslate(
         `CategoryExpenditure.${thisCategory}`,
       )}`;
     }
+
+    const yearTitle = this.createElem(
+      'div',
+      'year__title text-xl w-1/2',
+      `${this.textTranslate('CalendarPage.Year')}`,
+    );
+
+    this.yearContainer.append(yearTitle, this.yearChoice);
   }
 
   render(): void {

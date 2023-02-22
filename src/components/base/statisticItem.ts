@@ -55,7 +55,7 @@ export class TransactionStatisticItem extends BaseComponent {
     graphItemProgress.appendChild(this.progressChecker);
     const graphItemSum = this.createElem(
       'div',
-      'graphSum w-16 text-right dark:text-sky-900 dark:font-semibold',
+      'graphSum w-16 text-right dark:font-semibold',
       `${this.value}`,
     );
 

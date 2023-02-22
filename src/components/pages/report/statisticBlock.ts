@@ -1,6 +1,6 @@
 import { BaseComponent } from '@/components/base/baseComponent';
 import { ReportStatisticItem } from '@/components/pages/report/reportStatisticItem';
-import type { ReportDataItem } from '@/components/pages/report/type';
+import type { ReportDataItem, ProgressWidth } from '@/components/pages/report/type';
 
 export class StatisticBlock extends BaseComponent {
   root: HTMLElement;
@@ -8,12 +8,17 @@ export class StatisticBlock extends BaseComponent {
   sum: string;
   titleColor: string;
   data: ReportDataItem[];
+  currency: string;
+  dataWidth: ProgressWidth;
+
   constructor(
     root: HTMLElement,
     title: string,
     sum: string,
     data: ReportDataItem[],
-    titleColor?: string,
+    titleColor: string,
+    currency: string,
+    dataWidth: ProgressWidth,
   ) {
     super();
 
@@ -21,12 +26,13 @@ export class StatisticBlock extends BaseComponent {
     this.title = title;
     this.sum = sum;
     this.data = data;
-
-    if (titleColor === undefined) {
-      this.titleColor = 'stone-600';
-    } else {
-      this.titleColor = titleColor;
-    }
+    this.dataWidth = dataWidth;
+    // if (titleColor === undefined) {
+    //   this.titleColor = 'stone-600';
+    // } else {
+    this.titleColor = titleColor;
+    // }
+    this.currency = currency;
 
     this.render();
   }
@@ -48,21 +54,21 @@ export class StatisticBlock extends BaseComponent {
       `statisticItems p-2 max-h-72 overflow-y-scroll flex flex-col`,
     );
 
-    let sumLengthValue = 0;
-    let sumLengthTitle = 0;
+    // let sumLengthValue = 0;
+    // let sumLengthTitle = 0;
 
-    this.data.forEach((item) => {
-      const itemLengthValue = String(item.value).split('').length;
-      const itemLengthTitle = item.title.split('').length;
+    // this.data.forEach((item) => {
+    //   const itemLengthValue = String(item.value).split('').length;
+    //   const itemLengthTitle = item.title.split('').length;
 
-      if (itemLengthValue > sumLengthValue) {
-        sumLengthValue = itemLengthValue;
-      }
+    //   if (itemLengthValue > sumLengthValue) {
+    //     sumLengthValue = itemLengthValue;
+    //   }
 
-      if (itemLengthTitle > sumLengthTitle) {
-        sumLengthTitle = itemLengthTitle;
-      }
-    });
+    //   if (itemLengthTitle > sumLengthTitle) {
+    //     sumLengthTitle = itemLengthTitle;
+    //   }
+    // });
 
     this.data.forEach((item) => {
       new ReportStatisticItem(
@@ -70,9 +76,9 @@ export class StatisticBlock extends BaseComponent {
         item.color,
         item.title,
         item.width,
-        `${item.value}`,
-        sumLengthValue * 9,
-        sumLengthTitle * 9,
+        `${item.value}${this.currency}`,
+        this.dataWidth.lengthValue,
+        this.dataWidth.lengthTitle,
       );
     });
 

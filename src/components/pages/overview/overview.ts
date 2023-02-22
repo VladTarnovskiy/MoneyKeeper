@@ -51,12 +51,14 @@ export class Overview extends BaseComponent {
         rebuild: this.rebuild,
       },
       this.model.transaction,
+      this.model.currencySign,
     );
     this.transactionPeriod = new TransactionPeriod(
       transactionPeriodContainer,
       this.model.transaction,
       this.updateTransactionList,
       this.transactionsList.render.bind(this.transactionsList),
+      this.model.currencySign,
     );
 
     return this.container;
@@ -85,6 +87,7 @@ export class Overview extends BaseComponent {
         rebuild: this.rebuild,
       },
       data,
+      this.model.currencySign,
     );
     this.transactionsList.render();
   };

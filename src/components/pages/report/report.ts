@@ -10,7 +10,7 @@ import type { Model } from '@/components/model/model';
 import type { ITransactionReq } from '@/components/model/types';
 import { InputTypeTransactionSelect } from '@/components/pages/report/InputTypeTransactionSelect';
 import { StatisticBlock } from '@/components/pages/report/statisticBlock';
-import type { ReportDataItem } from '@/components/pages/report/type';
+import type { ProgressWidth, ReportDataItem } from '@/components/pages/report/type';
 
 import { InputChartSelect } from './inputChartSelect';
 
@@ -170,21 +170,48 @@ export class Report extends BaseComponent {
     this.getBar(this.bar, this.graphType);
   };
 
+  getCommonLength(): ProgressWidth {
+    const arrForProgress = [...this.getData('Expense'), ...this.getData('Income')];
+    let sumLengthValue = 0;
+    let sumLengthTitle = 0;
+
+    arrForProgress.forEach((item) => {
+      const itemLengthValue = String(item.value).split('').length;
+      const itemLengthTitle = item.title.split('').length;
+
+      if (itemLengthValue > sumLengthValue) {
+        sumLengthValue = itemLengthValue;
+      }
+
+      if (itemLengthTitle > sumLengthTitle) {
+        sumLengthTitle = itemLengthTitle;
+      }
+    });
+
+    return { lengthTitle: sumLengthTitle * 8, lengthValue: sumLengthValue * 8 };
+  }
+
   getStatisticBlocks(): void {
+    const dataWidth = this.getCommonLength();
+
     new StatisticBlock(
       this.statisticContainer,
       this.textTranslate('Report.titleOne'),
-      `${this.getTotalSum('Expense')} $`,
+      `${this.getTotalSum('Expense')} ${this.model.currencySign}`,
       this.getData('Expense'),
       'stone-600',
+      this.model.currencySign,
+      dataWidth,
     );
 
     new StatisticBlock(
       this.statisticContainer,
       this.textTranslate('Report.titleTwo'),
-      `${this.getTotalSum('Income')} $`,
+      `${this.getTotalSum('Income')} ${this.model.currencySign}`,
       this.getData('Income'),
       'sky-600',
+      this.model.currencySign,
+      dataWidth,
     );
     this.getBar(this.bar, this.graphType);
   }

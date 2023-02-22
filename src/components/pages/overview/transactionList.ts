@@ -19,11 +19,18 @@ export class TransactionList extends BaseComponent {
   transactionData: ITransactionReq[];
   filterData: ITransactionReq[];
   prop: ITransactionsList;
+  currency: string;
 
-  constructor(root: HTMLElement, prop: ITransactionsList, transactionData: ITransactionReq[]) {
+  constructor(
+    root: HTMLElement,
+    prop: ITransactionsList,
+    transactionData: ITransactionReq[],
+    currency: string,
+  ) {
     super();
     this.root = root;
     this.prop = prop;
+    this.currency = currency;
     this.transactionData = transactionData;
     this.filterData = transactionData;
     this.sortContainer = this.createElem(
@@ -86,7 +93,12 @@ export class TransactionList extends BaseComponent {
       this.getFilterData,
       'Filter transactions',
     );
-    this.transactionItem = new TransactionItems(this.transactionItems, prop, transactionData);
+    this.transactionItem = new TransactionItems(
+      this.transactionItems,
+      prop,
+      transactionData,
+      this.currency,
+    );
   }
 
   getSortData = (way: string): void => {
@@ -120,7 +132,12 @@ export class TransactionList extends BaseComponent {
     }
 
     this.transactionItems.replaceChildren();
-    this.transactionItem = new TransactionItems(this.transactionItems, this.prop, this.filterData);
+    this.transactionItem = new TransactionItems(
+      this.transactionItems,
+      this.prop,
+      this.filterData,
+      this.currency,
+    );
   };
 
   getFilterData = (way: string): void => {
@@ -142,7 +159,12 @@ export class TransactionList extends BaseComponent {
     }
 
     this.transactionItems.replaceChildren();
-    this.transactionItem = new TransactionItems(this.transactionItems, this.prop, this.filterData);
+    this.transactionItem = new TransactionItems(
+      this.transactionItems,
+      this.prop,
+      this.filterData,
+      this.currency,
+    );
   };
 
   getDataFromStorage(): void {

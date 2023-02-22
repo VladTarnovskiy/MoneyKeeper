@@ -13,11 +13,18 @@ export class TransactionItems extends BaseComponent {
   root: HTMLElement;
   prop: ITransactionsList;
   data: ITransactionReq[];
-  constructor(root: HTMLElement, prop: ITransactionsList, data: ITransactionReq[]) {
+  currency: string;
+  constructor(
+    root: HTMLElement,
+    prop: ITransactionsList,
+    data: ITransactionReq[],
+    currency: string,
+  ) {
     super();
     this.root = root;
     this.prop = prop;
     this.data = data;
+    this.currency = currency;
     this.render();
   }
 
@@ -61,7 +68,7 @@ export class TransactionItems extends BaseComponent {
       const transactionItemDescOne = this.createElem(
         'div',
         'transaction__item_sum text-right dark:font-semibold',
-        `${sign} ${item.sum}$`,
+        `${sign} ${item.sum}${this.currency}`,
       );
 
       transactionItemOne.append(transactionItemTitleOne, transactionItemDescOne);
@@ -193,7 +200,7 @@ export class TransactionItems extends BaseComponent {
     const transactionItemDescOne = this.createElem(
       'div',
       'transaction__item_sum text-right dark:font-semibold',
-      `${sign}${item.sum}$`,
+      `${sign}${item.sum}${this.currency}`,
     );
 
     transactionItemOne.append(transactionItemTitleOne, transactionItemDescOne);

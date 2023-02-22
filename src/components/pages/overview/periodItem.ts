@@ -14,6 +14,7 @@ export class PeriodItem extends BaseComponent {
   getNetIncome: (data: ITransactionReq[], itemType: string) => void;
   updateTransactionList: (data: ITransactionReq[]) => void;
   storageLabel: string;
+  currency: string;
 
   constructor(
     root: HTMLElement,
@@ -25,12 +26,14 @@ export class PeriodItem extends BaseComponent {
     getNetIncome: (data: ITransactionReq[], itemType: string) => void,
     updateTransactionList: (data: ITransactionReq[]) => void,
     storageLabel: string,
+    currency: string,
   ) {
     super();
     this.root = root;
     this.color = color;
     this.title = title;
     this.date = date;
+    this.currency = currency;
     this.storageLabel = storageLabel;
     this.transactionData = transactionData;
     this.updateTransactionList = updateTransactionList;
@@ -89,7 +92,7 @@ export class PeriodItem extends BaseComponent {
       this.color,
       this.textTranslate('Overview.income'),
       getProgressWidth(sumIncome),
-      `${sumIncome}$`,
+      `${sumIncome}${this.currency}`,
       'text-sky-500',
     );
 
@@ -98,7 +101,7 @@ export class PeriodItem extends BaseComponent {
       this.color,
       this.textTranslate('Overview.expense'),
       getProgressWidth(sumExpense),
-      `${sumExpense}$`,
+      `${sumExpense}${this.currency}`,
     );
 
     container.append(periodImg, periodDescription);

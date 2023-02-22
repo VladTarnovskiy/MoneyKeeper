@@ -19,6 +19,8 @@ export class SideBar extends BaseComponent {
       'flex items-center flex-col text-white bg-sky-400 rounded-r-lg dark:bg-gray-800',
     );
 
+    this.buttonsList.splice(0, this.buttonsList.length);
+
     sideData.forEach((item, index) => {
       const sideBarItem = this.createElem(
         'button',
@@ -49,6 +51,7 @@ export class SideBar extends BaseComponent {
       }
 
       sideBarItem.append(sideBarItemImg, sideBarItemText);
+
       this.buttonsList.push(sideBarItem);
       container.appendChild(sideBarItem);
       sideBar.appendChild(container);

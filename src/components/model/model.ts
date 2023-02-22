@@ -23,12 +23,14 @@ export class Model {
   #transaction: ITransactionReq[];
   #access: boolean;
   userData: IUserReq;
+  currencySign: string;
 
   constructor() {
     this.#setting = [];
     this.#transaction = [];
     this.#access = false;
     this.userData = this.getStorageData();
+    this.currencySign = '$';
   }
 
   get transaction(): ITransactionReq[] {
@@ -45,6 +47,11 @@ export class Model {
 
   set setting(set: ISettingReq[]) {
     this.#setting = set;
+  }
+
+  setCurrency(valueName: string): void {
+    const currencyData = { USD: '$', EUR: '€', RUB: '₽', YEN: '¥' };
+    this.currencySign = currencyData[valueName];
   }
 
   async registerUser<T, D = object>(data: D): Promise<PostJsonResponse<T>> {
@@ -146,6 +153,9 @@ export class Model {
         arr1.data === undefined ? (this.setting = []) : (this.setting = arr1.data);
         arr2.data === undefined ? (this.transaction = []) : (this.transaction = arr2.data);
         this.#access = true;
+        if (this.setting[0] !== undefined) {
+          this.setCurrency(this.setting[0].currency);
+        }
       } else {
         this.#access = false;
         localStorage.userdata = '';

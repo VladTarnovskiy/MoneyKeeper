@@ -107,12 +107,22 @@ export class Settings extends BaseComponent {
 
     inputTheme.addEventListener('click', (e) => {
       const { target } = e;
-      const inputs = inputTheme.querySelectorAll('.option__item');
+      const elem = target as HTMLInputElement;
 
-      for (const a of inputs) {
-        if (target === a) {
-          document.body.className = (a as HTMLInputElement).defaultValue.toLowerCase();
-        }
+      if (elem.name === 'theme') {
+        this.state.set.theme = elem.defaultValue;
+        document.body.className = elem.defaultValue.toLowerCase();
+      }
+    });
+
+    inputCurrency.addEventListener('click', (e) => {
+      const { target } = e;
+      const elem = target as HTMLInputElement;
+
+      if (elem.name === 'currency') {
+        this.state.set.currency = elem.defaultValue;
+        this.model.setCurrency(elem.defaultValue);
+        this.updateView();
       }
     });
 
@@ -168,6 +178,8 @@ export class Settings extends BaseComponent {
   eventLang = (e: Event): void => {
     const { target } = e;
     const lang = (target as HTMLInputElement).defaultValue;
+
+    console.log(lang);
 
     this.state.set.lang = lang;
 
@@ -256,6 +268,9 @@ export class Settings extends BaseComponent {
       this.model.setting[0]?.lang === 'EN'
         ? i18next.changeLanguage('en').catch((err: string) => new Error(err))
         : i18next.changeLanguage('ru').catch((err: string) => new Error(err));
+      if (this.model.setting[0] !== undefined) {
+        this.model.setCurrency(this.model.setting[0].currency);
+      }
       this.update();
     } else {
       this.state.message = this.textTranslate('Settings.Message5');

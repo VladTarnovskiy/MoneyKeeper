@@ -33,7 +33,7 @@ export class InputElem extends BaseComponent {
     );
     const inputLabel = this.createElem(
       'label',
-      'w-fit h-min bg-white p-1 absolute left-2 -top-3 flex h-full w-full text-[11px] leading-tight text-stone-500 transition-all',
+      'w-fit h-min bg-white p-1 absolute left-2 -top-3 flex h-full w-full dark:rounded-md text-stone-900 dark:bg-gray-400/10 dark:font-semibold text-[11px] leading-tight text-stone-500 transition-all',
       String(tmp[prop.title]),
     );
     const select = this.createElem2('input', {

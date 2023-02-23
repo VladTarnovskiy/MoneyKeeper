@@ -74,8 +74,8 @@ export class ReportStatisticItem extends BaseComponent {
     graphItemProgress.appendChild(this.progressChecker);
     const graphItemSum = this.createElem(
       'div',
-      'graphSum min-w-16 text-right dark:text-sky-900 dark:font-semibold',
-      `${this.value}$`,
+      'graphSum min-w-16 text-right dark:font-semibold',
+      this.value,
     );
 
     graphItemSum.style.width = `${this.widthValue + 40}px`;

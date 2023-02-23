@@ -25,7 +25,7 @@ export class InputSelect extends BaseComponent {
     this.storageLabel = storageLabel;
     this.filterSelect = this.createElem(
       'select',
-      'peer h-full w-full rounded-[7px] cursor-pointer border border-blue-gray-200 bg-transparent font-sans text-sm font-normal transition-all focus:border-2 focus:border-pink-500 focus:outline-0 disabled:border-0',
+      'peer h-full w-full rounded-[7px] cursor-pointer border border-blue-gray-200 dark:bg-gray-300 bg-transparent font-sans text-sm font-normal transition-all focus:border-2 focus:border-pink-500 focus:outline-0 disabled:border-0',
     );
     this.render();
   }
@@ -56,7 +56,7 @@ export class InputSelect extends BaseComponent {
 
     const inputLabel = this.createElem(
       'label',
-      'w-fit h-min dark:bg-gray-400 bg-white p-1 absolute left-2 -top-3 flex h-full w-full text-[11px] leading-tight text-stone-500 transition-all',
+      'w-fit h-min dark:rounded-md text-stone-900 dark:bg-gray-400/10 dark:font-semibold bg-white p-1 absolute left-2 -top-3 flex h-full w-full text-[11px] leading-tight text-stone-500 transition-all',
       this.title,
     );
 

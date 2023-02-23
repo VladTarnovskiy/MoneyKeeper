@@ -107,6 +107,7 @@
     "Language": "Language",
     "Themes": "Themes",
     "Currency": "Currency",
+    "Sidebar": "Sidebar style",
     "Check1": "Change settings",
     "Check2": "Delete account",
     "Button1": "Save settings",
@@ -152,7 +153,7 @@
     "SelectCategory": "Category",
     "Average": "Average:",
     "Year": "Year:",
-    "Select year": "Year"
+    "SelectYear": "Year"
   },
   "monthes": {
     "January": "January",

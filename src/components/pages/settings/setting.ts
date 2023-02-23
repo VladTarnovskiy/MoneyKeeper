@@ -5,6 +5,7 @@ import type { Model } from '@/components/model/model';
 import type { ISetting, ISettingReq, IUserDataReq } from '@/components/model/types';
 import { Button } from '@/components/pages/authorization/Button';
 import { InputCheck } from '@/components/pages/authorization/InputCheck';
+import { InputColorItem } from '@/components/pages/settings/inputColorItem';
 import { SettingItem } from '@/components/pages/settings/inputRadioItem';
 import { InputTextItem } from '@/components/pages/settings/inputTextItem';
 // import { InputElem } from '@/components/pages/transaction/InputElem';
@@ -104,15 +105,30 @@ export class Settings extends BaseComponent {
       value: this.state.set.currency,
       disabled: this.state.settingBlock,
     }).node;
+    const inputSidebar = new InputColorItem({
+      title: 'sidebar',
+      value: '#38bdf8',
+      disabled: this.state.settingBlock,
+    }).node;
 
     inputTheme.addEventListener('click', (e) => {
       const { target } = e;
-      const inputs = inputTheme.querySelectorAll('.option__item');
+      const elem = target as HTMLInputElement;
 
-      for (const a of inputs) {
-        if (target === a) {
-          document.body.className = (a as HTMLInputElement).defaultValue.toLowerCase();
-        }
+      if (elem.name === 'theme') {
+        this.state.set.theme = elem.defaultValue;
+        document.body.className = elem.defaultValue.toLowerCase();
+      }
+    });
+
+    inputCurrency.addEventListener('click', (e) => {
+      const { target } = e;
+      const elem = target as HTMLInputElement;
+
+      if (elem.name === 'currency') {
+        this.state.set.currency = elem.defaultValue;
+        this.model.setCurrency(elem.defaultValue);
+        this.updateView();
       }
     });
 
@@ -158,7 +174,7 @@ export class Settings extends BaseComponent {
     const container3 = this.createElem('div', 'flex flex-raw gap-4');
 
     container1.append(inputCheck, inputButton);
-    pageContent.append(inputText, inputLang, inputTheme, inputCurrency, container1);
+    pageContent.append(inputText, inputLang, inputTheme, inputCurrency, inputSidebar, container1);
     container3.append(pageContent, container2);
     container.append(pageTitle, message, container3);
 
@@ -168,6 +184,8 @@ export class Settings extends BaseComponent {
   eventLang = (e: Event): void => {
     const { target } = e;
     const lang = (target as HTMLInputElement).defaultValue;
+
+    console.log(lang);
 
     this.state.set.lang = lang;
 
@@ -256,6 +274,11 @@ export class Settings extends BaseComponent {
       this.model.setting[0]?.lang === 'EN'
         ? i18next.changeLanguage('en').catch((err: string) => new Error(err))
         : i18next.changeLanguage('ru').catch((err: string) => new Error(err));
+
+      if (this.model.setting[0] !== undefined) {
+        this.model.setCurrency(this.model.setting[0].currency);
+      }
+
       this.update();
     } else {
       this.state.message = this.textTranslate('Settings.Message5');

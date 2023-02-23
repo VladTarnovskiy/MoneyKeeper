@@ -19,7 +19,7 @@ export class InputSelect extends BaseComponent {
     const input = this.createElem('div', 'relative h-8 w-full  min-w-[100px] max-w-auto');
     const inputLabel = this.createElem(
       'label',
-      'w-fit h-min bg-white p-1 absolute left-2 -top-3 flex h-full w-full text-[11px] leading-tight text-stone-500 transition-all dark:bg-gray-300',
+      'w-fit h-min bg-white p-1 absolute left-2 -top-3 flex h-full w-full dark:rounded-md text-stone-900 dark:bg-gray-400/10 dark:font-semibold text-[11px] leading-tight text-stone-500 transition-all dark:bg-gray-300',
       prop.title === 'Type notes'
         ? this.textTranslate('Transaction.TypeNotes')
         : this.textTranslate('Transaction.Category'),
@@ -28,7 +28,7 @@ export class InputSelect extends BaseComponent {
       id: prop.title === 'Type notes' ? 'type' : prop.title.toLowerCase(),
       onchange: prop.onchange,
       class:
-        'eer h-full w-full rounded-[7px] cursor-pointer border border-blue-gray-200 bg-transparent font-sans text-1xl font-normal transition-all focus:border-2 focus:border-grey-500 focus:outline-0 disabled:border-0',
+        'eer h-full w-full rounded-[7px] dark:bg-gray-300 cursor-pointer border border-blue-gray-200 bg-transparent font-sans text-1xl font-normal transition-all focus:border-2 focus:border-grey-500 focus:outline-0 disabled:border-0',
     });
 
     prop.options.forEach((option, index) => {

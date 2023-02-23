@@ -59,7 +59,7 @@ export class Account extends BaseComponent {
 
     const popup = this.createElem(
       'div',
-      'account_popup min-w-[260px] h-96 bg-white z-10 rounded-lg absolute -bottom-96 right-2 border-2 hidden p-4',
+      'account_popup min-w-[260px] h-96 bg-white z-10 rounded-lg absolute -bottom-96 right-2 border-2 hidden p-4 pt-7',
     );
 
     [accountImg, accountSwitch].forEach((item) => {

@@ -12,12 +12,14 @@ export class SideBar extends BaseComponent {
   render(): HTMLElement {
     const sideBar = this.createElem(
       'aside',
-      'min-h-[81.6vh] bg-sky-400 rounded-r-lg border-0 dark:bg-gray-800',
+      'sidebar min-h-[81.6vh] bg-sky-400 rounded-r-lg border-0 dark:bg-gray-800',
     );
     const container = this.createElem(
       'div',
-      'flex items-center flex-col text-white bg-sky-400 rounded-r-lg dark:bg-gray-800',
+      'flex items-center flex-col text-white bg-transparent rounded-r-lg',
     );
+
+    this.buttonsList.splice(0, this.buttonsList.length);
 
     sideData.forEach((item, index) => {
       const sideBarItem = this.createElem(
@@ -49,6 +51,7 @@ export class SideBar extends BaseComponent {
       }
 
       sideBarItem.append(sideBarItemImg, sideBarItemText);
+
       this.buttonsList.push(sideBarItem);
       container.appendChild(sideBarItem);
       sideBar.appendChild(container);

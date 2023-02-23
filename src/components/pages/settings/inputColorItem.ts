@@ -6,7 +6,7 @@ interface IPropInputText {
   disabled: boolean;
 }
 
-export class InputTextItem extends BaseComponent {
+export class InputColorItem extends BaseComponent {
   node: HTMLElement;
 
   constructor(prop: IPropInputText) {
@@ -19,12 +19,12 @@ export class InputTextItem extends BaseComponent {
       name: string;
       language: string;
       theme: string;
-      currency: string;
+      sidebar: string;
     } = {
       name: this.textTranslate('Settings.Name'),
       language: this.textTranslate('Settings.Language'),
       theme: this.textTranslate('Settings.Themes'),
-      currency: this.textTranslate('Settings.Currency'),
+      sidebar: this.textTranslate('Settings.Sidebar'),
     };
     const inputItemContainer = this.createElem('div', 'p-2 flex justify-between');
     const inputItemTitle = this.createElem2('div', {
@@ -33,12 +33,21 @@ export class InputTextItem extends BaseComponent {
     });
 
     const inputTextName = this.createElem2('input', {
-      class: 'input__name pl-2 w-60 border text-right rounded h-10 border-[1px] dark:bg-gray-300',
-      type: 'text',
-      placeholder: 'Enter username',
+      class:
+        'input__name pl-2 w-60 border text-right rounded h-10 border-[1px] dark:bg-gray-300 cursor-pointer',
+      type: 'color',
+      placeholder: '',
       value: prop.value,
       disabled: prop.disabled,
       id: prop.title.toLowerCase(),
+    }) as HTMLInputElement;
+
+    inputTextName.addEventListener('input', () => {
+      const sideBar = document.querySelector<HTMLElement>('.sidebar');
+
+      if (sideBar !== null) {
+        sideBar.style.backgroundColor = inputTextName.value;
+      }
     });
 
     inputItemContainer.append(inputItemTitle, inputTextName);

@@ -15,18 +15,21 @@ export class TransactionPeriod extends BaseComponent {
   netIncome: HTMLElement;
   updateTransactionList: (data: ITransactionReq[]) => void;
   renderTransactionList: () => void;
+  currency: string;
 
   constructor(
     root: HTMLElement,
     transactionData: ITransactionReq[],
     updateTransactionList: (data: ITransactionReq[]) => void,
     renderTransactionList: () => void,
+    currency: string,
   ) {
     super();
     this.root = root;
     this.transactionData = transactionData;
     this.updateTransactionList = updateTransactionList;
     this.renderTransactionList = renderTransactionList;
+    this.currency = currency;
 
     this.periodItems = this.createElem('div', 'period__items flex flex-col');
     this.netIncome = this.createElem(
@@ -34,7 +37,7 @@ export class TransactionPeriod extends BaseComponent {
       'period__title text-2xl pb-2 font-light text-stone-600 border-b-2',
       `${this.textTranslate('Overview.netIncome')} ${this.textTranslate(
         'Overview.calendar.alltime',
-      )}: ${0}${'$'}`,
+      )}: ${0}${this.currency}`,
     );
     this.renderPeriodItems();
     this.render();
@@ -51,6 +54,7 @@ export class TransactionPeriod extends BaseComponent {
       this.getNetIncome,
       this.updateTransactionList,
       'Today',
+      this.currency,
     );
     this.periodItemWeek = new PeriodItem(
       this.periodItems,
@@ -62,6 +66,7 @@ export class TransactionPeriod extends BaseComponent {
       this.getNetIncome,
       this.updateTransactionList,
       'This Week',
+      this.currency,
     );
     this.periodItemMonth = new PeriodItem(
       this.periodItems,
@@ -73,6 +78,7 @@ export class TransactionPeriod extends BaseComponent {
       this.getNetIncome,
       this.updateTransactionList,
       'This Month',
+      this.currency,
     );
     this.periodItemYear = new PeriodItem(
       this.periodItems,
@@ -84,6 +90,7 @@ export class TransactionPeriod extends BaseComponent {
       this.getNetIncome,
       this.updateTransactionList,
       'This Year',
+      this.currency,
     );
     this.periodItemAll = new PeriodItem(
       this.periodItems,
@@ -95,6 +102,7 @@ export class TransactionPeriod extends BaseComponent {
       this.getNetIncome,
       this.updateTransactionList,
       'All Time',
+      this.currency,
     );
   }
 
@@ -164,7 +172,7 @@ export class TransactionPeriod extends BaseComponent {
     });
     this.netIncome.textContent = `${this.textTranslate(
       'Overview.netIncome',
-    )} (${itemType}): ${netIncome}${'$'}`;
+    )} (${itemType}): ${netIncome}${this.currency}`;
   };
 
   getDataFromStorage(): void {

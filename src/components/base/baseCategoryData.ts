@@ -33,6 +33,7 @@ export const baseCategoryExpenditureDataEng = [
   'Clothing',
   'Banking services',
   'Other',
+  'All',
 ];
 
 export const baseCategoryExpenditureDataRu = [
@@ -48,6 +49,7 @@ export const baseCategoryExpenditureDataRu = [
   'Одежда',
   'Банковские операции',
   'Прочее',
+  'Все',
 ];
 
 export const baseExpenseCategoryColor = {
@@ -63,17 +65,17 @@ export const baseExpenseCategoryColor = {
   Продукты: '#f59e0b',
   Health: '#3b82f6',
   Здоровье: '#3b82f6',
-  Entertainment: '#ef4444',
+  Entertainment: '#6366f1',
   Развлечения: '#ef4444',
-  Presents: '#3b82f6',
+  Presents: '#f0abfc',
   Подарки: '#3b82f6',
-  Regular: '#10b981',
+  Regular: '#a21caf',
   Регулярные: '#10b981',
-  Clothing: '#a855f7',
+  Clothing: '#2dd4bf',
   Одежда: '#a855f7',
-  Bankingservices: '#f59e0b',
+  Bankingservices: '#86efac',
   Банковскиеоперации: '#f59e0b',
-  Other: '#3b82f6',
+  Other: '#60a5fa',
   Прочее: '#3b82f6',
 };
 
@@ -90,8 +92,8 @@ export const baseIncomeCategoryColor = {
   Продажи: '#f59e0b',
   Award: '#3b82f6',
   Премия: '#3b82f6',
-  Lottery: '#ef4444',
+  Lottery: '#f0abfc',
   Лотерея: '#ef4444',
-  Other: '#3b82f6',
+  Other: '#2dd4bf',
   Прочее: '#3b82f6',
 };

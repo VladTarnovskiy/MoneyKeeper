@@ -75,7 +75,7 @@ export class ReportStatisticItem extends BaseComponent {
     const graphItemSum = this.createElem(
       'div',
       'graphSum min-w-16 text-right dark:font-semibold',
-      `${this.value}$`,
+      this.value,
     );
 
     graphItemSum.style.width = `${this.widthValue + 40}px`;

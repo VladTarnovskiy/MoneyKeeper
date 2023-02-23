@@ -19,7 +19,7 @@ export class InputSelect extends BaseComponent {
     const input = this.createElem('div', 'relative h-8 w-full  min-w-[100px] max-w-auto');
     const inputLabel = this.createElem(
       'label',
-      'w-fit h-min bg-white p-1 absolute left-2 -top-3 flex h-full w-full dark:rounded-md text-stone-900 dark:bg-gray-400/10 dark:font-semibold text-[11px] leading-tight text-stone-500 transition-all dark:bg-gray-300',
+      'w-fit h-min bg-white p-1 absolute left-2 -top-3 flex h-full w-full dark:rounded-md text-stone-900 dark:-top-4 dark:bg-gray-300/50 dark:pt-[1px] dark:font-semibold text-[11px] leading-tight text-stone-500 transition-all dark:bg-gray-300',
       prop.title === 'Type notes'
         ? this.textTranslate('Transaction.TypeNotes')
         : this.textTranslate('Transaction.Category'),

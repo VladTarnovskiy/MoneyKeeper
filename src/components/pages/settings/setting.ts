@@ -185,8 +185,6 @@ export class Settings extends BaseComponent {
     const { target } = e;
     const lang = (target as HTMLInputElement).defaultValue;
 
-    console.log(lang);
-
     this.state.set.lang = lang;
 
     i18next.changeLanguage(lang.toLowerCase()).catch((err: string) => new Error(err));

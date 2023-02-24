@@ -1,5 +1,6 @@
 import type { Model } from '@/components/model/model';
 import type { ISettingReq, IUserReq } from '@/components/model/types';
+import { Button } from '@/components/pages/authorization/Button';
 
 import { svgStore } from '../../assets/svgStore';
 import { BaseComponent } from '../base/baseComponent';
@@ -48,7 +49,7 @@ export class Account extends BaseComponent {
       'div',
       'flex items-center logo text-xl relative hover:cursor-pointer',
     );
-    const accountImg = this.createElem('div', 'account__img ml-2 text-sky-600 w-8 h-8');
+    const accountImg = this.createElem('div', 'account__img ml-2 text-sky-600 w-12 h-12');
 
     accountImg.innerHTML = svgStore.account;
     const accountSwitch = this.createElem(
@@ -59,7 +60,7 @@ export class Account extends BaseComponent {
 
     const popup = this.createElem(
       'div',
-      'account_popup min-w-[260px] h-96 bg-white z-10 rounded-lg absolute -bottom-96 right-2 border-2 hidden p-4 pt-7',
+      'account_popup flex justify-end flex-col min-w-[260px] h-96 bg-white z-10 rounded-lg border-[1px] dark:bg-gray-300 absolute -bottom-96 right-2 hidden p-4 pt-7 shadow-lg shadow-stone-700/40',
     );
 
     [accountImg, accountSwitch].forEach((item) => {
@@ -76,16 +77,21 @@ export class Account extends BaseComponent {
       name = '';
     }
 
-    const popupName = this.createElem(
+    const popupName = this.createElem('div', 'popup__name mb-4', name);
+    // `${this.textTranslate('Header.username')}: ${name}`,
+
+    const popupMail = this.createElem(
       'div',
-      'popup__name mb-4',
-      `${this.textTranslate('Header.username')}: ${name}`,
-    );
-    const popupLocation = this.createElem(
-      'div',
-      'popup__location',
+      'popup__location h-full',
       `${this.textTranslate('Header.mail')}: ${email}`,
     );
+    // `${this.textTranslate('Header.mail')}: ${email}`,
+
+    const accountExitBut = new Button({
+      text: 'exit',
+      onClick: this.onClick,
+    }).node;
+
     const popupClose = this.createElem(
       'div',
       'popup__close absolute cursor-pointer text-3xl right-3 top-0 hover:scale-110',
@@ -96,9 +102,14 @@ export class Account extends BaseComponent {
       popup.classList.add('hidden');
       accountSwitch.classList.remove('rotate-180');
     });
-    popup.append(popupName, popupLocation, popupClose);
+    popup.append(popupName, popupMail, accountExitBut, popupClose);
     account.append(accountImg, accountSwitch, popup);
 
     return account;
   }
+
+  onClick = (): void => {
+    localStorage.userdata = '';
+    location.hash = '#signup';
+  };
 }

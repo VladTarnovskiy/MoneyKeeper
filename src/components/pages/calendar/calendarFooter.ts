@@ -22,48 +22,48 @@ export class CalendarFooter extends BaseComponent {
     this.year = year;
     this.footerInfoContainer = this.createElem(
       'div',
-      'footerInfo__container grid grid-cols-2 xs:grid-cols-1 gap-1 w-1/2 xs:w-full sm:w-2/3 md:w-3/5',
+      'footerInfo__container text-lg border-[1px] rounded p-2 grid grid-cols-2 xs:grid-cols-1 gap-1 w-1/2 xs:w-full sm:w-2/3 md:w-3/5',
     );
 
     this.footerInfoTotal = this.createElem(
       'div',
-      'footerInfoTotal__title text-sm text-left',
+      'footerInfoTotal__title font-light text-left',
       `${this.textTranslate('CalendarPage.ExpenditureTotal')}`,
     );
     this.footerInfoAverage = this.createElem(
       'div',
-      'average__title text-sm text-left',
+      'average__title font-light text-left',
       `${this.textTranslate('CalendarPage.Average')}`,
     );
     this.footerInfoTotalIncome = this.createElem(
       'div',
-      'footerInfoTotalIncome__title text-sm text-left',
+      'footerInfoTotalIncome__title font-light text-left',
       `${this.textTranslate('CalendarPage.TotalIncome')}`,
     );
     this.footerInfoRatio = this.createElem(
       'div',
-      'footerInfoRatio__title text-sm text-left',
+      'footerInfoRatio__title font-light text-left',
       `${this.textTranslate('CalendarPage.ExpenditureIncome')}`,
     );
 
     this.footerInfoTotalCount = this.createElem(
       'div',
-      'footerInfoTotalCount__title text-sm text-right xs:text-left',
+      'footerInfoTotalCount__title text-right xs:text-left',
       `2.885 ${this.model.currencySign}`,
     );
     this.footerInfoAverageCount = this.createElem(
       'div',
-      'averageCount__title text-sm text-right xs:text-left',
+      'averageCount__title text-right xs:text-left',
       `292.4 ${this.model.currencySign}/` + `${this.textTranslate('CalendarPage.month')}`,
     );
     this.footerInfoTotalIncomeCount = this.createElem(
       'div',
-      'footerInfoTotalIncomeCount__title text-sm text-right xs:text-left',
+      'footerInfoTotalIncomeCount__title text-right xs:text-left',
       `3.100 ${this.model.currencySign}`,
     );
     this.footerInfoRatioCount = this.createElem(
       'div',
-      'footerInfoRatioCount__title text-sm text-right xs:text-left',
+      'footerInfoRatioCount__title text-right xs:text-left',
       '93.06 %',
     );
     this.updateCalendarFooter(this.year);

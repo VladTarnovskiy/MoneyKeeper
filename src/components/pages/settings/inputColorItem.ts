@@ -34,7 +34,7 @@ export class InputColorItem extends BaseComponent {
 
     const inputTextName = this.createElem2('input', {
       class:
-        'input__name pl-2 w-60 border text-right rounded h-10 border-[1px] dark:bg-gray-300 cursor-pointer',
+        'input__name w-60 border text-right rounded h-10 border-[1px] dark:bg-gray-300 cursor-pointer',
       type: 'color',
       placeholder: '',
       value: prop.value,

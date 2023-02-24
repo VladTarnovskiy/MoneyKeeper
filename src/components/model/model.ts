@@ -162,9 +162,9 @@ export class Model {
         } else {
           this.#access = false;
           localStorage.userdata = '';
-        }
 
-        return out;
+          return out;
+        }
       }
 
       return;

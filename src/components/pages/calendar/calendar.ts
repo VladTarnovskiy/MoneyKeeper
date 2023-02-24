@@ -34,12 +34,12 @@ export class Calendar extends BaseComponent {
     this.pageCalendarContent = this.createElem('div', 'page__calendar_content gap-2 flex flex-col');
     this.calendarHeaderContainer = this.createElem(
       'div',
-      'calendar__header_container flex flex-row md:flex-col md:gap-y-3 gap-x-2 border-2 p-2 basis-1/2',
+      'calendar__header_container flex flex-row md:flex-col md:gap-y-3 gap-x-2 p-2 basis-1/2',
     );
     this.calendarMainContainer = this.createElem('div', 'calendar__main_container basis-1/2');
     this.calendarFooterContainer = this.createElem(
       'div',
-      'calendar__footer_container border-2 p-2 basis-1/2 flex justify-end',
+      'calendar__footer_container basis-1/2 flex justify-end',
     );
     this.pageCalendarContent.append(
       this.calendarHeaderContainer,

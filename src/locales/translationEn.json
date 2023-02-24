@@ -4,7 +4,8 @@
     "logo": "MoneyKeeper",
     "balance": "Balance",
     "username": "Username",
-    "mail": "E-mail"
+    "mail": "E-mail",
+    "exit": "Exit"
   },
   "Sidebar": {
     "Overview": "Overview",
@@ -68,7 +69,7 @@
       "doughnut": "doughnut"
     },
     "transactionsType": {
-      "title": "Transaction type",
+      "title": "Transactions type",
       "expense": "Expense",
       "income": "Income"
     }

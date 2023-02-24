@@ -51,6 +51,7 @@ export class Model {
 
   setCurrency(valueName: string): void {
     const currencyData = { USD: '$', EUR: '€', RUB: '₽', YEN: '¥' };
+
     this.currencySign = currencyData[valueName];
   }
 
@@ -153,6 +154,7 @@ export class Model {
         arr1.data === undefined ? (this.setting = []) : (this.setting = arr1.data);
         arr2.data === undefined ? (this.transaction = []) : (this.transaction = arr2.data);
         this.#access = true;
+
         if (this.setting[0] !== undefined) {
           this.setCurrency(this.setting[0].currency);
         }

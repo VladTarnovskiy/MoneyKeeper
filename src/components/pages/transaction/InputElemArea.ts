@@ -16,13 +16,13 @@ export class InputElemArea extends BaseComponent {
   build(prop: IInputElemArea): HTMLElement {
     const input = this.createElem(
       'div',
-      `relative h-8 w-full  min-w-[100px] max-w-auto ${
+      `relative h-8 w-full  min-w-[100px] max-w-auto mt-4 ${
         prop.type === 'textarea' ? 'col-span-4 h-20' : ''
       }`,
     );
     const inputLabel = this.createElem(
       'label',
-      'w-fit h-min bg-white p-1 absolute dark:rounded-md text-stone-900 dark:bg-gray-400/10 dark:font-semibold left-2 -top-3 flex h-full w-full text-[11px] leading-tight text-stone-500 transition-all',
+      'w-fit h-min bg-white p-1 absolute dark:rounded-md dark:-top-4 dark:bg-gray-300/50 dark:pt-[1px] dark:font-semibold left-2 -top-3 flex h-full w-full text-[11px] leading-tight text-stone-500 transition-all',
       this.textTranslate('Transaction.Description'),
     );
     const select: HTMLTextAreaElement = this.createElem2(prop.type, {

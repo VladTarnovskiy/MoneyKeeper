@@ -190,10 +190,12 @@ export class Settings extends BaseComponent {
     const { target } = e;
     const elem = target as HTMLInputElement;
 
+
     if (elem.name === 'language') {
       const lang = elem.defaultValue;
 
       this.state.set.lang = lang;
+
 
       i18next.changeLanguage(lang.toLowerCase()).catch((err: string) => new Error(err));
       this.updateView();

@@ -4,7 +4,8 @@
     "logo": "Учет финансов",
     "balance": "Баланс",
     "username": "Имя пользователя",
-    "mail": "Почта"
+    "mail": "Почта",
+    "exit": "Выход"
   },
   "Sidebar": {
     "Overview": "Обзор",
@@ -48,7 +49,7 @@
       "datail": "Детали",
       "sum": "Сумма",
       "category": "Категория",
-      "subcategory": "Субкатегория",
+      "subcategory": "Подкатегория",
       "date": "Дата",
       "time": "Время",
       "description": "Описание"
@@ -68,7 +69,7 @@
       "doughnut": "пончик"
     },
     "transactionsType": {
-      "title": "Тип транзакции",
+      "title": "Тип транзакций",
       "expense": "Расходы",
       "income": "Доходы"
     }

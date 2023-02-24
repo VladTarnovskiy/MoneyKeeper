@@ -68,6 +68,7 @@
       "doughnut": "doughnut"
     },
     "transactionsType": {
+      "title": "Transaction type",
       "expense": "Expense",
       "income": "Income"
     }

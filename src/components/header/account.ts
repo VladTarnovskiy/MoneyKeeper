@@ -28,17 +28,17 @@ export class Account extends BaseComponent {
       const userData = JSON.parse(userDataReq) as IUserReq;
 
       this.userData = userData;
-      this.model
-        .getSettings()
-        .then(() => {
-          this.settings = model.setting.find((item) => item.userId === userData.user.id);
-        })
+      // this.model
+      //   .getSettings()
+      //   .then(() => {
+      //     this.settings = model.setting.find((item) => item.userId === userData.user.id);
+      //   })
 
-        .then(() => {
-          this.render();
-        })
+      //   .then(() => {
+      //     this.render();
+      //   })
 
-        .catch((err: string) => new Error(err));
+      //   .catch((err: string) => new Error(err));
     }
 
     this.node = this.render();

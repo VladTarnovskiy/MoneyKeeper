@@ -22,7 +22,7 @@ export class InputElemArea extends BaseComponent {
     );
     const inputLabel = this.createElem(
       'label',
-      'w-fit h-min bg-white p-1 absolute dark:rounded-md text-stone-900 dark:bg-gray-400/10 dark:font-semibold left-2 -top-3 flex h-full w-full text-[11px] leading-tight text-stone-500 transition-all',
+      'w-fit h-min bg-white p-1 absolute dark:rounded-md text-stone-900 dark:bg-sky-400 dark:p-[1px] dark:text-gray-800 dark:font-semibold left-2 -top-3 flex h-full w-full text-[11px] leading-tight text-stone-500 transition-all',
       this.textTranslate('Transaction.Description'),
     );
     const select: HTMLTextAreaElement = this.createElem2(prop.type, {

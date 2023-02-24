@@ -46,11 +46,16 @@ export class Settings extends BaseComponent {
       },
     };
 
-    this.getSetting().finally(() => {
-      if (this.model.setting[0] !== undefined) {
-        this.#state.set = this.model.setting[0];
-      }
-    });
+    // this.getSetting().finally(() => {
+    //   console.log(this.model.setting[0])
+    //   if (this.model.setting[0] !== undefined) {
+    //     this.#state.set = this.model.setting[0];
+    //   }
+    // });
+
+    if (this.model.setting[0] !== undefined) {
+      this.#state.set = this.model.setting[0];
+    }
 
     this.node = this.build();
     // this.update();
@@ -59,7 +64,7 @@ export class Settings extends BaseComponent {
   async getSetting(): Promise<void> {
     const resp = await this.model.getUser<IUserDataReq>();
 
-    resp.status === 200 && (await this.model.getSettings());
+    resp !== undefined && resp.status === 200 && (await this.model.getSettings());
   }
 
   set state(state: IStateSetting) {
@@ -183,14 +188,16 @@ export class Settings extends BaseComponent {
 
   eventLang = (e: Event): void => {
     const { target } = e;
-    const lang = (target as HTMLInputElement).defaultValue;
+    const elem = target as HTMLInputElement;
 
-    console.log(lang);
+    if (elem.name === 'language') {
+      const lang = elem.defaultValue;
 
-    this.state.set.lang = lang;
+      this.state.set.lang = lang;
 
-    i18next.changeLanguage(lang.toLowerCase()).catch((err: string) => new Error(err));
-    this.updateView();
+      i18next.changeLanguage(lang.toLowerCase()).catch((err: string) => new Error(err));
+      this.updateView();
+    }
   };
 
   onCheck = (): void => {
@@ -288,6 +295,10 @@ export class Settings extends BaseComponent {
   }
 
   update(): void {
+    if (this.model.setting[0] !== undefined) {
+      this.#state.set = this.model.setting[0];
+    }
+
     const container = this.build();
 
     this.node.replaceWith(container);

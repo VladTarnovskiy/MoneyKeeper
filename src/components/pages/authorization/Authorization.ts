@@ -45,10 +45,6 @@ export class Authorization extends BaseComponent {
       )} [ email: test@test.ru, password: test ]`,
     };
     this.model = model;
-    // this.container = this.build();
-    // this.render();
-    // setTimeout(this.onGetUser, 1000);
-    this.onGetUser().catch((err: string) => new Error(err));
     this.node = this.build();
   }
 
@@ -70,18 +66,8 @@ export class Authorization extends BaseComponent {
       this.state.message = `${this.textTranslate('Authorization.Message1')} ${
         this.model.userData.user.email
       }`;
-      // this.access = true;
-      this.update();
-      // setTimeout(() => {
-      //   const lastPath = localStorage.getItem('query');
 
-      //   if (typeof lastPath === 'string' && lastPath !== '/signup') {
-      //     location.hash = `#${lastPath.slice(1)}`;
-      //   } else {
-      //     location.hash = '#overview';
-      //   }
-      //   // location.hash = '#overview';
-      // }, 1000);
+      this.update();
 
       const lastPath = localStorage.getItem('query');
 
@@ -91,10 +77,6 @@ export class Authorization extends BaseComponent {
         location.hash = '#overview';
       }
     } else {
-      // setTimeout(() => {
-      //   location.hash = '#signup';
-      // }, 1000);
-      // this.access = false;
       location.hash = '#signup';
       localStorage.query = '/signup';
     }
@@ -195,13 +177,10 @@ export class Authorization extends BaseComponent {
                 resp.data === undefined ? '' : resp.data.user.email
               }`;
         this.update();
-        // setTimeout(() => {
-        //   location.hash = '#overview';
-        // }, 2000);
-        location.hash = '#overview';
-        // this.access = true;
+        setTimeout(() => {
+          location.hash = '#overview';
+        }, 0);
       } else {
-        // this.access = false;
         this.state.message = resp.message;
         this.update();
       }

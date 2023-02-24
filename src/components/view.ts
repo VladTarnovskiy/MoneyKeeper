@@ -1,7 +1,6 @@
 import i18next from 'i18next';
 
 import type { Model } from '@/components/model/model';
-import type { IUserDataReq } from '@/components/model/types';
 import { Authorization } from '@/components/pages/authorization/Authorization';
 
 import { BaseComponent } from './base/baseComponent';
@@ -33,39 +32,32 @@ export class View extends BaseComponent {
     this.root.append(this.authorPage);
     this.authorization = new Authorization(model);
     this.authorPage.append(this.authorization.node);
-    this.initLanguage().catch((err: string) => new Error(err));
   }
 
-  async initLanguage(): Promise<void> {
-    const resp = await this.model.getUser<IUserDataReq>();
-
-    resp.status === 200 && (await this.model.getSettings());
-
-    // console.log(this.model.setting[0]?.lang)
+  initSetting(): void {
     this.model.setting[0]?.lang === 'EN'
       ? i18next.changeLanguage('en').catch((err: string) => new Error(err))
       : i18next.changeLanguage('ru').catch((err: string) => new Error(err));
 
-    this.render();
+    document.body.className = String(this.model.setting[0]?.theme.toLowerCase());
+
+    this.model.setCurrency(this.model.setting[0]?.currency ?? '');
   }
   changePages(): void {
     this.root.replaceChild(this.bodyPage, this.authorPage);
+    this.initSetting();
+    this.render();
   }
   changePagesAut(): void {
     this.authorization.reset();
     this.authorization.update();
     this.bodyPage.replaceWith(this.authorPage);
-    // this.authorization.update();
   }
 
   render(): void {
     this.header.update();
     this.main.update();
-    // this.footer.render();
   }
-  // update(): void {
-
-  // }
 
   updateHeaderSum(): void {
     this.header.update();

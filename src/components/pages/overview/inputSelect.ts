@@ -56,7 +56,7 @@ export class InputSelect extends BaseComponent {
 
     const inputLabel = this.createElem(
       'label',
-      'w-fit h-min dark:rounded-md text-stone-900 dark:bg-gray-400/10 dark:font-semibold bg-white p-1 absolute left-2 -top-3 flex h-full w-full text-[11px] leading-tight text-stone-500 transition-all',
+      'w-fit h-min text-stone-900 dark:rounded-md dark:bg-sky-400 dark:p-[1px] dark:text-gray-800 dark:font-semibold bg-white absolute left-2 -top-2 flex h-full w-full text-[11px] leading-tight text-stone-500 transition-all',
       this.title,
     );
 

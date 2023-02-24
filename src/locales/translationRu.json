@@ -68,7 +68,7 @@
       "doughnut": "пончик"
     },
     "transactionsType": {
-      "title": "Transactions type",
+      "title": "Тип транзакции",
       "expense": "Расходы",
       "income": "Доходы"
     }

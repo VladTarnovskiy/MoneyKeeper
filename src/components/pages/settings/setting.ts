@@ -176,7 +176,7 @@ export class Settings extends BaseComponent {
 
     container2.append(inputCheck2, inputButton2);
 
-    const container3 = this.createElem('div', 'flex flex-raw gap-4');
+    const container3 = this.createElem('div', 'flex flex-raw gap-4 md:flex-col');
 
     container1.append(inputCheck, inputButton);
     pageContent.append(inputText, inputLang, inputTheme, inputCurrency, inputSidebar, container1);

@@ -121,7 +121,7 @@ export class TransactionItems extends BaseComponent {
     const top = e.clientY;
     const contMenuContainer = this.createElem(
       'div',
-      `context-menu fixed bg-white shadow-md rounded flex flex-col`,
+      `context-menu fixed bg-white w-40 shadow-md rounded flex flex-col`,
     );
 
     contMenuContainer.style.left = `${left}px`;

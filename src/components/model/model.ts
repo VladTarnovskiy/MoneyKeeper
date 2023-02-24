@@ -139,7 +139,6 @@ export class Model {
     try {
       const data: IUserData = this.getStorage();
 
-
       if (data.token.length > 0) {
         const response = await fetch(`${baseUrl}${basePath.users}/${data.id}`, {
           method: 'GET',
@@ -163,15 +162,9 @@ export class Model {
         } else {
           this.#access = false;
           localStorage.userdata = '';
-        arr1.data === undefined ? (this.setting = []) : (this.setting = arr1.data);
-        arr2.data === undefined ? (this.transaction = []) : (this.transaction = arr2.data);
-        this.#access = true;
 
-        if (this.setting[0] !== undefined) {
-          this.setCurrency(this.setting[0].currency);
+          return out;
         }
-
-        return out;
       }
 
       return;

@@ -49,7 +49,7 @@ export class Account extends BaseComponent {
       'div',
       'flex items-center logo text-xl relative hover:cursor-pointer',
     );
-    const accountImg = this.createElem('div', 'account__img ml-2 text-sky-600 w-8 h-8');
+    const accountImg = this.createElem('div', 'account__img ml-2 text-sky-600 w-12 h-12');
 
     accountImg.innerHTML = svgStore.account;
     const accountSwitch = this.createElem(

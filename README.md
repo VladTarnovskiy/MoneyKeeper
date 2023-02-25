@@ -102,5 +102,5 @@ App deploy: https://animated-sorbet-950f59.netlify.app/
 
 1. Frontend (TS, Tailwind, postcss)
 2. Backend (JSON server)
-3. Для сборки приложение используется webpack
+3. Для сборки приложения используется webpack
 4. Библиотеки: i18next для перевода, Chart.js для построения диаграмм

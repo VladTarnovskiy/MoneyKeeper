@@ -23,7 +23,7 @@ export class CalendarHeader extends BaseComponent {
     this.transactionData = transactionData;
     this.categoryContainer = this.createElem(
       'div',
-      'category__container flex flex-row w-1/2 md:w-full',
+      'category__container flex pt-2 flex-row w-1/2 md:w-full',
     );
 
     this.categoryChoice = this.createElem('div', 'category__choice flex flex-col w-1/2');
@@ -31,7 +31,7 @@ export class CalendarHeader extends BaseComponent {
 
     this.yearContainer = this.createElem(
       'div',
-      'year__container flex flex-row w-1/2 md:w-full xs:ml-0',
+      'year__container flex pt-2 flex-row w-1/2  md:w-full xs:ml-0',
     );
     this.yearChoice = this.createElem('div', 'year__choice flex flex-col w-1/2');
     this.yearsArr = ['2023', '2022', '2021', '2020'];

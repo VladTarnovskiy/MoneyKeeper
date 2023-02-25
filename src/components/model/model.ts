@@ -52,7 +52,7 @@ export class Model {
   setCurrency(valueName: string): void {
     const currencyData = { USD: '$', EUR: '€', RUB: '₽', YEN: '¥' };
 
-    this.currencySign = currencyData[valueName];
+    this.currencySign = String(currencyData[valueName]);
   }
 
   async registerUser<T, D = object>(data: D): Promise<PostJsonResponse<T>> {
@@ -135,35 +135,39 @@ export class Model {
     return storage;
   }
 
-  async getUser<T>(): Promise<PostJsonResponse<T>> {
+  async getUser<T>(): Promise<PostJsonResponse<T> | undefined> {
     try {
       const data: IUserData = this.getStorage();
-      const response = await fetch(`${baseUrl}${basePath.users}/${data.id}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${data.token}`,
-        },
-      });
 
-      const out = await this.checkResponse<T>(response);
+      if (data.token.length > 0) {
+        const response = await fetch(`${baseUrl}${basePath.users}/${data.id}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        });
+        const out = await this.checkResponse<T>(response);
 
-      if (out.status === 200 || out.status === 201) {
-        const arr1 = await this.getSettings();
-        const arr2 = await this.getTransactions();
+        if (out.status === 200 || out.status === 201) {
+          const arr1 = await this.getSettings();
+          const arr2 = await this.getTransactions();
 
-        arr1.data === undefined ? (this.setting = []) : (this.setting = arr1.data);
-        arr2.data === undefined ? (this.transaction = []) : (this.transaction = arr2.data);
-        this.#access = true;
+          arr1.data === undefined ? (this.setting = []) : (this.setting = arr1.data);
+          arr2.data === undefined ? (this.transaction = []) : (this.transaction = arr2.data);
+          this.#access = true;
 
-        if (this.setting[0] !== undefined) {
-          this.setCurrency(this.setting[0].currency);
+          if (this.setting[0] !== undefined) {
+            this.setCurrency(this.setting[0].currency);
+          }
+        } else {
+          this.#access = false;
+          localStorage.userdata = '';
+
+          return out;
         }
-      } else {
-        this.#access = false;
-        localStorage.userdata = '';
       }
 
-      return out;
+      return;
     } catch (error) {
       throw new Error(this.checkError(error));
     }

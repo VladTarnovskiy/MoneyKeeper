@@ -85,7 +85,7 @@ export class Transaction extends BaseComponent {
       textContent: `${this.textTranslate('Transaction.Title')}`,
     });
     const container1 = this.createElem2('div', {
-      class: 'grid grid-cols-1 gap-6 col-span-2',
+      class: 'grid grid-cols-1 gap-6 col-span-2 md:col-span-4',
     });
 
     // const inputType = new InputSelect({
@@ -125,7 +125,7 @@ export class Transaction extends BaseComponent {
     const inputDate = new InputElem({ title: 'date', type: 'date', value: this.state.date }).node;
 
     const container3 = this.createElem2('div', {
-      class: 'grid grid-cols-1 gap-6 col-start-3 col-span-2',
+      class: 'grid grid-cols-1  gap-6 col-start-3 col-span-2 md:mt-2 md:col-span-4',
     });
 
     const inputSum = new InputElem({
@@ -166,7 +166,10 @@ export class Transaction extends BaseComponent {
     });
 
     const container2 = this.createElem('div', 'grid grid-cols-4 mt-8 mb-4 gap-4');
-    const container4 = this.createElem('div', 'flex flex-row justify-end mt-8 mb-4 gap-4');
+    const container4 = this.createElem(
+      'div',
+      'flex flex-row justify-end mt-8 mb-4 gap-4 md:flex-col',
+    );
 
     container4.append(buttonClean, button);
     const container = this.createElem2('form', {

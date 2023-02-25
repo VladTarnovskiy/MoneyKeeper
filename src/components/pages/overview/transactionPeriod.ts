@@ -36,7 +36,7 @@ export class TransactionPeriod extends BaseComponent {
       'div',
       'period__title text-2xl pb-2 font-light text-stone-600 border-b-2',
       `${this.textTranslate('Overview.netIncome')} ${this.textTranslate(
-        'Overview.calendar.alltime',
+        'Overview.calendar.allTime',
       )}: ${0}${this.currency}`,
     );
     this.renderPeriodItems();

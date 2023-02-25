@@ -45,7 +45,7 @@ export class PeriodItem extends BaseComponent {
   render(): void {
     const container = this.createElem(
       'div',
-      'period__container items-center border-b-2 p-1 mb-4 flex hover:bg-gray-100 active:bg-gray-300 active:scale-[1] hover:scale-[1.013] hover:transition-all cursor-pointer',
+      'period__container rounded items-center border-b-2 p-1 mb-4 flex hover:bg-gray-100 active:bg-gray-300 active:scale-[1] hover:scale-[1.013] hover:transition-all cursor-pointer',
     );
 
     container.addEventListener('click', () => {

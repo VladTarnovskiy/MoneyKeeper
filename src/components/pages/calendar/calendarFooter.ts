@@ -104,6 +104,15 @@ export class CalendarFooter extends BaseComponent {
       this.footerInfoRatioCount.style.display = 'none';
       this.footerInfoRatio.style.display = 'none';
     }
+
+    this.updateCalendarFooterLanguage();
+  }
+
+  updateCalendarFooterLanguage(): void {
+    this.footerInfoTotal.textContent = `${this.textTranslate('CalendarPage.ExpenditureTotal')}`;
+    this.footerInfoAverage.textContent = `${this.textTranslate('CalendarPage.Average')}`;
+    this.footerInfoTotalIncome.textContent = `${this.textTranslate('CalendarPage.TotalIncome')}`;
+    this.footerInfoRatio.textContent = `${this.textTranslate('CalendarPage.ExpenditureIncome')}`;
   }
 
   render(): void {

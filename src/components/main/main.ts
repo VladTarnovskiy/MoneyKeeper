@@ -4,12 +4,12 @@ import { BaseComponent } from '@/components/base/baseComponent';
 import { Loader } from '@/components/loader/Loader';
 import type { Model } from '@/components/model/model';
 import { Calendar } from '@/components/pages/calendar/calendar';
-import { Overview } from '@/components/pages/overview/overview';
-import { Report } from '@/components/pages/report/report';
-import { Settings } from '@/components/pages/settings/setting';
+import { Overview } from '@/components/pages/overview/Overview';
+import { Report } from '@/components/pages/report/Report';
+import { Settings } from '@/components/pages/settings/Setting';
 import { Transaction } from '@/components/pages/transaction/Transaction';
 
-import { SideBar } from './sideBar';
+import { SideBar } from './SideBar';
 
 export class Main extends BaseComponent {
   container: HTMLElement;

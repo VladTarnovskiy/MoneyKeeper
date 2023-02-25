@@ -1,6 +1,6 @@
 import { BaseComponent } from '@/components/base/baseComponent';
-import { ReportStatisticItem } from '@/components/pages/report/reportStatisticItem';
-import type { ReportDataItem, ProgressWidth } from '@/components/pages/report/type';
+import { ReportStatisticItem } from '@/components/pages/report/ReportStatisticItem';
+import type { ReportDataItem, ProgressWidth } from '@/components/pages/report/types';
 
 export class StatisticBlock extends BaseComponent {
   root: HTMLElement;
@@ -27,11 +27,7 @@ export class StatisticBlock extends BaseComponent {
     this.sum = sum;
     this.data = data;
     this.dataWidth = dataWidth;
-    // if (titleColor === undefined) {
-    //   this.titleColor = 'stone-600';
-    // } else {
     this.titleColor = titleColor;
-    // }
     this.currency = currency;
 
     this.render();
@@ -53,22 +49,6 @@ export class StatisticBlock extends BaseComponent {
       'div',
       `statisticItems p-2 max-h-72 overflow-y-scroll flex flex-col`,
     );
-
-    // let sumLengthValue = 0;
-    // let sumLengthTitle = 0;
-
-    // this.data.forEach((item) => {
-    //   const itemLengthValue = String(item.value).split('').length;
-    //   const itemLengthTitle = item.title.split('').length;
-
-    //   if (itemLengthValue > sumLengthValue) {
-    //     sumLengthValue = itemLengthValue;
-    //   }
-
-    //   if (itemLengthTitle > sumLengthTitle) {
-    //     sumLengthTitle = itemLengthTitle;
-    //   }
-    // });
 
     this.data.forEach((item) => {
       new ReportStatisticItem(

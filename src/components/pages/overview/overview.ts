@@ -2,8 +2,8 @@ import { BaseComponent } from '@/components/base/baseComponent';
 import type { Model } from '@/components/model/model';
 import type { ITransactionReq } from '@/components/model/types';
 
-import { TransactionList } from './transactionList';
-import { TransactionPeriod } from './transactionPeriod';
+import { TransactionList } from './TransactionList';
+import { TransactionPeriod } from './TransactionPeriod';
 
 export class Overview extends BaseComponent {
   node: HTMLElement;

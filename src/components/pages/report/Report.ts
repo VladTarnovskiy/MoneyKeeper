@@ -37,7 +37,7 @@ export class Report extends BaseComponent {
     this.root = root;
     this.model = model;
     this.transactionType = 'Expense';
-    this.graphType = 'polarArea';
+    this.graphType = 'doughnut';
     this.getDataFromStorage();
 
     this.rebuild();
@@ -68,6 +68,10 @@ export class Report extends BaseComponent {
       this.textTranslate('Report.chartType.title'),
       [
         {
+          option: `${this.textTranslate('Report.chartType.doughnut')}`,
+          value: 'doughnut',
+        },
+        {
           option: `${this.textTranslate('Report.chartType.polarArea')}`,
           value: 'polarArea',
         },
@@ -78,10 +82,6 @@ export class Report extends BaseComponent {
         {
           option: `${this.textTranslate('Report.chartType.radar')}`,
           value: 'radar',
-        },
-        {
-          option: `${this.textTranslate('Report.chartType.doughnut')}`,
-          value: 'doughnut',
         },
       ],
       this.getBar,

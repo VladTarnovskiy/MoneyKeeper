@@ -24,7 +24,7 @@ export class SideBar extends BaseComponent {
     sideData.forEach((item, index) => {
       const sideBarItem = this.createElem(
         'button',
-        `${item.class} sideBar__item flex items-center flex-col justify-center w-24 h-32 hover:rounded hover:scale-95 hover:transition-all hover:bg-sky-600 dark:hover:bg-stone-500 active:scale-100`,
+        `${item.class} sideBar__item flex items-center flex-col justify-center w-24 h-32 hover:rounded hover:transition-all hover:bg-sky-600 dark:hover:bg-stone-500 active:scale-95`,
       );
       const sideBarItemImg = this.createElem('div', 'button__img w-12 h-12');
 

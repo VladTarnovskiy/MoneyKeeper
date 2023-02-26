@@ -36,7 +36,7 @@ export class TransactionItems extends BaseComponent {
         'transaction__container items-center border-2 rounded p-1 mb-2 flex cursor-pointer cursor-alias hover:bg-gray-100',
       );
 
-      container.addEventListener('contextmenu', (e) => {
+      container.addEventListener('click', (e) => {
         this.getContextMenu(e, item);
       });
 
@@ -82,10 +82,6 @@ export class TransactionItems extends BaseComponent {
         'transaction__item_title',
         `${item.subcategory}`,
       );
-
-      // if (item.type === 'Income') {
-      //   transactionItemTitleTwo.textContent = '';
-      // }
 
       const transactionItemDescTwo = this.createElem(
         'div',
@@ -152,9 +148,11 @@ export class TransactionItems extends BaseComponent {
 
     contMenuContainer.append(detailItem, removeItem);
     document.body.append(contMenuContainer);
-    document.body.addEventListener('click', () => {
-      contMenuContainer.remove();
-    });
+    setTimeout(() => {
+      document.body.addEventListener('click', () => {
+        contMenuContainer.remove();
+      });
+    }, 0);
   }
 
   getPopupItem(item: ITransactionReq): void {
@@ -165,23 +163,20 @@ export class TransactionItems extends BaseComponent {
     );
     const container = this.createElem(
       'div',
-      'fixed transaction__container z-20 bg-white items-center shadow-2xl border-[1px] rounded p-1 mb-2 flex flex-col -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2',
+      'fixed transaction__container z-20 bg-white items-center shadow-2xl border-[1px] rounded pt-2 pb-2 pl-3 pr-3 flex flex-col -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2',
     );
     const title = this.createElem(
       'div',
-      'page__title ml-2 text-3xl text-sky-600 dark:text-sky-900 dark:font-bold mb-5',
-      this.textTranslate('Overview.popup.datail'),
+      'page__title text-3xl text-sky-600 dark:text-sky-900 dark:font-bold mb-5',
+      this.textTranslate('Overview.popup.detail'),
     );
 
     const transactionImg = this.createElem(
       'div',
-      'relative rounded-lg bg-contain transaction__img w-14 h-14 mt-2',
+      'relative rounded-lg bg-contain transaction__img w-14 h-14 mt-4',
     );
 
-    const transactionDescription = this.createElem(
-      'div',
-      'transaction__description grow ml-2 flex flex-col min-w-[300px]',
-    );
+    const transactionDescription = this.createElem('div', 'grow flex flex-col min-w-[300px]');
 
     const transactionItemOne = this.createElem(
       'div',

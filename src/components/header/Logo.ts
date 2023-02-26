@@ -7,7 +7,6 @@ export class Logo extends BaseComponent {
   constructor() {
     super();
     this.node = this.build();
-    // this.render();
   }
   build(): HTMLElement {
     const logo = this.createElem('div', 'flex items-center logo');
@@ -32,8 +31,4 @@ export class Logo extends BaseComponent {
 
     return logo;
   }
-  // render(): void {
-
-  //   // this.root.appendC/hild(logo);
-  // }
 }

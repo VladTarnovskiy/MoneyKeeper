@@ -26,7 +26,7 @@ export class CalendarMonthProgress extends BaseComponent {
     );
     const monthProgress: HTMLElement = this.createElem(
       'div',
-      `${month}__progress h-4 bg-[#EF4444] relative`,
+      `${month}__progress h-4 bg-[#5eead4] relative`,
     );
     const monthCount: HTMLElement = this.createElem(
       'div',

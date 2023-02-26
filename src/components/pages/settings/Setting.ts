@@ -5,9 +5,9 @@ import type { Model } from '@/components/model/model';
 import type { ISetting, ISettingReq, IUserDataReq } from '@/components/model/types';
 import { Button } from '@/components/pages/authorization/Button';
 import { InputCheck } from '@/components/pages/authorization/InputCheck';
-import { InputColorItem } from '@/components/pages/settings/InputColorItemx';
-import { SettingItem } from '@/components/pages/settings/InputRadioItemx';
-import { InputTextItem } from '@/components/pages/settings/InputTextItemx';
+import { InputColorItem } from '@/components/pages/settings/InputColorItem';
+import { SettingItem } from '@/components/pages/settings/InputRadioItem';
+import { InputTextItem } from '@/components/pages/settings/InputTextItem';
 
 interface IStateSetting {
   status: string;

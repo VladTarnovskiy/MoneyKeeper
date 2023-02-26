@@ -5,10 +5,9 @@ import type { Model } from '@/components/model/model';
 import type { ISetting, ISettingReq, IUserDataReq } from '@/components/model/types';
 import { Button } from '@/components/pages/authorization/Button';
 import { InputCheck } from '@/components/pages/authorization/InputCheck';
-import { InputColorItem } from '@/components/pages/settings/inputColorItem';
-import { SettingItem } from '@/components/pages/settings/inputRadioItem';
-import { InputTextItem } from '@/components/pages/settings/inputTextItem';
-// import { InputElem } from '@/components/pages/transaction/InputElem';
+import { InputColorItem } from '@/components/pages/settings/InputColorItem';
+import { SettingItem } from '@/components/pages/settings/InputRadioItem';
+import { InputTextItem } from '@/components/pages/settings/InputTextItem';
 
 interface IStateSetting {
   status: string;
@@ -46,19 +45,11 @@ export class Settings extends BaseComponent {
       },
     };
 
-    // this.getSetting().finally(() => {
-    //   console.log(this.model.setting[0])
-    //   if (this.model.setting[0] !== undefined) {
-    //     this.#state.set = this.model.setting[0];
-    //   }
-    // });
-
     if (this.model.setting[0] !== undefined) {
       this.#state.set = this.model.setting[0];
     }
 
     this.node = this.build();
-    // this.update();
   }
 
   async getSetting(): Promise<void> {
@@ -69,7 +60,6 @@ export class Settings extends BaseComponent {
 
   set state(state: IStateSetting) {
     this.#state = state;
-    // this.update();
   }
 
   get state(): IStateSetting {

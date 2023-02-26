@@ -30,8 +30,6 @@ export class InputSelect extends BaseComponent {
     this.render();
   }
 
-  // console.log('addForFixPR')
-
   render(): void {
     const filterContainer = this.createElem(
       'div',

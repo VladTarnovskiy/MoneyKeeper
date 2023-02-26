@@ -29,17 +29,6 @@ export class Account extends BaseComponent {
       const userData = JSON.parse(userDataReq) as IUserReq;
 
       this.userData = userData;
-      // this.model
-      //   .getSettings()
-      //   .then(() => {
-      //     this.settings = model.setting.find((item) => item.userId === userData.user.id);
-      //   })
-
-      //   .then(() => {
-      //     this.render();
-      //   })
-
-      //   .catch((err: string) => new Error(err));
     }
 
     this.node = this.render();
@@ -47,7 +36,7 @@ export class Account extends BaseComponent {
   render(): HTMLElement {
     const account = this.createElem(
       'div',
-      'flex items-center logo text-xl relative hover:cursor-pointer',
+      'flex items-center logo text-xl relative pl-3 hover:cursor-pointer',
     );
     const accountImg = this.createElem('div', 'account__img ml-2 text-sky-600 w-12 h-12');
 
@@ -78,14 +67,11 @@ export class Account extends BaseComponent {
     }
 
     const popupName = this.createElem('div', 'popup__name mb-4', name);
-    // `${this.textTranslate('Header.username')}: ${name}`,
-
     const popupMail = this.createElem(
       'div',
       'popup__location h-full',
       `${this.textTranslate('Header.mail')}: ${email}`,
     );
-    // `${this.textTranslate('Header.mail')}: ${email}`,
 
     const accountExitBut = new Button({
       text: 'exit',

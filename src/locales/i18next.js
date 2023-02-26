@@ -16,4 +16,3 @@ i18next.init({
     },
   },
 });
-// i18next.changeLanguage('en');

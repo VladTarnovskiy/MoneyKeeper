@@ -33,7 +33,8 @@ export class InputTextItem extends BaseComponent {
     });
 
     const inputTextName = this.createElem2('input', {
-      class: 'input__name pl-2 w-60 border text-right rounded h-10 border-[1px] dark:bg-gray-300',
+      class:
+        'input__name pl-2 pr-2 w-60 border text-right rounded h-10 border-[1px] dark:bg-gray-300',
       type: 'text',
       placeholder: 'Enter username',
       value: prop.value,

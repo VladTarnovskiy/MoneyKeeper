@@ -1,5 +1,5 @@
 import { BaseComponent } from '@/components/base/baseComponent';
-import { ReportStatisticItem } from '@/components/pages/report/ReportStatisticItemx';
+import { ReportStatisticItem } from '@/components/pages/report/ReportStatisticItem';
 import type { ReportDataItem, ProgressWidth } from '@/components/pages/report/types';
 
 export class StatisticBlock extends BaseComponent {

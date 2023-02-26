@@ -25,7 +25,8 @@ export class CalendarMain extends BaseComponent {
   createMonth(category: string, year: string): void {
     this.mainMonthContainer.textContent = '';
     const everyMonthMoney: number[] = [];
-    const maxMonthMoney = this.getMaxMonthMoney(everyMonthMoney, category, year);
+
+    this.getMaxMonthMoney(everyMonthMoney, category, year);
 
     monthArrayEng.forEach((a, index) => {
       const monthHtml = this.createElem(
@@ -37,25 +38,21 @@ export class CalendarMain extends BaseComponent {
         monthHtml,
         a,
         Number(everyMonthMoney[index]),
-        maxMonthMoney,
+        this.yearMoney,
         this.model.currencySign,
       );
       this.mainMonthContainer.append(monthHtml);
     });
   }
 
-  getMaxMonthMoney(everyMonthMoney: number[], category: string, year: string): number {
+  getMaxMonthMoney(everyMonthMoney: number[], category: string, year: string): void {
+    this.yearMoney = 0;
     for (let i = 0; i < 12; i += 1) {
       const money = this.getMonthTransactions(i, category, Number(year));
 
       this.yearMoney += money;
       everyMonthMoney.push(money);
     }
-
-    const everyMonthMoneySort = [...everyMonthMoney];
-    const maxMonthMoney = everyMonthMoneySort.sort((a, b) => (a < b ? 1 : -1))[0];
-
-    return Number(maxMonthMoney);
   }
 
   getMonthTransactions(index: number, categoryVal: string, year: number): number {

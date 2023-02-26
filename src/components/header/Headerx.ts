@@ -2,9 +2,9 @@ import type { Model } from '@/components/model/model';
 
 import { BaseComponent } from '../base/baseComponent';
 
-import { Account } from './Account';
-import { Logo } from './Logo';
-import { TotalCounter } from './TotalCounter';
+import { Account } from './Accountx';
+import { Logo } from './Logox';
+import { TotalCounter } from './TotalCounterx';
 
 export class Header extends BaseComponent {
   node: HTMLElement;

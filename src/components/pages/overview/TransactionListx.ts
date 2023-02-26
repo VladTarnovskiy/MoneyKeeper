@@ -1,8 +1,8 @@
 import { BaseComponent } from '@/components/base/baseComponent';
 import type { PostJsonResponse, ITransactionReq } from '@/components/model/types';
-import { TransactionItems } from '@/components/pages/overview/TransactionItems';
+import { TransactionItems } from '@/components/pages/overview/TransactionItemsx';
 
-import { InputSelect } from './InputSelect';
+import { InputSelect } from './InputSelectx';
 
 interface ITransactionsList {
   delete: <T>(id: number) => Promise<PostJsonResponse<T>>;

@@ -1,7 +1,7 @@
 import { BaseComponent } from '@/components/base/baseComponent';
 import type { ITransactionReq } from '@/components/model/types';
 
-import { PeriodItem } from './PeriodItem';
+import { PeriodItem } from './PeriodItemx';
 
 export class TransactionPeriod extends BaseComponent {
   root: HTMLElement;

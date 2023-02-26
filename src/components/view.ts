@@ -4,9 +4,9 @@ import type { Model } from '@/components/model/model';
 import { Authorization } from '@/components/pages/authorization/Authorization';
 
 import { BaseComponent } from './base/baseComponent';
-import { Footer } from './footer/Footer';
-import { Header } from './header/Header';
-import { Main } from './main/Main';
+import { Footer } from './footer/Footerx';
+import { Header } from './header/Headerx';
+import { Main } from './main/Mainx';
 
 export class View extends BaseComponent {
   root: HTMLElement;

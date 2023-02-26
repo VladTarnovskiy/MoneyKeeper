@@ -1,15 +1,15 @@
 import { routing } from '@/utils/router/typesOfRout';
 
 import { BaseComponent } from '@/components/base/baseComponent';
-import { Loader } from '@/components/loader/Loader';
+import { Loader } from '@/components/loader/Loaderx';
 import type { Model } from '@/components/model/model';
 import { Calendar } from '@/components/pages/calendar/calendar';
-import { Overview } from '@/components/pages/overview/Overview';
-import { Report } from '@/components/pages/report/Report';
+import { Overview } from '@/components/pages/overview/Overviewx';
+import { Report } from '@/components/pages/report/Reportx';
 import { Settings } from '@/components/pages/settings/Setting';
 import { Transaction } from '@/components/pages/transaction/Transaction';
 
-import { SideBar } from './SideBar';
+import { SideBar } from './SideBarx';
 
 export class Main extends BaseComponent {
   container: HTMLElement;

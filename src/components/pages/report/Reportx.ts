@@ -8,11 +8,11 @@ import {
 import { BaseComponent } from '@/components/base/baseComponent';
 import type { Model } from '@/components/model/model';
 import type { ITransactionReq } from '@/components/model/types';
-import { InputTypeTransactionSelect } from '@/components/pages/report/InputTypeTransactionSelect';
-import { StatisticBlock } from '@/components/pages/report/StatisticBlock';
+import { InputTypeTransactionSelect } from '@/components/pages/report/InputTypeTransactionSelectx';
+import { StatisticBlock } from '@/components/pages/report/StatisticBlockx';
 import type { ProgressWidth, ReportDataItem } from '@/components/pages/report/types';
 
-import { InputChartSelect } from './InputChartSelect';
+import { InputChartSelect } from './InputChartSelectx';
 
 export class Report extends BaseComponent {
   root: HTMLElement;

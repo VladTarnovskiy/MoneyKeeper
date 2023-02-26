@@ -6,7 +6,7 @@ import type { Model } from '@/components/model/model';
 import { Calendar } from '@/components/pages/calendar/calendar';
 import { Overview } from '@/components/pages/overview/Overview';
 import { Report } from '@/components/pages/report/Report';
-import { Settings } from '@/components/pages/settings/Setting';
+import { Settings } from '@/components/pages/settings/Settingx';
 import { Transaction } from '@/components/pages/transaction/Transaction';
 
 import { SideBar } from './SideBar';

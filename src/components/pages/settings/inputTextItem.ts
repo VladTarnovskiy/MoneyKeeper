@@ -38,6 +38,7 @@ export class InputTextItem extends BaseComponent {
       type: 'text',
       placeholder: 'Enter username',
       value: prop.value,
+      name: prop.title.toLowerCase(),
       disabled: prop.disabled,
       id: prop.title.toLowerCase(),
     });

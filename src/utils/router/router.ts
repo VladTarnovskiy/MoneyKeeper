@@ -35,9 +35,6 @@ export class Router {
   routeCallback(): void {
     const path = location.pathname;
     const pageIndex = routing.indexOf(path);
-    // const singIn: string | null = localStorage.getItem('signIn');
-
-    // console.log(this.access());
 
     if (this.access() && !this.chengedPages) {
       this.changePages();
@@ -46,17 +43,11 @@ export class Router {
 
     if (pageIndex > -1 && this.access()) {
       localStorage.setItem('query', path);
+
       this.onupdate(pageIndex);
     } else {
       this.changePagesAut();
+      this.chengedPages = false;
     }
-    // else {
-    //   this.changePages();
-    //   // this.chengedPages = true;
-    // }
-    //  else {
-    //   this.onupdate('error', 0);
-    // localStorage.setItem('query', '/404');
-    // }
   }
 }

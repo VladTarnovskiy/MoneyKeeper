@@ -4,10 +4,10 @@ import { BaseComponent } from '@/components/base/baseComponent';
 import type { Model } from '@/components/model/model';
 import type { ISetting, ISettingReq, IUserDataReq } from '@/components/model/types';
 import { Button } from '@/components/pages/authorization/Button';
-import { InputCheck } from '@/components/pages/authorization/InputCheck';
 import { InputColorItem } from '@/components/pages/settings/InputColorItem';
 import { SettingItem } from '@/components/pages/settings/InputRadioItem';
 import { InputTextItem } from '@/components/pages/settings/InputTextItem';
+import { PopupDelete } from '@/components/pages/settings/PopupDelete';
 
 interface IStateSetting {
   status: string;
@@ -16,6 +16,7 @@ interface IStateSetting {
   message: string;
   setting: ISettingReq[];
   set: ISettingReq;
+  sideBar: string;
 }
 
 export class Settings extends BaseComponent {
@@ -43,13 +44,18 @@ export class Settings extends BaseComponent {
         userId: 0,
         id: 0,
       },
+      sideBar: '',
     };
 
+    this.readSetting();
+
+    this.node = this.build();
+  }
+
+  readSetting(): void {
     if (this.model.setting[0] !== undefined) {
       this.#state.set = this.model.setting[0];
     }
-
-    this.node = this.build();
   }
 
   async getSetting(): Promise<void> {
@@ -80,30 +86,31 @@ export class Settings extends BaseComponent {
     const inputText = new InputTextItem({
       title: 'name',
       value: this.state.set.name,
-      disabled: this.state.settingBlock,
+      disabled: false,
     }).node;
+
     const inputLang = new SettingItem({
       title: 'language',
       options: ['EN', 'RU'],
       value: this.state.set.lang,
-      disabled: this.state.settingBlock,
+      disabled: false,
     }).node;
     const inputTheme = new SettingItem({
       title: 'theme',
       options: ['Light', 'Dark'],
       value: this.state.set.theme,
-      disabled: this.state.settingBlock,
+      disabled: false,
     }).node;
     const inputCurrency = new SettingItem({
       title: 'currency',
       options: ['USD', 'EUR', 'RUB', 'YEN'],
       value: this.state.set.currency,
-      disabled: this.state.settingBlock,
+      disabled: false,
     }).node;
     const inputSidebar = new InputColorItem({
       title: 'sidebar',
       value: '#38bdf8',
-      disabled: this.state.settingBlock,
+      disabled: false,
     }).node;
 
     inputTheme.addEventListener('click', (e) => {
@@ -133,15 +140,10 @@ export class Settings extends BaseComponent {
       class: `h-6 mx-auto text-center text-${this.state.status === '200' ? 'green' : 'red'}-500`,
       textContent: this.state.message,
     });
-    const inputCheck = new InputCheck({
-      onclick: this.onCheck,
-      checked: !this.state.settingBlock,
-      disabled: false,
-      label: this.textTranslate('Settings.Check1'),
-    }).node;
+
     const inputButton = new Button({
       text: 'saveSettings',
-      disabled: this.state.settingBlock,
+      disabled: false,
       onClick: () => {
         return;
       },
@@ -151,25 +153,31 @@ export class Settings extends BaseComponent {
       'div',
       'content__container flex flex-col  mt-4 ml-2 justify-end gap-4 border rounded',
     );
-    const inputCheck2 = new InputCheck({
-      onclick: this.onCheckDel,
-      checked: !this.state.deleteBlock,
-      disabled: false,
-      label: this.textTranslate('Settings.Check2'),
-    }).node;
+    // const inputCheck2 = new InputCheck({
+    //   onclick: this.onCheckDel,
+    //   checked: !this.state.deleteBlock,
+    //   disabled: false,
+    //   label: this.textTranslate('Settings.Check2'),
+    // }).node;
+
+    const title = this.createElem(
+      'div',
+      'page__title mx-auto mb-auto text-2xl text-sky-600 dark:text-sky-900 dark:font-bold mb-5',
+      this.textTranslate('Settings.Check2'),
+    );
     const inputButton2 = new Button({
       text: 'delete',
       type: 'button',
-      disabled: this.state.deleteBlock,
+      disabled: false,
       onClick: this.onClick,
     }).node;
 
-    container2.append(inputCheck2, inputButton2);
+    container2.append(title, inputButton2);
 
     const container3 = this.createElem('div', 'flex flex-raw gap-4 md:flex-col');
 
-    container1.append(inputCheck, inputButton);
-    pageContent.append(inputText, inputLang, inputTheme, inputCurrency, inputSidebar, container1);
+    container1.append(inputButton);
+    pageContent.append(inputText, inputLang, inputTheme, inputSidebar, inputCurrency, container1);
     container3.append(pageContent, container2);
     container.append(pageTitle, message, container3);
 
@@ -190,36 +198,12 @@ export class Settings extends BaseComponent {
     }
   };
 
-  onCheck = (): void => {
-    this.state.settingBlock = !this.state.settingBlock;
-    this.state.message = '';
-    this.update();
-  };
-
-  onCheckDel = (): void => {
-    this.state.deleteBlock = !this.state.deleteBlock;
-    this.state.message = this.state.deleteBlock ? '' : this.textTranslate('Settings.Message1');
-    this.state.status = this.state.deleteBlock ? '200' : '400';
-    this.update();
-  };
-
   onClick = (): void => {
-    this.model
-      .deleteAccount()
-      .then((res) => {
-        if (res.status === 200) {
-          this.state.message = this.textTranslate('Settings.Message2');
-          localStorage.userdata = '';
-          location.hash = '#signup';
-        } else {
-          this.state.message = this.textTranslate('Settings.Message3');
-        }
+    const popup = new PopupDelete(this.model);
 
-        this.update();
-      })
-      .catch((err: string) => {
-        new Error(err);
-      });
+    popup.setCallback(this.update.bind(this));
+
+    document.body.append(popup.node);
   };
 
   onSubmit = async (event: Event): Promise<void> => {
@@ -275,13 +259,12 @@ export class Settings extends BaseComponent {
       if (this.model.setting[0] !== undefined) {
         this.model.setCurrency(this.model.setting[0].currency);
       }
-
-      this.update();
     } else {
       this.state.message = this.textTranslate('Settings.Message5');
       this.state.status = '400';
-      this.update();
     }
+
+    this.update();
   }
 
   update(): void {

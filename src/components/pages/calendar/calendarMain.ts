@@ -1,7 +1,7 @@
 import { BaseComponent } from '@/components/base/baseComponent';
 import type { Model } from '@/components/model/model';
-import { monthArrayEng } from '@/components/pages/calendar/calendarMonthData';
-import { CalendarMonthProgress } from '@/components/pages/calendar/calendarMonthProgress';
+import { monthArrayEng } from '@/components/pages/calendar/CalendarMonthData';
+import { CalendarMonthProgress } from '@/components/pages/calendar/CalendarMonthProgress';
 
 export class CalendarMain extends BaseComponent {
   root: HTMLElement;

@@ -88,15 +88,6 @@ export class Transaction extends BaseComponent {
       class: 'grid grid-cols-1 gap-6 col-span-2 md:col-span-4',
     });
 
-    // const inputType = new InputSelect({
-    //   title: 'Type notes',
-    //   options: [
-    //     this.textTranslate('Transaction.Expense'),
-    //     this.textTranslate('Transaction.Income'),
-    //   ],
-    //   onchange: this.onChangeType,
-    //   value: this.state.type,
-    // }).node;
     const inputType = new InputSelect({
       title: 'Type notes',
       options: ['Expense', 'Income'],

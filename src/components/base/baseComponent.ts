@@ -17,6 +17,7 @@ interface TElement {
   src?: string;
   alt?: string;
   onchange?: (this: GlobalEventHandlers, event: Event) => void;
+  oninput?: (this: GlobalEventHandlers, event: Event) => void;
   onclick?: (this: GlobalEventHandlers, event: MouseEvent) => void;
   onsubmit?: (event: Event) => void;
   checked?: boolean;
@@ -26,6 +27,7 @@ interface TElement {
   cols?: number;
   wrap?: string;
   selected?: boolean;
+  tabindex?: string;
 }
 
 interface TComponent {
@@ -74,6 +76,7 @@ export class BaseComponent {
     Object.keys(prop).forEach((key) => {
       key === 'onclick' && prop.onclick !== undefined && (out.onclick = prop.onclick);
       key === 'onchange' && prop.onchange !== undefined && (out.onchange = prop.onchange);
+      key === 'oninput' && prop.oninput !== undefined && (out.oninput = prop.oninput);
       key === 'onsubmit' && prop.onsubmit !== undefined && (out.onsubmit = prop.onsubmit);
       key === 'textContent' &&
         prop.textContent !== undefined &&

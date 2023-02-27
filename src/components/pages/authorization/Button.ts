@@ -30,6 +30,7 @@ export class Button extends BaseComponent {
       signOut: string;
       registration: string;
       exit: string;
+      apply: string;
     } = {
       delete: this.textTranslate('Settings.Button2'),
       save: this.textTranslate('Transaction.Save'),
@@ -39,6 +40,7 @@ export class Button extends BaseComponent {
       signOut: this.textTranslate('Authorization.Button3'),
       registration: this.textTranslate('Authorization.Button2'),
       exit: this.textTranslate('Header.exit'),
+      apply: this.textTranslate('Settings.Button3'),
     };
     const button = this.appendElem(
       {

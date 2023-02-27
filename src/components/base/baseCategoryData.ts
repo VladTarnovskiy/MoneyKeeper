@@ -33,7 +33,6 @@ export const baseCategoryExpenditureDataEng = [
   'Clothing',
   'Banking services',
   'Other',
-  'All',
 ];
 
 export const baseCategoryExpenditureDataRu = [
@@ -49,7 +48,6 @@ export const baseCategoryExpenditureDataRu = [
   'Одежда',
   'Банковские операции',
   'Прочее',
-  'Все',
 ];
 
 export const baseExpenseCategoryColor = {

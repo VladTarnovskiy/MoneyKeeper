@@ -24,6 +24,7 @@ export class CalendarMonthProgress extends BaseComponent {
       `${month}__title w-1/2 text-sky-600 dark:text-sky-800 text-xl`,
       `${this.textTranslate(`monthes.${month}`)}`,
     );
+
     const monthProgress: HTMLElement = this.createElem(
       'div',
       `${month}__progress h-4 bg-[#5eead4] relative`,

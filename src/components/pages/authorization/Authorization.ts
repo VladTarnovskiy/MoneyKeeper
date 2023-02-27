@@ -24,13 +24,12 @@ const defaultSetting: ISetting = {
   name: '',
   lang: 'EN',
   theme: 'Light',
-  currency: 'eur',
+  currency: 'EUR',
   userId: 0,
 };
 
 export class Authorization extends BaseComponent {
   node: HTMLElement;
-  // container: HTMLElement;
   #state: IState;
   model: Model;
   access = false;
@@ -59,7 +58,6 @@ export class Authorization extends BaseComponent {
 
   onGetUser = async (): Promise<void> => {
     await this.model.getUser<IUserDataReq>();
-    // console.log(this.model.checkAccess())
 
     if (this.model.checkAccess()) {
       this.state.status = 'signOut';
@@ -123,9 +121,9 @@ export class Authorization extends BaseComponent {
           : `${this.textTranslate('Authorization.Logo1')}`,
     }).node;
     const message = this.createElem2('div', {
-      class: `h-6 mx-auto text-center text-${
+      class: `mx-auto text-center text-${
         this.state.status === 'signOut' || this.state.status === 'signIn' ? 'green' : 'red'
-      }-500`,
+      }-500 ${this.state.inputCheck ? 'h-6' : 'h-[65px]'}`,
       textContent: this.state.message,
     });
 
@@ -145,7 +143,11 @@ export class Authorization extends BaseComponent {
 
     target.checked ? (this.state.status = 'registration') : (this.state.status = 'signIn');
     this.state.inputCheck = !this.state.inputCheck;
-    this.state.message = '';
+    target.checked
+      ? (this.state.message = '')
+      : (this.state.message = `${this.textTranslate(
+          'Authorization.Message4',
+        )} [ email: test@test.ru, password: test ]`);
     this.update();
   }
 
@@ -193,13 +195,6 @@ export class Authorization extends BaseComponent {
     this.update();
   }
 
-  // checkAccess(): boolean {
-  //   return this.access;
-  // }
-
-  // render(): void {
-  //   this.root.append(this.container);
-  // }
   reset(): void {
     this.#state = {
       status: 'signIn',

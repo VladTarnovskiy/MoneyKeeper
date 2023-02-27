@@ -21,7 +21,7 @@ export class CalendarMonthProgress extends BaseComponent {
     const progressPercent = ((this.money / this.yearMoney) * 100).toFixed(1);
     const monthTitle: HTMLElement = this.createElem(
       'div',
-      `${month}__title w-1/2 text-sky-600 dark:text-stone-700 text-xl`,
+      `${month}__title w-1/2 text-sky-600 dark:text-sky-800 text-xl`,
       `${this.textTranslate(`monthes.${month}`)}`,
     );
     const monthProgress: HTMLElement = this.createElem(

@@ -33,7 +33,7 @@ export class TransactionItems extends BaseComponent {
       let sign = '-';
       const container = this.createElem(
         'div',
-        'transaction__container items-center border-2 rounded p-1 mb-2 flex cursor-pointer cursor-alias hover:bg-gray-100',
+        'transaction__container items-center border-2 rounded p-1 mb-2 flex cursor-pointer cursor-alias hover:bg-gray-100 dark:hover:bg-gray-300',
       );
 
       container.addEventListener('click', (e) => {
@@ -67,7 +67,7 @@ export class TransactionItems extends BaseComponent {
 
       const transactionItemDescOne = this.createElem(
         'div',
-        'transaction__item_sum text-right dark:font-semibold',
+        'transaction__item_sum text-right dark:font-normal',
         `${sign} ${item.sum}${this.currency}`,
       );
 
@@ -91,10 +91,10 @@ export class TransactionItems extends BaseComponent {
 
       if (item.type === 'Expense') {
         transactionImg.style.backgroundImage = `url(${expenseAssets})`;
-        transactionItemDescOne.classList.add('text-red-500');
+        transactionItemDescOne.classList.add('text-red-500', 'dark:text-red-700');
       } else {
         transactionImg.style.backgroundImage = `url(${incomeAssets})`;
-        transactionItemDescOne.classList.add('text-green-500', 'dark:text-green-900');
+        transactionItemDescOne.classList.add('text-green-500', 'dark:text-green-700');
       }
 
       transactionItemTwo.append(transactionItemTitleTwo, transactionItemDescTwo);
@@ -117,7 +117,7 @@ export class TransactionItems extends BaseComponent {
     const top = e.clientY;
     const contMenuContainer = this.createElem(
       'div',
-      `context-menu fixed bg-white w-40 shadow-md rounded flex flex-col`,
+      `context-menu fixed bg-white w-40 shadow-md rounded dark:bg-gray-300 flex flex-col`,
     );
 
     contMenuContainer.style.left = `${left}px`;
@@ -163,7 +163,7 @@ export class TransactionItems extends BaseComponent {
     );
     const container = this.createElem(
       'div',
-      'fixed transaction__container z-20 bg-white items-center shadow-2xl border-[1px] rounded pt-2 pb-2 pl-3 pr-3 flex flex-col -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2',
+      'fixed transaction__container dark:bg-gray-300 z-20 bg-white items-center shadow-2xl border-[1px] rounded pt-2 pb-2 pl-3 pr-3 flex flex-col -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2',
     );
     const title = this.createElem(
       'div',

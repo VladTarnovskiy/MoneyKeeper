@@ -50,15 +50,15 @@ export class Report extends BaseComponent {
       'page__title ml-2 text-3xl dark:font-semibold dark:text-stone-600 dark:bg-gray-400 text-sky-600 mb-5 bg-sky-100 rounded pl-2',
       this.textTranslate('Report.title'),
     );
-    this.pageContent = this.createElem('div', 'page__content flex xl:flex-col');
+    this.pageContent = this.createElem('div', 'page__content flex 2xl:flex-col');
     this.statisticContainer = this.createElem('div', 'mt-2 basis-full');
     this.barContainer = this.createElem(
       'div',
-      'page__content flex flex-col items-center self-start justify-self-center w-[900px] h-full xl:w-[500px] xl:order-first xl:self-center',
+      'page__content flex flex-col items-center self-start justify-self-center w-[600px] h-full md:max-w-[400px] lg:w-[500px] 2xl:order-first 2xl:self-center  ',
     );
     this.selectContainer = this.createElem(
       'div',
-      'flex items-center self-start w-full justify-around',
+      'flex items-center self-start w-full justify-around mb-4 lg:gap-2',
     );
     this.bar = this.createElem('canvas', 'bar');
     this.bar.setAttribute('id', 'chart');
@@ -103,8 +103,7 @@ export class Report extends BaseComponent {
       this.getBarWithType,
       this.bar,
     );
-    this.barContainer.appendChild(this.selectContainer);
-    this.barContainer.append(this.bar);
+    this.barContainer.append(this.selectContainer, this.bar);
     this.pageContent.append(this.statisticContainer, this.barContainer);
     this.container.append(this.pageTitle, this.pageContent);
     this.getStatisticBlocks();

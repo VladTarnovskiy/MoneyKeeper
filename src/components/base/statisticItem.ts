@@ -44,7 +44,7 @@ export class TransactionStatisticItem extends BaseComponent {
     );
     const graphItemTitle = this.createElem(
       'div',
-      'graph__item_title dark:text-sky-900 w-16',
+      'graph__item_title dark:text-sky-800 w-16',
       `${this.title}:`,
     );
     const graphItemProgress = this.createElem('div', 'graph__item_progress h-4 grow');
@@ -55,7 +55,7 @@ export class TransactionStatisticItem extends BaseComponent {
     graphItemProgress.appendChild(this.progressChecker);
     const graphItemSum = this.createElem(
       'div',
-      'graphSum w-16 text-right dark:font-semibold',
+      'graphSum w-16 text-right dark:text-sky-600 dark:font-normal',
       `${this.value}`,
     );
 

@@ -7,7 +7,8 @@
     "./**/*.ts",
     "./**/*.cts",
     "./**/*.mts",
-    "src/locales/i18next.js"
+    "src/locales/i18next.js",
+    "src/components/pages/overview/TransactionList.ts"
   ],
   "exclude": ["node_modules"],
   "compilerOptions": {

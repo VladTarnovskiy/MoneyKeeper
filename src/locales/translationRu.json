@@ -20,10 +20,17 @@
     "netIncome": "Чистая прибыль",
     "calendar": {
       "today": "За Сегодня",
-      "week": "За Неделю",
-      "month": "За Месяц",
-      "year": "За Год",
+      "week": "Эта Неделя",
+      "month": "Этот Месяц",
+      "year": "Этот Год",
       "allTime": "За Все время"
+    },
+    "storagecalendar": {
+      "Today": "За Сегодня",
+      "This Week": "Эта Неделя",
+      "This Month": "Этот Месяц",
+      "This Year": "Этот Год",
+      "All Time": "За Все время"
     },
     "income": "Доходы",
     "expense": "Расходы",
@@ -46,7 +53,7 @@
     "popup": {
       "detailBut": "детали",
       "removeBut": "удалить",
-      "datail": "Детали",
+      "detail": "Детали",
       "sum": "Сумма",
       "category": "Категория",
       "subcategory": "Подкатегория",

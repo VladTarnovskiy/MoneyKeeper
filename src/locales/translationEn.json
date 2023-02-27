@@ -25,6 +25,13 @@
       "year": "This Year",
       "allTime": "All Time"
     },
+    "storagecalendar": {
+      "Today": "Today",
+      "This Week": "This Week",
+      "This Month": "This Month",
+      "This Year": "This Year",
+      "All Time": "All Time"
+    },
     "income": "Income",
     "expense": "Expense",
     "titleTransactions": "Transactions",
@@ -46,7 +53,7 @@
     "popup": {
       "detailBut": "detail",
       "removeBut": "remove",
-      "datail": "Detail",
+      "detail": "Detail",
       "sum": "Sum",
       "category": "Category",
       "subcategory": "Subcategory",

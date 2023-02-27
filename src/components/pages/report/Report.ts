@@ -47,7 +47,7 @@ export class Report extends BaseComponent {
     this.container = this.createElem('div', 'content__container flex flex-col');
     this.pageTitle = this.createElem(
       'div',
-      'page__title ml-2 text-3xl dark:font-semibold dark:text-stone-600 dark:bg-gray-400 text-sky-600 mb-5 bg-sky-100 rounded pl-2',
+      'page__title ml-2 text-3xl dark:font-semibold dark:text-sky-900 dark:bg-gray-400 text-sky-600 mb-5 bg-sky-100 rounded pl-2',
       this.textTranslate('Report.title'),
     );
     this.pageContent = this.createElem('div', 'page__content flex 2xl:flex-col');

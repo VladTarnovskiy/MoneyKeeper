@@ -76,7 +76,7 @@ export class Settings extends BaseComponent {
     const container = this.createElem('div', 'content__container flex flex-col');
     const pageTitle = this.createElem(
       'div',
-      'page__title ml-2 text-3xl text-sky-600 dark:font-semibold dark:text-stone-600 dark:bg-gray-400 mb-4 bg-sky-100 rounded pl-2',
+      'page__title ml-2 text-3xl text-sky-600 dark:font-semibold dark:text-sky-900 dark:bg-gray-400 mb-4 bg-sky-100 rounded pl-2',
       this.textTranslate('Settings.Title'),
     );
     const pageContent = this.createElem('form', 'flex flex-col mt-4 border rounded');
@@ -162,7 +162,7 @@ export class Settings extends BaseComponent {
 
     const title = this.createElem(
       'div',
-      'page__title mx-auto mb-auto text-2xl text-sky-600 dark:text-sky-900 dark:font-bold mb-5',
+      'page__title mx-auto mb-auto text-2xl text-sky-600 dark:text-stone-700 mb-5',
       this.textTranslate('Settings.Check2'),
     );
     const inputButton2 = new Button({

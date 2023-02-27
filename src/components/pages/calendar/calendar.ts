@@ -4,7 +4,6 @@ import { CalendarFooter } from '@/components/pages/calendar/CalendarFooter';
 import { CalendarHeader } from '@/components/pages/calendar/CalendarHeader';
 import { CalendarMain } from '@/components/pages/calendar/CalendarMain';
 
-
 export class Calendar extends BaseComponent {
   root: HTMLElement;
   calendarContainer: HTMLElement;

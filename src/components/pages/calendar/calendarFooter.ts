@@ -14,7 +14,6 @@ export class CalendarFooter extends BaseComponent {
   footerInfoRatioCount: HTMLElement;
   year: string;
   model: Model;
-  
 
   constructor(root: HTMLElement, model: Model, year: string) {
     super();

@@ -16,6 +16,7 @@ export class Controller {
       changePages: this.view.changePages.bind(this.view),
       changePagesAut: this.view.changePagesAut.bind(this.view),
       access: this.model.checkAccess.bind(this.model),
+      setFalseAccess: this.model.setFalseAccess.bind(this.model),
     });
   }
 

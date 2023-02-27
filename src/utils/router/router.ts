@@ -5,6 +5,7 @@ interface IRouter {
   changePages: () => void;
   changePagesAut: () => void;
   access: () => boolean;
+  setFalseAccess: () => void;
 }
 
 export class Router {
@@ -13,6 +14,7 @@ export class Router {
   changePagesAut: () => void;
   chengedPages: boolean;
   access: () => boolean;
+  setFalseAccess: () => void;
 
   constructor(prop: IRouter) {
     this.onupdate = prop.onupdate;
@@ -20,6 +22,7 @@ export class Router {
     this.changePagesAut = prop.changePagesAut;
     this.chengedPages = false;
     this.access = prop.access;
+    this.setFalseAccess = prop.setFalseAccess;
   }
 
   queryListener(): void {
@@ -35,9 +38,11 @@ export class Router {
   routeCallback(): void {
     const path = location.pathname;
     const pageIndex = routing.indexOf(path);
-    // const singIn: string | null = localStorage.getItem('signIn');
 
-    // console.log(this.access());
+    if (path === '/signup') {
+      this.chengedPages = false;
+      this.setFalseAccess();
+    }
 
     if (this.access() && !this.chengedPages) {
       this.changePages();
@@ -50,6 +55,7 @@ export class Router {
     } else {
       this.changePagesAut();
     }
+
     // else {
     //   this.changePages();
     //   // this.chengedPages = true;

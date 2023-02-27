@@ -454,4 +454,7 @@ export class Model {
   checkAccess(): boolean {
     return this.#access;
   }
+  setFalseAccess(): void {
+    this.#access = false;
+  }
 }

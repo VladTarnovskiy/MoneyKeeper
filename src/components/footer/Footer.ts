@@ -1,4 +1,3 @@
-// import githubLogoAssets from '@/assets/github.svg';
 import rsLogoAssets from '@/assets/rs-school-js.svg';
 
 import { BaseComponent } from '../base/baseComponent';
@@ -14,7 +13,7 @@ export class Footer extends BaseComponent {
   render(): HTMLElement {
     const container = this.createElem(
       'footer',
-      ' container mx-auto flex justify-around items-center p-3 text-sky-600',
+      ' container mx-auto flex justify-around items-center p-3 text-sky-600 pt-[30px]',
     );
     const rsImg = this.createElem(
       'a',

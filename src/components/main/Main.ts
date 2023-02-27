@@ -3,7 +3,7 @@ import { routing } from '@/utils/router/typesOfRout';
 import { BaseComponent } from '@/components/base/baseComponent';
 import { Loader } from '@/components/loader/Loader';
 import type { Model } from '@/components/model/model';
-import { Calendar } from '@/components/pages/calendar/calendar';
+import { Calendar } from '@/components/pages/calendar/Calendar';
 import { Overview } from '@/components/pages/overview/Overview';
 import { Report } from '@/components/pages/report/Report';
 import { Settings } from '@/components/pages/settings/Setting';
@@ -41,7 +41,6 @@ export class Main extends BaseComponent {
     this.overviewHtml = this.createElem('section', 'overview');
     this.overview = new Overview(model, updateHeaderSum);
     this.overviewHtml.append(this.overview.node);
-    // this.container.appendChild(this.content);
     this.calendarHtml = this.createElem('section', undefined);
     this.calendar = new Calendar(this.calendarHtml, model);
     this.reportHtml = this.createElem('section', undefined);
@@ -60,10 +59,6 @@ export class Main extends BaseComponent {
     ];
     this.node = this.container;
   }
-
-  // render(): void {
-  //   this.bodyPage.appendChild(this.container);
-  // }
 
   update(): void {
     this.overview.rebuild();

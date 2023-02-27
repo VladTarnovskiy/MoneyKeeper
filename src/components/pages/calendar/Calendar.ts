@@ -1,8 +1,8 @@
 import { BaseComponent } from '@/components/base/baseComponent';
 import type { Model } from '@/components/model/model';
-import { CalendarFooter } from '@/components/pages/calendar/calendarFooter';
-import { CalendarHeader } from '@/components/pages/calendar/calendarHeader';
-import { CalendarMain } from '@/components/pages/calendar/calendarMain';
+import { CalendarFooter } from '@/components/pages/calendar/CalendarFooter';
+import { CalendarHeader } from '@/components/pages/calendar/CalendarHeader';
+import { CalendarMain } from '@/components/pages/calendar/CalendarMain';
 
 export class Calendar extends BaseComponent {
   root: HTMLElement;

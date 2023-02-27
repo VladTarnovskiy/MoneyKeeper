@@ -162,7 +162,7 @@ export class Settings extends BaseComponent {
 
     const title = this.createElem(
       'div',
-      'page__title mx-auto mb-auto text-2xl text-sky-600 dark:text-sky-900 dark:font-bold mb-5',
+      'page__title mx-auto mb-auto text-2xl text-sky-600 dark:text-stone-700 mb-5',
       this.textTranslate('Settings.Check2'),
     );
     const inputButton2 = new Button({

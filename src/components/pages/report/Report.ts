@@ -59,7 +59,7 @@ export class Report extends BaseComponent {
 
     this.selectContainer = this.createElem(
       'div',
-      'flex items-center self-start w-full justify-around mb-4 lg:gap-2',
+      'flex items-center flex-wrap self-start w-full justify-around mb-4 gap-6',
     );
     this.bar = this.createElem('canvas', 'bar');
     this.bar.setAttribute('id', 'chart');

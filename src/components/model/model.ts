@@ -72,6 +72,11 @@ export class Model {
 
       if (out.status === 200 || out.status === 201) {
         this.#access = true;
+        const arr1 = await this.getSettings();
+        const arr2 = await this.getTransactions();
+
+        arr1.data === undefined ? (this.setting = []) : (this.setting = arr1.data);
+        arr2.data === undefined ? (this.transaction = []) : (this.transaction = arr2.data);
       } else {
         this.#access = false;
       }

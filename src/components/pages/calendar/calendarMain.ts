@@ -1,7 +1,7 @@
 import { BaseComponent } from '@/components/base/baseComponent';
 import type { Model } from '@/components/model/model';
 import { monthArrayEng } from '@/components/pages/calendar/CalendarMonthData';
-import { CalendarMonthProgress } from '@/components/pages/calendar/calendarMonthProgress';
+import { CalendarMonthProgress } from '@/components/pages/calendar/CalendarMonthProgress';
 
 export class CalendarMain extends BaseComponent {
   root: HTMLElement;
@@ -22,8 +22,6 @@ export class CalendarMain extends BaseComponent {
     this.yearMoney = 0;
   }
 
-
-  
   createMonth(category: string, year: string): void {
     this.mainMonthContainer.textContent = '';
     const everyMonthMoney: number[] = [];

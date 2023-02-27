@@ -19,8 +19,6 @@ export class Calendar extends BaseComponent {
   yearInputElementVal: string;
   categoryInputElementVal: string;
 
-  
-
   constructor(root: HTMLElement, model: Model) {
     super();
     this.root = root;

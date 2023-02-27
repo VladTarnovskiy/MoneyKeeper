@@ -34,6 +34,8 @@ export class CalendarMonthProgress extends BaseComponent {
       `${month}__count w-1/2 text-xl`,
       `${String(this.money) + currencySign}`,
     );
+
+    
     const monthProgressSpan: HTMLElement = this.createElem(
       'span',
       `${month}__progress_span absolute -right-[3px] top-[-5px] translate-x-[100%] graph__item_checker h-4`,

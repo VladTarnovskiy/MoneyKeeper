@@ -54,8 +54,9 @@ export class Report extends BaseComponent {
     this.statisticContainer = this.createElem('div', 'mt-2 basis-full');
     this.barContainer = this.createElem(
       'div',
-      'page__content flex flex-col items-center self-start justify-self-center w-[600px] h-full md:max-w-[400px] lg:w-[500px] 2xl:order-first 2xl:self-center  ',
+      'page__content flex flex-col items-center self-start justify-self-center min-w-[600px] 2xl:min-w-0 w-[600px] h-full md:max-w-[400px] lg:w-[500px] 2xl:order-first 2xl:self-center',
     );
+
     this.selectContainer = this.createElem(
       'div',
       'flex items-center self-start w-full justify-around mb-4 lg:gap-2',

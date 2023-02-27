@@ -1,4 +1,4 @@
-import githubLogoAssets from '@/assets/github.svg';
+// import githubLogoAssets from '@/assets/github.svg';
 import rsLogoAssets from '@/assets/rs-school-js.svg';
 
 import { BaseComponent } from '../base/baseComponent';
@@ -18,7 +18,7 @@ export class Footer extends BaseComponent {
     );
     const rsImg = this.createElem(
       'a',
-      'block w-32 h-8 bg-contain bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100 sm:hidden',
+      'block w-20 h-8 bg-contain bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100 sm:hidden',
     );
 
     rsImg.setAttribute(
@@ -34,25 +34,25 @@ export class Footer extends BaseComponent {
     const gitImages = this.createElem('div', 'flex justify-between');
     const rsImgOne = this.createElem(
       'a',
-      'block w-10 h-10 bg-contain mr-2 bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
+      'block w-8 h-8 bg-contain rounded-full mr-[-8px] bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
     );
 
     rsImgOne.setAttribute('href', 'https://github.com/IgorMotorin');
-    rsImgOne.style.backgroundImage = `url(${githubLogoAssets})`;
+    rsImgOne.style.backgroundImage = `url(https://avatars.githubusercontent.com/u/70837544?v=4)`;
     const rsImgTwo = this.createElem(
       'a',
-      'block w-10 h-10 bg-contain mr-2 bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
+      'block w-8 h-8 bg-contain rounded-full mr-[-8px] bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
     );
 
     rsImgTwo.setAttribute('href', 'https://github.com/VladTarnovskiy');
-    rsImgTwo.style.backgroundImage = `url(${githubLogoAssets})`;
+    rsImgTwo.style.backgroundImage = `url(https://avatars.githubusercontent.com/u/93903876?v=4)`;
     const rsImgThree = this.createElem(
       'a',
-      'block w-10 h-10 bg-contain bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
+      'block w-8 h-8 bg-contain rounded-full bg-no-repeat rs__img hover:cursor-pointer hover:scale-110 hover:transition-all active:scale-100',
     );
 
     rsImgThree.setAttribute('href', 'https://github.com/DenisKa13051992');
-    rsImgThree.style.backgroundImage = `url(${githubLogoAssets})`;
+    rsImgThree.style.backgroundImage = `url(https://avatars.githubusercontent.com/u/106694274?v=4)`;
     gitImages.append(rsImgOne, rsImgTwo, rsImgThree);
     container.append(gitImages, productionDate, rsImg);
 

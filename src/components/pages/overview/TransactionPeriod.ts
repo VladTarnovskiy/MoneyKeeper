@@ -179,12 +179,12 @@ export class TransactionPeriod extends BaseComponent {
     const storagePeriodTransaction = localStorage.getItem('periodTransaction');
 
     if (storagePeriodTransaction === null) {
-      this.getNetIncome(this.transactionData, 'All Time');
+      this.getNetIncome(this.transactionData, this.textTranslate('Overview.calendar.allTime'));
       this.renderTransactionList();
     } else {
       this.getNetIncome(
         this.sortTransactionDate(storagePeriodTransaction),
-        storagePeriodTransaction,
+        this.textTranslate(`Overview.storagecalendar.${storagePeriodTransaction}`),
       );
       this.updateTransactionList(this.sortTransactionDate(storagePeriodTransaction));
     }

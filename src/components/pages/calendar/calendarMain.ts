@@ -22,6 +22,7 @@ export class CalendarMain extends BaseComponent {
     this.yearMoney = 0;
   }
 
+  
   createMonth(category: string, year: string): void {
     this.mainMonthContainer.textContent = '';
     const everyMonthMoney: number[] = [];

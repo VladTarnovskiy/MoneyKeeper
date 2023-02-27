@@ -137,7 +137,11 @@ export class Settings extends BaseComponent {
     inputLang.addEventListener('click', this.eventLang);
     const container1 = this.createElem('div', 'content__container flex flex-col gap-4');
     const message = this.createElem2('div', {
-      class: `h-6 mx-auto text-center text-${this.state.status === '200' ? 'green' : 'red'}-500`,
+      class: `h-6 mx-auto text-center ${
+        this.state.status === '200'
+          ? 'text-green-500 dark:text-green-700'
+          : 'text-red-500 dark:text-red-700'
+      }`,
       textContent: this.state.message,
     });
 
@@ -153,12 +157,6 @@ export class Settings extends BaseComponent {
       'div',
       'content__container flex flex-col  mt-4 ml-2 justify-end gap-4 border rounded',
     );
-    // const inputCheck2 = new InputCheck({
-    //   onclick: this.onCheckDel,
-    //   checked: !this.state.deleteBlock,
-    //   disabled: false,
-    //   label: this.textTranslate('Settings.Check2'),
-    // }).node;
 
     const title = this.createElem(
       'div',

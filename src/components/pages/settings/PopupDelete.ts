@@ -63,7 +63,7 @@ export class PopupDelete extends BaseComponent {
       .deleteAccount()
       .then((res) => {
         if (res.status === 200) {
-          localStorage.userdata = '';
+          localStorage.removeItem('userdata');
           location.hash = '#signup';
         }
 

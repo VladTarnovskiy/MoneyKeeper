@@ -67,7 +67,7 @@ export class Model {
 
       const out = await this.checkResponse<T>(response);
 
-      localStorage.userdata = JSON.stringify(out.data);
+      localStorage.userdata = JSON.stringify(out.data ?? '');
       this.userData = this.getStorageData();
 
       if (out.status === 200 || out.status === 201) {
@@ -101,7 +101,7 @@ export class Model {
 
       const out = await this.checkResponse<T>(response);
 
-      localStorage.userdata = JSON.stringify(out.data);
+      localStorage.userdata = JSON.stringify(out.data ?? '');
       this.userData = this.getStorageData();
 
       if (out.status === 200 || out.status === 201) {
@@ -123,8 +123,9 @@ export class Model {
   }
 
   getStorage(): IUserData {
-    const str = localStorage.getItem('userdata') ?? '';
-    const str2 = str.length === 0 ? '{"accessToken": "","user": {"email": "","id": 0}}' : str;
+    const str = localStorage.getItem('userdata') === null ? '' : String(localStorage.userdata);
+
+    const str2 = str.length < 3 ? '{"accessToken": "","user": {"email": "","id": 0}}' : str;
     const storage: IUserReq = JSON.parse(str2) as IUserReq;
 
     return {
@@ -133,8 +134,9 @@ export class Model {
     };
   }
   getStorageData(): IUserReq {
-    const str = localStorage.getItem('userdata') ?? '';
-    const str2 = str.length === 0 ? '{"accessToken": "","user": {"email": "","id": 0}}' : str;
+    const str = localStorage.getItem('userdata') === null ? '' : String(localStorage.userdata);
+
+    const str2 = str.length < 3 ? '{"accessToken": "","user": {"email": "","id": 0}}' : str;
     const storage: IUserReq = JSON.parse(str2) as IUserReq;
 
     return storage;
@@ -144,7 +146,7 @@ export class Model {
     try {
       const data: IUserData = this.getStorage();
 
-      if (data.token.length > 0) {
+      if (data.token.length > 3) {
         const response = await fetch(`${baseUrl}${basePath.users}/${data.id}`, {
           method: 'GET',
           headers: {
@@ -166,7 +168,7 @@ export class Model {
           }
         } else {
           this.#access = false;
-          localStorage.userdata = '';
+          localStorage.removeItem('userdata');
 
           return out;
         }

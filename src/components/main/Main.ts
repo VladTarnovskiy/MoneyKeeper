@@ -78,6 +78,7 @@ export class Main extends BaseComponent {
 
   updateMain(index: number): void {
     if (index === 4) {
+      this.settings.state.message = '';
       this.settings.update();
     }
 

@@ -191,7 +191,7 @@ export class Authorization extends BaseComponent {
   onSignOut(): void {
     this.state.status = 'signIn';
     this.state.message = `${this.textTranslate('Authorization.Message3')}`;
-    localStorage.userdata = '';
+    localStorage.removeItem('userdata');
     this.update();
   }
 

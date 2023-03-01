@@ -11,6 +11,10 @@ import { Transaction } from '@/components/pages/transaction/Transaction';
 
 import { SideBar } from './SideBar';
 
+type Obj = () => void;
+
+type Pages = Obj[];
+
 export class Main extends BaseComponent {
   container: HTMLElement;
   content: HTMLElement;
@@ -77,29 +81,28 @@ export class Main extends BaseComponent {
   }
 
   updateMain(index: number): void {
-    if (index === 4) {
-      this.settings.update();
-    }
+    const arrPages: Pages = [
+      (): void => {
+        this.overview.rebuild();
+      },
+      (): void => {
+        this.transaction.resetMsg();
+        this.transaction.update();
+      },
+      (): void => {
+        this.report.rebuild();
+      },
+      (): void => {
+        this.calendar.updateCalendar();
+      },
+      (): void => {
+        this.settings.update();
+      },
+    ];
 
-    if (index === 1) {
-      this.transaction.resetMsg();
-      this.transaction.update();
-    }
+    arrPages[index]?.();
 
     this.sideBar.buttonActive(index);
-
-    if (index === 3) {
-      this.calendar.updateCalendar();
-    }
-
-    if (index === 2) {
-      this.report.rebuild();
-    }
-
-    if (index === 0) {
-      this.overview.rebuild();
-    }
-
     const pageMain: HTMLElement | undefined = this.pagesHtmlArr[index];
 
     this.content.textContent = '';

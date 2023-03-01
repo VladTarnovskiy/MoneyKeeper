@@ -1,8 +1,8 @@
 import { BaseComponent } from '@/components/base/baseComponent';
+import type { Model } from '@/components/model/model';
 import type {
   IUser,
   IUserReq,
-  PostJsonResponse,
   ISetting,
   ISettingReq,
   IUserDataReq,
@@ -14,13 +14,6 @@ import { InputName } from '@/components/pages/authorization/InputName';
 import { InputPassword } from '@/components/pages/authorization/InputPassword';
 import { Logo } from '@/components/pages/authorization/Logo';
 
-interface IAuthorization {
-  onlogin: <T, D = object>(data: D) => Promise<PostJsonResponse<T>>;
-  onregistration: <T, D = object>(data: D) => Promise<PostJsonResponse<T>>;
-  onsetting: <T>(dataU: ISetting) => Promise<PostJsonResponse<T>>;
-  ongetuser: <T>() => Promise<PostJsonResponse<T>>;
-}
-
 interface IState {
   status: string;
   inputCheck: boolean;
@@ -29,35 +22,29 @@ interface IState {
 
 const defaultSetting: ISetting = {
   name: '',
-  lang: 'en',
-  theme: 'white',
-  currency: 'usd',
+  lang: 'EN',
+  theme: 'Light',
+  currency: 'EUR',
   userId: 0,
 };
 
 export class Authorization extends BaseComponent {
-  root: HTMLElement;
-  container!: HTMLElement;
-  button!: HTMLElement;
-  logo!: HTMLElement;
-  form!: HTMLElement;
-  message!: HTMLElement;
-  inputCheck!: HTMLElement;
+  node: HTMLElement;
   #state: IState;
-  prop: IAuthorization;
+  model: Model;
+  access = false;
 
-  constructor(root: HTMLElement, prop: IAuthorization) {
+  constructor(model: Model) {
     super();
-    this.root = root;
     this.#state = {
-      status: 'Sign in',
+      status: 'signIn',
       inputCheck: false,
-      message: '',
+      message: `${this.textTranslate(
+        'Authorization.Message4',
+      )} [ email: test@test.ru, password: test ]`,
     };
-    this.prop = prop;
-
-    this.render();
-    this.ongetuser().catch((err: string) => new Error(err));
+    this.model = model;
+    this.node = this.build();
   }
 
   set state(state: IState) {
@@ -69,56 +56,74 @@ export class Authorization extends BaseComponent {
     return this.#state;
   }
 
-  async ongetuser(): Promise<void> {
-    const resp = await this.prop.ongetuser<IUserDataReq>();
+  onGetUser = async (): Promise<void> => {
+    await this.model.getUser<IUserDataReq>();
 
-    if (resp.status === 200) {
-      this.state.status = 'Sign out';
-      this.state.message = `You sign in account: ${resp.data === undefined ? '' : resp.data.email}`;
-      this.state = this.state;
+    if (this.model.checkAccess()) {
+      this.state.status = 'signOut';
+      this.state.message = `${this.textTranslate('Authorization.Message1')} ${
+        this.model.userData.user.email
+      }`;
+
+      this.update();
+
+      const lastPath = localStorage.getItem('query');
+
+      if (typeof lastPath === 'string' && lastPath !== '/signup') {
+        location.hash = `#${lastPath.slice(1)}`;
+      } else {
+        location.hash = '#overview';
+      }
     } else {
-      setTimeout(() => {
-        location.hash = '#signup';
-      }, 2000);
-      localStorage.signIn = '';
+      location.hash = '#signup';
+      localStorage.query = '/signup';
     }
-  }
+  };
 
   build(): HTMLElement {
     const container1 = this.createElem2('div', {
       class: '-space-y-px rounded-md shadow-sm',
     });
-    const inputName = this.state.status === 'Registration' ? new InputName().node : '';
-    const inputEmail = new InputEmail({ disabled: this.state.status === 'Sign out' }).node;
-    const inputPassword = new InputPassword({ disabled: this.state.status === 'Sign out' }).node;
+    const inputName = this.state.status === 'registration' ? new InputName().node : '';
+    const inputEmail = new InputEmail({ disabled: this.state.status === 'signOut' }).node;
+    const inputPassword = new InputPassword({ disabled: this.state.status === 'signOut' }).node;
 
     container1.append(inputName, inputEmail, inputPassword);
 
     const inputCheck = new InputCheck({
       onclick: this.onclickRegistration.bind(this),
       checked: this.state.inputCheck,
-      disabled: this.state.status === 'Sign out',
+      disabled: this.state.status === 'signOut',
     }).node;
     const button = new Button({
       text: `${this.state.status}`,
+      onClick: () => {
+        return;
+      },
     }).node;
 
     const form = this.createElem2('form', {
       class: 'mt-8 space-y-6',
-      onsubmit:
-        this.state.status === 'Sign out' ? this.onsignout.bind(this) : this.onsubmit.bind(this),
+      onsubmit: (event) => {
+        event.preventDefault();
+        this.state.status === 'signOut'
+          ? this.onSignOut()
+          : this.onSubmit(event).catch((err: string) => new Error(err));
+      },
     });
 
     form.append(container1, inputCheck, button);
 
     const logo = new Logo({
       text:
-        this.state.status === 'Registration' ? 'New account in the app' : 'Sign in to your account',
+        this.state.status === 'registration'
+          ? `${this.textTranslate('Authorization.Logo2')}`
+          : `${this.textTranslate('Authorization.Logo1')}`,
     }).node;
     const message = this.createElem2('div', {
-      class: `h-6 mx-auto text-center text-${
-        this.state.status === 'Sign out' || this.state.status === 'Sign in' ? 'green' : 'red'
-      }-500`,
+      class: `mx-auto text-center text-${
+        this.state.status === 'signOut' || this.state.status === 'signIn' ? 'green' : 'red'
+      }-500 ${this.state.inputCheck ? 'h-6' : 'h-[65px]'}`,
       textContent: this.state.message,
     });
 
@@ -136,14 +141,17 @@ export class Authorization extends BaseComponent {
   onclickRegistration(event: Event): void {
     const target = event.target as HTMLInputElement;
 
-    target.checked ? (this.state.status = 'Registration') : (this.state.status = 'Sign in');
+    target.checked ? (this.state.status = 'registration') : (this.state.status = 'signIn');
     this.state.inputCheck = !this.state.inputCheck;
-    this.state.message = '';
-    this.state = this.state;
+    target.checked
+      ? (this.state.message = '')
+      : (this.state.message = `${this.textTranslate(
+          'Authorization.Message4',
+        )} [ email: test@test.ru, password: test ]`);
+    this.update();
   }
 
-  async onsubmit(event: Event): Promise<void> {
-    event.preventDefault();
+  onSubmit = async (event: Event): Promise<void> => {
     const target = event.target as HTMLFormElement;
     const email = target.querySelector<HTMLInputElement>('#email-address')?.value;
     const password = target.querySelector<HTMLInputElement>('#password')?.value;
@@ -151,51 +159,56 @@ export class Authorization extends BaseComponent {
 
     defaultSetting.name = name ?? '';
 
-    if (email && password) {
+    if (typeof email === 'string' && typeof password === 'string') {
       const resp =
-        this.state.status === 'Registration'
-          ? await this.prop.onregistration<IUserReq, IUser>({ email, password })
-          : await this.prop.onlogin<IUserReq, IUser>({ email, password });
+        this.state.status === 'registration'
+          ? await this.model.registerUser<IUserReq, IUser>({ email, password })
+          : await this.model.loginUser<IUserReq, IUser>({ email, password });
 
       if (resp.status === 201 || resp.status === 200) {
         const resp2 =
-          resp.status === 201 ? await this.prop.onsetting<ISettingReq>(defaultSetting) : null;
+          resp.status === 201 ? await this.model.setSettings<ISettingReq>(defaultSetting) : null;
 
-        this.state.status = 'Sign out';
+        this.state.status = 'signOut';
         this.state.message =
           resp2 === null
-            ? `You sign in account: ${resp.data === undefined ? '' : resp.data.user.email}`
-            : `A new account has been created: ${
+            ? `${this.textTranslate('Authorization.Message1')} ${
+                resp.data === undefined ? '' : resp.data.user.email
+              }`
+            : `${this.textTranslate('Authorization.Message2')} ${
                 resp.data === undefined ? '' : resp.data.user.email
               }`;
-        this.state = this.state;
+        this.update();
         setTimeout(() => {
           location.hash = '#overview';
-        }, 2000);
-        localStorage.setItem('signIn', 'true');
+        }, 0);
       } else {
         this.state.message = resp.message;
-        this.state = this.state;
+        this.update();
       }
     }
-  }
-  onsignout(): void {
-    this.state.status = 'Sign in';
-    this.state.message = 'You sign out';
-    localStorage.userdata = '';
-    this.state = this.state;
-  }
-
-  render(): void {
-    this.container = this.build();
-    this.root.append(this.container);
+  };
+  onSignOut(): void {
+    this.state.status = 'signIn';
+    this.state.message = `${this.textTranslate('Authorization.Message3')}`;
+    localStorage.removeItem('userdata');
+    this.update();
   }
 
+  reset(): void {
+    this.#state = {
+      status: 'signIn',
+      inputCheck: false,
+      message: `${this.textTranslate(
+        'Authorization.Message4',
+      )} [ email: test@test.ru, password: test ]`,
+    };
+  }
   update(): void {
     const container = this.build();
 
-    this.container.replaceWith(container);
+    this.node.replaceWith(container);
 
-    this.container = container;
+    this.node = container;
   }
 }

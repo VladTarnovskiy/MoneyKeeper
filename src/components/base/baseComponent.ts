@@ -1,28 +1,33 @@
+import './base.pcss';
+
 interface TElement {
   id?: string;
   name?: string;
   placeholder?: string;
-  required?: string;
+  required?: boolean;
   autocomplete?: string;
   type?: string;
   class?: string;
   text?: string;
   for?: string;
   textContent?: string;
-  innerHTML?: string;
+  innerHtml?: string;
   action?: string;
   method?: string;
   src?: string;
   alt?: string;
-  onchange?: () => void;
-  onclick?: (event: Event) => void;
+  onchange?: (this: GlobalEventHandlers, event: Event) => void;
+  oninput?: (this: GlobalEventHandlers, event: Event) => void;
+  onclick?: (this: GlobalEventHandlers, event: MouseEvent) => void;
   onsubmit?: (event: Event) => void;
   checked?: boolean;
   disabled?: boolean;
-  value?: string;
+  value?: string | number;
   rows?: number;
   cols?: number;
   wrap?: string;
+  selected?: boolean;
+  tabindex?: string;
 }
 
 interface TComponent {
@@ -59,11 +64,24 @@ export class BaseComponent {
     return out;
   }
 
-  createElem2(element: string, prop: TElement): HTMLElement {
+  createElem2<T extends TElement>(element: string, prop: T): HTMLElement {
     const out = document.createElement(element);
 
     Object.keys(prop).forEach((key) => {
-      key in out ? (out[key] = prop[key]) : out.setAttribute(key, prop[key]);
+      typeof prop[key] === 'string' && out.setAttribute(key, String(prop[key]));
+      typeof prop[key] === 'number' && out.setAttribute(key, String(prop[key]));
+      typeof prop[key] === 'boolean' && (out[key] = Boolean(prop[key]));
+    });
+
+    Object.keys(prop).forEach((key) => {
+      key === 'onclick' && prop.onclick !== undefined && (out.onclick = prop.onclick);
+      key === 'onchange' && prop.onchange !== undefined && (out.onchange = prop.onchange);
+      key === 'oninput' && prop.oninput !== undefined && (out.oninput = prop.oninput);
+      key === 'onsubmit' && prop.onsubmit !== undefined && (out.onsubmit = prop.onsubmit);
+      key === 'textContent' &&
+        prop.textContent !== undefined &&
+        (out.textContent = prop.textContent);
+      key === 'innerHtml' && prop.innerHtml !== undefined && (out.innerHTML = prop.innerHtml);
     });
 
     return out;

@@ -28,6 +28,7 @@ specifiers:
   html-webpack-plugin: ^5.5.0
   husky: ^8.0.3
   i18next: ^22.4.9
+  i18next-browser-languagedetector: ^7.0.1
   lint-staged: ^13.1.0
   mini-css-extract-plugin: ^2.7.2
   postcss: ^8.4.21
@@ -57,6 +58,7 @@ dependencies:
   chart.js: 3.9.1
   chartjs-plugin-datalabels: 2.2.0_chart.js@3.9.1
   i18next: 22.4.9
+  i18next-browser-languagedetector: 7.0.1
 
 devDependencies:
   '@alexey-koran/prettier-config': 0.0.2
@@ -3405,6 +3407,12 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
     dev: true
+
+  /i18next-browser-languagedetector/7.0.1:
+    resolution: {integrity: sha512-Pa5kFwaczXJAeHE56CHG2aWzFBMJNUNghf0Pm4SwSrEMps/PTKqW90EYWlIvhuYStf3Sn1K0vw+gH3+TLdkH1g==}
+    dependencies:
+      '@babel/runtime': 7.20.13
+    dev: false
 
   /i18next/22.4.9:
     resolution: {integrity: sha512-8gWMmUz460KJDQp/ob3MNUX84cVuDRY9PLFPnV8d+Qezz/6dkjxwOaH70xjrCNDO+JrUL25iXfAIN9wUkInNZw==}

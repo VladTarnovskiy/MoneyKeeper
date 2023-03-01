@@ -27,7 +27,7 @@ export class InputEmail extends BaseComponent {
           disabled: prop.disabled,
           name: 'email',
           placeholder: 'Email address',
-          required: 'true',
+          required: true,
           autocomplete: 'email',
           type: 'email',
           class:

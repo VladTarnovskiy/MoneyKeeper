@@ -19,13 +19,42 @@ const basePath = {
 };
 
 export class Model {
-  setting: ISettingReq[];
-  transaction: ITransactionReq[];
+  #setting: ISettingReq[];
+  #transaction: ITransactionReq[];
+  #access: boolean;
+  userData: IUserReq;
+  currencySign: string;
 
   constructor() {
-    this.setting = [];
-    this.transaction = [];
+    this.#setting = [];
+    this.#transaction = [];
+    this.#access = false;
+    this.userData = this.getStorageData();
+    this.currencySign = '$';
   }
+
+  get transaction(): ITransactionReq[] {
+    return this.#transaction;
+  }
+
+  set transaction(trans: ITransactionReq[]) {
+    this.#transaction = trans;
+  }
+
+  get setting(): ISettingReq[] {
+    return this.#setting;
+  }
+
+  set setting(set: ISettingReq[]) {
+    this.#setting = set;
+  }
+
+  setCurrency(valueName: string): void {
+    const currencyData = { USD: '$', EUR: '€', RUB: '₽', YEN: '¥' };
+
+    this.currencySign = String(currencyData[valueName]);
+  }
+
   async registerUser<T, D = object>(data: D): Promise<PostJsonResponse<T>> {
     try {
       const response = await fetch(`${baseUrl}${basePath.register}`, {
@@ -38,7 +67,21 @@ export class Model {
 
       const out = await this.checkResponse<T>(response);
 
-      localStorage.userdata = JSON.stringify(out.data);
+      localStorage.userdata = JSON.stringify(out.data ?? '');
+      this.userData = this.getStorageData();
+
+      if (out.status === 200 || out.status === 201) {
+        this.#access = true;
+        const arr1 = await this.getSettings();
+        const arr2 = await this.getTransactions();
+
+        arr1.data === undefined ? (this.setting = []) : (this.setting = arr1.data);
+        arr2.data === undefined ? (this.transaction = []) : (this.transaction = arr2.data);
+      } else {
+        this.#access = false;
+      }
+
+      // localStorage.userdata = JSON.stringify(out.data);
 
       return out;
     } catch (error) {
@@ -58,8 +101,20 @@ export class Model {
 
       const out = await this.checkResponse<T>(response);
 
-      // localStorage.setItem('userdata', JSON.stringify(out.data));
-      localStorage.userdata = JSON.stringify(out.data);
+      localStorage.userdata = JSON.stringify(out.data ?? '');
+      this.userData = this.getStorageData();
+
+      if (out.status === 200 || out.status === 201) {
+        // localStorage.userdata = JSON.stringify(out.data);
+        this.#access = true;
+        const arr1 = await this.getSettings();
+        const arr2 = await this.getTransactions();
+
+        arr1.data === undefined ? (this.setting = []) : (this.setting = arr1.data);
+        arr2.data === undefined ? (this.transaction = []) : (this.transaction = arr2.data);
+      } else {
+        this.#access = false;
+      }
 
       return out;
     } catch (error) {
@@ -68,26 +123,58 @@ export class Model {
   }
 
   getStorage(): IUserData {
-    const str = localStorage.getItem('userdata') ?? '';
-    const storage: IUserReq = JSON.parse(str) as IUserReq;
+    const str = localStorage.getItem('userdata') === null ? '' : String(localStorage.userdata);
+
+    const str2 = str.length < 3 ? '{"accessToken": "","user": {"email": "","id": 0}}' : str;
+    const storage: IUserReq = JSON.parse(str2) as IUserReq;
 
     return {
       id: storage.user.id,
       token: storage.accessToken,
     };
   }
+  getStorageData(): IUserReq {
+    const str = localStorage.getItem('userdata') === null ? '' : String(localStorage.userdata);
 
-  async getUser<T>(): Promise<PostJsonResponse<T>> {
+    const str2 = str.length < 3 ? '{"accessToken": "","user": {"email": "","id": 0}}' : str;
+    const storage: IUserReq = JSON.parse(str2) as IUserReq;
+
+    return storage;
+  }
+
+  async getUser<T>(): Promise<PostJsonResponse<T> | undefined> {
     try {
       const data: IUserData = this.getStorage();
-      const response = await fetch(`${baseUrl}${basePath.users}/${data.id}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${data.token}`,
-        },
-      });
 
-      return await this.checkResponse<T>(response);
+      if (data.token.length > 3) {
+        const response = await fetch(`${baseUrl}${basePath.users}/${data.id}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        });
+        const out = await this.checkResponse<T>(response);
+
+        if (out.status === 200 || out.status === 201) {
+          const arr1 = await this.getSettings();
+          const arr2 = await this.getTransactions();
+
+          arr1.data === undefined ? (this.setting = []) : (this.setting = arr1.data);
+          arr2.data === undefined ? (this.transaction = []) : (this.transaction = arr2.data);
+          this.#access = true;
+
+          if (this.setting[0] !== undefined) {
+            this.setCurrency(this.setting[0].currency);
+          }
+        } else {
+          this.#access = false;
+          localStorage.removeItem('userdata');
+
+          return out;
+        }
+      }
+
+      return;
     } catch (error) {
       throw new Error(this.checkError(error));
     }
@@ -102,6 +189,7 @@ export class Model {
     if (response.status === 200 || response.status === 201) {
       const json = (await response.json()) as Awaited<Promise<T>>;
 
+      this.#access = true;
       output.data = json;
     } else {
       output.message = String(await response.json());
@@ -346,5 +434,31 @@ export class Model {
     const err = error instanceof Error ? JSON.stringify(error) : '';
 
     return err;
+  }
+
+  async deleteAccount(): Promise<PostJsonResponse<IUser>> {
+    const arr1: Array<Promise<PostJsonResponse<ISettingReq>>> = [];
+    const setting: ISettingReq[] = this.setting.slice();
+
+    for await (const res of setting) {
+      arr1.push(this.deleteSettings<ISettingReq>(res.id));
+    }
+
+    const arr2: Array<Promise<PostJsonResponse<ITransactionReq>>> = [];
+
+    const transaction: ITransactionReq[] = this.transaction.slice();
+
+    for await (const res of transaction) {
+      arr2.push(this.deleteTransactions<ITransactionReq>(res.id));
+    }
+
+    const response = await this.deleteUser<IUser>();
+
+    this.#access = false;
+
+    return response;
+  }
+  checkAccess(): boolean {
+    return this.#access;
   }
 }

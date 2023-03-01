@@ -11,7 +11,7 @@ interface TElement {
   text?: string;
   for?: string;
   textContent?: string;
-  innerHTML?: string;
+  innerHtml?: string;
   src?: string;
   alt?: string;
 }

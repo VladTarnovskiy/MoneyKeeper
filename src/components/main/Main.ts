@@ -37,7 +37,7 @@ export class Main extends BaseComponent {
   constructor(model: Model, updateHeaderSum: () => void) {
     super();
     this.container = this.createElem('main', 'container mx-auto flex');
-    this.content = this.createElem('section', 'content w-full p-3');
+    this.content = this.createElem('section', 'content w-full p-3 ease-in-out duration-300');
     this.loader = new Loader(document.body);
     this.sideBar = new SideBar();
     this.model = model;
@@ -80,6 +80,13 @@ export class Main extends BaseComponent {
     }
   }
 
+  pageChangeAnimation(): void {
+    this.content.classList.add('-translate-x-[110%]');
+    setTimeout(() => {
+      this.content.classList.remove('-translate-x-[110%]');
+    }, 300);
+  }
+
   updateMain(index: number): void {
     const arrPages: Pages = [
       (): void => {
@@ -100,15 +107,17 @@ export class Main extends BaseComponent {
       },
     ];
 
-    arrPages[index]?.();
+    this.pageChangeAnimation();
+    setTimeout(() => {
+      arrPages[index]?.();
+      this.sideBar.buttonActive(index);
+      const pageMain: HTMLElement | undefined = this.pagesHtmlArr[index];
 
-    this.sideBar.buttonActive(index);
-    const pageMain: HTMLElement | undefined = this.pagesHtmlArr[index];
+      this.content.textContent = '';
 
-    this.content.textContent = '';
-
-    if (pageMain instanceof HTMLElement) {
-      this.content.append(pageMain);
-    }
+      if (pageMain instanceof HTMLElement) {
+        this.content.append(pageMain);
+      }
+    }, 300);
   }
 }

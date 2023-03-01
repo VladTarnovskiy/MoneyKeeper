@@ -1,7 +1,7 @@
 # MoneyKeeper
 
 - MoneyKeeper(MKeeper) - приложение для контроля и учета доходов и расходов.
-- App deploy: https://animated-sorbet-950f59.netlify.app/
+- App deploy: https://moneykeeper.netlify.app
 
 ## Структура приложения
 

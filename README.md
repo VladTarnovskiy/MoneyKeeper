@@ -1,7 +1,7 @@
 # MoneyKeeper
 
 - MoneyKeeper(MKeeper) - приложение для контроля и учета доходов и расходов.
-- App deploy: https://animated-sorbet-950f59.netlify.app/
+- App deploy: https://moneykeeper.netlify.app
 
 ## Структура приложения
 
@@ -100,7 +100,7 @@
 
 1. Реализована работа с сервером. Транзакции, настройки пользователя и данные пользователя сохраняются на сервер, и при необходимости берутся от туда.
 2. Подробная информация о работе сервера и его запросам: https://github.com/IgorMotorin/json-server-api
-3. Деплой сервера: https://glitch.com/edit/#!/thankful-triangular-acapella?path=readme.md%3A1%3A0
+3. Деплой сервера: https://thankful-triangular-acapella.glitch.me/
 
 ## Dev stack
 

@@ -103,6 +103,7 @@ export class Main extends BaseComponent {
         this.calendar.updateCalendar();
       },
       (): void => {
+        this.settings.state.message = '';
         this.settings.update();
       },
     ];

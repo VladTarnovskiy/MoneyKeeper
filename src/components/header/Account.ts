@@ -95,7 +95,8 @@ export class Account extends BaseComponent {
   }
 
   onClick = (): void => {
-    localStorage.userdata = '';
+    localStorage.removeItem('userdata');
+    localStorage.removeItem('query');
     location.hash = '#signup';
   };
 }

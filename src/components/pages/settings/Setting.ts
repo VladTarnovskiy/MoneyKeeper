@@ -139,7 +139,7 @@ export class Settings extends BaseComponent {
     const message = this.createElem2('div', {
       class: `h-6 mx-auto text-center ${
         this.state.status === '200'
-          ? 'text-green-500 dark:text-green-700'
+          ? 'text-green-500 dark:text-sky-700'
           : 'text-red-500 dark:text-red-700'
       }`,
       textContent: this.state.message,

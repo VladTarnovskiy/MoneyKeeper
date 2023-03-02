@@ -127,8 +127,11 @@ export class TransactionPeriod extends BaseComponent {
         filterData = this.transactionData.filter(
           (item) =>
             getTransactionDate(item).getFullYear() === date.getFullYear() &&
-            getTransactionDate(item).getMonth() === date.getMonth() &&
-            getTransactionDate(item).getDate() >= date.getDate() - 7,
+            // (getTransactionDate(item).getMonth() === date.getMonth() ||
+            getTransactionDate(item).getMonth() >= date.getMonth() - 1 &&
+            getTransactionDate(item).getDate() >= date.getDate() - 7 &&
+            // getTransactionDate(item).getDate() <= date.getDate() &&
+            getTransactionDate(item).getDay() <= date.getDay(),
         );
         break;
 

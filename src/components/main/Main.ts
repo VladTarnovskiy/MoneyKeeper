@@ -11,6 +11,10 @@ import { Transaction } from '@/components/pages/transaction/Transaction';
 
 import { SideBar } from './SideBar';
 
+type Obj = () => void;
+
+type Pages = Obj[];
+
 export class Main extends BaseComponent {
   container: HTMLElement;
   content: HTMLElement;
@@ -33,7 +37,7 @@ export class Main extends BaseComponent {
   constructor(model: Model, updateHeaderSum: () => void) {
     super();
     this.container = this.createElem('main', 'container mx-auto flex');
-    this.content = this.createElem('section', 'content w-full p-3');
+    this.content = this.createElem('section', 'content w-full p-3 ease-in-out duration-300');
     this.loader = new Loader(document.body);
     this.sideBar = new SideBar();
     this.model = model;
@@ -76,37 +80,45 @@ export class Main extends BaseComponent {
     }
   }
 
+  pageChangeAnimation(): void {
+    this.content.classList.add('-translate-x-[110%]');
+    setTimeout(() => {
+      this.content.classList.remove('-translate-x-[110%]');
+    }, 300);
+  }
+
   updateMain(index: number): void {
-    if (index === 4) {
-      this.settings.state.message = '';
-      this.settings.update();
-    }
+    const arrPages: Pages = [
+      (): void => {
+        this.overview.rebuild();
+      },
+      (): void => {
+        this.transaction.resetMsg();
+        this.transaction.update();
+      },
+      (): void => {
+        this.report.rebuild();
+      },
+      (): void => {
+        this.calendar.updateCalendar();
+      },
+      (): void => {
+        this.settings.state.message = '';
+        this.settings.update();
+      },
+    ];
 
-    if (index === 1) {
-      this.transaction.resetMsg();
-      this.transaction.update();
-    }
+    this.pageChangeAnimation();
+    setTimeout(() => {
+      arrPages[index]?.();
+      this.sideBar.buttonActive(index);
+      const pageMain: HTMLElement | undefined = this.pagesHtmlArr[index];
 
-    this.sideBar.buttonActive(index);
+      this.content.textContent = '';
 
-    if (index === 3) {
-      this.calendar.updateCalendar();
-    }
-
-    if (index === 2) {
-      this.report.rebuild();
-    }
-
-    if (index === 0) {
-      this.overview.rebuild();
-    }
-
-    const pageMain: HTMLElement | undefined = this.pagesHtmlArr[index];
-
-    this.content.textContent = '';
-
-    if (pageMain instanceof HTMLElement) {
-      this.content.append(pageMain);
-    }
+      if (pageMain instanceof HTMLElement) {
+        this.content.append(pageMain);
+      }
+    }, 300);
   }
 }

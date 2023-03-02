@@ -5,7 +5,7 @@ export class TransactionStatisticItem extends BaseComponent {
   color: string;
   title: string;
   value: string;
-  width: string;
+  width: number;
   textColor: string;
   progressChecker: HTMLElement;
 
@@ -13,7 +13,7 @@ export class TransactionStatisticItem extends BaseComponent {
     root: HTMLElement,
     color: string,
     title: string,
-    width: string,
+    width: number,
     value: string,
     textColor?: string,
   ) {
@@ -48,10 +48,16 @@ export class TransactionStatisticItem extends BaseComponent {
       `${this.title}:`,
     );
     const graphItemProgress = this.createElem('div', 'graph__item_progress h-4 grow');
+    const progressCheckerValue = this.createElem(
+      'div',
+      'absolute -right-[3px] top-[-5px] translate-x-[100%] graph__item_checker h-4',
+      `${this.width}%`,
+    );
 
     this.progressChecker.style.width = `${this.width}%`;
-
     this.progressChecker.style.backgroundColor = this.color;
+    this.progressChecker.appendChild(progressCheckerValue);
+
     graphItemProgress.appendChild(this.progressChecker);
     const graphItemSum = this.createElem(
       'div',

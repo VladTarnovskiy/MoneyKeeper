@@ -12,7 +12,7 @@ export class SideBar extends BaseComponent {
   render(): HTMLElement {
     const sideBar = this.createElem(
       'aside',
-      'sidebar min-h-[81.6vh] bg-sky-400 rounded-r-lg border-0 dark:bg-gray-800',
+      'sidebar min-h-[81.6vh] bg-sky-400 rounded-r-lg border-0 dark:bg-gray-800 relative z-10',
     );
     const container = this.createElem(
       'div',

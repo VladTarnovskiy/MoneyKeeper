@@ -27,7 +27,7 @@ export class SettingItem extends BaseComponent {
       theme: this.textTranslate('Settings.Themes'),
       currency: this.textTranslate('Settings.Currency'),
     };
-    const settingItemContainer = this.createElem('div', 'p-2 flex justify-between');
+    const settingItemContainer = this.createElem('div', 'p-2 flex justify-between sm:justify-end');
     const settingItemTitle = this.createElem2('div', {
       class: 'title__name text-base mb-2 mr-4 font-light min-w-[120px] sm:hidden',
       textContent: `${String(tmp[prop.title])}:`,

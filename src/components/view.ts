@@ -41,7 +41,7 @@ export class View extends BaseComponent {
 
     document.body.className = String(this.model.setting[0]?.theme.toLowerCase());
 
-    this.model.setCurrency(this.model.setting[0]?.currency ?? '');
+    this.model.setCurrency(this.model.setting[0]?.currency ?? 'USD');
   }
   changePages(): void {
     this.root.replaceChild(this.bodyPage, this.authorPage);

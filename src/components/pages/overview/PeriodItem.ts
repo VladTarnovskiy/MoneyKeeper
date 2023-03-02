@@ -79,12 +79,12 @@ export class PeriodItem extends BaseComponent {
         : (sumExpense = sumExpense + item.sum);
     });
 
-    const getProgressWidth = (sum: number): string => {
+    const getProgressWidth = (sum: number): number => {
       if (this.allSum === 0) {
-        return '0';
+        return 0;
       }
 
-      return String(Math.ceil((sum * 100) / this.allSum));
+      return Number(((sum * 100) / this.allSum).toFixed(1));
     };
 
     new TransactionStatisticItem(

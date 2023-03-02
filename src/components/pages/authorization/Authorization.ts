@@ -24,7 +24,7 @@ const defaultSetting: ISetting = {
   name: '',
   lang: 'EN',
   theme: 'Light',
-  currency: 'EUR',
+  currency: 'USD',
   userId: 0,
 };
 

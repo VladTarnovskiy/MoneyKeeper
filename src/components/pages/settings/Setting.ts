@@ -40,7 +40,7 @@ export class Settings extends BaseComponent {
         name: '',
         lang: 'EN',
         theme: 'Light',
-        currency: 'EUR',
+        currency: 'USD',
         userId: 0,
         id: 0,
       },
@@ -214,7 +214,7 @@ export class Settings extends BaseComponent {
       name: '',
       lang: 'EN',
       theme: 'Light',
-      currency: 'EUR',
+      currency: 'USD',
       userId: this.model.setting[0]?.userId ?? 0,
     };
 

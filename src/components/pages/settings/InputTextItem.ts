@@ -26,7 +26,7 @@ export class InputTextItem extends BaseComponent {
       theme: this.textTranslate('Settings.Themes'),
       currency: this.textTranslate('Settings.Currency'),
     };
-    const inputItemContainer = this.createElem('div', 'p-2 flex justify-between');
+    const inputItemContainer = this.createElem('div', 'p-2 flex justify-between sm:justify-end');
     const inputItemTitle = this.createElem2('div', {
       class: 'title__name text-base mb-2 mr-4 font-light min-w-[120px] sm:hidden',
       textContent: `${String(tmp[prop.title])}:`,
@@ -34,7 +34,7 @@ export class InputTextItem extends BaseComponent {
 
     const inputTextName = this.createElem2('input', {
       class:
-        'input__name pl-2 pr-2 w-60 border text-right rounded h-10 border-[1px] dark:bg-gray-300',
+        'input__name pl-2 pr-2 w-60 sm:w-40 border text-right rounded h-10 border-[1px] dark:bg-gray-300',
       type: 'text',
       placeholder: 'Enter username',
       value: prop.value,

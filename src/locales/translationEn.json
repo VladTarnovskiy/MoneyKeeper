@@ -1,0 +1,182 @@
+{
+  "other": "Other",
+  "Header": {
+    "logo": "MoneyKeeper",
+    "balance": "Balance",
+    "username": "Username",
+    "mail": "E-mail",
+    "exit": "Exit"
+  },
+  "Sidebar": {
+    "Overview": "Overview",
+    "Transaction": "Transaction",
+    "Report": "Report",
+    "Calendar": "Calendar",
+    "Settings": "Settings"
+  },
+  "Overview": {
+    "title": "Overview",
+    "titlePeriod": " Income / Expense",
+    "netIncome": "Net Income",
+    "calendar": {
+      "today": "Today",
+      "week": "This Week",
+      "month": "This Month",
+      "year": "This Year",
+      "allTime": "All Time"
+    },
+    "storagecalendar": {
+      "Today": "Today",
+      "This Week": "This Week",
+      "This Month": "This Month",
+      "This Year": "This Year",
+      "All Time": "All Time"
+    },
+    "income": "Income",
+    "expense": "Expense",
+    "titleTransactions": "Transactions",
+    "sort": {
+      "title": "Sort transactions",
+      "default": "choose sort way",
+      "dateInc": "DateInc",
+      "dateDec": "DateDec",
+      "sumInc": "SumInc",
+      "sumDec": "SumDec"
+    },
+    "filter": {
+      "title": "Filter transactions",
+      "default": "choose filter way",
+      "all": "All",
+      "expense": "Expense",
+      "income": "Income"
+    },
+    "popup": {
+      "detailBut": "detail",
+      "removeBut": "remove",
+      "detail": "Detail",
+      "sum": "Sum",
+      "category": "Category",
+      "subcategory": "Subcategory",
+      "date": "Date",
+      "time": "Time",
+      "description": "Description"
+    }
+  },
+  "Report": {
+    "title": "Report",
+    "titleOne": "Expenses",
+    "titleTwo": "Incomes",
+    "chartTitle": "Category statistics",
+    "percent": "Persent",
+    "chartType": {
+      "title": "Chart type",
+      "polarArea": "polarArea",
+      "pie": "pie",
+      "radar": "radar",
+      "doughnut": "doughnut"
+    },
+    "transactionsType": {
+      "title": "Transactions type",
+      "expense": "Expense",
+      "income": "Income"
+    }
+  },
+  "Authorization": {
+    "Logo1": "Sign in to your account",
+    "Logo2": "New account in the app",
+    "Message1": "You sign in account:",
+    "Message2": "A new account has been created:",
+    "Message3": "You sign out",
+    "Message4": "Demo access",
+    "Button1": "Sign in",
+    "Button2": "Registration",
+    "Button3": "Sign out",
+    "Check": "New account"
+  },
+  "Transaction": {
+    "Title": "Transaction",
+    "TypeNotes": "Type notes",
+    "Income": "Income",
+    "Expense": "Expense",
+    "Amount": "Amount",
+    "Category": "Category",
+    "SubCategory": "Subcategory",
+    "Date": "Date",
+    "Time": "Time",
+    "Description": "Discription",
+    "Save": "Save",
+    "Reset": "Reset",
+    "Message1": "Transaction save",
+    "Message2": "Transaction fault"
+  },
+  "Settings": {
+    "Title": "Settings",
+    "TypeNotes": "Type notes",
+    "Name": "Name",
+    "Language": "Language",
+    "Themes": "Themes",
+    "Currency": "Currency",
+    "Sidebar": "Sidebar style",
+    "Check1": "Change settings",
+    "Check2": "Delete account",
+    "Button1": "Save",
+    "Button2": "Delete",
+    "Button3": "Apply",
+    "Message1": "Attention! You are permanently deleting your account!",
+    "Message2": "Your account deleting.",
+    "Message3": "Fault deleting.",
+    "Message4": "Setting save",
+    "Message5": "Setting save fault"
+  },
+  "CategoryIncome": {
+    "Salary": "Salary",
+    "Stipend": "Stipend",
+    "Pension": "Pension",
+    "Business": "Business",
+    "Sales": "Sales",
+    "Award": "Award",
+    "Lottery": "Lottery",
+    "Other": "Other"
+  },
+  "CategoryExpenditure": {
+    "Transport": "Transport",
+    "Bars and restaurants": "Bars and restaurants",
+    "Alcohol": "Alcohol",
+    "Eating out": "Eating out",
+    "Food": "Food",
+    "Health": "Health",
+    "Entertainment": "Entertainment",
+    "Presents": "Presents",
+    "Regular": "Regular",
+    "Clothing": "Clothing",
+    "Banking services": "Banking services",
+    "Other": "Other",
+    "All": "All"
+  },
+  "CalendarPage": {
+    "Calendar": "Calendar",
+    "ExpenditureTotal": "Expenditure total:",
+    "TotalIncome": "Total income:",
+    "ExpenditureIncome": "Expenditure/Income:",
+    "month": "month",
+    "ExpenseCategory": "Expense сategory:",
+    "SelectCategory": "Category",
+    "Average": "Average:",
+    "Year": "Year:",
+    "SelectYear": "Year"
+  },
+  "monthes": {
+    "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September": "September",
+    "October": "October",
+    "November": "November",
+    "December": "December"
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "other": "Прочее",
+  "Header": {
+    "logo": "Учет финансов",
+    "balance": "Баланс",
+    "username": "Имя пользователя",
+    "mail": "Почта",
+    "exit": "Выход"
+  },
+  "Sidebar": {
+    "Overview": "Обзор",
+    "Transaction": "Транзакции",
+    "Report": "Отчет",
+    "Calendar": "Календарь",
+    "Settings": "Настройки"
+  },
+  "Overview": {
+    "title": "Обзор",
+    "titlePeriod": "Доходы / Расходы",
+    "netIncome": "Чистая прибыль",
+    "calendar": {
+      "today": "За Сегодня",
+      "week": "Эта Неделя",
+      "month": "Этот Месяц",
+      "year": "Этот Год",
+      "allTime": "За Все время"
+    },
+    "storagecalendar": {
+      "Today": "За Сегодня",
+      "This Week": "Эта Неделя",
+      "This Month": "Этот Месяц",
+      "This Year": "Этот Год",
+      "All Time": "За Все время"
+    },
+    "income": "Доходы",
+    "expense": "Расходы",
+    "titleTransactions": "Транзакции",
+    "sort": {
+      "title": "Сортировка транзакций",
+      "default": "выбере способ сортировки",
+      "dateInc": "Дата по нарастанию",
+      "dateDec": "Дата по убыванию",
+      "sumInc": "Сумма по нарастанию",
+      "sumDec": "Сумма по убыванию"
+    },
+    "filter": {
+      "title": "Фильтрация транзакций",
+      "default": "выбере способ фильтрации",
+      "all": "Все",
+      "expense": "Расходы",
+      "income": "Доходы"
+    },
+    "popup": {
+      "detailBut": "детали",
+      "removeBut": "удалить",
+      "detail": "Детали",
+      "sum": "Сумма",
+      "category": "Категория",
+      "subcategory": "Подкатегория",
+      "date": "Дата",
+      "time": "Время",
+      "description": "Описание"
+    }
+  },
+  "Report": {
+    "title": "Отчет",
+    "titleOne": "Расходы",
+    "titleTwo": "Доходы",
+    "chartTitle": "Статистика по категориям",
+    "percent": "Проценты",
+    "chartType": {
+      "title": "Тип диаграммы",
+      "polarArea": "полярная область",
+      "pie": "пирог",
+      "radar": "радар",
+      "doughnut": "пончик"
+    },
+    "transactionsType": {
+      "title": "Тип транзакций",
+      "expense": "Расходы",
+      "income": "Доходы"
+    }
+  },
+  "Authorization": {
+    "Logo1": "Войдите в свой аккаунт",
+    "Logo2": "Создайте новый аккаунт",
+    "Message1": "Вы вошли в аккаунт:",
+    "Message2": "Создан новый аккаунт:",
+    "Message3": "Вы вышли из аккаунта",
+    "Message4": "Демо доступ",
+    "Button1": "Вход",
+    "Button2": "Регистрация",
+    "Button3": "Выход",
+    "Check": "Новый аккаунт"
+  },
+  "Transaction": {
+    "Title": "Транзакции",
+    "TypeNotes": "Тип транзакции",
+    "Income": "Доходы",
+    "Expense": "Расходы",
+    "Amount": "Сумма",
+    "Category": "Категория",
+    "SubCategory": "Подкатегория",
+    "Date": "Дата",
+    "Time": "Время",
+    "Description": "Описание",
+    "Save": "Сохранить",
+    "Reset": "Сброс",
+    "Message1": "Транзакция сохранена",
+    "Message2": "Ошибка сохранения транзакции"
+  },
+  "Settings": {
+    "Title": "Настройки",
+    "Name": "Имя пользователя",
+    "Language": "Язык приложения",
+    "Themes": "Тема",
+    "Sidebar": "Стиль сайдбара",
+    "Currency": "Валюта",
+    "Check1": "Изменить настройки",
+    "Check2": "Удалить аккаунт",
+    "Button1": "Сохранить",
+    "Button2": "Удалить",
+    "Button3": "Применить",
+    "Message1": "Внимание! Вы безвозвратно удаляете свою учетную запись!",
+    "Message2": "Ваш аккаунт удален.",
+    "Message3": "Ошибка удаления аккаунта.",
+    "Message4": "Настройки сохранены.",
+    "Message5": "Ошибка сохранения настроек."
+  },
+  "CategoryIncome": {
+    "Salary": "Заработная плата",
+    "Stipend": "Стипендия",
+    "Pension": "Пенсия",
+    "Business": "Бизнес",
+    "Sales": "Продажи",
+    "Award": "Премия",
+    "Lottery": "Лотерея",
+    "Other": "Прочее"
+  },
+  "CategoryExpenditure": {
+    "Transport": "Транспорт",
+    "Bars and restaurants": "Бары и рестораны",
+    "Alcohol": "Алкоголь",
+    "Eating out": "Еда вне дома",
+    "Food": "Продукты",
+    "Health": "Здоровье",
+    "Entertainment": "Развлечения",
+    "Presents": "Подарки",
+    "Regular": "Регулярные",
+    "Clothing": "Одежда",
+    "Banking services": "Банковские операции",
+    "Other": "Прочее",
+    "All": "Все"
+  },
+  "CalendarPage": {
+    "Calendar": "Календарь",
+    "ExpenditureTotal": "Расходов всего:",
+    "TotalIncome": "Доходов всего:",
+    "ExpenditureIncome": "Расходы/Доходы:",
+    "month": "месяц",
+    "ExpenseCategory": "Категория расходов:",
+    "SelectCategory": "Категория",
+    "Average": "Среднее расходов:",
+    "Year": "Год:",
+    "SelectYear": "Год"
+  },
+  "monthes": {
+    "January": "Январь",
+    "February": "Февраль",
+    "March": "Март",
+    "April": "Апрель",
+    "May": "Май",
+    "June": "Июнь",
+    "July": "Июль",
+    "August": "Август",
+    "September": "Сентябрь",
+    "October": "Октябрь",
+    "November": "Ноябрь",
+    "December": "Декабрь"
+  }
+}

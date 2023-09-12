@@ -1,4 +1,5 @@
 import { BaseComponent } from '@/components/base/baseComponent';
+import { Loader } from '@/components/loader/Loader';
 import type { Model } from '@/components/model/model';
 import type {
   IUser,
@@ -156,14 +157,18 @@ export class Authorization extends BaseComponent {
     const email = target.querySelector<HTMLInputElement>('#email-address')?.value;
     const password = target.querySelector<HTMLInputElement>('#password')?.value;
     const name = target.querySelector<HTMLInputElement>('#user-name')?.value;
+    const loader = new Loader(document.body);
 
     defaultSetting.name = name ?? '';
 
     if (typeof email === 'string' && typeof password === 'string') {
+      loader.render();
       const resp =
         this.state.status === 'registration'
           ? await this.model.registerUser<IUserReq, IUser>({ email, password })
           : await this.model.loginUser<IUserReq, IUser>({ email, password });
+
+      loader.remove();
 
       if (resp.status === 201 || resp.status === 200) {
         const resp2 =

@@ -40,14 +40,15 @@ export class View extends BaseComponent {
       : i18next.changeLanguage('ru').catch((err: string) => new Error(err));
 
     document.body.className = String(this.model.setting[0]?.theme.toLowerCase());
-
     this.model.setCurrency(this.model.setting[0]?.currency ?? 'USD');
   }
+
   changePages(): void {
     this.root.replaceChild(this.bodyPage, this.authorPage);
     this.initSetting();
     this.render();
   }
+
   changePagesAut(): void {
     this.authorization.reset();
     this.authorization.update();
@@ -56,7 +57,7 @@ export class View extends BaseComponent {
 
   render(): void {
     this.header.update();
-    this.main.update();
+    this.main.updateAll();
   }
 
   updateHeaderSum(): void {

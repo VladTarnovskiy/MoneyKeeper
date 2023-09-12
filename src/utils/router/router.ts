@@ -11,14 +11,14 @@ export class Router {
   onupdate: (index: number) => void;
   changePages: () => void;
   changePagesAut: () => void;
-  chengedPages: boolean;
+  changedPages: boolean;
   access: () => boolean;
 
   constructor(prop: IRouter) {
     this.onupdate = prop.onupdate;
     this.changePages = prop.changePages;
     this.changePagesAut = prop.changePagesAut;
-    this.chengedPages = false;
+    this.changedPages = false;
     this.access = prop.access;
   }
 
@@ -36,9 +36,9 @@ export class Router {
     const path = location.pathname;
     const pageIndex = routing.indexOf(path);
 
-    if (this.access() && !this.chengedPages) {
+    if (this.access() && !this.changedPages) {
       this.changePages();
-      this.chengedPages = true;
+      this.changedPages = true;
     }
 
     if (pageIndex > -1 && this.access()) {
@@ -47,7 +47,7 @@ export class Router {
       this.onupdate(pageIndex);
     } else {
       this.changePagesAut();
-      this.chengedPages = false;
+      this.changedPages = false;
     }
   }
 }

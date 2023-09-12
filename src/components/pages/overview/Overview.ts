@@ -68,7 +68,6 @@ export class Overview extends BaseComponent {
     const node = this.build();
 
     this.node.replaceWith(node);
-
     this.node = node;
   }
 

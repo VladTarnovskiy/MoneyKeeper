@@ -39,6 +39,7 @@ export class Main extends BaseComponent {
     this.container = this.createElem('main', 'container mx-auto flex');
     this.content = this.createElem('section', 'content w-full p-3 ease-in-out duration-300');
     this.loader = new Loader(document.body);
+    this.loader.loadPages();
     this.sideBar = new SideBar();
     this.model = model;
     this.container.append(this.sideBar.node, this.content);
@@ -64,7 +65,7 @@ export class Main extends BaseComponent {
     this.node = this.container;
   }
 
-  update(): void {
+  updateAll(): void {
     this.overview.rebuild();
     this.settings.update();
     this.transaction.update();

@@ -3,15 +3,29 @@ import './loader.pcss';
 
 export class Loader extends BaseComponent {
   root: HTMLElement;
+  container: HTMLElement;
 
   constructor(root: HTMLElement) {
     super();
     this.root = root;
+    this.container = this.createElem('div', 'loader');
+  }
+
+  loadPages(): void {
     this.render();
+    window.addEventListener('DOMContentLoaded', () => {
+      this.container.style.display = 'block';
+    });
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        this.container.style.display = 'none';
+      }, 500);
+    });
   }
 
   render(): void {
-    const container = this.createElem('div', 'loader');
+    this.container.style.display = 'block';
     const containerDemo = this.createElem('div', 'demo');
 
     for (let i = 0; i <= 4; i += 1) {
@@ -22,24 +36,11 @@ export class Loader extends BaseComponent {
       containerDemo.append(circle);
     }
 
-    container.appendChild(containerDemo);
+    this.container.appendChild(containerDemo);
+    this.root.appendChild(this.container);
+  }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      container.style.display = 'block';
-
-      // setTimeout(() => {
-      //   container.style.display = 'none';
-      // }, 1000);
-    });
-
-    window.addEventListener('load', () => {
-      // container.style.display = 'block';
-
-      setTimeout(() => {
-        container.style.display = 'none';
-      }, 500);
-    });
-
-    this.root.appendChild(container);
+  remove(): void {
+    this.container.remove();
   }
 }

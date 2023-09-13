@@ -59,7 +59,10 @@
       "subcategory": "Подкатегория",
       "date": "Дата",
       "time": "Время",
-      "description": "Описание"
+      "description": "Описание",
+      "cancel": "Отмена",
+      "remove": "Удалить",
+      "removeMessage": "Вы уверены что хотите удалить данную транзакцию?"
     }
   },
   "Report": {

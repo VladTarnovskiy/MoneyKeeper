@@ -59,7 +59,10 @@
       "subcategory": "Subcategory",
       "date": "Date",
       "time": "Time",
-      "description": "Description"
+      "description": "Description",
+      "cancel": "Cancel",
+      "remove": "Remove",
+      "removeMessage": "Are you sure you want to delete this transaction?"
     }
   },
   "Report": {

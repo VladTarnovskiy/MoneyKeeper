@@ -1,5 +1,6 @@
 import { BaseComponent } from '@/components/base/baseComponent';
 import type { PostJsonResponse, ITransactionReq } from '@/components/model/types';
+import { Button } from '@/components/pages/authorization/Button';
 
 import expenseAssets from '@/assets/expense.png';
 import incomeAssets from '@/assets/income.png';
@@ -117,7 +118,7 @@ export class TransactionItems extends BaseComponent {
     const top = e.clientY;
     const contMenuContainer = this.createElem(
       'div',
-      `context-menu fixed bg-white w-40 shadow-md rounded dark:bg-gray-300 flex flex-col`,
+      'context-menu fixed bg-white w-40 shadow-md rounded dark:bg-gray-300 flex flex-col',
     );
 
     contMenuContainer.style.left = `${left}px`;
@@ -138,12 +139,7 @@ export class TransactionItems extends BaseComponent {
     );
 
     removeItem.addEventListener('click', () => {
-      this.prop
-        .delete(item.id)
-        .then(() => {
-          this.prop.rebuild();
-        })
-        .catch((err: string) => new Error(err));
+      this.addRemovePopup(item.id);
     });
 
     contMenuContainer.append(detailItem, removeItem);
@@ -266,5 +262,47 @@ export class TransactionItems extends BaseComponent {
 
     transactionItemProperty.append(transactionItemTitleProperty, transactionItemDescProperty);
     root.appendChild(transactionItemProperty);
+  }
+
+  addRemovePopup(id: number): void {
+    const popupContainer = this.createElem(
+      'div',
+      'fixed w-full h-full backdrop-blur-sm top-0 z-20',
+    );
+    const popupContent = this.createElem(
+      'div',
+      'flex-col m-auto w-full max-w-[550px] border-2 bg-slate-100 mt-[40vh] items-center rounded-md p-4 sm:p-2',
+    );
+    const popupMessage = this.createElem(
+      'div',
+      'text-center text-xl mb-2 sm:text-sm',
+      `${this.textTranslate('Overview.popup.removeMessage')}`,
+    );
+    const butContainer = this.createElem('div', 'flex justify-between');
+
+    const popupButtonCancel = new Button({
+      text: 'cancel',
+      onClick: () => {
+        popupContainer.remove();
+      },
+    }).node;
+    const popupButtonRemove = new Button({
+      text: 'remove',
+      onClick: () => {
+        this.prop
+          .delete(id)
+          .then(() => {
+            this.prop.rebuild();
+          })
+          .catch((err: string) => new Error(err));
+        popupContainer.remove();
+      },
+    }).node;
+
+    butContainer.append(popupButtonCancel, popupButtonRemove);
+
+    popupContent.append(popupMessage, butContainer);
+    popupContainer.appendChild(popupContent);
+    document.body.appendChild(popupContainer);
   }
 }

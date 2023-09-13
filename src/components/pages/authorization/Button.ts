@@ -31,6 +31,8 @@ export class Button extends BaseComponent {
       registration: string;
       exit: string;
       apply: string;
+      cancel: string;
+      remove: string;
     } = {
       delete: this.textTranslate('Settings.Button2'),
       save: this.textTranslate('Transaction.Save'),
@@ -41,6 +43,8 @@ export class Button extends BaseComponent {
       registration: this.textTranslate('Authorization.Button2'),
       exit: this.textTranslate('Header.exit'),
       apply: this.textTranslate('Settings.Button3'),
+      cancel: this.textTranslate('Overview.popup.cancel'),
+      remove: this.textTranslate('Overview.popup.remove'),
     };
     const button = this.appendElem(
       {

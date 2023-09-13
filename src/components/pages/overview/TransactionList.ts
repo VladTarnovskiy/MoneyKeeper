@@ -95,8 +95,8 @@ export class TransactionList extends BaseComponent {
     );
     this.transactionItem = new TransactionItems(
       this.transactionItems,
-      prop,
-      transactionData,
+      this.prop,
+      this.transactionData,
       this.currency,
     );
   }

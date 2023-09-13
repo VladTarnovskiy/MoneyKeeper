@@ -93,7 +93,10 @@ export class CalendarHeader extends BaseComponent {
       if (typeof categoryName === 'string' && indexCategory >= 0) {
         thisCategory = categoryName;
       }
-      if (thisCategory === 'Все'){thisCategory = 'All'}
+
+      if (thisCategory === 'Все') {
+        thisCategory = 'All';
+      }
 
       this.categoryInputElement.value = `${this.textTranslate(
         `CategoryExpenditure.${thisCategory}`,

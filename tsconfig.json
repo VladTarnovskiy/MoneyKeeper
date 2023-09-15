@@ -1,0 +1,23 @@
+{
+  "extends": "@alexey-koran/tsconfig",
+  "include": [
+    "./**/*.js",
+    "./**/*.cjs",
+    "./**/*.mjs",
+    "./**/*.ts",
+    "./**/*.cts",
+    "./**/*.mts",
+    "src/locales/i18next.js",
+    "src/components/pages/overview/TransactionList.ts"
+  ],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "baseUrl": "src",
+    "outDir": "./build/",
+    "rootDir": "./",
+    "typeRoots": ["./node_modules/@types", "./src/types"],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
+}

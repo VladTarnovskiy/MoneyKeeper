@@ -145,6 +145,10 @@ const config = (_env: Env, { analyze = false, hot = false, mode }: Options): Con
   const appConfig: Configuration = {
     mode: isProduction ? 'production' : 'development',
     devtool: isProduction ? false : 'eval-source-map',
+    performance: {
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000,
+    },
 
     entry: './src/index.ts',
 

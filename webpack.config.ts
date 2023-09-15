@@ -146,8 +146,8 @@ const config = (_env: Env, { analyze = false, hot = false, mode }: Options): Con
     mode: isProduction ? 'production' : 'development',
     devtool: isProduction ? false : 'eval-source-map',
     performance: {
-      maxEntrypointSize: 512000,
-      maxAssetSize: 512000,
+      maxEntrypointSize: 560000,
+      maxAssetSize: 560000,
     },
 
     entry: './src/index.ts',
